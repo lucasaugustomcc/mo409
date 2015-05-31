@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
+	<persistence-unit name="persistenceUnit"
+		transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>br.unicamp.ic.mo409.model.User</class>
+		<class>br.unicamp.ic.mo409.model.Aluno</class>
+		<class>br.unicamp.ic.mo409.model.ALUNO_has_TURMA</class>
+		<class>br.unicamp.ic.mo409.model.ALUNO_has_TURMAPK</class>
+		<class>br.unicamp.ic.mo409.model.Disciplina</class>
+		<class>br.unicamp.ic.mo409.model.Presenca</class>
+		<class>br.unicamp.ic.mo409.model.PresencaPK</class>
+		<class>br.unicamp.ic.mo409.model.Professor</class>
+		<class>br.unicamp.ic.mo409.model.Tick</class>
+		<class>br.unicamp.ic.mo409.model.TickPK</class>
+		<class>br.unicamp.ic.mo409.model.Turma</class>
+		<class>br.unicamp.ic.mo409.model.TurmaPK</class>
+		<class>br.unicamp.ic.mo409.model.TURMA_has_PROFESSOR</class>
+		<class>br.unicamp.ic.mo409.model.TURMA_has_PROFESSORPK</class>
+		<class>br.unicamp.ic.mo409.model.Usuario</class>
+		<class>br.unicamp.ic.mo409.model.UsuarioPK</class>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="transaction.factory_class"
+				value="org.hibernate.transaction.JDBCTransactionFactory" />
+		</properties>
+	</persistence-unit>
+</persistence>
