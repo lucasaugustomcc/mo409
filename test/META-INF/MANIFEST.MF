@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: net.sf.parteg.examples;singleton:=true
+Bundle-Version: 1.3.2
+Bundle-Name: ParTeG Examples
+Bundle-Vendor: weissleder
+Export-Package: .
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+
