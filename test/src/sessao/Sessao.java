@@ -3,11 +3,12 @@ package sessao;
 public class Sessao {
 
 	private State state;
-	
+	private Boolean recebendo_tick;
 
 	public Sessao()
 	{
 		state = State.nao_aberta;
+		recebendo_tick = false;
 	}
 	
 	public State getState() {

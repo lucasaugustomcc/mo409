@@ -5,7 +5,6 @@
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_treFIAZ8EeW1-OgwpVc0Kw" name="receberTickEvent" operation="_xhSRwO2yEdu00tpIhIjmTg"/>
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_ufpUEAZ8EeW1-OgwpVc0Kw" name="encerrarChamadaEvent" operation="_wegX8JG6EdydJaDhzZfmUQ"/>
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_ssPcwAZ8EeW1-OgwpVc0Kw" name="calcularPresencaEvent" operation="_Rmy5cAZ8EeW1-OgwpVc0Kw"/>
-    <packagedElement xmi:type="uml:CallEvent" xmi:id="_bYYgYJ1kEd2-QuK1wi3wXw" name="resetEvent" operation="_dYbdEJK5EdyTRYb9X5VB4w"/>
     <packagedElement xmi:type="uml:Class" xmi:id="_CbgIUOzQEduqQpSKns4XGA" name="Sessao" classifierBehavior="_2Y0fgJ0ZEdyNrffIHb491A">
       <ownedAttribute xmi:id="_LlucMOzQEduqQpSKns4XGA" name="hora_inicio" isReadOnly="true" isDerivedUnion="true">
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#TimeExpression"/>
@@ -15,8 +14,9 @@
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#TimeExpression"/>
         <defaultValue xmi:type="uml:LiteralString" xmi:id="_H4HP4JKxEdyUSNhMCOPPLg" name="" value="12:00"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_GTqyoJ0aEdyNrffIHb491A" name="state" type="_dMVB4JsBEd20fKiJK1xsTw">
-        <defaultValue xmi:type="uml:LiteralString" xmi:id="_E_0E4AhrEeWeBJ3qCxvMpA" value=""/>
+      <ownedAttribute xmi:id="_GTqyoJ0aEdyNrffIHb491A" name="state" type="_dMVB4JsBEd20fKiJK1xsTw"/>
+      <ownedAttribute xmi:id="_SDlD4AhwEeWo2qsvHoqUxQ" name="recebendo_tick">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
       </ownedAttribute>
       <ownedBehavior xmi:type="uml:FunctionBehavior" xmi:id="_2Y0fgJ0ZEdyNrffIHb491A" name="setState" postcondition="_KTh6cJ0aEdyNrffIHb491A">
         <ownedRule xmi:id="_KTh6cJ0aEdyNrffIHb491A">
@@ -47,43 +47,35 @@
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_wOwkgJeIEdyqN79LFuBS7A" specification="_HQGfwOzQEduqQpSKns4XGA"/>
             <trigger xmi:id="_uATI4JeIEdyqN79LFuBS7A" event="_MaE9UOjKEdu6LJeVabImNg"/>
           </transition>
-          <transition xmi:id="_LBEbUJeHEdyqN79LFuBS7A" name="aberta2aberta" target="_7YFmMJeEEdyCyNzfMULFnw" source="_7YFmMJeEEdyCyNzfMULFnw">
+          <transition xmi:id="_LBEbUJeHEdyqN79LFuBS7A" name="aberta2aberta" guard="_4X1ecAhvEeWo2qsvHoqUxQ" target="_7YFmMJeEEdyCyNzfMULFnw" source="_7YFmMJeEEdyCyNzfMULFnw">
+            <ownedRule xmi:id="_4X1ecAhvEeWo2qsvHoqUxQ">
+              <specification xmi:type="uml:LiteralString" xmi:id="_8e1wEAhvEeWo2qsvHoqUxQ" value="recebendo_tick = true"/>
+            </ownedRule>
             <effect xmi:type="uml:FunctionBehavior" xmi:id="__BX4cJgxEdya-JAksPDiSg" specification="_xhSRwO2yEdu00tpIhIjmTg"/>
           </transition>
-          <transition xmi:id="_LbJvQJeHEdyqN79LFuBS7A" name="aberta2encerrada" guard="_7A0_8JeIEdyqN79LFuBS7A" target="_7jj2YJeEEdyCyNzfMULFnw" source="_7YFmMJeEEdyCyNzfMULFnw">
-            <ownedRule xmi:id="_7A0_8JeIEdyqN79LFuBS7A">
-              <specification xmi:type="uml:LiteralString" xmi:id="_8ATf8JeIEdyqN79LFuBS7A" value="recognized = false"/>
+          <transition xmi:id="_LbJvQJeHEdyqN79LFuBS7A" name="aberta2encerrada" target="_7jj2YJeEEdyCyNzfMULFnw" source="_7YFmMJeEEdyCyNzfMULFnw">
+            <ownedRule xmi:id="_phXukAhxEeWo2qsvHoqUxQ">
+              <specification xmi:type="uml:LiteralString" xmi:id="_phXukQhxEeWo2qsvHoqUxQ" value="recebendo_tick =false"/>
             </ownedRule>
           </transition>
-          <transition xmi:id="_LzldYJeHEdyqN79LFuBS7A" name="encerrada2encerrada" guard="_gWhrEJeJEdyqN79LFuBS7A" target="_7jj2YJeEEdyCyNzfMULFnw" source="_7jj2YJeEEdyCyNzfMULFnw">
-            <ownedRule xmi:id="_gWhrEJeJEdyqN79LFuBS7A">
-              <specification xmi:type="uml:LiteralString" xmi:id="_g8YKIJeJEdyqN79LFuBS7A" value="recognized = true"/>
+          <transition xmi:id="_LzldYJeHEdyqN79LFuBS7A" name="encerrada2encerrada" target="_7jj2YJeEEdyCyNzfMULFnw" source="_7jj2YJeEEdyCyNzfMULFnw">
+            <ownedRule xmi:id="_i_lckAhxEeWo2qsvHoqUxQ">
+              <specification xmi:type="uml:LiteralString" xmi:id="_kimHcAhxEeWo2qsvHoqUxQ" value="recebendo_tick = true"/>
             </ownedRule>
           </transition>
         </region>
       </ownedBehavior>
-      <ownedOperation xmi:id="_HQGfwOzQEduqQpSKns4XGA" name="abrirChamada" method="_wOwkgJeIEdyqN79LFuBS7A" postcondition="_89x-YJKyEdyUSNhMCOPPLg">
-        <ownedRule xmi:id="_89x-YJKyEdyUSNhMCOPPLg" name="post">
-          <specification xmi:type="uml:LiteralString" xmi:id="_98NVgJKyEdyUSNhMCOPPLg" value=""/>
-        </ownedRule>
-        <ownedParameter xmi:id="_I6FVUOzQEduqQpSKns4XGA" name="object"/>
-      </ownedOperation>
-      <ownedOperation xmi:id="_xhSRwO2yEdu00tpIhIjmTg" name="receberTick" method="__BX4cJgxEdya-JAksPDiSg" postcondition="_QFTo4JKzEdyUSNhMCOPPLg">
-        <ownedRule xmi:id="_QFTo4JKzEdyUSNhMCOPPLg" name="post">
-          <specification xmi:type="uml:LiteralString" xmi:id="_RuqMUJKzEdyUSNhMCOPPLg" value=""/>
-        </ownedRule>
-      </ownedOperation>
+      <ownedOperation xmi:id="_HQGfwOzQEduqQpSKns4XGA" name="abrirChamada" method="_wOwkgJeIEdyqN79LFuBS7A"/>
+      <ownedOperation xmi:id="_xhSRwO2yEdu00tpIhIjmTg" name="receberTick" method="__BX4cJgxEdya-JAksPDiSg"/>
       <ownedOperation xmi:id="_wegX8JG6EdydJaDhzZfmUQ" name="encerrarChamada">
         <nameExpression xmi:id="_hP00IJKzEdyUSNhMCOPPLg" name="comment" symbol="setButton currently has no implementation"/>
-        <ownedParameter xmi:id="_0uHzAJG6EdydJaDhzZfmUQ" name="state"/>
       </ownedOperation>
       <ownedOperation xmi:id="_Rmy5cAZ8EeW1-OgwpVc0Kw" name="calcularPresenca">
         <nameExpression xmi:id="_Rmy5cQZ8EeW1-OgwpVc0Kw" name="comment" symbol="setButton currently has no implementation"/>
-        <ownedParameter xmi:id="_Rmy5cgZ8EeW1-OgwpVc0Kw" name="state" isException="true"/>
       </ownedOperation>
       <ownedOperation xmi:id="_dYbdEJK5EdyTRYb9X5VB4w" name="setState">
         <nameExpression xmi:id="_g8rGcAhtEeWo2qsvHoqUxQ" name="comment"/>
-        <ownedParameter xmi:id="_bxKq4AhtEeWo2qsvHoqUxQ" name="name"/>
+        <ownedParameter xmi:id="_bxKq4AhtEeWo2qsvHoqUxQ" name="state"/>
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Enumeration" xmi:id="_dMVB4JsBEd20fKiJK1xsTw" name="State">
