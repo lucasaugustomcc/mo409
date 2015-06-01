@@ -2,35 +2,29 @@
 <uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/2.1.0/UML" xmi:id="_soD9MOjJEdu6LJeVabImNg">
   <packagedElement xmi:type="uml:Package" xmi:id="_wPxqwOjJEdu6LJeVabImNg" name="sessao">
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_MaE9UOjKEdu6LJeVabImNg" name="abrirChamadaEvent" operation="_HQGfwOzQEduqQpSKns4XGA"/>
-    <packagedElement xmi:type="uml:CallEvent" xmi:id="_treFIAZ8EeW1-OgwpVc0Kw" name="receberTicksEvent" operation="_xhSRwO2yEdu00tpIhIjmTg"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_treFIAZ8EeW1-OgwpVc0Kw" name="receberTickEvent" operation="_xhSRwO2yEdu00tpIhIjmTg"/>
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_ufpUEAZ8EeW1-OgwpVc0Kw" name="encerrarChamadaEvent" operation="_wegX8JG6EdydJaDhzZfmUQ"/>
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_ssPcwAZ8EeW1-OgwpVc0Kw" name="calcularPresencaEvent" operation="_Rmy5cAZ8EeW1-OgwpVc0Kw"/>
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_bYYgYJ1kEd2-QuK1wi3wXw" name="resetEvent" operation="_dYbdEJK5EdyTRYb9X5VB4w"/>
-    <packagedElement xmi:type="uml:Class" xmi:id="_CbgIUOzQEduqQpSKns4XGA" name="sessao" classifierBehavior="_2Y0fgJ0ZEdyNrffIHb491A">
-      <ownedAttribute xmi:id="_LlucMOzQEduqQpSKns4XGA" name="horario_inicio" isReadOnly="true">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        <defaultValue xmi:type="uml:LiteralString" xmi:id="_YAFOcJKwEdyUSNhMCOPPLg" name="" value="20"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_CbgIUOzQEduqQpSKns4XGA" name="Sessao" classifierBehavior="_2Y0fgJ0ZEdyNrffIHb491A">
+      <ownedAttribute xmi:id="_LlucMOzQEduqQpSKns4XGA" name="hora_inicio" isReadOnly="true" isDerivedUnion="true">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#TimeExpression"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_YAFOcJKwEdyUSNhMCOPPLg" name="" value="10:00"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_eN0dAO2yEdu00tpIhIjmTg" name="horario_fim" isReadOnly="true">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        <defaultValue xmi:type="uml:LiteralString" xmi:id="_H4HP4JKxEdyUSNhMCOPPLg" name="" value="30"/>
+      <ownedAttribute xmi:id="_eN0dAO2yEdu00tpIhIjmTg" name="hora_fim" isReadOnly="true">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#TimeExpression"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_H4HP4JKxEdyUSNhMCOPPLg" name="" value="12:00"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_0T5XcJKyEdyUSNhMCOPPLg" name="inicio">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        <defaultValue xmi:type="uml:LiteralString" xmi:id="_4Pu64JKyEdyUSNhMCOPPLg" value="0"/>
+      <ownedAttribute xmi:id="_GTqyoJ0aEdyNrffIHb491A" name="state" type="_dMVB4JsBEd20fKiJK1xsTw">
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_E_0E4AhrEeWeBJ3qCxvMpA" value=""/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_DJM3cJK2EdyUSNhMCOPPLg" name="fim">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        <defaultValue xmi:type="uml:LiteralString" xmi:id="_DJM3cZK2EdyUSNhMCOPPLg" name="" value="0"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="_GTqyoJ0aEdyNrffIHb491A" name="state" type="_dMVB4JsBEd20fKiJK1xsTw"/>
       <ownedBehavior xmi:type="uml:FunctionBehavior" xmi:id="_2Y0fgJ0ZEdyNrffIHb491A" name="setState" postcondition="_KTh6cJ0aEdyNrffIHb491A">
         <ownedRule xmi:id="_KTh6cJ0aEdyNrffIHb491A">
           <specification xmi:type="uml:LiteralString" xmi:id="_K_yjgJ0aEdyNrffIHb491A" value="state = x"/>
         </ownedRule>
         <ownedParameter xmi:id="_BzKb4J0aEdyNrffIHb491A" name="x"/>
       </ownedBehavior>
-      <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_yqv4YOjJEdu6LJeVabImNg" name="sessao">
+      <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_yqv4YOjJEdu6LJeVabImNg" name="Sessao">
         <region xmi:id="_VIx8EJKuEdyUSNhMCOPPLg" name="sort">
           <subvertex xmi:type="uml:Pseudostate" xmi:id="_ZMY7cJKuEdyUSNhMCOPPLg" name="init"/>
           <subvertex xmi:type="uml:State" xmi:id="_6TZPAJeEEdyCyNzfMULFnw" name="nao_aberta">
@@ -48,7 +42,6 @@
               <specification xmi:type="uml:LiteralString" xmi:id="__floAAr8Ed2Pmahp7QLr3A" value="state = State::encerrada"/>
             </stateInvariant>
           </subvertex>
-          <subvertex xmi:type="uml:Pseudostate" xmi:id="_NW1YwAZ_EeW1-OgwpVc0Kw" name="end" kind="exitPoint"/>
           <transition xmi:id="_KHZoYJeHEdyqN79LFuBS7A" name="init2nao_aberta" target="_6TZPAJeEEdyCyNzfMULFnw" source="_ZMY7cJKuEdyUSNhMCOPPLg"/>
           <transition xmi:id="_KncaYJeHEdyqN79LFuBS7A" name="nao_aberta2aberta" target="_7YFmMJeEEdyCyNzfMULFnw" source="_6TZPAJeEEdyCyNzfMULFnw">
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_wOwkgJeIEdyqN79LFuBS7A" specification="_HQGfwOzQEduqQpSKns4XGA"/>
@@ -67,20 +60,15 @@
               <specification xmi:type="uml:LiteralString" xmi:id="_g8YKIJeJEdyqN79LFuBS7A" value="recognized = true"/>
             </ownedRule>
           </transition>
-          <transition xmi:id="_MMnocJeHEdyqN79LFuBS7A" name="encerrada2end" guard="_jhLpMJeJEdyqN79LFuBS7A" target="_NW1YwAZ_EeW1-OgwpVc0Kw" source="_7jj2YJeEEdyCyNzfMULFnw">
-            <ownedRule xmi:id="_jhLpMJeJEdyqN79LFuBS7A">
-              <specification xmi:type="uml:LiteralString" xmi:id="_kGbrUJeJEdyqN79LFuBS7A" value=""/>
-            </ownedRule>
-          </transition>
         </region>
       </ownedBehavior>
       <ownedOperation xmi:id="_HQGfwOzQEduqQpSKns4XGA" name="abrirChamada" method="_wOwkgJeIEdyqN79LFuBS7A" postcondition="_89x-YJKyEdyUSNhMCOPPLg">
         <ownedRule xmi:id="_89x-YJKyEdyUSNhMCOPPLg" name="post">
           <specification xmi:type="uml:LiteralString" xmi:id="_98NVgJKyEdyUSNhMCOPPLg" value=""/>
         </ownedRule>
-        <ownedParameter xmi:id="_I6FVUOzQEduqQpSKns4XGA" name="object" type="_oNnFYJ0WEdyc6NRSa0inkw"/>
+        <ownedParameter xmi:id="_I6FVUOzQEduqQpSKns4XGA" name="object"/>
       </ownedOperation>
-      <ownedOperation xmi:id="_xhSRwO2yEdu00tpIhIjmTg" name="receberTicks" method="__BX4cJgxEdya-JAksPDiSg" postcondition="_QFTo4JKzEdyUSNhMCOPPLg">
+      <ownedOperation xmi:id="_xhSRwO2yEdu00tpIhIjmTg" name="receberTick" method="__BX4cJgxEdya-JAksPDiSg" postcondition="_QFTo4JKzEdyUSNhMCOPPLg">
         <ownedRule xmi:id="_QFTo4JKzEdyUSNhMCOPPLg" name="post">
           <specification xmi:type="uml:LiteralString" xmi:id="_RuqMUJKzEdyUSNhMCOPPLg" value=""/>
         </ownedRule>
@@ -93,15 +81,10 @@
         <nameExpression xmi:id="_Rmy5cQZ8EeW1-OgwpVc0Kw" name="comment" symbol="setButton currently has no implementation"/>
         <ownedParameter xmi:id="_Rmy5cgZ8EeW1-OgwpVc0Kw" name="state" isException="true"/>
       </ownedOperation>
-      <ownedOperation xmi:id="_dYbdEJK5EdyTRYb9X5VB4w" name="reset"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_oNnFYJ0WEdyc6NRSa0inkw" name="Turma">
-      <ownedAttribute xmi:id="_pkfgMMDuEdyBYuVuyZIlOg" name="codigo">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="_pxc-IMDuEdyBYuVuyZIlOg" name="horario">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-      </ownedAttribute>
+      <ownedOperation xmi:id="_dYbdEJK5EdyTRYb9X5VB4w" name="setState">
+        <nameExpression xmi:id="_g8rGcAhtEeWo2qsvHoqUxQ" name="comment"/>
+        <ownedParameter xmi:id="_bxKq4AhtEeWo2qsvHoqUxQ" name="name"/>
+      </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Enumeration" xmi:id="_dMVB4JsBEd20fKiJK1xsTw" name="State">
       <ownedLiteral xmi:id="_iYoHoJsBEd20fKiJK1xsTw" name="nao_aberta"/>

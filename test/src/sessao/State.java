@@ -1,6 +1,6 @@
 package sessao;
 
-public enum SessaoState {
+public enum State {
 	encerrada,
 	aberta,
 	nao_aberta

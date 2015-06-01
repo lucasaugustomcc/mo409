@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/2.1.0/UML" xmi:id="_soD9MOjJEdu6LJeVabImNg">
-  <packagedElement xmi:type="uml:Package" xmi:id="_wPxqwOjJEdu6LJeVabImNg" name="sessao">
+  <packagedElement xmi:type="uml:Package" xmi:id="_wPxqwOjJEdu6LJeVabImNg" name="turma">
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_5eXe8Ag-EeWQ0YqDJftJaw" name="selecionarTurmaEvent" operation="_HQGfwOzQEduqQpSKns4XGA"/>
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_8_0McAg-EeWQ0YqDJftJaw" name="verificarTurmaEvent" operation="_nvdSoAeNEeWYMfF4VPzW7g"/>
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_9Ufb8Ag-EeWQ0YqDJftJaw" name="criarSessaoEvent" operation="_o7XFEAeNEeWYMfF4VPzW7g"/>
@@ -12,7 +12,7 @@
     <packagedElement xmi:type="uml:CallEvent" xmi:id="__2FO8Ag-EeWQ0YqDJftJaw" name="encerrarSessaoEvent" operation="_pkL_oAeNEeWYMfF4VPzW7g"/>
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_AJsHcAg_EeWQ0YqDJftJaw" name="confirmarEncerrarSessaoEvent" operation="_pqNvIAeNEeWYMfF4VPzW7g"/>
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_bYYgYJ1kEd2-QuK1wi3wXw" name="resetEvent" operation="_dYbdEJK5EdyTRYb9X5VB4w"/>
-    <packagedElement xmi:type="uml:Class" xmi:id="_CbgIUOzQEduqQpSKns4XGA" name="professor" classifierBehavior="_2Y0fgJ0ZEdyNrffIHb491A">
+    <packagedElement xmi:type="uml:Class" xmi:id="_CbgIUOzQEduqQpSKns4XGA" name="Turma" classifierBehavior="_2Y0fgJ0ZEdyNrffIHb491A">
       <ownedAttribute xmi:id="_0T5XcJKyEdyUSNhMCOPPLg" name="ID">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
         <defaultValue xmi:type="uml:LiteralString" xmi:id="_4Pu64JKyEdyUSNhMCOPPLg" value="0"/>
