@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/2.1.0/UML" xmi:id="_soD9MOjJEdu6LJeVabImNg">
+  <packagedElement xmi:type="uml:Package" xmi:id="_wPxqwOjJEdu6LJeVabImNg" name="sessao">
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_ssPcwAZ8EeW1-OgwpVc0Kw" name="leIDEvent" operation="_Rmy5cAZ8EeW1-OgwpVc0Kw"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_MaE9UOjKEdu6LJeVabImNg" name="autenticaEvent" operation="_HQGfwOzQEduqQpSKns4XGA"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_treFIAZ8EeW1-OgwpVc0Kw" name="removeSessaoEvent" operation="_xhSRwO2yEdu00tpIhIjmTg"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_ufpUEAZ8EeW1-OgwpVc0Kw" name="identificacaoEvent" operation="_wegX8JG6EdydJaDhzZfmUQ"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_bYYgYJ1kEd2-QuK1wi3wXw" name="resetEvent" operation="_dYbdEJK5EdyTRYb9X5VB4w"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_CbgIUOzQEduqQpSKns4XGA" name="controle_de_acesso" classifierBehavior="_2Y0fgJ0ZEdyNrffIHb491A">
+      <ownedAttribute xmi:id="_LlucMOzQEduqQpSKns4XGA" name="ID" isReadOnly="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_YAFOcJKwEdyUSNhMCOPPLg" name="" value=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_eN0dAO2yEdu00tpIhIjmTg" name="autenticado" isReadOnly="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_H4HP4JKxEdyUSNhMCOPPLg" name="" value="False"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_GTqyoJ0aEdyNrffIHb491A" name="state" type="_dMVB4JsBEd20fKiJK1xsTw"/>
+      <ownedBehavior xmi:type="uml:FunctionBehavior" xmi:id="_2Y0fgJ0ZEdyNrffIHb491A" name="setState" postcondition="_KTh6cJ0aEdyNrffIHb491A">
+        <ownedRule xmi:id="_KTh6cJ0aEdyNrffIHb491A">
+          <specification xmi:type="uml:LiteralString" xmi:id="_K_yjgJ0aEdyNrffIHb491A" value="state = x"/>
+        </ownedRule>
+        <ownedParameter xmi:id="_BzKb4J0aEdyNrffIHb491A" name="x"/>
+      </ownedBehavior>
+      <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_yqv4YOjJEdu6LJeVabImNg" name="controle_de_acesso">
+        <region xmi:id="_VIx8EJKuEdyUSNhMCOPPLg" name="sort">
+          <subvertex xmi:type="uml:Pseudostate" xmi:id="_ZMY7cJKuEdyUSNhMCOPPLg" name="init"/>
+          <subvertex xmi:type="uml:State" xmi:id="_6TZPAJeEEdyCyNzfMULFnw" name="nao_logado">
+            <stateInvariant xmi:id="_3qwZwAr8Ed2Pmahp7QLr3A">
+              <specification xmi:type="uml:LiteralString" xmi:id="_4TlUUAr8Ed2Pmahp7QLr3A" value="state = State::nao_logado"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_7jj2YJeEEdyCyNzfMULFnw" name="logado">
+            <stateInvariant xmi:id="_-zCEAAr8Ed2Pmahp7QLr3A">
+              <specification xmi:type="uml:LiteralString" xmi:id="__floAAr8Ed2Pmahp7QLr3A" value="state = State::logado"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:Pseudostate" xmi:id="_NW1YwAZ_EeW1-OgwpVc0Kw" name="end" kind="exitPoint"/>
+          <transition xmi:id="_KHZoYJeHEdyqN79LFuBS7A" name="init2nao_logado" target="_6TZPAJeEEdyCyNzfMULFnw" source="_ZMY7cJKuEdyUSNhMCOPPLg"/>
+          <transition xmi:id="_KncaYJeHEdyqN79LFuBS7A" name="nao_logado2nao_logado_autentica" target="_6TZPAJeEEdyCyNzfMULFnw" source="_6TZPAJeEEdyCyNzfMULFnw">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_wOwkgJeIEdyqN79LFuBS7A" specification="_HQGfwOzQEduqQpSKns4XGA"/>
+            <trigger xmi:id="_uATI4JeIEdyqN79LFuBS7A" event="_MaE9UOjKEdu6LJeVabImNg"/>
+          </transition>
+          <transition xmi:id="_5r61AAeJEeWYMfF4VPzW7g" name="nao_logado2nao_logado_id" target="_6TZPAJeEEdyCyNzfMULFnw" source="_6TZPAJeEEdyCyNzfMULFnw">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_5r61AQeJEeWYMfF4VPzW7g" specification="_Rmy5cAZ8EeW1-OgwpVc0Kw"/>
+            <trigger xmi:id="_5r61AgeJEeWYMfF4VPzW7g" event="_MaE9UOjKEdu6LJeVabImNg"/>
+          </transition>
+          <transition xmi:id="_RBrP8AeJEeWYMfF4VPzW7g" name="nao_logado2logado" target="_7jj2YJeEEdyCyNzfMULFnw" source="_6TZPAJeEEdyCyNzfMULFnw">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_RBrP8QeJEeWYMfF4VPzW7g"/>
+            <trigger xmi:id="_RBrP8geJEeWYMfF4VPzW7g" event="_MaE9UOjKEdu6LJeVabImNg"/>
+          </transition>
+          <transition xmi:id="_H3nUIAeJEeWYMfF4VPzW7g" name="logado2logado" target="_7jj2YJeEEdyCyNzfMULFnw" source="_7jj2YJeEEdyCyNzfMULFnw">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_H3nUIQeJEeWYMfF4VPzW7g" specification="_wegX8JG6EdydJaDhzZfmUQ"/>
+            <trigger xmi:id="_H3nUIgeJEeWYMfF4VPzW7g" event="_MaE9UOjKEdu6LJeVabImNg"/>
+          </transition>
+          <transition xmi:id="_JjyiEAeJEeWYMfF4VPzW7g" name="logado2nao_logado" target="_6TZPAJeEEdyCyNzfMULFnw" source="_6TZPAJeEEdyCyNzfMULFnw">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_JjyiEQeJEeWYMfF4VPzW7g" specification="_xhSRwO2yEdu00tpIhIjmTg"/>
+            <trigger xmi:id="_JjyiEgeJEeWYMfF4VPzW7g" event="_MaE9UOjKEdu6LJeVabImNg"/>
+          </transition>
+          <transition xmi:id="_KCTqEAeJEeWYMfF4VPzW7g" name="logado2end" target="_NW1YwAZ_EeW1-OgwpVc0Kw" source="_7jj2YJeEEdyCyNzfMULFnw">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_KCTqEQeJEeWYMfF4VPzW7g"/>
+            <trigger xmi:id="_KCTqEgeJEeWYMfF4VPzW7g" event="_MaE9UOjKEdu6LJeVabImNg"/>
+          </transition>
+        </region>
+      </ownedBehavior>
+      <ownedOperation xmi:id="_Rmy5cAZ8EeW1-OgwpVc0Kw" name="leID" method="_5r61AQeJEeWYMfF4VPzW7g">
+        <nameExpression xmi:id="_Rmy5cQZ8EeW1-OgwpVc0Kw" name="comment" symbol="setButton currently has no implementation"/>
+        <ownedParameter xmi:id="_Rmy5cgZ8EeW1-OgwpVc0Kw" name="state" isException="true"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_HQGfwOzQEduqQpSKns4XGA" name="autentica" method="_wOwkgJeIEdyqN79LFuBS7A" isQuery="true" postcondition="_89x-YJKyEdyUSNhMCOPPLg">
+        <ownedRule xmi:id="_89x-YJKyEdyUSNhMCOPPLg" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_98NVgJKyEdyUSNhMCOPPLg" value=""/>
+        </ownedRule>
+        <ownedParameter xmi:id="_I6FVUOzQEduqQpSKns4XGA" name="object"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_xhSRwO2yEdu00tpIhIjmTg" name="removeSessao" method="_JjyiEQeJEeWYMfF4VPzW7g" isQuery="true" postcondition="_QFTo4JKzEdyUSNhMCOPPLg">
+        <ownedRule xmi:id="_QFTo4JKzEdyUSNhMCOPPLg" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_RuqMUJKzEdyUSNhMCOPPLg" value=""/>
+        </ownedRule>
+      </ownedOperation>
+      <ownedOperation xmi:id="_wegX8JG6EdydJaDhzZfmUQ" name="identificacao" method="_H3nUIQeJEeWYMfF4VPzW7g">
+        <nameExpression xmi:id="_hP00IJKzEdyUSNhMCOPPLg" name="comment" symbol="setButton currently has no implementation"/>
+        <ownedParameter xmi:id="_0uHzAJG6EdydJaDhzZfmUQ" name="state"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_dYbdEJK5EdyTRYb9X5VB4w" name="reset"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_dMVB4JsBEd20fKiJK1xsTw" name="State">
+      <ownedLiteral xmi:id="_iYoHoJsBEd20fKiJK1xsTw" name="nao_logado"/>
+      <ownedLiteral xmi:id="_ilI5oJsBEd20fKiJK1xsTw" name="logado"/>
+    </packagedElement>
+  </packagedElement>
+</uml:Model>

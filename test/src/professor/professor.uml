@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/2.1.0/UML" xmi:id="_soD9MOjJEdu6LJeVabImNg">
+  <packagedElement xmi:type="uml:Package" xmi:id="_wPxqwOjJEdu6LJeVabImNg" name="sessao">
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_5eXe8Ag-EeWQ0YqDJftJaw" name="selecionarTurmaEvent" operation="_HQGfwOzQEduqQpSKns4XGA"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_8_0McAg-EeWQ0YqDJftJaw" name="verificarTurmaEvent" operation="_nvdSoAeNEeWYMfF4VPzW7g"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_9Ufb8Ag-EeWQ0YqDJftJaw" name="criarSessaoEvent" operation="_o7XFEAeNEeWYMfF4VPzW7g"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_9du3gAg-EeWQ0YqDJftJaw" name="abrirSessaoEvent" operation="_pDcqEAeNEeWYMfF4VPzW7g"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_9lcCAAg-EeWQ0YqDJftJaw" name="preencherDadosEvent" operation="_pLFjIAeNEeWYMfF4VPzW7g"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_9t0h8Ag-EeWQ0YqDJftJaw" name="visualizarDadosEvent" operation="_pRyoEAeNEeWYMfF4VPzW7g"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_9iEvgAg_EeWQ0YqDJftJaw" name="iniciarAulaEvent" operation="_pYNZIAeNEeWYMfF4VPzW7g"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="__ZFw8Ag-EeWQ0YqDJftJaw" name="encerrarAulaEvent" operation="_peiqoAeNEeWYMfF4VPzW7g"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="__2FO8Ag-EeWQ0YqDJftJaw" name="encerrarSessaoEvent" operation="_pkL_oAeNEeWYMfF4VPzW7g"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_AJsHcAg_EeWQ0YqDJftJaw" name="confirmarEncerrarSessaoEvent" operation="_pqNvIAeNEeWYMfF4VPzW7g"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_bYYgYJ1kEd2-QuK1wi3wXw" name="resetEvent" operation="_dYbdEJK5EdyTRYb9X5VB4w"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_CbgIUOzQEduqQpSKns4XGA" name="professor" classifierBehavior="_2Y0fgJ0ZEdyNrffIHb491A">
+      <ownedAttribute xmi:id="_0T5XcJKyEdyUSNhMCOPPLg" name="ID">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_4Pu64JKyEdyUSNhMCOPPLg" value="0"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_GTqyoJ0aEdyNrffIHb491A" name="state" type="_dMVB4JsBEd20fKiJK1xsTw"/>
+      <ownedBehavior xmi:type="uml:FunctionBehavior" xmi:id="_2Y0fgJ0ZEdyNrffIHb491A" name="setState" postcondition="_KTh6cJ0aEdyNrffIHb491A">
+        <ownedRule xmi:id="_KTh6cJ0aEdyNrffIHb491A">
+          <specification xmi:type="uml:LiteralString" xmi:id="_K_yjgJ0aEdyNrffIHb491A" value="state = x"/>
+        </ownedRule>
+        <ownedParameter xmi:id="_BzKb4J0aEdyNrffIHb491A" name="x"/>
+      </ownedBehavior>
+      <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_yqv4YOjJEdu6LJeVabImNg" name="professor">
+        <region xmi:id="_VIx8EJKuEdyUSNhMCOPPLg" name="sort">
+          <subvertex xmi:type="uml:Pseudostate" xmi:id="_ZMY7cJKuEdyUSNhMCOPPLg" name="init"/>
+          <subvertex xmi:type="uml:State" xmi:id="_6TZPAJeEEdyCyNzfMULFnw" name="selecionando_turma">
+            <stateInvariant xmi:id="_3qwZwAr8Ed2Pmahp7QLr3A">
+              <specification xmi:type="uml:LiteralString" xmi:id="_4TlUUAr8Ed2Pmahp7QLr3A" value="state = State::selecionando_turma"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_7YFmMJeEEdyCyNzfMULFnw" name="verificando_turma">
+            <stateInvariant xmi:id="_7cJnwAr8Ed2Pmahp7QLr3A">
+              <specification xmi:type="uml:LiteralString" xmi:id="_88RWsAr8Ed2Pmahp7QLr3A" value="state = State::verificando_turma"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_7jj2YJeEEdyCyNzfMULFnw" name="turma_selecionada">
+            <stateInvariant xmi:id="_-zCEAAr8Ed2Pmahp7QLr3A">
+              <specification xmi:type="uml:LiteralString" xmi:id="__floAAr8Ed2Pmahp7QLr3A" value="state = State::turma_selecionada"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_1zyJAAeNEeWYMfF4VPzW7g" name="sessao_criada">
+            <stateInvariant xmi:id="_1zyJAQeNEeWYMfF4VPzW7g">
+              <specification xmi:type="uml:LiteralString" xmi:id="_1zyJAgeNEeWYMfF4VPzW7g" value="state = State::sessao_criada"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_2LBkUAeNEeWYMfF4VPzW7g" name="sessao_aberta">
+            <stateInvariant xmi:id="_2LBkUQeNEeWYMfF4VPzW7g">
+              <specification xmi:type="uml:LiteralString" xmi:id="_2LBkUgeNEeWYMfF4VPzW7g" value="state = State::sessao_aberta"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_2dnwMAeNEeWYMfF4VPzW7g" name="preenchendo_dados">
+            <stateInvariant xmi:id="_2dnwMQeNEeWYMfF4VPzW7g">
+              <specification xmi:type="uml:LiteralString" xmi:id="_2dnwMgeNEeWYMfF4VPzW7g" value="state = State::preenchendo_dados"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_2mA3MAeNEeWYMfF4VPzW7g" name="visualizando_dados">
+            <stateInvariant xmi:id="_2mA3MQeNEeWYMfF4VPzW7g">
+              <specification xmi:type="uml:LiteralString" xmi:id="_2mA3MgeNEeWYMfF4VPzW7g" value="state = State::visualizando_dados"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_2r41sAeNEeWYMfF4VPzW7g" name="dando_aula">
+            <stateInvariant xmi:id="_2r41sQeNEeWYMfF4VPzW7g">
+              <specification xmi:type="uml:LiteralString" xmi:id="_2r41sgeNEeWYMfF4VPzW7g" value="state = State::dando_aula"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_2xE3sAeNEeWYMfF4VPzW7g" name="encerrando_aula">
+            <stateInvariant xmi:id="_2xE3sQeNEeWYMfF4VPzW7g">
+              <specification xmi:type="uml:LiteralString" xmi:id="_2xE3sgeNEeWYMfF4VPzW7g" value="state = State::encerrando_aula"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_22Q5sAeNEeWYMfF4VPzW7g" name="encerrando_sessao">
+            <stateInvariant xmi:id="_22Q5sQeNEeWYMfF4VPzW7g">
+              <specification xmi:type="uml:LiteralString" xmi:id="_22Q5sgeNEeWYMfF4VPzW7g" value="state = State::encerrando_sessao"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_27h0MAeNEeWYMfF4VPzW7g" name="encerrar_sessao">
+            <stateInvariant xmi:id="_27h0MQeNEeWYMfF4VPzW7g">
+              <specification xmi:type="uml:LiteralString" xmi:id="_27h0MgeNEeWYMfF4VPzW7g" value="state = State::encerrar_sessao"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:Pseudostate" xmi:id="_NW1YwAZ_EeW1-OgwpVc0Kw" name="end" kind="exitPoint"/>
+          <transition xmi:id="_KHZoYJeHEdyqN79LFuBS7A" name="init2selecionando_turma" target="_6TZPAJeEEdyCyNzfMULFnw" source="_ZMY7cJKuEdyUSNhMCOPPLg"/>
+          <transition xmi:id="_KncaYJeHEdyqN79LFuBS7A" name="selecionando_turma2verificando_turma" target="_7YFmMJeEEdyCyNzfMULFnw" source="_6TZPAJeEEdyCyNzfMULFnw">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_wOwkgJeIEdyqN79LFuBS7A" specification="_HQGfwOzQEduqQpSKns4XGA"/>
+            <trigger xmi:id="_uATI4JeIEdyqN79LFuBS7A" name="" event="_5eXe8Ag-EeWQ0YqDJftJaw"/>
+          </transition>
+          <transition xmi:id="_LBEbUJeHEdyqN79LFuBS7A" name="verificando_turma2selecionando_turma" target="_7YFmMJeEEdyCyNzfMULFnw" source="_6TZPAJeEEdyCyNzfMULFnw">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="__BX4cJgxEdya-JAksPDiSg" specification="_nvdSoAeNEeWYMfF4VPzW7g"/>
+            <trigger xmi:id="_JdtBwAhFEeWQ0YqDJftJaw" event="_8_0McAg-EeWQ0YqDJftJaw"/>
+          </transition>
+          <transition xmi:id="_LbJvQJeHEdyqN79LFuBS7A" name="verificando_turma2turma_selecionada" target="_7jj2YJeEEdyCyNzfMULFnw" source="_7YFmMJeEEdyCyNzfMULFnw">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_slT6IAhEEeWQ0YqDJftJaw" specification="_nvdSoAeNEeWYMfF4VPzW7g"/>
+            <trigger xmi:id="_n-AX0AhEEeWQ0YqDJftJaw" event="_8_0McAg-EeWQ0YqDJftJaw"/>
+          </transition>
+          <transition xmi:id="_LzldYJeHEdyqN79LFuBS7A" name="turma_selecionada2sessao_criada" guard="_gWhrEJeJEdyqN79LFuBS7A" target="_1zyJAAeNEeWYMfF4VPzW7g" source="_7jj2YJeEEdyCyNzfMULFnw">
+            <ownedRule xmi:id="_gWhrEJeJEdyqN79LFuBS7A">
+              <specification xmi:type="uml:LiteralString" xmi:id="_g8YKIJeJEdyqN79LFuBS7A" value="recognized = true"/>
+            </ownedRule>
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_N1C1cAhFEeWQ0YqDJftJaw" specification="_o7XFEAeNEeWYMfF4VPzW7g"/>
+            <trigger xmi:id="_N1C1cQhFEeWQ0YqDJftJaw" event="_8_0McAg-EeWQ0YqDJftJaw"/>
+          </transition>
+          <transition xmi:id="_ploUoAeOEeWYMfF4VPzW7g" name="sessao_criada2sessao_aberta" target="_2LBkUAeNEeWYMfF4VPzW7g" source="_1zyJAAeNEeWYMfF4VPzW7g">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_ploUoQeOEeWYMfF4VPzW7g" specification="_pDcqEAeNEeWYMfF4VPzW7g"/>
+            <trigger xmi:id="_ploUogeOEeWYMfF4VPzW7g"/>
+          </transition>
+          <transition xmi:id="_qZ0KoAeOEeWYMfF4VPzW7g" name="sessao_aberta2preenchendo_dados" target="_2dnwMAeNEeWYMfF4VPzW7g" source="_2LBkUAeNEeWYMfF4VPzW7g">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_qZ0KoQeOEeWYMfF4VPzW7g" specification="_pLFjIAeNEeWYMfF4VPzW7g"/>
+            <trigger xmi:id="_qZ0KogeOEeWYMfF4VPzW7g"/>
+          </transition>
+          <transition xmi:id="_qlHbsAeOEeWYMfF4VPzW7g" name="preenchendo_dados2sessao_aberta" target="_2LBkUAeNEeWYMfF4VPzW7g" source="_2dnwMAeNEeWYMfF4VPzW7g">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_qlHbsQeOEeWYMfF4VPzW7g" specification="_pLFjIAeNEeWYMfF4VPzW7g"/>
+            <trigger xmi:id="_qlHbsgeOEeWYMfF4VPzW7g"/>
+          </transition>
+          <transition xmi:id="_qtlbMAeOEeWYMfF4VPzW7g" name="sessao_aberta2visualizando_dados" target="_2mA3MAeNEeWYMfF4VPzW7g" source="_2LBkUAeNEeWYMfF4VPzW7g">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_qtlbMQeOEeWYMfF4VPzW7g" specification="_pRyoEAeNEeWYMfF4VPzW7g"/>
+            <trigger xmi:id="_qtlbMgeOEeWYMfF4VPzW7g"/>
+          </transition>
+          <transition xmi:id="_q01SsAeOEeWYMfF4VPzW7g" name="visualizando_dados2sessao_aberta" target="_2LBkUAeNEeWYMfF4VPzW7g" source="_2mA3MAeNEeWYMfF4VPzW7g">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_q01SsQeOEeWYMfF4VPzW7g" specification="_pRyoEAeNEeWYMfF4VPzW7g"/>
+            <trigger xmi:id="_q01SsgeOEeWYMfF4VPzW7g"/>
+          </transition>
+          <transition xmi:id="_qoa3AAhBEeWQ0YqDJftJaw" name="sessao_aberta2dando_aula" target="_2r41sAeNEeWYMfF4VPzW7g" source="_2LBkUAeNEeWYMfF4VPzW7g">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_qoa3AQhBEeWQ0YqDJftJaw" specification="_pYNZIAeNEeWYMfF4VPzW7g"/>
+            <trigger xmi:id="_qobeEAhBEeWQ0YqDJftJaw"/>
+          </transition>
+          <transition xmi:id="_rQs_AAhBEeWQ0YqDJftJaw" name="dando_aula2visualizando_dados" target="_2mA3MAeNEeWYMfF4VPzW7g" source="_2r41sAeNEeWYMfF4VPzW7g">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_rQs_AQhBEeWQ0YqDJftJaw" specification="_pRyoEAeNEeWYMfF4VPzW7g"/>
+            <trigger xmi:id="_rQs_AghBEeWQ0YqDJftJaw"/>
+          </transition>
+          <transition xmi:id="_rZjZAAhBEeWQ0YqDJftJaw" name="dando_aula2encerrando_aula" target="_2xE3sAeNEeWYMfF4VPzW7g" source="_2r41sAeNEeWYMfF4VPzW7g">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_rZjZAQhBEeWQ0YqDJftJaw" specification="_peiqoAeNEeWYMfF4VPzW7g"/>
+            <trigger xmi:id="_rZjZAghBEeWQ0YqDJftJaw"/>
+          </transition>
+          <transition xmi:id="_rhfNAAhBEeWQ0YqDJftJaw" name="encerrando_aula2encerrando_sessao" target="_22Q5sAeNEeWYMfF4VPzW7g" source="_2xE3sAeNEeWYMfF4VPzW7g">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_rhfNAQhBEeWQ0YqDJftJaw" specification="_pkL_oAeNEeWYMfF4VPzW7g"/>
+            <trigger xmi:id="_rhfNAghBEeWQ0YqDJftJaw"/>
+          </transition>
+          <transition xmi:id="_rpRQAAhBEeWQ0YqDJftJaw" name="encerrando_sessao2sessao_aberta" target="_2LBkUAeNEeWYMfF4VPzW7g" source="_22Q5sAeNEeWYMfF4VPzW7g">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_rpRQAQhBEeWQ0YqDJftJaw" specification="_pkL_oAeNEeWYMfF4VPzW7g"/>
+            <trigger xmi:id="_rpRQAghBEeWQ0YqDJftJaw"/>
+          </transition>
+          <transition xmi:id="_sBwBcAhBEeWQ0YqDJftJaw" name="encerrando_sessao2encerrar_sessao" target="_27h0MAeNEeWYMfF4VPzW7g" source="_22Q5sAeNEeWYMfF4VPzW7g">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_sBwBcQhBEeWQ0YqDJftJaw" specification="_pqNvIAeNEeWYMfF4VPzW7g"/>
+            <trigger xmi:id="_sBwBcghBEeWQ0YqDJftJaw"/>
+          </transition>
+          <transition xmi:id="_MMnocJeHEdyqN79LFuBS7A" name="encerrar_sessao2end" guard="_jhLpMJeJEdyqN79LFuBS7A" target="_NW1YwAZ_EeW1-OgwpVc0Kw" source="_27h0MAeNEeWYMfF4VPzW7g">
+            <ownedRule xmi:id="_jhLpMJeJEdyqN79LFuBS7A">
+              <specification xmi:type="uml:LiteralString" xmi:id="_kGbrUJeJEdyqN79LFuBS7A" value=""/>
+            </ownedRule>
+          </transition>
+        </region>
+      </ownedBehavior>
+      <ownedOperation xmi:id="_HQGfwOzQEduqQpSKns4XGA" name="selecionarTurma" method="_wOwkgJeIEdyqN79LFuBS7A" postcondition="_89x-YJKyEdyUSNhMCOPPLg">
+        <ownedRule xmi:id="_89x-YJKyEdyUSNhMCOPPLg" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_98NVgJKyEdyUSNhMCOPPLg" value=""/>
+        </ownedRule>
+        <ownedParameter xmi:id="_I6FVUOzQEduqQpSKns4XGA" name="object"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_nvdSoAeNEeWYMfF4VPzW7g" name="verificarTurma" method="__BX4cJgxEdya-JAksPDiSg _slT6IAhEEeWQ0YqDJftJaw" postcondition="_nvdSoQeNEeWYMfF4VPzW7g">
+        <ownedRule xmi:id="_nvdSoQeNEeWYMfF4VPzW7g" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_nvdSogeNEeWYMfF4VPzW7g" value=""/>
+        </ownedRule>
+        <ownedParameter xmi:id="_nvdSoweNEeWYMfF4VPzW7g" name="object"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_o7XFEAeNEeWYMfF4VPzW7g" name="criarSessao" method="_N1C1cAhFEeWQ0YqDJftJaw" postcondition="_o7XFEQeNEeWYMfF4VPzW7g">
+        <ownedRule xmi:id="_o7XFEQeNEeWYMfF4VPzW7g" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_o7XFEgeNEeWYMfF4VPzW7g" value=""/>
+        </ownedRule>
+        <ownedParameter xmi:id="_o7XFEweNEeWYMfF4VPzW7g" name="object"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_pDcqEAeNEeWYMfF4VPzW7g" name="abrirSessao" method="_ploUoQeOEeWYMfF4VPzW7g" postcondition="_pDcqEQeNEeWYMfF4VPzW7g">
+        <ownedRule xmi:id="_pDcqEQeNEeWYMfF4VPzW7g" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_pDcqEgeNEeWYMfF4VPzW7g" value=""/>
+        </ownedRule>
+        <ownedParameter xmi:id="_pDcqEweNEeWYMfF4VPzW7g" name="object"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_pLFjIAeNEeWYMfF4VPzW7g" name="preencherDados" method="_qZ0KoQeOEeWYMfF4VPzW7g _qlHbsQeOEeWYMfF4VPzW7g" postcondition="_pLFjIQeNEeWYMfF4VPzW7g">
+        <ownedRule xmi:id="_pLFjIQeNEeWYMfF4VPzW7g" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_pLFjIgeNEeWYMfF4VPzW7g" value=""/>
+        </ownedRule>
+        <ownedParameter xmi:id="_pLFjIweNEeWYMfF4VPzW7g" name="object"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_pRyoEAeNEeWYMfF4VPzW7g" name="visualizarDados" method="_qtlbMQeOEeWYMfF4VPzW7g _q01SsQeOEeWYMfF4VPzW7g _rQs_AQhBEeWQ0YqDJftJaw" postcondition="_pRyoEQeNEeWYMfF4VPzW7g">
+        <ownedRule xmi:id="_pRyoEQeNEeWYMfF4VPzW7g" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_pRyoEgeNEeWYMfF4VPzW7g" value=""/>
+        </ownedRule>
+        <ownedParameter xmi:id="_pRyoEweNEeWYMfF4VPzW7g" name="object"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_pYNZIAeNEeWYMfF4VPzW7g" name="iniciarAula" method="_qoa3AQhBEeWQ0YqDJftJaw" postcondition="_pYNZIQeNEeWYMfF4VPzW7g">
+        <ownedRule xmi:id="_pYNZIQeNEeWYMfF4VPzW7g" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_pYNZIgeNEeWYMfF4VPzW7g" value=""/>
+        </ownedRule>
+        <ownedParameter xmi:id="_pYNZIweNEeWYMfF4VPzW7g" name="object"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_peiqoAeNEeWYMfF4VPzW7g" name="encerrarAula" method="_rZjZAQhBEeWQ0YqDJftJaw" postcondition="_peiqoQeNEeWYMfF4VPzW7g">
+        <ownedRule xmi:id="_peiqoQeNEeWYMfF4VPzW7g" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_peiqogeNEeWYMfF4VPzW7g" value=""/>
+        </ownedRule>
+        <ownedParameter xmi:id="_peiqoweNEeWYMfF4VPzW7g" name="object"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_pkL_oAeNEeWYMfF4VPzW7g" name="encerrarSessao" method="_rhfNAQhBEeWQ0YqDJftJaw _rpRQAQhBEeWQ0YqDJftJaw" postcondition="_pkL_oQeNEeWYMfF4VPzW7g">
+        <ownedRule xmi:id="_pkL_oQeNEeWYMfF4VPzW7g" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_pkL_ogeNEeWYMfF4VPzW7g" value=""/>
+        </ownedRule>
+        <ownedParameter xmi:id="_pkL_oweNEeWYMfF4VPzW7g" name="object"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_pqNvIAeNEeWYMfF4VPzW7g" name="confirmarEncerrarSessao" method="_sBwBcQhBEeWQ0YqDJftJaw" postcondition="_pqNvIQeNEeWYMfF4VPzW7g">
+        <ownedRule xmi:id="_pqNvIQeNEeWYMfF4VPzW7g" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_pqNvIgeNEeWYMfF4VPzW7g" value=""/>
+        </ownedRule>
+        <ownedParameter xmi:id="_pqNvIweNEeWYMfF4VPzW7g" name="object"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_dYbdEJK5EdyTRYb9X5VB4w" name="reset"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_dMVB4JsBEd20fKiJK1xsTw" name="State">
+      <ownedLiteral xmi:id="_hms7cJsBEd20fKiJK1xsTw" name="selecionando_turma"/>
+      <ownedLiteral xmi:id="_iYoHoJsBEd20fKiJK1xsTw" name="verificando_turma"/>
+      <ownedLiteral xmi:id="_ilI5oJsBEd20fKiJK1xsTw" name="turma_selecionada"/>
+      <ownedLiteral xmi:id="_ixNmwJsBEd20fKiJK1xsTw" name="sessao_criada"/>
+      <ownedLiteral xmi:id="_DSUIgAd_EeWhqqk4PxfMeQ" name="sessao_aberta"/>
+      <ownedLiteral xmi:id="_DqFIQAd_EeWhqqk4PxfMeQ" name="preenchendo_dados"/>
+      <ownedLiteral xmi:id="_EAv70Ad_EeWhqqk4PxfMeQ" name="visualizando_dados"/>
+      <ownedLiteral xmi:id="_ESKb8Ad_EeWhqqk4PxfMeQ" name="dando_aula"/>
+      <ownedLiteral xmi:id="_EnWo0Ad_EeWhqqk4PxfMeQ" name="encerrando_aula"/>
+      <ownedLiteral xmi:id="_GaA5QAd_EeWhqqk4PxfMeQ" name="encerrando_sessao"/>
+      <ownedLiteral xmi:id="_GvW3IAd_EeWhqqk4PxfMeQ" name="encerrar_sessao"/>
+    </packagedElement>
+  </packagedElement>
+</uml:Model>
