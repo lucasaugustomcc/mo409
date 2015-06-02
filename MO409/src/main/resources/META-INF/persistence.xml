@@ -7,20 +7,16 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>br.unicamp.ic.mo409.model.User</class>
 		<class>br.unicamp.ic.mo409.model.Aluno</class>
-		<class>br.unicamp.ic.mo409.model.ALUNO_has_TURMA</class>
-		<class>br.unicamp.ic.mo409.model.ALUNO_has_TURMAPK</class>
+		<class>br.unicamp.ic.mo409.model.Aula</class>
 		<class>br.unicamp.ic.mo409.model.Disciplina</class>
 		<class>br.unicamp.ic.mo409.model.Presenca</class>
-		<class>br.unicamp.ic.mo409.model.PresencaPK</class>
 		<class>br.unicamp.ic.mo409.model.Professor</class>
+		<class>br.unicamp.ic.mo409.model.ProfessorPK</class>
 		<class>br.unicamp.ic.mo409.model.Tick</class>
-		<class>br.unicamp.ic.mo409.model.TickPK</class>
 		<class>br.unicamp.ic.mo409.model.Turma</class>
-		<class>br.unicamp.ic.mo409.model.TurmaPK</class>
-		<class>br.unicamp.ic.mo409.model.TURMA_has_PROFESSOR</class>
-		<class>br.unicamp.ic.mo409.model.TURMA_has_PROFESSORPK</class>
+		<class>br.unicamp.ic.mo409.model.TurmaProfessor</class>
+		<class>br.unicamp.ic.mo409.model.TurmaProfessorPK</class>
 		<class>br.unicamp.ic.mo409.model.Usuario</class>
-		<class>br.unicamp.ic.mo409.model.UsuarioPK</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
 			<property name="hibernate.show_sql" value="true" />

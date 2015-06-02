@@ -2,91 +2,80 @@ package br.unicamp.ic.mo409.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
- * The persistent class for the PRESENCA database table.
+ * The persistent class for the tb_presenca database table.
  * 
  */
 @Entity
-@Table(name="PRESENCA")
+@Table(name="tb_presenca")
 @NamedQuery(name="Presenca.findAll", query="SELECT p FROM Presenca p")
 public class Presenca implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private PresencaPK id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id_presenca", unique=true, nullable=false)
+	private int idPresenca;
 
-	private byte aprovado;
+	@Column(name="is_presente")
+	private byte isPresente;
 
-	@Column(name="numero_ticks")
-	private int numeroTicks;
+	@Column(name="num_ticks", nullable=false)
+	private int numTicks;
 
 	//bi-directional many-to-one association to Aluno
 	@ManyToOne
-	@JoinColumn(name="ALUNO_ra", nullable=false, insertable=false, updatable=false)
-	private Aluno aluno;
+	@JoinColumn(name="tb_aluno_ra_aluno", nullable=false)
+	private Aluno tbAluno;
 
-	//bi-directional many-to-one association to Tick
-	@OneToMany(mappedBy="presenca")
-	private List<Tick> ticks;
+	//bi-directional many-to-one association to Aula
+	@ManyToOne
+	@JoinColumn(name="tb_aula_id_aula", nullable=false)
+	private Aula tbAula;
 
 	public Presenca() {
 	}
 
-	public PresencaPK getId() {
-		return this.id;
+	public int getIdPresenca() {
+		return this.idPresenca;
 	}
 
-	public void setId(PresencaPK id) {
-		this.id = id;
+	public void setIdPresenca(int idPresenca) {
+		this.idPresenca = idPresenca;
 	}
 
-	public byte getAprovado() {
-		return this.aprovado;
+	public byte getIsPresente() {
+		return this.isPresente;
 	}
 
-	public void setAprovado(byte aprovado) {
-		this.aprovado = aprovado;
+	public void setIsPresente(byte isPresente) {
+		this.isPresente = isPresente;
 	}
 
-	public int getNumeroTicks() {
-		return this.numeroTicks;
+	public int getNumTicks() {
+		return this.numTicks;
 	}
 
-	public void setNumeroTicks(int numeroTicks) {
-		this.numeroTicks = numeroTicks;
+	public void setNumTicks(int numTicks) {
+		this.numTicks = numTicks;
 	}
 
-	public Aluno getAluno() {
-		return this.aluno;
+	public Aluno getTbAluno() {
+		return this.tbAluno;
 	}
 
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
+	public void setTbAluno(Aluno tbAluno) {
+		this.tbAluno = tbAluno;
 	}
 
-	public List<Tick> getTicks() {
-		return this.ticks;
+	public Aula getTbAula() {
+		return this.tbAula;
 	}
 
-	public void setTicks(List<Tick> ticks) {
-		this.ticks = ticks;
-	}
-
-	public Tick addTick(Tick tick) {
-		getTicks().add(tick);
-		tick.setPresenca(this);
-
-		return tick;
-	}
-
-	public Tick removeTick(Tick tick) {
-		getTicks().remove(tick);
-		tick.setPresenca(null);
-
-		return tick;
+	public void setTbAula(Aula tbAula) {
+		this.tbAula = tbAula;
 	}
 
 }

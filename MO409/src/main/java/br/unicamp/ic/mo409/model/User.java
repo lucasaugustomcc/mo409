@@ -29,10 +29,11 @@ public class User implements Serializable,UserDetails{
 
 	@NotNull(message = "{tarefa.descricao.vazia}")
 	@Size(min = 5, message = "{tarefa.descricao.pequena}")
-	String name = null;
+	String username = null;
 	String login = null;
 	String password = null;
 	String email = null;
+	Boolean enabled = true;
 
 	public String getEmail() {
 		return email;
@@ -50,12 +51,12 @@ public class User implements Serializable,UserDetails{
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getUserame() {
+		return username;
 	}
 
 	public void setName(String Name) {
-		this.name = Name;
+		this.username = Name;
 	}
 
 	public String getLogin() {
@@ -105,8 +106,7 @@ public class User implements Serializable,UserDetails{
 
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+		return enabled;
 	}
 
 }

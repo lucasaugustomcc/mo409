@@ -6,107 +6,106 @@ import java.util.List;
 
 
 /**
- * The persistent class for the ALUNO database table.
+ * The persistent class for the tb_aluno database table.
  * 
  */
 @Entity
-@Table(name="ALUNO")
+@Table(name="tb_aluno")
 @NamedQuery(name="Aluno.findAll", query="SELECT a FROM Aluno a")
 public class Aluno implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(unique=true, nullable=false)
-	private int ra;
-
-	//bi-directional many-to-one association to Presenca
-	@OneToMany(mappedBy="aluno")
-	private List<Presenca> presencas;
-
-	//bi-directional many-to-one association to Tick
-	@OneToMany(mappedBy="aluno")
-	private List<Tick> ticks;
+	@Column(name="ra_aluno", unique=true, nullable=false)
+	private int raAluno;
 
 	//bi-directional many-to-one association to Usuario
-	@OneToMany(mappedBy="aluno")
-	private List<Usuario> usuarios;
+	@ManyToOne
+	@JoinColumn(name="tb_usuario_id_usuario", nullable=false)
+	private Usuario tbUsuario;
+
+	//bi-directional many-to-many association to Turma
+	@ManyToMany(mappedBy="tbAlunos")
+	private List<Turma> tbTurmas;
+
+	//bi-directional many-to-one association to Presenca
+	@OneToMany(mappedBy="tbAluno")
+	private List<Presenca> tbPresencas;
+
+	//bi-directional many-to-one association to Tick
+	@OneToMany(mappedBy="Aluno")
+	private List<Tick> Ticks;
 
 	public Aluno() {
 	}
 
-	public int getRa() {
-		return this.ra;
+	public int getRaAluno() {
+		return this.raAluno;
 	}
 
-	public void setRa(int ra) {
-		this.ra = ra;
+	public void setRaAluno(int raAluno) {
+		this.raAluno = raAluno;
 	}
 
-	public List<Presenca> getPresencas() {
-		return this.presencas;
+	public Usuario getTbUsuario() {
+		return this.tbUsuario;
 	}
 
-	public void setPresencas(List<Presenca> presencas) {
-		this.presencas = presencas;
+	public void setTbUsuario(Usuario tbUsuario) {
+		this.tbUsuario = tbUsuario;
 	}
 
-	public Presenca addPresenca(Presenca presenca) {
-		getPresencas().add(presenca);
-		presenca.setAluno(this);
-
-		return presenca;
+	public List<Turma> getTbTurmas() {
+		return this.tbTurmas;
 	}
 
-	public Presenca removePresenca(Presenca presenca) {
-		getPresencas().remove(presenca);
-		presenca.setAluno(null);
+	public void setTbTurmas(List<Turma> tbTurmas) {
+		this.tbTurmas = tbTurmas;
+	}
 
-		return presenca;
+	public List<Presenca> getTbPresencas() {
+		return this.tbPresencas;
+	}
+
+	public void setTbPresencas(List<Presenca> tbPresencas) {
+		this.tbPresencas = tbPresencas;
+	}
+
+	public Presenca addTbPresenca(Presenca tbPresenca) {
+		getTbPresencas().add(tbPresenca);
+		tbPresenca.setTbAluno(this);
+
+		return tbPresenca;
+	}
+
+	public Presenca removeTbPresenca(Presenca tbPresenca) {
+		getTbPresencas().remove(tbPresenca);
+		tbPresenca.setTbAluno(null);
+
+		return tbPresenca;
 	}
 
 	public List<Tick> getTicks() {
-		return this.ticks;
+		return this.Ticks;
 	}
 
-	public void setTicks(List<Tick> ticks) {
-		this.ticks = ticks;
+	public void setTicks(List<Tick> Ticks) {
+		this.Ticks = Ticks;
 	}
 
-	public Tick addTick(Tick tick) {
-		getTicks().add(tick);
-		tick.setAluno(this);
+	public Tick addTick(Tick Tick) {
+		getTicks().add(Tick);
+		Tick.setAluno(this);
 
-		return tick;
+		return Tick;
 	}
 
-	public Tick removeTick(Tick tick) {
-		getTicks().remove(tick);
-		tick.setAluno(null);
+	public Tick removeTick(Tick Tick) {
+		getTicks().remove(Tick);
+		Tick.setAluno(null);
 
-		return tick;
-	}
-
-	public List<Usuario> getUsuarios() {
-		return this.usuarios;
-	}
-
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
-
-	public Usuario addUsuario(Usuario usuario) {
-		getUsuarios().add(usuario);
-		usuario.setAluno(this);
-
-		return usuario;
-	}
-
-	public Usuario removeUsuario(Usuario usuario) {
-		getUsuarios().remove(usuario);
-		usuario.setAluno(null);
-
-		return usuario;
+		return Tick;
 	}
 
 }

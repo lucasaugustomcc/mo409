@@ -6,47 +6,56 @@ import java.util.Date;
 
 
 /**
- * The persistent class for the TICKS database table.
+ * The persistent class for the tb_tick database table.
  * 
  */
 @Entity
-@Table(name="TICKS")
+@Table(name="tb_tick")
 @NamedQuery(name="Tick.findAll", query="SELECT t FROM Tick t")
 public class Tick implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private TickPK id;
-
-	@Column(nullable=false)
-	private int distancia;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id_tick", unique=true, nullable=false)
+	private int idTick;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(nullable=false)
-	private Date hora;
+	@Column(name="data_hora")
+	private Date dataHora;
+
+	private int distancia;
+
+	@Column(name="ra_aluno")
+	private int raAluno;
 
 	//bi-directional many-to-one association to Aluno
 	@ManyToOne
-	@JoinColumn(name="ALUNO_ra", nullable=false, insertable=false, updatable=false)
-	private Aluno aluno;
+	@JoinColumn(name="tb_aluno_ra_aluno", nullable=false)
+	private Aluno Aluno;
 
-	//bi-directional many-to-one association to Presenca
+	//bi-directional many-to-one association to Aula
 	@ManyToOne
-	@JoinColumns({
-		@JoinColumn(name="PRESENCA_ALUNO_ra", referencedColumnName="ALUNO_ra", nullable=false, insertable=false, updatable=false),
-		@JoinColumn(name="PRESENCA_idPRESENCA", referencedColumnName="idPRESENCA", nullable=false, insertable=false, updatable=false)
-		})
-	private Presenca presenca;
+	@JoinColumn(name="tb_aula_id_aula", nullable=false)
+	private Aula tbAula;
 
 	public Tick() {
 	}
 
-	public TickPK getId() {
-		return this.id;
+	public int getIdTick() {
+		return this.idTick;
 	}
 
-	public void setId(TickPK id) {
-		this.id = id;
+	public void setIdTick(int idTick) {
+		this.idTick = idTick;
+	}
+
+	public Date getDataHora() {
+		return this.dataHora;
+	}
+
+	public void setDataHora(Date dataHora) {
+		this.dataHora = dataHora;
 	}
 
 	public int getDistancia() {
@@ -57,28 +66,28 @@ public class Tick implements Serializable {
 		this.distancia = distancia;
 	}
 
-	public Date getHora() {
-		return this.hora;
+	public int getRaAluno() {
+		return this.raAluno;
 	}
 
-	public void setHora(Date hora) {
-		this.hora = hora;
+	public void setRaAluno(int raAluno) {
+		this.raAluno = raAluno;
 	}
 
 	public Aluno getAluno() {
-		return this.aluno;
+		return this.Aluno;
 	}
 
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
+	public void setAluno(Aluno Aluno) {
+		this.Aluno = Aluno;
 	}
 
-	public Presenca getPresenca() {
-		return this.presenca;
+	public Aula getTbAula() {
+		return this.tbAula;
 	}
 
-	public void setPresenca(Presenca presenca) {
-		this.presenca = presenca;
+	public void setTbAula(Aula tbAula) {
+		this.tbAula = tbAula;
 	}
 
 }

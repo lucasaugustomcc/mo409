@@ -28,6 +28,6 @@
 	<import resource="classpath*:/config/db-configuration.xml" />
 
 	<!-- for spring-security-with-oauth configuration -->
-	<import resource="classpath*:/config/spring-security-oauth2.xml" />
+	<import resource="classpath*:/config/rest-dispatcher-servlet-security.xml" />
 	
 </beans>

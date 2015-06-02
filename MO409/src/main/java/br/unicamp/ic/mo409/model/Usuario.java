@@ -2,55 +2,50 @@ package br.unicamp.ic.mo409.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
- * The persistent class for the USUARIO database table.
+ * The persistent class for the tb_usuario database table.
  * 
  */
 @Entity
-@Table(name="USUARIO")
+@Table(name="tb_usuario")
 @NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private UsuarioPK id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id_usuario", unique=true, nullable=false)
+	private int idUsuario;
 
-	@Column(length=80)
+	@Column(length=45)
 	private String email;
 
-	@Column(length=45)
-	private String login;
-
-	@Column(length=45)
+	@Column(nullable=false, length=40)
 	private String nome;
 
-	@Column(length=45)
+	@Column(nullable=false, length=20)
 	private String senha;
 
-	@Column(length=45)
-	private String sobrenome;
-
 	//bi-directional many-to-one association to Aluno
-	@ManyToOne
-	@JoinColumn(name="ALUNO_ra", nullable=false, insertable=false, updatable=false)
-	private Aluno aluno;
+	@OneToMany(mappedBy="tbUsuario")
+	private List<Aluno> tbAlunos;
 
 	//bi-directional many-to-one association to Professor
-	@ManyToOne
-	@JoinColumn(name="PROFESSOR_ra", nullable=false, insertable=false, updatable=false)
-	private Professor professor;
+	@OneToMany(mappedBy="tbUsuario")
+	private List<Professor> tbProfessors;
 
 	public Usuario() {
 	}
 
-	public UsuarioPK getId() {
-		return this.id;
+	public int getIdUsuario() {
+		return this.idUsuario;
 	}
 
-	public void setId(UsuarioPK id) {
-		this.id = id;
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 	public String getEmail() {
@@ -59,14 +54,6 @@ public class Usuario implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getLogin() {
-		return this.login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
 	}
 
 	public String getNome() {
@@ -85,28 +72,48 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 	}
 
-	public String getSobrenome() {
-		return this.sobrenome;
+	public List<Aluno> getTbAlunos() {
+		return this.tbAlunos;
 	}
 
-	public void setSobrenome(String sobrenome) {
-		this.sobrenome = sobrenome;
+	public void setTbAlunos(List<Aluno> tbAlunos) {
+		this.tbAlunos = tbAlunos;
 	}
 
-	public Aluno getAluno() {
-		return this.aluno;
+	public Aluno addTbAluno(Aluno tbAluno) {
+		getTbAlunos().add(tbAluno);
+		tbAluno.setTbUsuario(this);
+
+		return tbAluno;
 	}
 
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
+	public Aluno removeTbAluno(Aluno tbAluno) {
+		getTbAlunos().remove(tbAluno);
+		tbAluno.setTbUsuario(null);
+
+		return tbAluno;
 	}
 
-	public Professor getProfessor() {
-		return this.professor;
+	public List<Professor> getTbProfessors() {
+		return this.tbProfessors;
 	}
 
-	public void setProfessor(Professor professor) {
-		this.professor = professor;
+	public void setTbProfessors(List<Professor> tbProfessors) {
+		this.tbProfessors = tbProfessors;
+	}
+
+	public Professor addTbProfessor(Professor tbProfessor) {
+		getTbProfessors().add(tbProfessor);
+		tbProfessor.setTbUsuario(this);
+
+		return tbProfessor;
+	}
+
+	public Professor removeTbProfessor(Professor tbProfessor) {
+		getTbProfessors().remove(tbProfessor);
+		tbProfessor.setTbUsuario(null);
+
+		return tbProfessor;
 	}
 
 }

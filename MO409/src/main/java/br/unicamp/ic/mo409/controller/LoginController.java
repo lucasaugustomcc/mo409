@@ -55,7 +55,7 @@ public class LoginController {
 		for (User user : usuarios) {
 			JSONObject userJSON = new JSONObject();
 			userJSON.put("id", user.get_Id());
-			userJSON.put("firstName", user.getName());
+			userJSON.put("firstName", user.getUsername());
 			userJSON.put("senha", user.getPassword());
 			userArray.add(userJSON);
 		}
@@ -68,7 +68,7 @@ public class LoginController {
 		JSONObject userJSON = new JSONObject();
 		User usuario = dao.find(1);
 		userJSON.put("id", usuario.get_Id());
-		userJSON.put("firstName", usuario.getName());
+		userJSON.put("firstName", usuario.getUsername());
 		userJSON.put("senha", usuario.getPassword());
 		userArray.add(userJSON);
 

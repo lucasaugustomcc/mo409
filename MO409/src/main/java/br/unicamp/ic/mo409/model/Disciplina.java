@@ -6,76 +6,66 @@ import java.util.List;
 
 
 /**
- * The persistent class for the DISCIPLINA database table.
+ * The persistent class for the tb_disciplina database table.
  * 
  */
 @Entity
-@Table(name="DISCIPLINA")
+@Table(name="tb_disciplina")
 @NamedQuery(name="Disciplina.findAll", query="SELECT d FROM Disciplina d")
 public class Disciplina implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(unique=true, nullable=false)
-	private int idDISCIPLINA;
+	@Column(name="id_disciplina", unique=true, nullable=false)
+	private int idDisciplina;
 
-	//bi-directional many-to-many association to Professor
-	@ManyToMany
-	@JoinTable(
-		name="PROFESSOR_has_DISCIPLINA"
-		, joinColumns={
-			@JoinColumn(name="DISCIPLINA_idDISCIPLINA", nullable=false)
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="PROFESSOR_ra", nullable=false)
-			}
-		)
-	private List<Professor> professors;
+	@Column(name="nome_disciplina", length=45)
+	private String nomeDisciplina;
 
 	//bi-directional many-to-one association to Turma
-	@OneToMany(mappedBy="disciplina")
-	private List<Turma> turmas;
+	@OneToMany(mappedBy="tbDisciplina")
+	private List<Turma> tbTurmas;
 
 	public Disciplina() {
 	}
 
-	public int getIdDISCIPLINA() {
-		return this.idDISCIPLINA;
+	public int getIdDisciplina() {
+		return this.idDisciplina;
 	}
 
-	public void setIdDISCIPLINA(int idDISCIPLINA) {
-		this.idDISCIPLINA = idDISCIPLINA;
+	public void setIdDisciplina(int idDisciplina) {
+		this.idDisciplina = idDisciplina;
 	}
 
-	public List<Professor> getProfessors() {
-		return this.professors;
+	public String getNomeDisciplina() {
+		return this.nomeDisciplina;
 	}
 
-	public void setProfessors(List<Professor> professors) {
-		this.professors = professors;
+	public void setNomeDisciplina(String nomeDisciplina) {
+		this.nomeDisciplina = nomeDisciplina;
 	}
 
-	public List<Turma> getTurmas() {
-		return this.turmas;
+	public List<Turma> getTbTurmas() {
+		return this.tbTurmas;
 	}
 
-	public void setTurmas(List<Turma> turmas) {
-		this.turmas = turmas;
+	public void setTbTurmas(List<Turma> tbTurmas) {
+		this.tbTurmas = tbTurmas;
 	}
 
-	public Turma addTurma(Turma turma) {
-		getTurmas().add(turma);
-		turma.setDisciplina(this);
+	public Turma addTbTurma(Turma tbTurma) {
+		getTbTurmas().add(tbTurma);
+		tbTurma.setTbDisciplina(this);
 
-		return turma;
+		return tbTurma;
 	}
 
-	public Turma removeTurma(Turma turma) {
-		getTurmas().remove(turma);
-		turma.setDisciplina(null);
+	public Turma removeTbTurma(Turma tbTurma) {
+		getTbTurmas().remove(tbTurma);
+		tbTurma.setTbDisciplina(null);
 
-		return turma;
+		return tbTurma;
 	}
 
 }
