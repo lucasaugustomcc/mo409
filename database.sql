@@ -13,8 +13,9 @@ DROP TABLE IF EXISTS `mo`.`tb_usuario` ;
 CREATE TABLE IF NOT EXISTS `mo`.`tb_usuario` (
   `id_usuario` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(40) NOT NULL,
-  `email` VARCHAR(45) NULL,
+  `email` VARCHAR(30) NULL,
   `senha` VARCHAR(20) NOT NULL,
+  `papel` VARCHAR(10) NOT NULL,
   PRIMARY KEY (`id_usuario`))
 ENGINE = InnoDB;
 
@@ -27,7 +28,7 @@ DROP TABLE IF EXISTS `mo`.`tb_professor` ;
 CREATE TABLE IF NOT EXISTS `mo`.`tb_professor` (
   `ra_professor` INT NOT NULL,
   `tb_usuario_id_usuario` INT NOT NULL,
-  PRIMARY KEY (`ra_professor`, `tb_usuario_id_usuario`),
+  PRIMARY KEY (`ra_professor`),
   CONSTRAINT `fk_tb_Professor_tb_usuario1`
     FOREIGN KEY (`tb_usuario_id_usuario`)
     REFERENCES `mo`.`tb_usuario` (`id_usuario`)
@@ -36,6 +37,8 @@ CREATE TABLE IF NOT EXISTS `mo`.`tb_professor` (
 ENGINE = InnoDB;
 
 CREATE INDEX `fk_tb_Professor_tb_usuario1_idx` ON `mo`.`tb_professor` (`tb_usuario_id_usuario` ASC);
+
+CREATE UNIQUE INDEX `tb_usuario_id_usuario_UNIQUE` ON `mo`.`tb_professor` (`tb_usuario_id_usuario` ASC);
 
 
 -- -----------------------------------------------------
@@ -55,6 +58,8 @@ CREATE TABLE IF NOT EXISTS `mo`.`tb_aluno` (
 ENGINE = InnoDB;
 
 CREATE INDEX `fk_tb_Aluno_tb_Usuario_idx` ON `mo`.`tb_aluno` (`tb_usuario_id_usuario` ASC);
+
+CREATE UNIQUE INDEX `tb_usuario_id_usuario_UNIQUE` ON `mo`.`tb_aluno` (`tb_usuario_id_usuario` ASC);
 
 
 -- -----------------------------------------------------
@@ -161,7 +166,6 @@ DROP TABLE IF EXISTS `mo`.`tb_tick` ;
 
 CREATE TABLE IF NOT EXISTS `mo`.`tb_tick` (
   `id_tick` INT NOT NULL AUTO_INCREMENT,
-  `ra_aluno` INT NULL,
   `data_hora` DATETIME NULL,
   `distancia` INT NULL,
   `tb_aluno_ra_aluno` INT NOT NULL,
