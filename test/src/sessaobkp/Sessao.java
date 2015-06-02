@@ -1,4 +1,4 @@
-package sessao;
+package sessaobkp;
 
 import java.util.Date;
 
@@ -12,7 +12,7 @@ public class Sessao {
 	public Sessao()
 	{
 		state = State.nao_aberta;
-		setRecebendo_tick(false);
+		recebendo_tick = false;
 	}
 	
 	public State getState() {
@@ -37,7 +37,7 @@ public class Sessao {
 
 	public void handleEvent(Object... in_colObject) {
 		if (in_colObject.length > 0) {
-//			String sEventName = (String) in_colObject[0];
+			String sEventName = (String) in_colObject[0];
 //			if ((state == State.idle)
 //					&& (sEventName.compareTo("detectItemEvent") == 0)) {
 //				Item oItem = (Item) in_colObject[1];
@@ -71,29 +71,5 @@ public class Sessao {
 //				}
 //			}
 		}
-	}
-
-	public void setRecebendo_tick(Boolean recebendo_tick) {
-		this.recebendo_tick = recebendo_tick;
-	}
-
-	public Boolean getRecebendo_tick() {
-		return recebendo_tick;
-	}
-
-	public void setHora_inicio(Date hora_inicio) {
-		this.hora_inicio = hora_inicio;
-	}
-
-	public Date getHora_inicio() {
-		return hora_inicio;
-	}
-
-	public void setHora_fim(Date hora_fim) {
-		this.hora_fim = hora_fim;
-	}
-
-	public Date getHora_fim() {
-		return hora_fim;
 	}
 }
