@@ -1,4 +1,4 @@
-package br.unicamp.ic.mo409.server;
+package br.unicamp.ic.mo409.security;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import br.unicamp.ic.mo409.dao.UserDAO;
 
-public class AAAUserAuthenticationProvider implements AuthenticationProvider, Serializable {
+public class UserAuthenticationProvider implements AuthenticationProvider, Serializable {
 
 	/**
 	 * 
@@ -45,7 +45,7 @@ public class AAAUserAuthenticationProvider implements AuthenticationProvider, Se
 					return "ROLE_USER";
 				}
 			});
-			AAAUserAuthenticationToken auth = new AAAUserAuthenticationToken(authentication.getPrincipal(),
+			UserAuthenticationToken auth = new UserAuthenticationToken(authentication.getPrincipal(),
 					authentication.getCredentials(), grantedAuthorities);
 
 			return auth;

@@ -34,7 +34,7 @@ public class Aluno implements Serializable {
 	private List<Presenca> tbPresencas;
 
 	//bi-directional many-to-one association to Tick
-	@OneToMany(mappedBy="Aluno")
+	@OneToMany(mappedBy="aluno")
 	private List<Tick> Ticks;
 
 	public Aluno() {

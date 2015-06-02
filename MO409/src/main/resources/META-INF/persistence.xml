@@ -5,17 +5,14 @@
 	<persistence-unit name="persistenceUnit"
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>br.unicamp.ic.mo409.model.User</class>
 		<class>br.unicamp.ic.mo409.model.Aluno</class>
 		<class>br.unicamp.ic.mo409.model.Aula</class>
 		<class>br.unicamp.ic.mo409.model.Disciplina</class>
 		<class>br.unicamp.ic.mo409.model.Presenca</class>
 		<class>br.unicamp.ic.mo409.model.Professor</class>
-		<class>br.unicamp.ic.mo409.model.ProfessorPK</class>
 		<class>br.unicamp.ic.mo409.model.Tick</class>
 		<class>br.unicamp.ic.mo409.model.Turma</class>
-		<class>br.unicamp.ic.mo409.model.TurmaProfessor</class>
-		<class>br.unicamp.ic.mo409.model.TurmaProfessorPK</class>
+		<class>br.unicamp.ic.mo409.model.User</class>
 		<class>br.unicamp.ic.mo409.model.Usuario</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />

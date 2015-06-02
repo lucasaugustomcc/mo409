@@ -1,6 +1,7 @@
 package br.unicamp.ic.mo409.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -14,8 +15,10 @@ import javax.persistence.*;
 public class Professor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private ProfessorPK id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="ra_professor", unique=true, nullable=false)
+	private int raProfessor;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
@@ -23,14 +26,6 @@ public class Professor implements Serializable {
 	private Usuario tbUsuario;
 
 	public Professor() {
-	}
-
-	public ProfessorPK getId() {
-		return this.id;
-	}
-
-	public void setId(ProfessorPK id) {
-		this.id = id;
 	}
 
 	public Usuario getTbUsuario() {

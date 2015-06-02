@@ -78,7 +78,7 @@
     </sec:authentication-manager>
  
     <bean id="customUserAuthenticationProvider"
-        class="br.unicamp.ic.mo409.server.AAAUserAuthenticationProvider">
+        class="br.unicamp.ic.mo409.security.UserAuthenticationProvider">
     </bean>
 
 	<bean id="clientDetailsUserService"

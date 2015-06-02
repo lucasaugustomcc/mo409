@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -15,8 +16,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-@Table(name = "users")
-public class User implements Serializable,UserDetails{
+@Table(name = "tb_users")
+@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+public class User implements Serializable, UserDetails{
 
 	/**
 	 * 
@@ -30,7 +32,6 @@ public class User implements Serializable,UserDetails{
 	@NotNull(message = "{tarefa.descricao.vazia}")
 	@Size(min = 5, message = "{tarefa.descricao.pequena}")
 	String username = null;
-	String login = null;
 	String password = null;
 	String email = null;
 	Boolean enabled = true;
@@ -59,14 +60,6 @@ public class User implements Serializable,UserDetails{
 		this.username = Name;
 	}
 
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String Login) {
-		this.login = Login;
-	}
-
 	public String getPassword() {
 		return password;
 	}
@@ -83,7 +76,7 @@ public class User implements Serializable,UserDetails{
 
 	@Override
 	public String getUsername() {
-		return getLogin();
+		return username;
 	}
 
 	@Override
