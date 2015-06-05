@@ -1,8 +1,22 @@
 package br.unicamp.ic.mo409.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 
 /**
@@ -12,7 +26,7 @@ import java.util.List;
 @Entity
 @Table(name="tb_usuario")
 @NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
-public class Usuario implements Serializable {
+public class Usuario implements Serializable, UserDetails {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -28,14 +42,17 @@ public class Usuario implements Serializable {
 
 	@Column(nullable=false, length=20)
 	private String senha;
+	
+	@Column(nullable=false, length=10)
+	private String papel;
 
-	//bi-directional many-to-one association to Aluno
-	@OneToMany(mappedBy="tbUsuario")
-	private List<Aluno> tbAlunos;
+	//bi-directional one-to-one association to Aluno
+	@OneToOne(mappedBy="usuario")
+	private Aluno aluno;
 
-	//bi-directional many-to-one association to Professor
-	@OneToMany(mappedBy="tbUsuario")
-	private List<Professor> tbProfessors;
+	//bi-directional one-to-one association to Professor
+	@OneToOne(mappedBy="usuario")
+	private Professor professor;
 
 	public Usuario() {
 	}
@@ -72,48 +89,65 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 	}
 
-	public List<Aluno> getTbAlunos() {
-		return this.tbAlunos;
+	public Aluno getAluno() {
+		return this.aluno;
 	}
 
-	public void setTbAlunos(List<Aluno> tbAlunos) {
-		this.tbAlunos = tbAlunos;
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
 	}
 
-	public Aluno addTbAluno(Aluno tbAluno) {
-		getTbAlunos().add(tbAluno);
-		tbAluno.setTbUsuario(this);
-
-		return tbAluno;
+	public Professor getProfessor() {
+		return this.professor;
 	}
 
-	public Aluno removeTbAluno(Aluno tbAluno) {
-		getTbAlunos().remove(tbAluno);
-		tbAluno.setTbUsuario(null);
-
-		return tbAluno;
+	public void setProfessores(Professor professor) {
+		this.professor = professor;
 	}
 
-	public List<Professor> getTbProfessors() {
-		return this.tbProfessors;
+	public String getPapel() {
+		return papel;
 	}
 
-	public void setTbProfessors(List<Professor> tbProfessors) {
-		this.tbProfessors = tbProfessors;
+	public void setPapel(String papel) {
+		this.papel = papel;
 	}
 
-	public Professor addTbProfessor(Professor tbProfessor) {
-		getTbProfessors().add(tbProfessor);
-		tbProfessor.setTbUsuario(this);
-
-		return tbProfessor;
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		List<GrantedAuthority> lista = new ArrayList<GrantedAuthority>();
+		lista.add(new SimpleGrantedAuthority(this.papel));
+		return lista;
 	}
 
-	public Professor removeTbProfessor(Professor tbProfessor) {
-		getTbProfessors().remove(tbProfessor);
-		tbProfessor.setTbUsuario(null);
+	@Override
+	public String getPassword() {
+		return this.senha;
+	}
 
-		return tbProfessor;
+	@Override
+	public String getUsername() {
+		return this.email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return false;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return false;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return false;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
 	}
 
 }

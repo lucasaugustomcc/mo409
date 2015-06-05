@@ -24,8 +24,8 @@ public class Disciplina implements Serializable {
 	private String nomeDisciplina;
 
 	//bi-directional many-to-one association to Turma
-	@OneToMany(mappedBy="tbDisciplina")
-	private List<Turma> tbTurmas;
+	@OneToMany(mappedBy="disciplina")
+	private List<Turma> turmas;
 
 	public Disciplina() {
 	}
@@ -46,26 +46,26 @@ public class Disciplina implements Serializable {
 		this.nomeDisciplina = nomeDisciplina;
 	}
 
-	public List<Turma> getTbTurmas() {
-		return this.tbTurmas;
+	public List<Turma> getTurmas() {
+		return this.turmas;
 	}
 
-	public void setTbTurmas(List<Turma> tbTurmas) {
-		this.tbTurmas = tbTurmas;
+	public void setTurmas(List<Turma> turmas) {
+		this.turmas = turmas;
 	}
 
-	public Turma addTbTurma(Turma tbTurma) {
-		getTbTurmas().add(tbTurma);
-		tbTurma.setTbDisciplina(this);
+	public Turma addTurma(Turma turma) {
+		getTurmas().add(turma);
+		turma.setDisciplina(this);
 
-		return tbTurma;
+		return turma;
 	}
 
-	public Turma removeTbTurma(Turma tbTurma) {
-		getTbTurmas().remove(tbTurma);
-		tbTurma.setTbDisciplina(null);
+	public Turma removeTurma(Turma turma) {
+		getTurmas().remove(turma);
+		turma.setDisciplina(null);
 
-		return tbTurma;
+		return turma;
 	}
 
 }

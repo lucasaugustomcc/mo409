@@ -20,22 +20,22 @@ public class Aluno implements Serializable {
 	@Column(name="ra_aluno", unique=true, nullable=false)
 	private int raAluno;
 
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
+	//bi-directional one-to-one association to Usuario
+	@OneToOne
 	@JoinColumn(name="tb_usuario_id_usuario", nullable=false)
-	private Usuario tbUsuario;
-
-	//bi-directional many-to-many association to Turma
-	@ManyToMany(mappedBy="tbAlunos")
-	private List<Turma> tbTurmas;
+	private Usuario usuario;
 
 	//bi-directional many-to-one association to Presenca
-	@OneToMany(mappedBy="tbAluno")
-	private List<Presenca> tbPresencas;
+	@OneToMany(mappedBy="aluno")
+	private List<Presenca> presencas;
 
 	//bi-directional many-to-one association to Tick
 	@OneToMany(mappedBy="aluno")
-	private List<Tick> Ticks;
+	private List<Tick> ticks;
+
+	//bi-directional many-to-many association to Turma
+	@ManyToMany(mappedBy="alunos")
+	private List<Turma> turmas;
 
 	public Aluno() {
 	}
@@ -48,64 +48,64 @@ public class Aluno implements Serializable {
 		this.raAluno = raAluno;
 	}
 
-	public Usuario getTbUsuario() {
-		return this.tbUsuario;
+	public Usuario getUsuario() {
+		return this.usuario;
 	}
 
-	public void setTbUsuario(Usuario tbUsuario) {
-		this.tbUsuario = tbUsuario;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
-	public List<Turma> getTbTurmas() {
-		return this.tbTurmas;
+	public List<Presenca> getPresencas() {
+		return this.presencas;
 	}
 
-	public void setTbTurmas(List<Turma> tbTurmas) {
-		this.tbTurmas = tbTurmas;
+	public void setPresencas(List<Presenca> presencas) {
+		this.presencas = presencas;
 	}
 
-	public List<Presenca> getTbPresencas() {
-		return this.tbPresencas;
+	public Presenca addPresenca(Presenca presenca) {
+		getPresencas().add(presenca);
+		presenca.setAluno(this);
+
+		return presenca;
 	}
 
-	public void setTbPresencas(List<Presenca> tbPresencas) {
-		this.tbPresencas = tbPresencas;
-	}
+	public Presenca removePresenca(Presenca presenca) {
+		getPresencas().remove(presenca);
+		presenca.setAluno(null);
 
-	public Presenca addTbPresenca(Presenca tbPresenca) {
-		getTbPresencas().add(tbPresenca);
-		tbPresenca.setTbAluno(this);
-
-		return tbPresenca;
-	}
-
-	public Presenca removeTbPresenca(Presenca tbPresenca) {
-		getTbPresencas().remove(tbPresenca);
-		tbPresenca.setTbAluno(null);
-
-		return tbPresenca;
+		return presenca;
 	}
 
 	public List<Tick> getTicks() {
-		return this.Ticks;
+		return this.ticks;
 	}
 
-	public void setTicks(List<Tick> Ticks) {
-		this.Ticks = Ticks;
+	public void setTicks(List<Tick> ticks) {
+		this.ticks = ticks;
 	}
 
-	public Tick addTick(Tick Tick) {
-		getTicks().add(Tick);
-		Tick.setAluno(this);
+	public Tick addTick(Tick tick) {
+		getTicks().add(tick);
+		tick.setAluno(this);
 
-		return Tick;
+		return tick;
 	}
 
-	public Tick removeTick(Tick Tick) {
-		getTicks().remove(Tick);
-		Tick.setAluno(null);
+	public Tick removeTick(Tick tick) {
+		getTicks().remove(tick);
+		tick.setAluno(null);
 
-		return Tick;
+		return tick;
+	}
+
+	public List<Turma> getTurmas() {
+		return this.turmas;
+	}
+
+	public void setTurmas(List<Turma> turmas) {
+		this.turmas = turmas;
 	}
 
 }

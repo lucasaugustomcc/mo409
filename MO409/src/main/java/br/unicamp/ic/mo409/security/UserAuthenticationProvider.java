@@ -11,7 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 
-import br.unicamp.ic.mo409.dao.UserDAO;
+import br.unicamp.ic.mo409.dao.UsuarioDAO;
 
 public class UserAuthenticationProvider implements AuthenticationProvider, Serializable {
 
@@ -21,13 +21,13 @@ public class UserAuthenticationProvider implements AuthenticationProvider, Seria
 	private static final long serialVersionUID = -2015939741569160626L;
 	
 	@Autowired
-	UserDAO userDAO;
+	UsuarioDAO usuarioDAO;
 
 	@Override
 	public Authentication authenticate(Authentication authentication)
 			throws AuthenticationException {
 
-		boolean result = userDAO.isValidUser(authentication.getPrincipal()
+		boolean result = usuarioDAO.isUsuarioValido(authentication.getPrincipal()
 				.toString(), authentication.getCredentials().toString());
 		
 		if (result) {

@@ -26,6 +26,9 @@ public class Tick implements Serializable {
 
 	private int distancia;
 
+	@Column(name="ra_aluno")
+	private int raAluno;
+
 	//bi-directional many-to-one association to Aluno
 	@ManyToOne
 	@JoinColumn(name="tb_aluno_ra_aluno", nullable=false)
@@ -63,20 +66,28 @@ public class Tick implements Serializable {
 		this.distancia = distancia;
 	}
 
+	public int getRaAluno() {
+		return this.raAluno;
+	}
+
+	public void setRaAluno(int raAluno) {
+		this.raAluno = raAluno;
+	}
+
 	public Aluno getAluno() {
 		return this.aluno;
 	}
 
-	public void setAluno(Aluno Aluno) {
-		this.aluno = Aluno;
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
 	}
 
-	public Aula getTbAula() {
+	public Aula getAula() {
 		return this.aula;
 	}
 
-	public void setTbAula(Aula tbAula) {
-		this.aula = tbAula;
+	public void setAula(Aula aula) {
+		this.aula = aula;
 	}
 
 }

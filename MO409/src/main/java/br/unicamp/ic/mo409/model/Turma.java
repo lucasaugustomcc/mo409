@@ -27,12 +27,25 @@ public class Turma implements Serializable {
 	private String codTurma;
 
 	@Column(nullable=false)
-	private byte periodo;
+	private int periodo;
+
+	//bi-directional many-to-one association to Aula
+	@OneToMany(mappedBy="turma")
+	private List<Aula> aulas;
+
+	//bi-directional many-to-many association to Professor
+	@ManyToMany(mappedBy="turmas")
+	private List<Professor> professores;
+
+	//bi-directional many-to-one association to Disciplina
+	@ManyToOne(cascade={CascadeType.REMOVE})
+	@JoinColumn(name="tb_disciplina_id_disciplina", nullable=false)
+	private Disciplina disciplina;
 
 	//bi-directional many-to-many association to Aluno
 	@ManyToMany
 	@JoinTable(
-		name="tb_aluno_turma"
+		name="tb_turma_aluno"
 		, joinColumns={
 			@JoinColumn(name="tb_turma_id_turma", nullable=false)
 			}
@@ -40,12 +53,7 @@ public class Turma implements Serializable {
 			@JoinColumn(name="tb_aluno_ra_aluno", nullable=false)
 			}
 		)
-	private List<Aluno> tbAlunos;
-
-	//bi-directional many-to-one association to Disciplina
-	@ManyToOne(cascade={CascadeType.REMOVE})
-	@JoinColumn(name="tb_disciplina_id_disciplina", nullable=false)
-	private Disciplina tbDisciplina;
+	private List<Aluno> alunos;
 
 	public Turma() {
 	}
@@ -74,28 +82,58 @@ public class Turma implements Serializable {
 		this.codTurma = codTurma;
 	}
 
-	public byte getPeriodo() {
+	public int getPeriodo() {
 		return this.periodo;
 	}
 
-	public void setPeriodo(byte periodo) {
+	public void setPeriodo(int periodo) {
 		this.periodo = periodo;
 	}
 
-	public List<Aluno> getTbAlunos() {
-		return this.tbAlunos;
+	public List<Aula> getAulas() {
+		return this.aulas;
 	}
 
-	public void setTbAlunos(List<Aluno> tbAlunos) {
-		this.tbAlunos = tbAlunos;
+	public void setAulas(List<Aula> aulas) {
+		this.aulas = aulas;
 	}
 
-	public Disciplina getTbDisciplina() {
-		return this.tbDisciplina;
+	public Aula addAula(Aula aula) {
+		getAulas().add(aula);
+		aula.setTurma(this);
+
+		return aula;
 	}
 
-	public void setTbDisciplina(Disciplina tbDisciplina) {
-		this.tbDisciplina = tbDisciplina;
+	public Aula removeAula(Aula aula) {
+		getAulas().remove(aula);
+		aula.setTurma(null);
+
+		return aula;
+	}
+
+	public List<Professor> getProfessores() {
+		return this.professores;
+	}
+
+	public void setProfessores(List<Professor> professores) {
+		this.professores = professores;
+	}
+
+	public Disciplina getDisciplina() {
+		return this.disciplina;
+	}
+
+	public void setDisciplina(Disciplina disciplina) {
+		this.disciplina = disciplina;
+	}
+
+	public List<Aluno> getAlunos() {
+		return this.alunos;
+	}
+
+	public void setAlunos(List<Aluno> alunos) {
+		this.alunos = alunos;
 	}
 
 }

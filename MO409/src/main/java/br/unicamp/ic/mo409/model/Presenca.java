@@ -20,7 +20,7 @@ public class Presenca implements Serializable {
 	private int idPresenca;
 
 	@Column(name="is_presente")
-	private byte isPresente;
+	private boolean isPresente;
 
 	@Column(name="num_ticks", nullable=false)
 	private int numTicks;
@@ -28,12 +28,12 @@ public class Presenca implements Serializable {
 	//bi-directional many-to-one association to Aluno
 	@ManyToOne
 	@JoinColumn(name="tb_aluno_ra_aluno", nullable=false)
-	private Aluno tbAluno;
+	private Aluno aluno;
 
 	//bi-directional many-to-one association to Aula
 	@ManyToOne
 	@JoinColumn(name="tb_aula_id_aula", nullable=false)
-	private Aula tbAula;
+	private Aula aula;
 
 	public Presenca() {
 	}
@@ -46,11 +46,11 @@ public class Presenca implements Serializable {
 		this.idPresenca = idPresenca;
 	}
 
-	public byte getIsPresente() {
+	public boolean getIsPresente() {
 		return this.isPresente;
 	}
 
-	public void setIsPresente(byte isPresente) {
+	public void setIsPresente(boolean isPresente) {
 		this.isPresente = isPresente;
 	}
 
@@ -62,20 +62,20 @@ public class Presenca implements Serializable {
 		this.numTicks = numTicks;
 	}
 
-	public Aluno getTbAluno() {
-		return this.tbAluno;
+	public Aluno getAluno() {
+		return this.aluno;
 	}
 
-	public void setTbAluno(Aluno tbAluno) {
-		this.tbAluno = tbAluno;
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
 	}
 
-	public Aula getTbAula() {
-		return this.tbAula;
+	public Aula getAula() {
+		return this.aula;
 	}
 
-	public void setTbAula(Aula tbAula) {
-		this.tbAula = tbAula;
+	public void setAula(Aula aula) {
+		this.aula = aula;
 	}
 
 }

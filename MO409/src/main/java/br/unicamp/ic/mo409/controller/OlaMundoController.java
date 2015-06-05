@@ -10,15 +10,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.unicamp.ic.mo409.dao.UserDAO;
-import br.unicamp.ic.mo409.model.User;
+import br.unicamp.ic.mo409.dao.UsuarioDAO;
+import br.unicamp.ic.mo409.model.Usuario;
 
 @Component
 @RestController
 public class OlaMundoController {
 
 	@Autowired
-	public UserDAO dao;
+	public UsuarioDAO usuarioDAO;
 
 	@RequestMapping("/casa/olaMundoSpring")
 	public String execute() {
@@ -27,7 +27,7 @@ public class OlaMundoController {
 			UserDetails details = (UserDetails) authentication.getPrincipal();
 			String username = details.getUsername();
 		}
-		List<User> lista = dao.findAll();
+		List<Usuario> lista = usuarioDAO.findAll();
 		System.out.println("Executando a lógica com Spring MVC");
 
 		return "olaMundo";
