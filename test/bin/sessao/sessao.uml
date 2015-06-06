@@ -77,16 +77,24 @@
         <ownedRule xmi:id="_QxNNEAkgEeWyXqZbehidIA" name="post">
           <specification xmi:type="uml:LiteralString" xmi:id="_SZmHMAkgEeWyXqZbehidIA" value="if (state = State::nao_aberta) then recebendo_tick = true else recebendo_tick = false endif"/>
         </ownedRule>
-        <ownedParameter xmi:id="_Tfgw8AkhEeWyXqZbehidIA" name="state" type="_dMVB4JsBEd20fKiJK1xsTw"/>
+        <ownedParameter xmi:id="_Tfgw8AkhEeWyXqZbehidIA" name="boolean">
+          <type xmi:type="uml:Association" href="pathmap://UML_METAMODELS/UML.metamodel.uml#A_action_input"/>
+        </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="_xhSRwO2yEdu00tpIhIjmTg" name="receberTick" method="__BX4cJgxEdya-JAksPDiSg">
-        <ownedParameter xmi:id="_TvRrQAkhEeWyXqZbehidIA" name="state" type="_dMVB4JsBEd20fKiJK1xsTw"/>
+        <ownedParameter xmi:id="_TvRrQAkhEeWyXqZbehidIA" name="boolean">
+          <type xmi:type="uml:Association" href="pathmap://UML_METAMODELS/UML.metamodel.uml#A_action_input"/>
+        </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="_wegX8JG6EdydJaDhzZfmUQ" name="encerrarChamada" method="_ZYnI8Ak6EeW4Zd_Lzs5Nzg">
-        <ownedParameter xmi:id="_T8XsEAkhEeWyXqZbehidIA" name="state" type="_dMVB4JsBEd20fKiJK1xsTw"/>
+        <ownedParameter xmi:id="_T8XsEAkhEeWyXqZbehidIA" name="boolean">
+          <type xmi:type="uml:Association" href="pathmap://UML_METAMODELS/UML.metamodel.uml#A_action_input"/>
+        </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="_Rmy5cAZ8EeW1-OgwpVc0Kw" name="calcularPresenca" method="_csacAAk6EeW4Zd_Lzs5Nzg">
-        <ownedParameter xmi:id="_UWjtsAkhEeWyXqZbehidIA" name="state" type="_dMVB4JsBEd20fKiJK1xsTw"/>
+        <ownedParameter xmi:id="_UWjtsAkhEeWyXqZbehidIA" name="boolean">
+          <type xmi:type="uml:Association" href="pathmap://UML_METAMODELS/UML.metamodel.uml#A_action_input"/>
+        </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="_dYbdEJK5EdyTRYb9X5VB4w" name="setState" postcondition="_15-PcAkgEeWyXqZbehidIA">
         <ownedRule xmi:id="_15-PcAkgEeWyXqZbehidIA" name="post">
