@@ -1,38 +1,32 @@
-package sessao;
+package br.unicamp.ic.mo409.model;
 
 import java.util.Date;
 
-public class Sessao {
 
-	private State state;
-	private Boolean recebendo_tick;
-	private Date hora_inicio;
-	private Date hora_fim;
+public class Chamada {
 
-	public Sessao()
+	public ChamadaState state;
+	public Boolean recebendo_tick;
+	public Date hora_inicio;
+	public Date hora_fim;
+	public Date data_aula;
+
+	public Chamada()
 	{
-		state = State.nao_aberta;
+		state = ChamadaState.nao_aberta;
 		setRecebendo_tick(false);
 	}
-	
-	public State getState() {
-		return state;
+
+	public void abrirChamada(ChamadaState state) {
 	}
 
-	public void setState(State state) {
-		this.state = state;
+	public void encerrarChamada(ChamadaState state) {
 	}
 
-	public void abrirChamada(State state) {
+	public void calculaPresenca(Tick ticks) {
 	}
 
-	public void encerrarChamada(State state) {
-	}
-
-	public void calculaPresenca(State state) {
-	}
-
-	public void receberTick(State state) {
+	public void receberTick(ChamadaState state) {
 	}
 
 	public void handleEvent(Object... in_colObject) {

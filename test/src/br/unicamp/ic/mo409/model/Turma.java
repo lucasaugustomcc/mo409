@@ -1,4 +1,4 @@
-package turma;
+package br.unicamp.ic.mo409.model;
 
 
 public class Turma {

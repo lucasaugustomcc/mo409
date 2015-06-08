@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/2.1.0/UML" xmi:id="_soD9MOjJEdu6LJeVabImNg">
-  <packagedElement xmi:type="uml:Package" xmi:id="_wPxqwOjJEdu6LJeVabImNg" name="sessao">
+  <packagedElement xmi:type="uml:Package" xmi:id="_wPxqwOjJEdu6LJeVabImNg" name="br.unicamp.ic.mo409.model">
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_MaE9UOjKEdu6LJeVabImNg" name="abrirChamadaEvent" operation="_HQGfwOzQEduqQpSKns4XGA"/>
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_treFIAZ8EeW1-OgwpVc0Kw" name="receberTickEvent" operation="_xhSRwO2yEdu00tpIhIjmTg"/>
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_ufpUEAZ8EeW1-OgwpVc0Kw" name="encerrarChamadaEvent" operation="_wegX8JG6EdydJaDhzZfmUQ"/>
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_ssPcwAZ8EeW1-OgwpVc0Kw" name="calcularPresencaEvent" operation="_Rmy5cAZ8EeW1-OgwpVc0Kw"/>
-    <packagedElement xmi:type="uml:Class" xmi:id="_CbgIUOzQEduqQpSKns4XGA" name="Sessao" classifierBehavior="_2Y0fgJ0ZEdyNrffIHb491A">
+    <packagedElement xmi:type="uml:Class" xmi:id="_CbgIUOzQEduqQpSKns4XGA" name="Chamada" classifierBehavior="_2Y0fgJ0ZEdyNrffIHb491A">
       <ownedAttribute xmi:id="_LlucMOzQEduqQpSKns4XGA" name="hora_inicio" isReadOnly="true" isDerivedUnion="true">
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#TimeExpression"/>
         <defaultValue xmi:type="uml:LiteralString" xmi:id="_YAFOcJKwEdyUSNhMCOPPLg" name="" value="10:00"/>
@@ -17,6 +17,17 @@
       <ownedAttribute xmi:id="_GTqyoJ0aEdyNrffIHb491A" name="state" type="_dMVB4JsBEd20fKiJK1xsTw"/>
       <ownedAttribute xmi:id="_SDlD4AhwEeWo2qsvHoqUxQ" name="recebendo_tick">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_1SaCgA3pEeWMKsVXT7gRww" name="" value="false"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_PSCUoA3nEeWfg8LmfrVuEg" name="turma" type="_8CmWMA3kEeWfg8LmfrVuEg">
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_3CBmAA3pEeWMKsVXT7gRww" name="" value="null"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_UeZEwA3nEeWfg8LmfrVuEg" name="professor" type="_hFgdoA3kEeWfg8LmfrVuEg">
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_39iMAA3pEeWMKsVXT7gRww" name="" value="null"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_p7uwEA3nEeWfg8LmfrVuEg" name="data_aula" isReadOnly="true" isDerivedUnion="true">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#TimeExpression"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_p7uwEQ3nEeWfg8LmfrVuEg" name="" value="2015-03-10 10:00:00"/>
       </ownedAttribute>
       <ownedBehavior xmi:type="uml:FunctionBehavior" xmi:id="_2Y0fgJ0ZEdyNrffIHb491A" name="setState" postcondition="_KTh6cJ0aEdyNrffIHb491A">
         <ownedRule xmi:id="_KTh6cJ0aEdyNrffIHb491A">
@@ -24,22 +35,22 @@
         </ownedRule>
         <ownedParameter xmi:id="_BzKb4J0aEdyNrffIHb491A" name="x"/>
       </ownedBehavior>
-      <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_yqv4YOjJEdu6LJeVabImNg" name="Sessao">
+      <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_yqv4YOjJEdu6LJeVabImNg" name="Chamada">
         <region xmi:id="_VIx8EJKuEdyUSNhMCOPPLg" name="sort">
           <subvertex xmi:type="uml:Pseudostate" xmi:id="_ZMY7cJKuEdyUSNhMCOPPLg" name="init"/>
           <subvertex xmi:type="uml:State" xmi:id="_6TZPAJeEEdyCyNzfMULFnw" name="nao_aberta">
             <stateInvariant xmi:id="_3qwZwAr8Ed2Pmahp7QLr3A">
-              <specification xmi:type="uml:LiteralString" xmi:id="_4TlUUAr8Ed2Pmahp7QLr3A" value="state = State::nao_aberta"/>
+              <specification xmi:type="uml:LiteralString" xmi:id="_4TlUUAr8Ed2Pmahp7QLr3A" value="state  = ChamadaState::nao_aberta"/>
             </stateInvariant>
           </subvertex>
           <subvertex xmi:type="uml:State" xmi:id="_7YFmMJeEEdyCyNzfMULFnw" name="aberta">
             <stateInvariant xmi:id="_7cJnwAr8Ed2Pmahp7QLr3A">
-              <specification xmi:type="uml:LiteralString" xmi:id="_88RWsAr8Ed2Pmahp7QLr3A" value="state = State::aberta"/>
+              <specification xmi:type="uml:LiteralString" xmi:id="_88RWsAr8Ed2Pmahp7QLr3A" value="state  = ChamadaState::aberta"/>
             </stateInvariant>
           </subvertex>
           <subvertex xmi:type="uml:State" xmi:id="_7jj2YJeEEdyCyNzfMULFnw" name="encerrada">
             <stateInvariant xmi:id="_-zCEAAr8Ed2Pmahp7QLr3A">
-              <specification xmi:type="uml:LiteralString" xmi:id="__floAAr8Ed2Pmahp7QLr3A" value="state = State::encerrada"/>
+              <specification xmi:type="uml:LiteralString" xmi:id="__floAAr8Ed2Pmahp7QLr3A" value="state  = ChamadaState::encerrada"/>
             </stateInvariant>
           </subvertex>
           <transition xmi:id="_KHZoYJeHEdyqN79LFuBS7A" name="init2nao_aberta" target="_6TZPAJeEEdyCyNzfMULFnw" source="_ZMY7cJKuEdyUSNhMCOPPLg"/>
@@ -47,66 +58,64 @@
             <ownedRule xmi:id="_WNKgoAk6EeW4Zd_Lzs5Nzg" name="">
               <specification xmi:type="uml:LiteralString" xmi:id="_WNKgoQk6EeW4Zd_Lzs5Nzg" value="recebendo_tick = true"/>
             </ownedRule>
-            <effect xmi:type="uml:FunctionBehavior" xmi:id="_wOwkgJeIEdyqN79LFuBS7A" specification="_HQGfwOzQEduqQpSKns4XGA"/>
-            <trigger xmi:id="_uATI4JeIEdyqN79LFuBS7A" event="_MaE9UOjKEdu6LJeVabImNg"/>
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_wOwkgJeIEdyqN79LFuBS7A" name="" specification="_HQGfwOzQEduqQpSKns4XGA"/>
+            <trigger xmi:id="_uATI4JeIEdyqN79LFuBS7A" name="" event="_MaE9UOjKEdu6LJeVabImNg"/>
           </transition>
           <transition xmi:id="_LBEbUJeHEdyqN79LFuBS7A" name="aberta2aberta" guard="_4X1ecAhvEeWo2qsvHoqUxQ" target="_7YFmMJeEEdyCyNzfMULFnw" source="_7YFmMJeEEdyCyNzfMULFnw">
             <ownedRule xmi:id="_4X1ecAhvEeWo2qsvHoqUxQ" name="">
-              <specification xmi:type="uml:LiteralString" xmi:id="_8e1wEAhvEeWo2qsvHoqUxQ" value="recebendo_tick = true"/>
+              <specification xmi:type="uml:LiteralString" xmi:id="_8e1wEAhvEeWo2qsvHoqUxQ" value="recebendo_tick = true or recebendo_tick = false"/>
             </ownedRule>
-            <effect xmi:type="uml:FunctionBehavior" xmi:id="__BX4cJgxEdya-JAksPDiSg" specification="_xhSRwO2yEdu00tpIhIjmTg"/>
-            <trigger xmi:id="_X_Z6UAk6EeW4Zd_Lzs5Nzg" event="_treFIAZ8EeW1-OgwpVc0Kw"/>
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="__BX4cJgxEdya-JAksPDiSg" name="" specification="_xhSRwO2yEdu00tpIhIjmTg"/>
+            <trigger xmi:id="_X_Z6UAk6EeW4Zd_Lzs5Nzg" name="" event="_treFIAZ8EeW1-OgwpVc0Kw"/>
           </transition>
           <transition xmi:id="_LbJvQJeHEdyqN79LFuBS7A" name="aberta2encerrada" target="_7jj2YJeEEdyCyNzfMULFnw" source="_7YFmMJeEEdyCyNzfMULFnw">
             <ownedRule xmi:id="_phXukAhxEeWo2qsvHoqUxQ" name="">
               <specification xmi:type="uml:LiteralString" xmi:id="_phXukQhxEeWo2qsvHoqUxQ" value="recebendo_tick =false"/>
             </ownedRule>
-            <effect xmi:type="uml:FunctionBehavior" xmi:id="_ZYnI8Ak6EeW4Zd_Lzs5Nzg" specification="_wegX8JG6EdydJaDhzZfmUQ"/>
-            <trigger xmi:id="_YWpVoAk6EeW4Zd_Lzs5Nzg" event="_MaE9UOjKEdu6LJeVabImNg"/>
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_ZYnI8Ak6EeW4Zd_Lzs5Nzg" name="" specification="_wegX8JG6EdydJaDhzZfmUQ"/>
+            <trigger xmi:id="_YWpVoAk6EeW4Zd_Lzs5Nzg" name="" event="_ufpUEAZ8EeW1-OgwpVc0Kw"/>
           </transition>
           <transition xmi:id="_LzldYJeHEdyqN79LFuBS7A" name="encerrada2encerrada" target="_7jj2YJeEEdyCyNzfMULFnw" source="_7jj2YJeEEdyCyNzfMULFnw">
             <ownedRule xmi:id="_i_lckAhxEeWo2qsvHoqUxQ">
               <specification xmi:type="uml:LiteralString" xmi:id="_kimHcAhxEeWo2qsvHoqUxQ" value="recebendo_tick = false"/>
             </ownedRule>
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_csacAAk6EeW4Zd_Lzs5Nzg" name="" specification="_Rmy5cAZ8EeW1-OgwpVc0Kw"/>
-            <trigger xmi:id="_YryfMAk6EeW4Zd_Lzs5Nzg" event="_ufpUEAZ8EeW1-OgwpVc0Kw"/>
+            <trigger xmi:id="_YryfMAk6EeW4Zd_Lzs5Nzg" name="" event="_ufpUEAZ8EeW1-OgwpVc0Kw"/>
           </transition>
         </region>
       </ownedBehavior>
       <ownedOperation xmi:id="_HQGfwOzQEduqQpSKns4XGA" name="abrirChamada" method="_wOwkgJeIEdyqN79LFuBS7A" postcondition="_QxNNEAkgEeWyXqZbehidIA">
         <ownedRule xmi:id="_QxNNEAkgEeWyXqZbehidIA" name="post">
-          <specification xmi:type="uml:LiteralString" xmi:id="_SZmHMAkgEeWyXqZbehidIA" value="if (state = State::nao_aberta) then recebendo_tick = true else recebendo_tick = false endif"/>
+          <specification xmi:type="uml:LiteralString" xmi:id="_SZmHMAkgEeWyXqZbehidIA" value="if (state = ChamadaState::nao_aberta) then recebendo_tick = true else recebendo_tick = false endif"/>
         </ownedRule>
-        <ownedParameter xmi:id="_Tfgw8AkhEeWyXqZbehidIA" name="boolean">
-          <type xmi:type="uml:Association" href="pathmap://UML_METAMODELS/UML.metamodel.uml#A_action_input"/>
-        </ownedParameter>
+        <ownedParameter xmi:id="_Tfgw8AkhEeWyXqZbehidIA" name="state" type="_dMVB4JsBEd20fKiJK1xsTw"/>
       </ownedOperation>
       <ownedOperation xmi:id="_xhSRwO2yEdu00tpIhIjmTg" name="receberTick" method="__BX4cJgxEdya-JAksPDiSg">
-        <ownedParameter xmi:id="_TvRrQAkhEeWyXqZbehidIA" name="boolean">
-          <type xmi:type="uml:Association" href="pathmap://UML_METAMODELS/UML.metamodel.uml#A_action_input"/>
-        </ownedParameter>
+        <ownedRule xmi:id="_EmcKEA3mEeWfg8LmfrVuEg" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_EmcKEQ3mEeWfg8LmfrVuEg" value="if (state = ChamadaState::nao_aberta) then recebendo_tick = true else recebendo_tick = false endif"/>
+        </ownedRule>
+        <ownedParameter xmi:id="_TvRrQAkhEeWyXqZbehidIA" name="state" type="_kKfRkA3kEeWfg8LmfrVuEg"/>
       </ownedOperation>
       <ownedOperation xmi:id="_wegX8JG6EdydJaDhzZfmUQ" name="encerrarChamada" method="_ZYnI8Ak6EeW4Zd_Lzs5Nzg">
-        <ownedParameter xmi:id="_T8XsEAkhEeWyXqZbehidIA" name="boolean">
-          <type xmi:type="uml:Association" href="pathmap://UML_METAMODELS/UML.metamodel.uml#A_action_input"/>
-        </ownedParameter>
+        <ownedRule xmi:id="_FD7-YA3mEeWfg8LmfrVuEg" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_FD7-YQ3mEeWfg8LmfrVuEg" value="if (state = ChamadaState::nao_aberta) then recebendo_tick = true else recebendo_tick = false endif"/>
+        </ownedRule>
+        <ownedParameter xmi:id="_T8XsEAkhEeWyXqZbehidIA" name="state" type="_dMVB4JsBEd20fKiJK1xsTw"/>
       </ownedOperation>
       <ownedOperation xmi:id="_Rmy5cAZ8EeW1-OgwpVc0Kw" name="calcularPresenca" method="_csacAAk6EeW4Zd_Lzs5Nzg">
-        <ownedParameter xmi:id="_UWjtsAkhEeWyXqZbehidIA" name="boolean">
-          <type xmi:type="uml:Association" href="pathmap://UML_METAMODELS/UML.metamodel.uml#A_action_input"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:id="_dYbdEJK5EdyTRYb9X5VB4w" name="setState" postcondition="_15-PcAkgEeWyXqZbehidIA">
-        <ownedRule xmi:id="_15-PcAkgEeWyXqZbehidIA" name="post">
-          <specification xmi:type="uml:LiteralString" xmi:id="_15-PcQkgEeWyXqZbehidIA" value="if (state = State::nao_aberta) then recebendo_tick = true else recebendo_tick = false endif"/>
+        <ownedRule xmi:id="_FTA8MA3mEeWfg8LmfrVuEg" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_FTA8MQ3mEeWfg8LmfrVuEg" value="if (tick !=null) then recebendo_tick = true else recebendo_tick = false endif"/>
         </ownedRule>
-        <ownedParameter xmi:id="_bxKq4AhtEeWo2qsvHoqUxQ" name="state" type="_dMVB4JsBEd20fKiJK1xsTw"/>
+        <ownedParameter xmi:id="_UWjtsAkhEeWyXqZbehidIA" name="ticks" type="_kKfRkA3kEeWfg8LmfrVuEg" isUnique="false"/>
       </ownedOperation>
     </packagedElement>
-    <packagedElement xmi:type="uml:Enumeration" xmi:id="_dMVB4JsBEd20fKiJK1xsTw" name="State">
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_dMVB4JsBEd20fKiJK1xsTw" name="ChamadaState">
       <ownedLiteral xmi:id="_iYoHoJsBEd20fKiJK1xsTw" name="nao_aberta"/>
       <ownedLiteral xmi:id="_ilI5oJsBEd20fKiJK1xsTw" name="aberta"/>
       <ownedLiteral xmi:id="_ixNmwJsBEd20fKiJK1xsTw" name="encerrada"/>
     </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_hFgdoA3kEeWfg8LmfrVuEg" name="Professor"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_kKfRkA3kEeWfg8LmfrVuEg" name="Tick"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_8CmWMA3kEeWfg8LmfrVuEg" name="Turma"/>
   </packagedElement>
 </uml:Model>
