@@ -57,7 +57,7 @@
           <transition xmi:id="_KncaYJeHEdyqN79LFuBS7A" name="nao_aberta2aberta" target="_7YFmMJeEEdyCyNzfMULFnw" source="_6TZPAJeEEdyCyNzfMULFnw">
             <trigger xmi:id="_uATI4JeIEdyqN79LFuBS7A" name="abrirChamada" event="_MaE9UOjKEdu6LJeVabImNg"/>
           </transition>
-          <transition xmi:id="_LBEbUJeHEdyqN79LFuBS7A" name="aberta2aberta" redefinedTransition="_LBEbUJeHEdyqN79LFuBS7A" target="_7YFmMJeEEdyCyNzfMULFnw" source="_7YFmMJeEEdyCyNzfMULFnw">
+          <transition xmi:id="_LBEbUJeHEdyqN79LFuBS7A" name="aberta2aberta" target="_7YFmMJeEEdyCyNzfMULFnw" source="_7YFmMJeEEdyCyNzfMULFnw">
             <trigger xmi:id="_X_Z6UAk6EeW4Zd_Lzs5Nzg" name="receberTick" event="_treFIAZ8EeW1-OgwpVc0Kw"/>
           </transition>
           <transition xmi:id="_LbJvQJeHEdyqN79LFuBS7A" name="aberta2encerrada" target="_7jj2YJeEEdyCyNzfMULFnw" source="_7YFmMJeEEdyCyNzfMULFnw">

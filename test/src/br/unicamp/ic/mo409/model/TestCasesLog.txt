@@ -14,12 +14,12 @@
    triggered by calcularPresencaEvent
  - satisfied: (test goal #2 - traversed transition) 
    from node Chamada::sort::aberta
-   to node Chamada::sort::encerrada
-   triggered by encerrarChamadaEvent
- - satisfied: (test goal #3 - traversed transition) 
-   from node Chamada::sort::aberta
    to node Chamada::sort::aberta
    triggered by receberTickEvent
+ - satisfied: (test goal #3 - traversed transition) 
+   from node Chamada::sort::aberta
+   to node Chamada::sort::encerrada
+   triggered by encerrarChamadaEvent
  - satisfied: (test goal #4 - traversed transition) 
    from node Chamada::sort::nao_aberta
    to node Chamada::sort::aberta
