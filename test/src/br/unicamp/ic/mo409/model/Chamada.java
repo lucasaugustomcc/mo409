@@ -20,10 +20,10 @@ public class Chamada {
 	public void abrirChamada(ChamadaState state) {
 	}
 
-	public void encerrarChamada(ChamadaState state) {
+	public void encerrarChamada(String hora_fim) {
 	}
 
-	public void calculaPresenca(Tick ticks) {
+	public void calculaPresenca(ChamadaState state) {
 	}
 
 	public void receberTick(ChamadaState state) {
