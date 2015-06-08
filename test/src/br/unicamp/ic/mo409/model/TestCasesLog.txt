@@ -10,19 +10,24 @@
 
  - satisfied: (test goal #1 - traversed transition) 
    from node Chamada::sort::encerrada
-   to node Chamada::sort::encerrada
-   triggered by calcularPresencaEvent
+   to node tmp4
+   triggered by encerrarChamadaEvent
  - satisfied: (test goal #2 - traversed transition) 
    from node Chamada::sort::aberta
-   to node Chamada::sort::aberta
-   triggered by receberTickEvent
+   to node tmp3
+   triggered by encerrarChamadaEvent
  - satisfied: (test goal #3 - traversed transition) 
    from node Chamada::sort::aberta
-   to node Chamada::sort::encerrada
-   triggered by encerrarChamadaEvent
+   to node tmp2
+   triggered by receberTickEvent
+   with condition truth: true
+((recebendo_tick = null) and (recebendo_tick <> null))
+ or ((recebendo_tick <> null) and (recebendo_tick = null))
+ or ((recebendo_tick = null))
+ or ((recebendo_tick <> null))
  - satisfied: (test goal #4 - traversed transition) 
    from node Chamada::sort::nao_aberta
-   to node Chamada::sort::aberta
+   to node tmp1
    triggered by abrirChamadaEvent
  - satisfied: (test goal #5 - traversed transition) 
    from node Chamada::sort::init
