@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
@@ -26,21 +25,10 @@ public class AlunoDAO implements Serializable {
 	{
 		return entityManager.find(Aluno.class, id);
 	}
-
-	@Transactional
-	public void persist(Aluno aluno) {
-		entityManager.persist(aluno);
-		entityManager.flush();
-	}
-
-	public void merge(Aluno aluno) 
-	{
-		entityManager.merge(aluno);
-	}
-
-	@Transactional
-	public void remove(Aluno aluno) {
-		entityManager.remove(aluno);
+	
+	public List<Aluno> listTurmasByAluno(Aluno aluno) 
+	{		
+		return null;
 	}
 
 	@SuppressWarnings("unchecked")

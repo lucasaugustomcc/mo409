@@ -1,8 +1,23 @@
 package br.unicamp.ic.mo409.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 
 /**
@@ -30,6 +45,7 @@ public class Turma implements Serializable {
 	private int periodo;
 
 	//bi-directional many-to-one association to Aula
+	@JsonIgnore
 	@OneToMany(mappedBy="turma")
 	private List<Chamada> aulas;
 
@@ -43,6 +59,7 @@ public class Turma implements Serializable {
 	private Disciplina disciplina;
 
 	//bi-directional many-to-many association to Aluno
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 		name="tb_turma_aluno"

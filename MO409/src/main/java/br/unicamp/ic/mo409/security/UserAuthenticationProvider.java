@@ -29,9 +29,7 @@ public class UserAuthenticationProvider implements AuthenticationProvider, Seria
 
 		boolean result = usuarioDAO.isUsuarioValido(authentication.getPrincipal()
 				.toString(), authentication.getCredentials().toString());
-		
-		//boolean result = false;
-				
+						
 		if (result) {
 			List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
 			grantedAuthorities.add(new GrantedAuthority() {
@@ -43,7 +41,6 @@ public class UserAuthenticationProvider implements AuthenticationProvider, Seria
 
 				@Override
 				public String getAuthority() {
-					// TODO Auto-generated method stub
 					return "ROLE_USER";
 				}
 			});

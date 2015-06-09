@@ -26,11 +26,11 @@ public class ChamadaController {
 		if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
 			UserDetails details = (UserDetails) authentication.getPrincipal();
 			String username = details.getUsername();
-			System.out.println(username);
+			System.out.println("username:" + username);
 		}
 		List<Usuario> lista = usuarioDAO.findAll();
 		System.out.println("Executando a lógica com Spring MVC");
 
-		return "olaMundo";
+		return "chamada";
 	}
 }

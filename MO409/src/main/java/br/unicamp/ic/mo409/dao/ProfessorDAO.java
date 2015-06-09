@@ -5,11 +5,11 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
 import br.unicamp.ic.mo409.model.Professor;
+import br.unicamp.ic.mo409.model.Turma;
 
 @Repository("ProfessorDAO")
 public class ProfessorDAO implements Serializable {
@@ -26,26 +26,12 @@ public class ProfessorDAO implements Serializable {
 	{
 		return entityManager.find(Professor.class, id);
 	}
-
-	@Transactional
-	public void persist(Professor professor) {
-		entityManager.persist(professor);
-		entityManager.flush();
-	}
-
-	public void merge(Professor professor) 
-	{
-		entityManager.merge(professor);
-	}
-
-	@Transactional
-	public void remove(Professor professor) {
-		entityManager.remove(professor);
-	}
-
+	
 	@SuppressWarnings("unchecked")
-	public List<Professor> findAll() {		
-		return entityManager.createQuery("SELECT c FROM Professor c")
+	public List<Turma> listTurmasByProfessor(Professor professor) 
+	{		
+		return entityManager.createQuery("SELECT t FROM Turma t join t.professores p WHERE t.periodo = 1 AND p.raProfessor = :RaProfessor")
+				.setParameter("RaProfessor", professor.getRaProfessor())
 				.getResultList();
 	}
 }
