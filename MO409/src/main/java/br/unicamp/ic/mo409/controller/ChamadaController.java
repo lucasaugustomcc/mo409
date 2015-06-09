@@ -15,17 +15,18 @@ import br.unicamp.ic.mo409.model.Usuario;
 
 @Component
 @RestController
-public class OlaMundoController {
+public class ChamadaController {
 
 	@Autowired
 	public UsuarioDAO usuarioDAO;
 
-	@RequestMapping("/casa/olaMundoSpring")
+	@RequestMapping("/professor/chamada")
 	public String execute() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
 			UserDetails details = (UserDetails) authentication.getPrincipal();
 			String username = details.getUsername();
+			System.out.println(username);
 		}
 		List<Usuario> lista = usuarioDAO.findAll();
 		System.out.println("Executando a lógica com Spring MVC");

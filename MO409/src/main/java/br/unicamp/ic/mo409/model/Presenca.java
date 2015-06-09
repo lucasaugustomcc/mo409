@@ -33,7 +33,7 @@ public class Presenca implements Serializable {
 	//bi-directional many-to-one association to Aula
 	@ManyToOne
 	@JoinColumn(name="tb_aula_id_aula", nullable=false)
-	private Aula aula;
+	private Chamada chamada;
 
 	public Presenca() {
 	}
@@ -70,12 +70,12 @@ public class Presenca implements Serializable {
 		this.aluno = aluno;
 	}
 
-	public Aula getAula() {
-		return this.aula;
+	public Chamada getChamada() {
+		return this.chamada;
 	}
 
-	public void setAula(Aula aula) {
-		this.aula = aula;
+	public void setChamada(Chamada chamada) {
+		this.chamada = chamada;
 	}
 
 }

@@ -24,7 +24,7 @@ public class Professor implements Serializable {
 
 	//bi-directional many-to-one association to Aula
 	@OneToMany(mappedBy="professor")
-	private List<Aula> aulas;
+	private List<Chamada> aulas;
 
 	//bi-directional many-to-many association to Turma
 	@ManyToMany
@@ -55,22 +55,22 @@ public class Professor implements Serializable {
 		this.raProfessor = raProfessor;
 	}
 
-	public List<Aula> getAulas() {
+	public List<Chamada> getAulas() {
 		return this.aulas;
 	}
 
-	public void setAulas(List<Aula> aulas) {
+	public void setAulas(List<Chamada> aulas) {
 		this.aulas = aulas;
 	}
 
-	public Aula addAula(Aula aula) {
+	public Chamada addAula(Chamada aula) {
 		getAulas().add(aula);
 		aula.setProfessor(this);
 
 		return aula;
 	}
 
-	public Aula removeAula(Aula aula) {
+	public Chamada removeAula(Chamada aula) {
 		getAulas().remove(aula);
 		aula.setProfessor(null);
 

@@ -55,16 +55,15 @@ public class UsuarioDAO implements Serializable {
 		return entityManager.find(Usuario.class, usuario.getIdUsuario()) != null;
 	}
 
-	public boolean isUsuarioValido(String usuarioname, String password) {
-		// 1-Send query to database to see if that usuario exist
+	public boolean isUsuarioValido(String usuario, String password) {
 	    Query query = entityManager
-	            .createQuery("SELECT u FROM Usuario u WHERE u.usuarioname=:usuarionameparam AND u.password=:passwordparam");
-	    query.setParameter("usuarionameparam", usuarioname);
+	            .createQuery("SELECT u FROM Usuario u WHERE u.nome=:usuarionameparam AND u.senha=:passwordparam");
+	    query.setParameter("usuarionameparam", usuario);
 	    query.setParameter("passwordparam", password);
 
 	    try 
 	    {
-	    	Usuario usuario = (Usuario) query.getSingleResult();
+	    	query.getSingleResult();
 	    	return true;
 	    }
 	    catch (NoResultException e)

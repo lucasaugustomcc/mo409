@@ -17,9 +17,6 @@ public class UserAuthenticationToken extends AbstractAuthenticationToken {
         this.principal = principal;
         this.credentials = credentials;
         
-        System.out.println(this.principal);
-    	System.out.println(this.credentials);
-
         super.setAuthenticated(true);
     }
  

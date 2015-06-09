@@ -9,10 +9,10 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import br.unicamp.ic.mo409.model.Aula;
+import br.unicamp.ic.mo409.model.Chamada;
 
-@Repository("AulaDAO")
-public class AulaDAO implements Serializable {
+@Repository("ChamadaDAO")
+public class ChamadaDAO implements Serializable {
 
 	/**
 	 * 
@@ -22,29 +22,29 @@ public class AulaDAO implements Serializable {
 	@PersistenceContext(unitName = "persistenceUnit")
 	protected EntityManager entityManager;
 
-	public Aula find(Integer id) 
+	public Chamada find(Integer id) 
 	{
-		return entityManager.find(Aula.class, id);
+		return entityManager.find(Chamada.class, id);
 	}
 
 	@Transactional
-	public void persist(Aula aula) {
-		entityManager.persist(aula);
+	public void persist(Chamada chamada) {
+		entityManager.persist(chamada);
 		entityManager.flush();
 	}
 
-	public void merge(Aula aula) 
+	public void merge(Chamada chamada) 
 	{
-		entityManager.merge(aula);
+		entityManager.merge(chamada);
 	}
 
 	@Transactional
-	public void remove(Aula aula) {
-		entityManager.remove(aula);
+	public void remove(Chamada chamada) {
+		entityManager.remove(chamada);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Aula> findAll() {		
+	public List<Chamada> findAll() {		
 		return entityManager.createQuery("SELECT c FROM Aula c")
 				.getResultList();
 	}

@@ -6,67 +6,82 @@ import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
-
 /**
- * The persistent class for the tb_aula database table.
+ * The persistent class for the tb_chamada database table.
  * 
  */
 @Entity
-@Table(name="tb_aula")
-@NamedQuery(name="Aula.findAll", query="SELECT a FROM Aula a")
-public class Aula implements Serializable {
+@Table(name = "tb_chamada")
+@NamedQuery(name = "Chamada.findAll", query = "SELECT a FROM Chamada a")
+public class Chamada implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_aula", unique=true, nullable=false)
-	private int idAula;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id_chamada", unique = true, nullable = false)
+	private int idChamada;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="data_aula")
-	private Date dataAula;
+	@Column(name = "data_chamada")
+	private Date dataChamada;
 
-	@Column(name="hora_fim")
+	@Column(name = "hora_fim")
 	private Time horaFim;
 
-	@Column(name="hora_inicio")
+	@Column(name = "hora_inicio")
 	private Time horaInicio;
 
-	//bi-directional many-to-one association to Professor
+	// bi-directional many-to-one association to Professor
 	@ManyToOne
-	@JoinColumn(name="tb_professor_ra_professor", nullable=false)
+	@JoinColumn(name = "tb_professor_ra_professor", nullable = false)
 	private Professor professor;
 
-	//bi-directional many-to-one association to Turma
+	// bi-directional many-to-one association to Turma
 	@ManyToOne
-	@JoinColumn(name="tb_turma_id_turma", nullable=false)
+	@JoinColumn(name = "tb_turma_id_turma", nullable = false)
 	private Turma turma;
 
-	//bi-directional many-to-one association to Presenca
-	@OneToMany(mappedBy="aula")
+	// bi-directional many-to-one association to Presenca
+	@OneToMany(mappedBy = "chamada")
 	private List<Presenca> presencas;
 
-	//bi-directional many-to-one association to Tick
-	@OneToMany(mappedBy="aula")
+	// bi-directional many-to-one association to Tick
+	@OneToMany(mappedBy = "chamada")
 	private List<Tick> ticks;
 
-	public Aula() {
+	public Chamada() {
 	}
 
-	public int getIdAula() {
-		return this.idAula;
+	public boolean abrirChamada() {
+		return false;
 	}
 
-	public void setIdAula(int idAula) {
-		this.idAula = idAula;
+	public boolean encerrarChamada() {
+		return false;
 	}
 
-	public Date getDataAula() {
-		return this.dataAula;
+	public Tick receberTick() {
+		return null;
+	}
+	
+	public List<Presenca> calcularPresencas() {
+		return null;
 	}
 
-	public void setDataAula(Date dataAula) {
-		this.dataAula = dataAula;
+	public int getIdChamada() {
+		return this.idChamada;
+	}
+
+	public void setIdChamada(int idChamada) {
+		this.idChamada = idChamada;
+	}
+
+	public Date getDataChamada() {
+		return this.dataChamada;
+	}
+
+	public void setDataChamada(Date dataChamada) {
+		this.dataChamada = dataChamada;
 	}
 
 	public Time getHoraFim() {
@@ -111,14 +126,14 @@ public class Aula implements Serializable {
 
 	public Presenca addPresenca(Presenca presenca) {
 		getPresencas().add(presenca);
-		presenca.setAula(this);
+		presenca.setChamada(this);
 
 		return presenca;
 	}
 
 	public Presenca removePresenca(Presenca presenca) {
 		getPresencas().remove(presenca);
-		presenca.setAula(null);
+		presenca.setChamada(null);
 
 		return presenca;
 	}
@@ -133,14 +148,14 @@ public class Aula implements Serializable {
 
 	public Tick addTick(Tick tick) {
 		getTicks().add(tick);
-		tick.setAula(this);
+		tick.setChamada(this);
 
 		return tick;
 	}
 
 	public Tick removeTick(Tick tick) {
 		getTicks().remove(tick);
-		tick.setAula(null);
+		tick.setChamada(null);
 
 		return tick;
 	}
