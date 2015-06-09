@@ -14,15 +14,15 @@ public class TestCases{
 	public void test1()
 	{
 		Chamada oTestObject = new Chamada();
-		ChamadaState state1 = ChamadaState.nao_aberta;
+		Integer disciplina1 = -268;
 		ChamadaState state3 = ChamadaState.nao_aberta;
 		ChamadaState state5 = ChamadaState.nao_aberta;
 		assertEquals(true, (oTestObject.state == ChamadaState.nao_aberta));
-		oTestObject.handleEvent("abrirChamadaEvent", state1);
+		oTestObject.handleEvent("abrirChamadaEvent", disciplina1);
 		assertEquals(true, (oTestObject.state == ChamadaState.aberta));
 		oTestObject.handleEvent("encerrarChamadaEvent", state3);
 		assertEquals(true, (oTestObject.state == ChamadaState.encerrada));
-		oTestObject.handleEvent("encerrarChamadaEvent", state5);
+		oTestObject.handleEvent("calcularPresencaEvent", state5);
 		assertEquals(true, (oTestObject.state == ChamadaState.encerrada));
 		
 	}
@@ -31,16 +31,14 @@ public class TestCases{
 	public void test2()
 	{
 		Chamada oTestObject = new Chamada();
-		ChamadaState state1 = ChamadaState.nao_aberta;
-		ChamadaState state3 = ChamadaState.nao_aberta;
+		Integer disciplina1 = -343;
+		Integer tick3 = -5;
 		assertEquals(true, (oTestObject.state == ChamadaState.nao_aberta));
-		oTestObject.handleEvent("abrirChamadaEvent", state1);
-		assertEquals(true, (state1 == ChamadaState.nao_aberta));
-		assertEquals(true, (oTestObject.recebendo_tick.booleanValue() == true));
+		oTestObject.handleEvent("abrirChamadaEvent", disciplina1);
 		assertEquals(true, (oTestObject.state == ChamadaState.aberta));
 		assertEquals(true, (oTestObject.recebendo_tick.booleanValue() == true));
 		assertEquals(true, (oTestObject.recebendo_tick.booleanValue() != false));
-		oTestObject.handleEvent("receberTickEvent", state3);
+		oTestObject.handleEvent("receberTickEvent", tick3);
 		assertEquals(true, (oTestObject.state == ChamadaState.aberta));
 		
 	}

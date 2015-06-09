@@ -55,9 +55,6 @@
           </subvertex>
           <transition xmi:id="_KHZoYJeHEdyqN79LFuBS7A" name="init2nao_aberta" target="_6TZPAJeEEdyCyNzfMULFnw" source="_ZMY7cJKuEdyUSNhMCOPPLg"/>
           <transition xmi:id="_KncaYJeHEdyqN79LFuBS7A" name="nao_aberta2aberta" target="_7YFmMJeEEdyCyNzfMULFnw" source="_6TZPAJeEEdyCyNzfMULFnw">
-            <ownedRule xmi:id="_WNKgoAk6EeW4Zd_Lzs5Nzg" name="">
-              <specification xmi:type="uml:LiteralString" xmi:id="_WNKgoQk6EeW4Zd_Lzs5Nzg" value="recebendo_tick = true"/>
-            </ownedRule>
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_wOwkgJeIEdyqN79LFuBS7A" name="abrirChamada" specification="_HQGfwOzQEduqQpSKns4XGA"/>
             <trigger xmi:id="_uATI4JeIEdyqN79LFuBS7A" name="abrirChamada" event="_MaE9UOjKEdu6LJeVabImNg"/>
           </transition>
@@ -80,7 +77,7 @@
               <specification xmi:type="uml:LiteralString" xmi:id="_kimHcAhxEeWo2qsvHoqUxQ" value="recebendo_tick = false"/>
             </ownedRule>
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_csacAAk6EeW4Zd_Lzs5Nzg" name="calcularPresenca" specification="_Rmy5cAZ8EeW1-OgwpVc0Kw"/>
-            <trigger xmi:id="_YryfMAk6EeW4Zd_Lzs5Nzg" name="encerrarChamada" event="_ufpUEAZ8EeW1-OgwpVc0Kw"/>
+            <trigger xmi:id="_YryfMAk6EeW4Zd_Lzs5Nzg" name="calcularPresenca" event="_ssPcwAZ8EeW1-OgwpVc0Kw"/>
           </transition>
         </region>
       </ownedBehavior>
@@ -88,13 +85,14 @@
         <ownedRule xmi:id="_QxNNEAkgEeWyXqZbehidIA" name="post">
           <specification xmi:type="uml:LiteralString" xmi:id="_SZmHMAkgEeWyXqZbehidIA" value="if (state = ChamadaState::nao_aberta) then recebendo_tick = true else recebendo_tick = false endif"/>
         </ownedRule>
-        <ownedParameter xmi:id="_a_tcsA3nEeWfg8LmfrVuEg" name="state" type="_dMVB4JsBEd20fKiJK1xsTw"/>
+        <ownedParameter xmi:id="_xSG1wA6tEeWOgpCl8lrPTA" name="disciplina">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="_xhSRwO2yEdu00tpIhIjmTg" name="receberTick" method="__BX4cJgxEdya-JAksPDiSg">
-        <ownedRule xmi:id="_EmcKEA3mEeWfg8LmfrVuEg" name="post">
-          <specification xmi:type="uml:LiteralString" xmi:id="_EmcKEQ3mEeWfg8LmfrVuEg" value="if (state = ChamadaState::nao_aberta) then recebendo_tick = true else recebendo_tick = false endif"/>
-        </ownedRule>
-        <ownedParameter xmi:id="_Zd61oA3uEeW9P_WLFKNCiw" name="state" type="_dMVB4JsBEd20fKiJK1xsTw"/>
+        <ownedParameter xmi:id="_Zd61oA3uEeW9P_WLFKNCiw" name="tick">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="_wegX8JG6EdydJaDhzZfmUQ" name="encerrarChamada" method="_ZYnI8Ak6EeW4Zd_Lzs5Nzg">
         <ownedRule xmi:id="_FD7-YA3mEeWfg8LmfrVuEg" name="post">

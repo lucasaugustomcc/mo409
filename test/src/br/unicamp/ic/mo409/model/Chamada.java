@@ -17,7 +17,8 @@ public class Chamada {
 		setRecebendoTick(false);
 	}
 
-	public void abrirChamada(ChamadaState state) {
+	public void abrirChamada(Integer turma) {
+		state = ChamadaState.aberta;
 	}
 
 	public void encerrarChamada(String hora_fim) {
@@ -36,7 +37,8 @@ public class Chamada {
 			if ((state == ChamadaState.nao_aberta)
 					&& (sEventName.compareTo("abrirChamadaEvent") == 0)) 
 			{
-					state = ChamadaState.aberta;
+				Integer turma = (Integer) in_colObject[1];		
+				abrirChamada(turma);
 			}
 			
 			if (sEventName.compareTo("receberTickEvent") == 0) 
