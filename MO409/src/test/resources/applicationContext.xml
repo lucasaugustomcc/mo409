@@ -27,7 +27,5 @@
 	<!-- for database configuration -->
 	<import resource="db-configuration.xml" />
 
-	<!-- for spring-security-with-oauth configuration -->
-	<import resource="spring-security.xml" />
 	
 </beans>

@@ -9,6 +9,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import br.unicamp.ic.mo409.model.Usuario;
@@ -23,6 +25,7 @@ public class UsuarioDAO implements Serializable {
 	
 	@PersistenceContext(unitName = "persistenceUnit")
 	protected EntityManager entityManager;
+	//protected EntityManager entityManager = Persistence.createEntityManagerFactory("persistenceUnit").createEntityManager();
 
 	public Usuario find(Integer id) 
 	{
@@ -69,6 +72,21 @@ public class UsuarioDAO implements Serializable {
 	    catch (NoResultException e)
     	{
     		return false;
+    	}	    
+	}
+	
+	public Usuario loadUsuarioByUsername(String usuario) {
+	    Query query = entityManager
+	            .createQuery("SELECT u FROM Usuario u WHERE u.nome=:usuarionameparam");
+	    query.setParameter("usuarionameparam", usuario);
+
+	    try 
+	    {
+	    	return (Usuario) query.getSingleResult();
+	    }
+	    catch (NoResultException e)
+    	{
+    		throw new UsernameNotFoundException("not found");
     	}	    
 	}
 }

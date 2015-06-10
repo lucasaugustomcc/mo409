@@ -26,7 +26,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Entity
 @Table(name="tb_usuario")
 @NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
-public class Usuario implements Serializable, UserDetails {
+public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -63,6 +63,12 @@ public class Usuario implements Serializable, UserDetails {
 
 	public void setIdUsuario(int idUsuario) {
 		this.idUsuario = idUsuario;
+	}
+	
+	public Integer getLogin() {
+		if (aluno != null)
+			return aluno.getRaAluno();
+		return professor.getRaProfessor();		
 	}
 
 	public String getEmail() {
@@ -113,41 +119,8 @@ public class Usuario implements Serializable, UserDetails {
 		this.papel = papel;
 	}
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		List<GrantedAuthority> lista = new ArrayList<GrantedAuthority>();
-		lista.add(new SimpleGrantedAuthority(this.papel));
-		return lista;
+	public String[] getRoles() {
+		String roles[] = papel.split(",");
+		return roles;
 	}
-
-	@Override
-	public String getPassword() {
-		return this.senha;
-	}
-
-	@Override
-	public String getUsername() {
-		return this.email;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		return false;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		return false;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return false;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
-
 }

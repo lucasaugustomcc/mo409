@@ -71,12 +71,11 @@
 		</repository>
 	</repositories>
 
-	<dependencies>		
+	<dependencies>
 		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-web-api</artifactId>
-			<version>6.0</version>
-			<scope>provided</scope>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>javax.persistence</artifactId>
+			<version>2.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -258,7 +257,7 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>${hibernate.version}</version>
-		</dependency>		
+		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
@@ -279,6 +278,8 @@
 			<artifactId>javax.el-api</artifactId>
 			<version>2.2.4</version>
 		</dependency>
+
+
 		<dependency>
 			<groupId>org.eclipse.jdt.core.compiler</groupId>
 			<artifactId>ecj</artifactId>
