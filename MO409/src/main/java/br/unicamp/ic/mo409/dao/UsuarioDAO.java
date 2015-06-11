@@ -25,34 +25,6 @@ public class UsuarioDAO implements Serializable {
 	
 	@PersistenceContext(unitName = "persistenceUnit")
 	protected EntityManager entityManager;
-	//protected EntityManager entityManager = Persistence.createEntityManagerFactory("persistenceUnit").createEntityManager();
-
-	public Usuario find(Integer id) 
-	{
-		return entityManager.find(Usuario.class, id);
-	}
-
-	@Transactional
-	public void persist(Usuario usuario) {
-		entityManager.persist(usuario);
-		entityManager.flush();
-	}
-
-	public void merge(Usuario Usuario) 
-	{
-		entityManager.merge(Usuario);
-	}
-
-	@Transactional
-	public void remove(Usuario Usuario) {
-		entityManager.remove(Usuario);
-	}
-
-	@SuppressWarnings("unchecked")
-	public List<Usuario> findAll() {		
-		return entityManager.createQuery("SELECT c FROM Usuario c")
-				.getResultList();
-	}
 
 	public boolean existeUsuario(Usuario usuario) {
 		return entityManager.find(Usuario.class, usuario.getIdUsuario()) != null;

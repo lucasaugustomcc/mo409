@@ -3,7 +3,7 @@ package br.unicamp.ic.mo409.rest;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.web.filter.RequestContextFilter;
 
-import br.unicamp.ic.mo409.controller.ChamadaController;
+import br.unicamp.ic.mo409.controller.AlunoController;
 
 //imports omitted for brevity 
 
@@ -20,7 +20,7 @@ public class RestApp extends ResourceConfig {
 	 */
 	public RestApp() {
 		// register application resources
-		register(ChamadaController.class);
+		register(AlunoController.class);
 		// register filters
 		register(RequestContextFilter.class);
 		register(CORSResponseFilter.class);

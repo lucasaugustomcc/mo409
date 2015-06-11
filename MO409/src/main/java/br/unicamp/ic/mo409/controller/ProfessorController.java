@@ -6,7 +6,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -24,7 +23,7 @@ import br.unicamp.ic.mo409.model.Turma;
 @Component
 @RestController
 public class ProfessorController {
-	
+
 	@Autowired
 	UsuarioDAO usuarioDAO;
 
@@ -32,43 +31,37 @@ public class ProfessorController {
 	public ProfessorDAO professorDAO;
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value="/professor/menu", 
-			method = RequestMethod.GET,
-			produces="application/json")
-	
-	@Secured({"ROLE_PROFESSOR"})
+	@RequestMapping(value = "/professor/menu", method = RequestMethod.GET, produces = "application/json")
+	@Secured({ "ROLE_PROFESSOR" })
 	@ResponseBody
 	public JSONArray menu() {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (authentication != null) {
-			UserDetails usuario = (UserDetails) authentication.getPrincipal();			
-			Professor professor = professorDAO.find(Integer.valueOf(usuario.getUsername()));
-			List<Turma> turmas = professorDAO.listTurmasByProfessor(professor);
-			
-			JSONArray array = new JSONArray();
-			for (Turma turma : turmas)
-			{
-				JSONObject obj = new JSONObject();
-				obj.put("cod", turma.getCodTurma());
-				obj.put("nome_disciplina", turma.getDisciplina().getNomeDisciplina());
-				array.add(obj);
-			}
-			return array;
+		UserDetails usuario = (UserDetails) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+
+		Professor professor = professorDAO.find(Integer.valueOf(usuario
+				.getUsername()));
+		List<Turma> turmas = professorDAO.listTurmasByProfessor(professor);
+
+		JSONArray array = new JSONArray();
+		for (Turma turma : turmas) {
+			JSONObject obj = new JSONObject();
+			obj.put("cod", turma.getCodTurma());
+			obj.put("nome_disciplina", turma.getDisciplina()
+					.getNomeDisciplina());
+			array.add(obj);
 		}
-		System.out.println("Executando a lógica com Spring MVC");
-		
-		
-		return null;
+		return array;
+
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/professor/chamada/abertura/turma/{turma_id}", method = RequestMethod.GET)
-	@Secured({"ROLE_PROFESSOR"})
+	@Secured({ "ROLE_PROFESSOR" })
 	@ResponseBody
 	public JSONObject getPerson(@PathVariable("turma_id") Long turma_id) {
 		JSONArray array = new JSONArray();
 		JSONObject obj = new JSONObject();
-		obj.put("turma_id",turma_id);
+		obj.put("turma_id", turma_id);
 		array.add(obj);
 		return obj;
 	}
