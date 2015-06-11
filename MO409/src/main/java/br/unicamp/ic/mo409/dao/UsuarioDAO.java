@@ -60,8 +60,8 @@ public class UsuarioDAO implements Serializable {
 
 	public boolean isUsuarioValido(String usuario, String password) {
 	    Query query = entityManager
-	            .createQuery("SELECT u FROM Usuario u WHERE u.nome=:usuarionameparam AND u.senha=:passwordparam");
-	    query.setParameter("usuarionameparam", usuario);
+	            .createQuery("SELECT u FROM Usuario u left join u.professor p left join u.aluno a WHERE (p.raProfessor=:usuarionameparam OR a.raAluno=:usuarionameparam) AND u.senha=:passwordparam");
+	    query.setParameter("usuarionameparam", Integer.valueOf(usuario));
 	    query.setParameter("passwordparam", password);
 
 	    try 
@@ -77,8 +77,8 @@ public class UsuarioDAO implements Serializable {
 	
 	public Usuario loadUsuarioByUsername(String usuario) {
 	    Query query = entityManager
-	            .createQuery("SELECT u FROM Usuario u WHERE u.nome=:usuarionameparam");
-	    query.setParameter("usuarionameparam", usuario);
+	            .createQuery("SELECT u FROM Usuario u  left join u.professor p left join u.aluno a WHERE p.raProfessor=:usuarionameparam OR a.raAluno=:usuarionameparam");
+	    query.setParameter("usuarionameparam", Integer.valueOf(usuario));
 
 	    try 
 	    {

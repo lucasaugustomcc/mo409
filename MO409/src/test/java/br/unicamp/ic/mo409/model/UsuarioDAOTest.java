@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
@@ -21,6 +22,10 @@ import br.unicamp.ic.mo409.dao.UsuarioDAO;
 @TransactionConfiguration(transactionManager="transactionManager", defaultRollback=false) 
 @Transactional 
 public class UsuarioDAOTest {
+	
+	@Autowired
+	protected UsuarioDAO user;
+
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -40,7 +45,6 @@ public class UsuarioDAOTest {
 
 	@Test
 	public void test() {
-		UsuarioDAO user = new UsuarioDAO();
 		assertEquals(true, user.isUsuarioValido("lucas", "lucas"));
 	}
 
