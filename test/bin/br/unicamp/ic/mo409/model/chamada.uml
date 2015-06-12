@@ -29,6 +29,10 @@
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#TimeExpression"/>
         <defaultValue xmi:type="uml:LiteralString" xmi:id="_p7uwEQ3nEeWfg8LmfrVuEg" name="" value="2015-03-10 10:00:00"/>
       </ownedAttribute>
+      <ownedAttribute xmi:id="_7rx-MBBAEeWaCPRCPew3ZA" name="m_location">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_7rx-MRBAEeWaCPRCPew3ZA" name="" value="0"/>
+      </ownedAttribute>
       <ownedBehavior xmi:type="uml:FunctionBehavior" xmi:id="_2Y0fgJ0ZEdyNrffIHb491A" name="setState" postcondition="_KTh6cJ0aEdyNrffIHb491A">
         <ownedRule xmi:id="_KTh6cJ0aEdyNrffIHb491A">
           <specification xmi:type="uml:LiteralString" xmi:id="_K_yjgJ0aEdyNrffIHb491A" value="state = x"/>
@@ -85,11 +89,12 @@
         <ownedRule xmi:id="_QxNNEAkgEeWyXqZbehidIA" name="post">
           <specification xmi:type="uml:LiteralString" xmi:id="_SZmHMAkgEeWyXqZbehidIA" value="if (state = ChamadaState::nao_aberta) then recebendo_tick = true else recebendo_tick = false endif"/>
         </ownedRule>
-        <ownedParameter xmi:id="_xSG1wA6tEeWOgpCl8lrPTA" name="disciplina">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        </ownedParameter>
+        <ownedParameter xmi:id="_xSG1wA6tEeWOgpCl8lrPTA" name="disciplina" type="_pGpSQBBEEeWXhZxsUZ3vgQ"/>
       </ownedOperation>
-      <ownedOperation xmi:id="_xhSRwO2yEdu00tpIhIjmTg" name="receberTick" method="__BX4cJgxEdya-JAksPDiSg">
+      <ownedOperation xmi:id="_xhSRwO2yEdu00tpIhIjmTg" name="receberTick" method="__BX4cJgxEdya-JAksPDiSg" postcondition="_FBtoQBBAEeWaCPRCPew3ZA">
+        <ownedRule xmi:id="_FBtoQBBAEeWaCPRCPew3ZA" name="">
+          <specification xmi:type="uml:LiteralString" xmi:id="_jPqNkBBAEeWaCPRCPew3ZA" value=""/>
+        </ownedRule>
         <ownedParameter xmi:id="_Zd61oA3uEeW9P_WLFKNCiw" name="tick">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
         </ownedParameter>
@@ -104,7 +109,9 @@
         <ownedRule xmi:id="_FTA8MA3mEeWfg8LmfrVuEg" name="post">
           <specification xmi:type="uml:LiteralString" xmi:id="_FTA8MQ3mEeWfg8LmfrVuEg" value="if (state = ChamadaState::nao_aberta) then recebendo_tick = true else recebendo_tick = false endif"/>
         </ownedRule>
-        <ownedParameter xmi:id="_aJXmYA3uEeW9P_WLFKNCiw" name="state" type="_dMVB4JsBEd20fKiJK1xsTw"/>
+        <ownedParameter xmi:id="_aJXmYA3uEeW9P_WLFKNCiw" name="tick">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Enumeration" xmi:id="_dMVB4JsBEd20fKiJK1xsTw" name="ChamadaState">
@@ -112,8 +119,31 @@
       <ownedLiteral xmi:id="_ilI5oJsBEd20fKiJK1xsTw" name="aberta"/>
       <ownedLiteral xmi:id="_ixNmwJsBEd20fKiJK1xsTw" name="encerrada"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_hFgdoA3kEeWfg8LmfrVuEg" name="Professor"/>
-    <packagedElement xmi:type="uml:Class" xmi:id="_kKfRkA3kEeWfg8LmfrVuEg" name="Tick"/>
-    <packagedElement xmi:type="uml:Class" xmi:id="_8CmWMA3kEeWfg8LmfrVuEg" name="Turma"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_hFgdoA3kEeWfg8LmfrVuEg" name="Professor">
+      <ownedAttribute xmi:id="_GNcugBAzEeWaCPRCPew3ZA" name="nome" isReadOnly="true" isDerivedUnion="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_METAMODELS/UML.metamodel.uml#String"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_GNcugRAzEeWaCPRCPew3ZA" name="" value="Joao"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_kKfRkA3kEeWfg8LmfrVuEg" name="Tick">
+      <ownedAttribute xmi:id="_R1QfIBAzEeWaCPRCPew3ZA" name="location" isReadOnly="true" isDerivedUnion="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_8CmWMA3kEeWfg8LmfrVuEg" name="Turma">
+      <ownedAttribute xmi:id="_yNyMABA7EeWaCPRCPew3ZA" name="codigo_turma" isReadOnly="true" isDerivedUnion="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_METAMODELS/UML.metamodel.uml#String"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_yNyMARA7EeWaCPRCPew3ZA" name="" value="A"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_zHW4UBA7EeWaCPRCPew3ZA" name="id_disciplina" isReadOnly="true" isDerivedUnion="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_zHW4URA7EeWaCPRCPew3ZA" name="" value="1234"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_pGpSQBBEEeWXhZxsUZ3vgQ" name="ListaDeDisciplinas">
+      <ownedLiteral xmi:id="_pGpSQRBEEeWXhZxsUZ3vgQ" name="MO409"/>
+      <ownedLiteral xmi:id="_pGpSQhBEEeWXhZxsUZ3vgQ" name="MO410"/>
+      <ownedLiteral xmi:id="_pGpSQxBEEeWXhZxsUZ3vgQ" name="MO210"/>
+    </packagedElement>
   </packagedElement>
 </uml:Model>

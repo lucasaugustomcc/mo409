@@ -1,5 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.1/notation" xmlns:uml="http://www.eclipse.org/uml2/2.1.0/UML" xmi:id="_uex9EA6uEeWOgpCl8lrPTA" type="UMLStateMachine" measurementUnit="Pixel">
+  <children xmi:type="notation:Node" xmi:id="_bFDHkA_HEeW9tOBv2PuSDg" type="2004">
+    <children xmi:type="notation:Node" xmi:id="_bFDHkw_HEeW9tOBv2PuSDg" type="5005"/>
+    <children xmi:type="notation:Node" xmi:id="_bFMRgA_HEeW9tOBv2PuSDg" type="3013">
+      <children xmi:type="notation:Node" xmi:id="_bFMRgw_HEeW9tOBv2PuSDg" type="7004">
+        <children xmi:type="notation:Node" xmi:id="_bFWCgA_HEeW9tOBv2PuSDg" type="3004">
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_bFWCgQ_HEeW9tOBv2PuSDg" fontName="Segoe UI"/>
+          <element xmi:type="uml:Pseudostate" href="chamada.uml#_ZMY7cJKuEdyUSNhMCOPPLg"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_bFWCgg_HEeW9tOBv2PuSDg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_bFfzgA_HEeW9tOBv2PuSDg" type="3001">
+          <children xmi:type="notation:Node" xmi:id="_bFfzgw_HEeW9tOBv2PuSDg" type="5001"/>
+          <children xmi:type="notation:Node" xmi:id="_bFfzhA_HEeW9tOBv2PuSDg" type="7005">
+            <styles xmi:type="notation:SortingStyle" xmi:id="_bFfzhQ_HEeW9tOBv2PuSDg"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_bFfzhg_HEeW9tOBv2PuSDg"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_bFfzgQ_HEeW9tOBv2PuSDg" fontName="Segoe UI"/>
+          <element xmi:type="uml:State" href="chamada.uml#_6TZPAJeEEdyCyNzfMULFnw"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_bFfzgg_HEeW9tOBv2PuSDg" x="241" y="20"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_bFo9cA_HEeW9tOBv2PuSDg" type="3001">
+          <children xmi:type="notation:Node" xmi:id="_bFo9cw_HEeW9tOBv2PuSDg" type="5001"/>
+          <children xmi:type="notation:Node" xmi:id="_bFyucA_HEeW9tOBv2PuSDg" type="7005">
+            <styles xmi:type="notation:SortingStyle" xmi:id="_bFyucQ_HEeW9tOBv2PuSDg"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_bFyucg_HEeW9tOBv2PuSDg"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_bFo9cQ_HEeW9tOBv2PuSDg" fontName="Segoe UI"/>
+          <element xmi:type="uml:State" href="chamada.uml#_7YFmMJeEEdyCyNzfMULFnw"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_bFo9cg_HEeW9tOBv2PuSDg" x="256" y="125"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_bFyucw_HEeW9tOBv2PuSDg" type="3001">
+          <children xmi:type="notation:Node" xmi:id="_bFyudg_HEeW9tOBv2PuSDg" type="5001"/>
+          <children xmi:type="notation:Node" xmi:id="_bFyudw_HEeW9tOBv2PuSDg" type="7005">
+            <styles xmi:type="notation:SortingStyle" xmi:id="_bFyueA_HEeW9tOBv2PuSDg"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_bFyueQ_HEeW9tOBv2PuSDg"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_bFyudA_HEeW9tOBv2PuSDg" fontName="Segoe UI"/>
+          <element xmi:type="uml:State" href="chamada.uml#_7jj2YJeEEdyCyNzfMULFnw"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_bFyudQ_HEeW9tOBv2PuSDg" x="246" y="280"/>
+        </children>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_bFMRhA_HEeW9tOBv2PuSDg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_bFMRhQ_HEeW9tOBv2PuSDg"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_bFMRgQ_HEeW9tOBv2PuSDg" fontName="Segoe UI"/>
+      <element xmi:type="uml:Region" href="chamada.uml#_VIx8EJKuEdyUSNhMCOPPLg"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_bFMRgg_HEeW9tOBv2PuSDg"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_bFDHkQ_HEeW9tOBv2PuSDg" fontName="Segoe UI"/>
+    <element xmi:type="uml:StateMachine" href="chamada.uml#_yqv4YOjJEdu6LJeVabImNg"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_bFDHkg_HEeW9tOBv2PuSDg"/>
+  </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_uex9EQ6uEeWOgpCl8lrPTA"/>
   <element xmi:type="uml:StateMachine" href="chamada.uml#_yqv4YOjJEdu6LJeVabImNg"/>
+  <edges xmi:type="notation:Edge" xmi:id="_bGiVUA_HEeW9tOBv2PuSDg" type="4001" source="_bFWCgA_HEeW9tOBv2PuSDg" target="_bFfzgA_HEeW9tOBv2PuSDg">
+    <children xmi:type="notation:Node" xmi:id="_bGiVVA_HEeW9tOBv2PuSDg" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_bGrfQA_HEeW9tOBv2PuSDg" y="40"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_bGiVUQ_HEeW9tOBv2PuSDg"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_bGiVUg_HEeW9tOBv2PuSDg" fontName="Segoe UI"/>
+    <element xmi:type="uml:Transition" href="chamada.uml#_KHZoYJeHEdyqN79LFuBS7A"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_bGiVUw_HEeW9tOBv2PuSDg" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_bGrfQQ_HEeW9tOBv2PuSDg" type="4001" source="_bFfzgA_HEeW9tOBv2PuSDg" target="_bFo9cA_HEeW9tOBv2PuSDg">
+    <children xmi:type="notation:Node" xmi:id="_bGrfRQ_HEeW9tOBv2PuSDg" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_bGrfRg_HEeW9tOBv2PuSDg" x="-11" y="-106"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_bGrfQg_HEeW9tOBv2PuSDg"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_bGrfQw_HEeW9tOBv2PuSDg" fontName="Segoe UI"/>
+    <element xmi:type="uml:Transition" href="chamada.uml#_KncaYJeHEdyqN79LFuBS7A"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_bGrfRA_HEeW9tOBv2PuSDg" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_bG1QQA_HEeW9tOBv2PuSDg" type="4001" source="_bFo9cA_HEeW9tOBv2PuSDg" target="_bFo9cA_HEeW9tOBv2PuSDg">
+    <children xmi:type="notation:Node" xmi:id="_bG1QRA_HEeW9tOBv2PuSDg" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_bG1QRQ_HEeW9tOBv2PuSDg" x="-20" y="46"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_bG1QQQ_HEeW9tOBv2PuSDg"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_bG1QQg_HEeW9tOBv2PuSDg" fontName="Segoe UI"/>
+    <element xmi:type="uml:Transition" href="chamada.uml#_LBEbUJeHEdyqN79LFuBS7A"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_bG1QQw_HEeW9tOBv2PuSDg" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_bG1QRg_HEeW9tOBv2PuSDg" type="4001" source="_bFo9cA_HEeW9tOBv2PuSDg" target="_bFyucw_HEeW9tOBv2PuSDg">
+    <children xmi:type="notation:Node" xmi:id="_bG1QSg_HEeW9tOBv2PuSDg" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_bG1QSw_HEeW9tOBv2PuSDg" x="39" y="-126"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_bG1QRw_HEeW9tOBv2PuSDg"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_bG1QSA_HEeW9tOBv2PuSDg" fontName="Segoe UI"/>
+    <element xmi:type="uml:Transition" href="chamada.uml#_LbJvQJeHEdyqN79LFuBS7A"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_bG1QSQ_HEeW9tOBv2PuSDg" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_bG_BQA_HEeW9tOBv2PuSDg" type="4001" source="_bFyucw_HEeW9tOBv2PuSDg" target="_bFyucw_HEeW9tOBv2PuSDg">
+    <children xmi:type="notation:Node" xmi:id="_bG_BRA_HEeW9tOBv2PuSDg" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_bG_BRQ_HEeW9tOBv2PuSDg" x="54" y="-20"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_bG_BQQ_HEeW9tOBv2PuSDg"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_bG_BQg_HEeW9tOBv2PuSDg" fontName="Segoe UI"/>
+    <element xmi:type="uml:Transition" href="chamada.uml#_LzldYJeHEdyqN79LFuBS7A"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_bG_BQw_HEeW9tOBv2PuSDg" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+  </edges>
 </notation:Diagram>
