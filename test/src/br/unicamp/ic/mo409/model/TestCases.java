@@ -14,15 +14,18 @@ public class TestCases{
 	public void test1()
 	{
 		Chamada oTestObject = new Chamada();
-		ListaDeDisciplinas disciplina1 = ListaDeDisciplinas.MO409;
-		ChamadaState state3 = ChamadaState.nao_aberta;
-		Integer tick5 = -67;
+		Integer idTurma1 = -180;
+		Integer raProfessor1 = -36;
+		Integer dataAula1 = -378;
+		Integer horaInicio1 = -155;
+		Integer horaFim3 = -14;
+		Integer listaPresencas5 = -199;
 		assertEquals(true, (oTestObject.state == ChamadaState.nao_aberta));
-		oTestObject.handleEvent("abrirChamadaEvent", disciplina1);
+		oTestObject.handleEvent("abrirChamadaEvent", idTurma1, raProfessor1, dataAula1, horaInicio1);
 		assertEquals(true, (oTestObject.state == ChamadaState.aberta));
-		oTestObject.handleEvent("encerrarChamadaEvent", state3);
+		oTestObject.handleEvent("encerrarChamadaEvent", horaFim3);
 		assertEquals(true, (oTestObject.state == ChamadaState.encerrada));
-		oTestObject.handleEvent("calcularPresencaEvent", tick5);
+		oTestObject.handleEvent("calcularPresencaEvent", listaPresencas5);
 		assertEquals(true, (oTestObject.state == ChamadaState.encerrada));
 		
 	}
@@ -31,15 +34,18 @@ public class TestCases{
 	public void test2()
 	{
 		Chamada oTestObject = new Chamada();
-		ListaDeDisciplinas disciplina1 = ListaDeDisciplinas.MO409;
-		ChamadaState state3 = ChamadaState.nao_aberta;
-		Integer tick5 = -176;
+		Integer idTurma1 = -373;
+		Integer raProfessor1 = 4;
+		Integer dataAula1 = -577;
+		Integer horaInicio1 = 33;
+		Integer horaFim3 = -247;
+		Integer listaPresencas5 = 27;
 		assertEquals(true, (oTestObject.state == ChamadaState.nao_aberta));
-		oTestObject.handleEvent("abrirChamadaEvent", disciplina1);
+		oTestObject.handleEvent("abrirChamadaEvent", idTurma1, raProfessor1, dataAula1, horaInicio1);
 		assertEquals(true, (oTestObject.state == ChamadaState.aberta));
-		oTestObject.handleEvent("encerrarChamadaEvent", state3);
+		oTestObject.handleEvent("encerrarChamadaEvent", horaFim3);
 		assertEquals(true, (oTestObject.state == ChamadaState.encerrada));
-		oTestObject.handleEvent("calcularPresencaEvent", tick5);
+		oTestObject.handleEvent("calcularPresencaEvent", listaPresencas5);
 		assertEquals(true, (oTestObject.state == ChamadaState.encerrada));
 		
 	}
@@ -48,64 +54,19 @@ public class TestCases{
 	public void test3()
 	{
 		Chamada oTestObject = new Chamada();
-		ListaDeDisciplinas disciplina1 = ListaDeDisciplinas.MO409;
-		ChamadaState state3 = ChamadaState.nao_aberta;
-		Integer tick5 = 304;
+		Integer idTurma1 = 161;
+		Integer raProfessor1 = 120;
+		Integer dataAula1 = 434;
+		Integer horaInicio1 = 107;
+		Integer horaFim3 = 817;
+		Integer listaPresencas5 = -39;
 		assertEquals(true, (oTestObject.state == ChamadaState.nao_aberta));
-		oTestObject.handleEvent("abrirChamadaEvent", disciplina1);
+		oTestObject.handleEvent("abrirChamadaEvent", idTurma1, raProfessor1, dataAula1, horaInicio1);
 		assertEquals(true, (oTestObject.state == ChamadaState.aberta));
-		oTestObject.handleEvent("encerrarChamadaEvent", state3);
+		oTestObject.handleEvent("encerrarChamadaEvent", horaFim3);
 		assertEquals(true, (oTestObject.state == ChamadaState.encerrada));
-		oTestObject.handleEvent("calcularPresencaEvent", tick5);
+		oTestObject.handleEvent("calcularPresencaEvent", listaPresencas5);
 		assertEquals(true, (oTestObject.state == ChamadaState.encerrada));
-		
-	}
-	
-	@Test
-	public void test4()
-	{
-		Chamada oTestObject = new Chamada();
-		ListaDeDisciplinas disciplina1 = ListaDeDisciplinas.MO409;
-		Integer tick3 = -385;
-		assertEquals(true, (oTestObject.state == ChamadaState.nao_aberta));
-		oTestObject.handleEvent("abrirChamadaEvent", disciplina1);
-		assertEquals(true, (oTestObject.state == ChamadaState.aberta));
-		assertEquals(true, (oTestObject.recebendo_tick.booleanValue() == true));
-		assertEquals(true, (oTestObject.recebendo_tick.booleanValue() != false));
-		oTestObject.handleEvent("receberTickEvent", tick3);
-		assertEquals(true, (oTestObject.state == ChamadaState.aberta));
-		
-	}
-	
-	@Test
-	public void test5()
-	{
-		Chamada oTestObject = new Chamada();
-		ListaDeDisciplinas disciplina1 = ListaDeDisciplinas.MO409;
-		Integer tick3 = -2;
-		assertEquals(true, (oTestObject.state == ChamadaState.nao_aberta));
-		oTestObject.handleEvent("abrirChamadaEvent", disciplina1);
-		assertEquals(true, (oTestObject.state == ChamadaState.aberta));
-		assertEquals(true, (oTestObject.recebendo_tick.booleanValue() == true));
-		assertEquals(true, (oTestObject.recebendo_tick.booleanValue() != false));
-		oTestObject.handleEvent("receberTickEvent", tick3);
-		assertEquals(true, (oTestObject.state == ChamadaState.aberta));
-		
-	}
-	
-	@Test
-	public void test6()
-	{
-		Chamada oTestObject = new Chamada();
-		ListaDeDisciplinas disciplina1 = ListaDeDisciplinas.MO409;
-		Integer tick3 = -217;
-		assertEquals(true, (oTestObject.state == ChamadaState.nao_aberta));
-		oTestObject.handleEvent("abrirChamadaEvent", disciplina1);
-		assertEquals(true, (oTestObject.state == ChamadaState.aberta));
-		assertEquals(true, (oTestObject.recebendo_tick.booleanValue() == true));
-		assertEquals(true, (oTestObject.recebendo_tick.booleanValue() != false));
-		oTestObject.handleEvent("receberTickEvent", tick3);
-		assertEquals(true, (oTestObject.state == ChamadaState.aberta));
 		
 	}
 	

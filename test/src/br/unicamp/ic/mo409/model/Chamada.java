@@ -1,6 +1,9 @@
 package br.unicamp.ic.mo409.model;
 
+import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class Chamada {
@@ -14,20 +17,17 @@ public class Chamada {
 	public Chamada()
 	{
 		state = ChamadaState.nao_aberta;
-		setRecebendoTick(false);
 	}
 
-	public void abrirChamada(Integer turma) {
+	public void abrirChamada(Integer idTurma, Integer raProfessor, Date dataAula, Time horaInicio) {
 		state = ChamadaState.aberta;
 	}
 
-	public void encerrarChamada(String hora_fim) {
+	public void encerrarChamada(Time horaFim) {
+		state = ChamadaState.encerrada;
 	}
 
-	public void calculaPresenca(ChamadaState state) {
-	}
-
-	public void receberTick(ChamadaState state) {
+	public void calcularPresenca(List<Presenca> listaPresencas) {
 	}
 
 	public void handleEvent(Object... in_colObject) {
@@ -37,33 +37,80 @@ public class Chamada {
 			if ((state == ChamadaState.nao_aberta)
 					&& (sEventName.compareTo("abrirChamadaEvent") == 0)) 
 			{
-				Integer turma = (Integer) in_colObject[1];		
-				abrirChamada(turma);
+				Integer tempIDTurma     = (Integer) in_colObject[1];
+				Integer idTurma;
+				Integer tempRAProfessor = (Integer) in_colObject[2];
+				Integer raProfessor;
+				Integer tempDataAula    = (Integer) in_colObject[3];
+				Date    dataAula;
+				Integer tempHoraInicio = (Integer) in_colObject[4];
+				Time    horaInicio;
+				
+				if (tempDataAula > 0)
+				{
+				    dataAula = new Date(2015,6,1);
+				}
+				else
+				{
+					dataAula = new Date(2010,5,1);
+				}
+				if (tempHoraInicio > 0)
+				{
+				    horaInicio = new Time(10,0,0);
+				}
+				else
+				{
+					horaInicio = new Time(16,0,0);
+				}
+				if (tempIDTurma > 0)
+				{
+				    idTurma = 1;
+				}
+				else
+				{
+					idTurma = 2;
+				}
+				if (tempRAProfessor > 0)
+				{
+				    raProfessor = 1;
+				}
+				else
+				{
+					raProfessor = 2;
+				}
+				abrirChamada(idTurma, raProfessor, dataAula, horaInicio);
 			}
 			
-			if (sEventName.compareTo("receberTickEvent") == 0) 
+			if (sEventName.compareTo("encerrarChamadaEvent") == 0 && state == ChamadaState.aberta) 
 			{
-				if (state == ChamadaState.aberta) 
+				Integer tempHoraFim = (Integer) in_colObject[1];
+				Time    horaFim;
+				
+				if (tempHoraFim > 0)
 				{
-					receberTick(state);
-					state = ChamadaState.aberta;
+				    horaFim = new Time(10,0,0);
 				}
+				else
+				{
+					horaFim = new Time(16,0,0);
+				}
+				encerrarChamada(horaFim);
 			}
 			
-			if (sEventName.compareTo("encerrarChamadaEvent") == 0) 
+			if (sEventName.compareTo("calcularPresencaEvent") == 0 && state == ChamadaState.encerrada) 
 			{
-				if (state == ChamadaState.aberta) 
+				Integer tempListaPresencas = (Integer) in_colObject[1];
+				List<Presenca>    listaPresencas = new ArrayList<Presenca>();;
+				
+				if (tempListaPresencas > 0)
 				{
-					state = ChamadaState.encerrada;
+					listaPresencas.add(new Presenca());
 				}
-			}
-			
-			if (sEventName.compareTo("calcularPresencaEvent") == 0) 
-			{
-				if (state == ChamadaState.encerrada) 
+				else
 				{
-					state = ChamadaState.encerrada;
+					listaPresencas.add(new Presenca());
 				}
+				calcularPresenca(listaPresencas);
 			}
 		}
 	}
