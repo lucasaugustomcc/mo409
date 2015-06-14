@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tempo de Geração: 11/06/2015 às 10:25
+-- Tempo de Geração: 14/06/2015 às 00:31
 -- Versão do servidor: 5.6.19-0ubuntu0.14.04.1
 -- Versão do PHP: 5.5.9-1ubuntu4.9
 
@@ -101,14 +101,19 @@ INSERT INTO `tb_aluno` (`ra_aluno`, `tb_usuario_id_usuario`) VALUES
 
 INSERT INTO `tb_disciplina` (`id_disciplina`, `nome_disciplina`, `cod_disciplina`) VALUES
 (1, 'Engenharia de Software I', 'MO409'),
-(2, 'Análise e Projeto de Sistema de Informação', 'MC626');
+(2, 'Análise e Projeto de Sistema de Informação', 'MC626'),
+(3, 'Projeto de Interfaces de Usuário', 'MO645'),
+(4, 'Teleprocessamento e Redes', 'MO611');
 
 --
 -- Fazendo dump de dados para tabela `tb_professor`
 --
 
 INSERT INTO `tb_professor` (`ra_professor`, `tb_usuario_id_usuario`) VALUES
-(1, 35);
+(1, 35),
+(2, 70),
+(3, 71),
+(4, 72);
 
 --
 -- Fazendo dump de dados para tabela `tb_turma`
@@ -116,7 +121,9 @@ INSERT INTO `tb_professor` (`ra_professor`, `tb_usuario_id_usuario`) VALUES
 
 INSERT INTO `tb_turma` (`id_turma`, `cod_turma`, `tb_disciplina_id_disciplina`, `ano`, `periodo`) VALUES
 (1, 'A', 1, 2015, 1),
-(2, 'A', 2, 2015, 1);
+(2, 'A', 2, 2015, 1),
+(3, 'A', 3, 2015, 1),
+(4, 'A', 4, 2015, 1);
 
 --
 -- Fazendo dump de dados para tabela `tb_turma_aluno`
@@ -190,7 +197,9 @@ INSERT INTO `tb_turma_aluno` (`tb_turma_id_turma`, `tb_aluno_ra_aluno`) VALUES
 (2, 137748),
 (2, 138450),
 (2, 138466),
-(2, 140604);
+(2, 140604),
+(3, 163144),
+(4, 163144);
 
 --
 -- Fazendo dump de dados para tabela `tb_turma_professor`
@@ -198,82 +207,88 @@ INSERT INTO `tb_turma_aluno` (`tb_turma_id_turma`, `tb_aluno_ra_aluno`) VALUES
 
 INSERT INTO `tb_turma_professor` (`tb_turma_id_turma`, `tb_professor_ra_professor`) VALUES
 (1, 1),
-(2, 1);
+(2, 1),
+(3, 2),
+(4, 3),
+(4, 4);
 
 --
 -- Fazendo dump de dados para tabela `tb_usuario`
 --
 
 INSERT INTO `tb_usuario` (`id_usuario`, `nome`, `email`, `senha`, `papel`) VALUES
-(1, 'Daniela Marques', NULL, 'senha', 'aluno'),
-(2, 'Amaury Bosso André', NULL, 'senha', 'aluno'),
-(3, 'Ewerton Martins de Menezes', 'E060490@dac.unicamp.br', 'senha', 'aluno'),
-(4, 'Priscila Aparecida de Moraes', 'P074606@dac.unicamp.br', 'senha', 'aluno'),
-(5, 'André Rodrigues Oliveira', 'A095584@dac.unicamp.br', 'senha', 'aluno'),
-(6, 'Lise Rommel Romero Navarrete', 'L134067@dac.unicamp.br', 'senha', 'aluno'),
-(7, 'Lucas Kannebley Tavares', NULL, 'senha', 'aluno'),
-(8, 'Lorena Del Cisne León Quiñonez', 'L144406@dac.unicamp.br', 'senha', 'aluno'),
-(9, 'John Edgar Vargas Muñoz', NULL, 'senha', 'aluno'),
-(10, 'Iliézer Tamagno', NULL, 'senha', 'aluno'),
-(11, 'Lúcia Satiko Nomiso', NULL, 'senha', 'aluno'),
-(12, 'Jael Louis Zela Ruiz', NULL, 'senha', 'aluno'),
-(13, 'João Luis Villar de Oliveira', NULL, 'senha', 'aluno'),
-(14, 'Geise Kelly da Silva Santos', 'G161248@dac.unicamp.br', 'senha', 'aluno'),
-(15, 'Leydi Rocio Erazo Paruma', 'L161251@dac.unicamp.br', 'senha', 'aluno'),
-(16, 'Jeferson Rech Brunetta', 'J161253@dac.unicamp.br', 'senha', 'aluno'),
-(17, 'Lucas Augusto Montalvão Costa Carvalho', 'L161255@dac.unicamp.br', 'senha', 'aluno'),
-(18, 'Leandro Tacioli', 'L161789@dac.unicamp.br', 'senha', 'aluno'),
-(19, 'Guilherme Henrique Caponetto', 'G162639@dac.unicamp.br', 'senha', 'aluno'),
-(20, 'Acauan Cardoso Ribeiro', 'A163125@dac.unicamp.br', 'senha', 'aluno'),
-(21, 'Pedro Paulo Libório Lima do Nascimento', 'P163139@dac.unicamp.br', 'senha', 'aluno'),
-(22, 'Lucas Carvalho Leal', 'L163140@dac.unicamp.br', 'senha', 'aluno'),
-(23, 'Luã Marcelo Muriana', 'L163144@dac.unicamp.br', 'senha', 'aluno'),
-(24, 'Ray Dueñas Jiménez', 'R163145@dac.unicamp.br', 'senha', 'aluno'),
-(25, 'Judy Carolina Guevara Amaya', 'J163149@dac.unicamp.br', 'senha', 'aluno'),
-(26, 'Hernâni Delgado Chantre', 'H163152@dac.unicamp.br', 'senha', 'aluno'),
-(27, 'Daniel Matte Freitas', 'D163153@dac.unicamp.br', 'senha', 'aluno'),
-(28, 'Jaime Fabian Arias Aguilar', 'J178993@dac.unicamp.br', 'senha', 'aluno'),
-(29, 'Bruna Tosi Rodrigues', NULL, 'senha', 'aluno'),
-(30, 'Jose Eduardo Schwan Vianna', NULL, 'senha', 'aluno'),
-(31, 'Ramos Eduardo Pedro', NULL, 'senha', 'aluno'),
-(32, 'Luzizila Salambiaku', NULL, 'senha', 'aluno'),
-(33, 'Joaquim Domingos Mussandi', NULL, 'senha', 'aluno'),
-(34, 'Fabrício Matheus Gonçalves', 'F962334@dac.unicamp.br', 'senha', 'aluno'),
-(35, 'Eliane Martins', NULL, 'senha', 'professor'),
-(36, 'Marcelo Pereira Barretto', 'M074219@dac.unicamp.br', 'senha', 'aluno'),
-(37, 'Ivan Sichmann Freitas					', 'I093887@dac.unicamp.br', 'senha', 'aluno'),
-(38, 'Giovanni Ronnie Almeida					', 'G095746@dac.unicamp.br', 'senha', 'aluno'),
-(39, 'Andréia Yukie Uratsuka					', 'A096952@dac.unicamp.br', 'senha', 'aluno'),
-(40, 'Erik Iussuke Ebesui						', 'E104852@dac.unicamp.br', 'senha', 'aluno'),
-(41, 'Tiago Bember Simeão						', 'T105740@dac.unicamp.br', 'senha', 'aluno'),
-(42, 'Leonardo de Oliveira Silva				', 'L108330@dac.unicamp.br', 'senha', 'aluno'),
-(43, 'Adalberto Alencar Albuquerque			', 'A115913@dac.unicamp.br', 'senha', 'aluno'),
-(44, 'André Luís de Lannoy Coimbra Tavares	', 'A116125@dac.unicamp.br', 'senha', 'aluno'),
-(45, 'Bernardo Vecchia Stein					', 'B116245@dac.unicamp.br', 'senha', 'aluno'),
-(46, 'Gabriel Massaki Wakano Bezerra			', 'G116935@dac.unicamp.br', 'senha', 'aluno'),
-(47, 'Lucas Tadeu Teixeira					', 'L117760@dac.unicamp.br', 'senha', 'aluno'),
-(48, 'Lukas Antunes Lopes						', 'L117856@dac.unicamp.br', 'senha', 'aluno'),
-(49, 'Maria Júlia Berriel de Sousa			', 'M117964@dac.unicamp.br', 'senha', 'aluno'),
-(50, 'Rafael Matias Sacchi					', 'R118457@dac.unicamp.br', 'senha', 'aluno'),
-(51, 'Tharine Cohen Macerau					', 'T118787@dac.unicamp.br', 'senha', 'aluno'),
-(52, 'Arthur Espindola Ribeiro				', 'A120761@dac.unicamp.br', 'senha', 'aluno'),
-(53, 'Rafael Matheus Garcia					', 'R121295@dac.unicamp.br', 'senha', 'aluno'),
-(54, 'Vinicius Maciel Sant Ana				', 'V121405@dac.unicamp.br', 'senha', 'aluno'),
-(55, 'Amadeu Bonfante							', 'A122241@dac.unicamp.br', 'senha', 'aluno'),
-(56, 'Fabio Sartorato							', 'F122285@dac.unicamp.br', 'senha', 'aluno'),
-(57, 'Pedro Teixeira Figueiredo				', 'P123198@dac.unicamp.br', 'senha', 'aluno'),
-(58, 'Cibelle Begalli							', 'C135334@dac.unicamp.br', 'senha', 'aluno'),
-(59, 'Diego Rocha								', 'D135494@dac.unicamp.br', 'senha', 'aluno'),
-(60, 'Elisa DellArriva						', 'E135551@dac.unicamp.br', 'senha', 'aluno'),
-(61, 'Fernando Henrique dos Santos Gonçalves	', 'F135723@dac.unicamp.br', 'senha', 'aluno'),
-(62, 'Gustavo Cesar Nunes						', 'G136004@dac.unicamp.br', 'senha', 'aluno'),
-(63, 'Jucélio Evangelista Fonseca				', 'J136323@dac.unicamp.br', 'senha', 'aluno'),
-(64, 'Luan Gustavo Bicesto					', 'L136576@dac.unicamp.br', 'senha', 'aluno'),
-(65, 'Luciano Pádua Sabença					', 'L136700@dac.unicamp.br', 'senha', 'aluno'),
-(66, 'Tomás Silva Queiroga					', 'T137748@dac.unicamp.br', 'senha', 'aluno'),
-(67, 'Guilherme da Rocha Alves Mendes			', 'G138450@dac.unicamp.br', 'senha', 'aluno'),
-(68, 'Guilherme Sbrolini Mazzariol			', 'G138466@dac.unicamp.br', 'senha', 'aluno'),
-(69, 'Felipe Caminada							', 'F140604@dac.unicamp.br', 'senha', 'aluno');
+(1, 'Daniela Marques', NULL, 'senha', 'ROLE_ALUNO'),
+(2, 'Amaury Bosso André', NULL, 'senha', 'ROLE_ALUNO'),
+(3, 'Ewerton Martins de Menezes', 'E060490@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(4, 'Priscila Aparecida de Moraes', 'P074606@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(5, 'André Rodrigues Oliveira', 'A095584@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(6, 'Lise Rommel Romero Navarrete', 'L134067@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(7, 'Lucas Kannebley Tavares', NULL, 'senha', 'ROLE_ALUNO'),
+(8, 'Lorena Del Cisne León Quiñonez', 'L144406@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(9, 'John Edgar Vargas Muñoz', NULL, 'senha', 'ROLE_ALUNO'),
+(10, 'Iliézer Tamagno', NULL, 'senha', 'ROLE_ALUNO'),
+(11, 'Lúcia Satiko Nomiso', NULL, 'senha', 'ROLE_ALUNO'),
+(12, 'Jael Louis Zela Ruiz', NULL, 'senha', 'ROLE_ALUNO'),
+(13, 'João Luis Villar de Oliveira', NULL, 'senha', 'ROLE_ALUNO'),
+(14, 'Geise Kelly da Silva Santos', 'G161248@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(15, 'Leydi Rocio Erazo Paruma', 'L161251@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(16, 'Jeferson Rech Brunetta', 'J161253@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(17, 'Lucas Augusto Montalvão Costa Carvalho', 'L161255@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(18, 'Leandro Tacioli', 'L161789@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(19, 'Guilherme Henrique Caponetto', 'G162639@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(20, 'Acauan Cardoso Ribeiro', 'A163125@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(21, 'Pedro Paulo Libório Lima do Nascimento', 'P163139@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(22, 'Lucas Carvalho Leal', 'L163140@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(23, 'Luã Marcelo Muriana', 'L163144@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(24, 'Ray Dueñas Jiménez', 'R163145@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(25, 'Judy Carolina Guevara Amaya', 'J163149@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(26, 'Hernâni Delgado Chantre', 'H163152@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(27, 'Daniel Matte Freitas', 'D163153@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(28, 'Jaime Fabian Arias Aguilar', 'J178993@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(29, 'Bruna Tosi Rodrigues', NULL, 'senha', 'ROLE_ALUNO'),
+(30, 'Jose Eduardo Schwan Vianna', NULL, 'senha', 'ROLE_ALUNO'),
+(31, 'Ramos Eduardo Pedro', NULL, 'senha', 'ROLE_ALUNO'),
+(32, 'Luzizila Salambiaku', NULL, 'senha', 'ROLE_ALUNO'),
+(33, 'Joaquim Domingos Mussandi', NULL, 'senha', 'ROLE_ALUNO'),
+(34, 'Fabrício Matheus Gonçalves', 'F962334@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(35, 'Eliane Martins', NULL, 'senha', 'ROLE_PROFESSOR'),
+(36, 'Marcelo Pereira Barretto', 'M074219@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(37, 'Ivan Sichmann Freitas					', 'I093887@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(38, 'Giovanni Ronnie Almeida					', 'G095746@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(39, 'Andréia Yukie Uratsuka					', 'A096952@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(40, 'Erik Iussuke Ebesui						', 'E104852@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(41, 'Tiago Bember Simeão						', 'T105740@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(42, 'Leonardo de Oliveira Silva				', 'L108330@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(43, 'Adalberto Alencar Albuquerque			', 'A115913@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(44, 'André Luís de Lannoy Coimbra Tavares	', 'A116125@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(45, 'Bernardo Vecchia Stein					', 'B116245@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(46, 'Gabriel Massaki Wakano Bezerra			', 'G116935@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(47, 'Lucas Tadeu Teixeira					', 'L117760@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(48, 'Lukas Antunes Lopes						', 'L117856@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(49, 'Maria Júlia Berriel de Sousa			', 'M117964@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(50, 'Rafael Matias Sacchi					', 'R118457@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(51, 'Tharine Cohen Macerau					', 'T118787@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(52, 'Arthur Espindola Ribeiro				', 'A120761@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(53, 'Rafael Matheus Garcia					', 'R121295@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(54, 'Vinicius Maciel Sant Ana				', 'V121405@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(55, 'Amadeu Bonfante							', 'A122241@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(56, 'Fabio Sartorato							', 'F122285@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(57, 'Pedro Teixeira Figueiredo				', 'P123198@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(58, 'Cibelle Begalli							', 'C135334@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(59, 'Diego Rocha								', 'D135494@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(60, 'Elisa DellArriva						', 'E135551@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(61, 'Fernando Henrique dos Santos Gonçalves	', 'F135723@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(62, 'Gustavo Cesar Nunes						', 'G136004@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(63, 'Jucélio Evangelista Fonseca				', 'J136323@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(64, 'Luan Gustavo Bicesto					', 'L136576@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(65, 'Luciano Pádua Sabença					', 'L136700@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(66, 'Tomás Silva Queiroga					', 'T137748@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(67, 'Guilherme da Rocha Alves Mendes			', 'G138450@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(68, 'Guilherme Sbrolini Mazzariol			', 'G138466@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(69, 'Felipe Caminada							', 'F140604@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(70, 'Heiko Horst Hornung', NULL, 'senha', 'ROLE_PROFESSOR'),
+(71, 'Edmundo R. M. Madeira', NULL, 'senha', 'ROLE_PROFESSOR'),
+(72, 'Nelson L. S. da Fonseca', NULL, 'senha', 'ROLE_PROFESSOR');
 SET FOREIGN_KEY_CHECKS=1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
