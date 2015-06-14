@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,9 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.codehaus.jackson.annotate.JsonIgnore;
-
 
 /**
  * The persistent class for the tb_turma database table.
@@ -45,7 +43,6 @@ public class Turma implements Serializable {
 	private int periodo;
 
 	//bi-directional many-to-one association to Aula
-	@JsonIgnore
 	@OneToMany(mappedBy="turma")
 	private List<Chamada> aulas;
 
@@ -54,12 +51,11 @@ public class Turma implements Serializable {
 	private List<Professor> professores;
 
 	//bi-directional many-to-one association to Disciplina
-	@ManyToOne(cascade={CascadeType.REMOVE})
+	@ManyToOne(cascade={CascadeType.REMOVE}, fetch = FetchType.EAGER)
 	@JoinColumn(name="tb_disciplina_id_disciplina", nullable=false)
 	private Disciplina disciplina;
 
 	//bi-directional many-to-many association to Aluno
-	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 		name="tb_turma_aluno"

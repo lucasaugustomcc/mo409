@@ -1,10 +1,26 @@
 package br.unicamp.ic.mo409.model;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+
 import org.junit.*;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+
 import static org.junit.Assert.*;
 
 // JUnit 4.3
+@RunWith(SpringJUnit4ClassRunner.class) 
+@ContextConfiguration (locations = {"file:src/test/resources/applicationContext.xml"}) 
+@TransactionConfiguration(transactionManager="transactionManager", defaultRollback=false) 
+@Transactional 
 public class ChamadaTest{
+	
+	@PersistenceContext(unitName = "persistenceUnit")
+	protected EntityManager entityManager;
 	
 	public static junit.framework.Test suite(){
 		return new junit.framework.JUnit4TestAdapter(ChamadaTest.class);
@@ -13,7 +29,7 @@ public class ChamadaTest{
 	@Test
 	public void test1()
 	{
-		Chamada oTestObject = new Chamada();
+		Chamada oTestObject = new Chamada(entityManager);
 		Integer idTurma1 = -180;
 		Integer raProfessor1 = -36;
 		Integer dataAula1 = -378;
@@ -33,7 +49,7 @@ public class ChamadaTest{
 	@Test
 	public void test2()
 	{
-		Chamada oTestObject = new Chamada();
+		Chamada oTestObject = new Chamada(entityManager);
 		Integer idTurma1 = -373;
 		Integer raProfessor1 = 4;
 		Integer dataAula1 = -577;
@@ -53,7 +69,7 @@ public class ChamadaTest{
 	@Test
 	public void test3()
 	{
-		Chamada oTestObject = new Chamada();
+		Chamada oTestObject = new Chamada(entityManager);
 		Integer idTurma1 = 161;
 		Integer raProfessor1 = 120;
 		Integer dataAula1 = 434;

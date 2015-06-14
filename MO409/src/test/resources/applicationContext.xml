@@ -27,5 +27,6 @@
 	<!-- for database configuration -->
 	<import resource="db-configuration.xml" />
 
+	<import resource="spring-security.xml" />
 	
 </beans>

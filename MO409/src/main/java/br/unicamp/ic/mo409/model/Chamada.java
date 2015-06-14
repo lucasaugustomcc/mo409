@@ -19,6 +19,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  * The persistent class for the tb_chamada database table.
@@ -29,12 +30,17 @@ import javax.persistence.TemporalType;
 public class Chamada implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@Transient
 	ChamadaState state;
+	
+	@Transient
 	private static final Integer numTicksMinino = 20; 
+	
+	@Transient
 	private static final Integer tempoTicks = 5; 
 	
-	@PersistenceContext(unitName = "persistenceUnit")
-	protected EntityManager entityManager;
+	@Transient
+	private EntityManager entityManager;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -71,6 +77,12 @@ public class Chamada implements Serializable {
 
 	public Chamada() {
 		state = ChamadaState.nao_aberta;
+	}
+	
+	public Chamada(EntityManager em)
+	{
+		state = ChamadaState.nao_aberta;
+		this.entityManager = em;
 	}
 	
 	public void handleEvent(Object... in_colObject) {

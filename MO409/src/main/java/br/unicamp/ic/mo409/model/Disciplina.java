@@ -1,7 +1,9 @@
 package br.unicamp.ic.mo409.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.List;
 
 
@@ -22,6 +24,9 @@ public class Disciplina implements Serializable {
 
 	@Column(name="nome_disciplina", length=45)
 	private String nomeDisciplina;
+	
+	@Column(name="cod_disciplina", length=5)
+	private String codDisciplina;
 
 	//bi-directional many-to-one association to Turma
 	@OneToMany(mappedBy="disciplina")
@@ -66,6 +71,14 @@ public class Disciplina implements Serializable {
 		turma.setDisciplina(null);
 
 		return turma;
+	}
+
+	public String getCodDisciplina() {
+		return codDisciplina;
+	}
+	
+	public void setCodDisciplina(String codDisciplina) {
+		this.codDisciplina = codDisciplina;
 	}
 
 }
