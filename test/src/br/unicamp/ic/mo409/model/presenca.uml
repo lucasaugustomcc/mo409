@@ -32,77 +32,83 @@
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
         <upperValue xmi:type="uml:LiteralString" xmi:id="_7rx-MRBAEeWaCPRCPew3ZA" name="" value="0"/>
       </ownedAttribute>
+      <ownedAttribute xmi:id="_dV3ZYBKVEeWCyZ-o2cJk7w" name="checkIn">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_dV3ZYRKVEeWCyZ-o2cJk7w" name="" value="false"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_j_WO0BKVEeWCyZ-o2cJk7w" name="checkOut">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_j_WO0RKVEeWCyZ-o2cJk7w" name="" value="false"/>
+      </ownedAttribute>
       <ownedBehavior xmi:type="uml:FunctionBehavior" xmi:id="_2Y0fgJ0ZEdyNrffIHb491A" name="setState" postcondition="_KTh6cJ0aEdyNrffIHb491A">
         <ownedRule xmi:id="_KTh6cJ0aEdyNrffIHb491A">
           <specification xmi:type="uml:LiteralString" xmi:id="_K_yjgJ0aEdyNrffIHb491A" value="state = x"/>
         </ownedRule>
         <ownedParameter xmi:id="_BzKb4J0aEdyNrffIHb491A" name="x"/>
       </ownedBehavior>
-      <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_yqv4YOjJEdu6LJeVabImNg" name="Chamada">
-        <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_5-QZYBHVEeWx5e2dXReDlw" name="Chamada">
-          <region xmi:id="_VIx8EJKuEdyUSNhMCOPPLg" name="sort">
-            <subvertex xmi:type="uml:Pseudostate" xmi:id="_ZMY7cJKuEdyUSNhMCOPPLg" name="init"/>
-            <subvertex xmi:type="uml:State" xmi:id="_eQ3dkBHbEeWx5e2dXReDlw" name="em_branco">
-              <stateInvariant xmi:id="_eQ3dkRHbEeWx5e2dXReDlw" name="">
-                <specification xmi:type="uml:LiteralString" xmi:id="_eQ3dkhHbEeWx5e2dXReDlw" value="state  = PresencaState::em_branco"/>
-              </stateInvariant>
-            </subvertex>
-            <subvertex xmi:type="uml:State" xmi:id="_y9ig8BHbEeWx5e2dXReDlw" name="em_aula">
-              <stateInvariant xmi:id="_y9ig8RHbEeWx5e2dXReDlw">
-                <specification xmi:type="uml:LiteralString" xmi:id="_y9ig8hHbEeWx5e2dXReDlw" value="state  = PresencaState::em_aula"/>
-              </stateInvariant>
-            </subvertex>
-            <subvertex xmi:type="uml:State" xmi:id="_gK128BHbEeWx5e2dXReDlw" name="fora_de_aula">
-              <stateInvariant xmi:id="_gK128RHbEeWx5e2dXReDlw">
-                <specification xmi:type="uml:LiteralString" xmi:id="_gK128hHbEeWx5e2dXReDlw" value="state  = PresencaState::fora_de_aula"/>
-              </stateInvariant>
-            </subvertex>
-            <subvertex xmi:type="uml:State" xmi:id="_6TZPAJeEEdyCyNzfMULFnw" name="calculando">
-              <stateInvariant xmi:id="_3qwZwAr8Ed2Pmahp7QLr3A">
-                <specification xmi:type="uml:LiteralString" xmi:id="_4TlUUAr8Ed2Pmahp7QLr3A" value="state  = PresencaState::calculando"/>
-              </stateInvariant>
-            </subvertex>
-            <subvertex xmi:type="uml:State" xmi:id="_7YFmMJeEEdyCyNzfMULFnw" name="presente">
-              <stateInvariant xmi:id="_7cJnwAr8Ed2Pmahp7QLr3A">
-                <specification xmi:type="uml:LiteralString" xmi:id="_88RWsAr8Ed2Pmahp7QLr3A" value="state  = PresencaState::presente"/>
-              </stateInvariant>
-            </subvertex>
-            <subvertex xmi:type="uml:State" xmi:id="_7jj2YJeEEdyCyNzfMULFnw" name="ausente">
-              <stateInvariant xmi:id="_-zCEAAr8Ed2Pmahp7QLr3A">
-                <specification xmi:type="uml:LiteralString" xmi:id="__floAAr8Ed2Pmahp7QLr3A" value="state  = PresencaState::ausente"/>
-              </stateInvariant>
-            </subvertex>
-            <transition xmi:id="_KHZoYJeHEdyqN79LFuBS7A" name="init2em_branco" target="_eQ3dkBHbEeWx5e2dXReDlw" source="_ZMY7cJKuEdyUSNhMCOPPLg"/>
-            <transition xmi:id="_KncaYJeHEdyqN79LFuBS7A" name="em_branco2em_aula" target="_y9ig8BHbEeWx5e2dXReDlw" source="_eQ3dkBHbEeWx5e2dXReDlw">
-              <effect xmi:type="uml:FunctionBehavior" xmi:id="_wOwkgJeIEdyqN79LFuBS7A" name="checkInPresenca" specification="_DBZYkBH8EeWA7uJHonRzDQ"/>
-              <trigger xmi:id="_uATI4JeIEdyqN79LFuBS7A" name="checkInPresenca" event="_3s26UBHcEeWx5e2dXReDlw"/>
-            </transition>
-            <transition xmi:id="_3Qb84BIEEeWA7uJHonRzDQ" name="em_branco2calculando" target="_6TZPAJeEEdyCyNzfMULFnw" source="_eQ3dkBHbEeWx5e2dXReDlw">
-              <effect xmi:type="uml:FunctionBehavior" xmi:id="_3Qb84RIEEeWA7uJHonRzDQ" name="calcularPresenca" specification="_HQGfwOzQEduqQpSKns4XGA"/>
-              <trigger xmi:id="_3Qlt4BIEEeWA7uJHonRzDQ" name="calcularPresenca" event="_MaE9UOjKEdu6LJeVabImNg"/>
-            </transition>
-            <transition xmi:id="_LbJvQJeHEdyqN79LFuBS7A" name="em_aula2fora_de_aula" target="_gK128BHbEeWx5e2dXReDlw" source="_y9ig8BHbEeWx5e2dXReDlw">
-              <effect xmi:type="uml:FunctionBehavior" xmi:id="_ZYnI8Ak6EeW4Zd_Lzs5Nzg" name="checkOutPresenca" specification="_DobjYBH8EeWA7uJHonRzDQ"/>
-              <trigger xmi:id="_YWpVoAk6EeW4Zd_Lzs5Nzg" name="checkOutPresenca" event="_ufpUEAZ8EeW1-OgwpVc0Kw"/>
-            </transition>
-            <transition xmi:id="_DD6yABIFEeWA7uJHonRzDQ" name="em_aula2calculando" target="_6TZPAJeEEdyCyNzfMULFnw" source="_y9ig8BHbEeWx5e2dXReDlw">
-              <effect xmi:type="uml:FunctionBehavior" xmi:id="_DD6yARIFEeWA7uJHonRzDQ" name="calcularPresenca" specification="_HQGfwOzQEduqQpSKns4XGA"/>
-              <trigger xmi:id="_DD6yAhIFEeWA7uJHonRzDQ" name="calcularPresenca" event="_MaE9UOjKEdu6LJeVabImNg"/>
-            </transition>
-            <transition xmi:id="_Z0hRcBIEEeWA7uJHonRzDQ" name="fora_de_aula2calculando" target="_6TZPAJeEEdyCyNzfMULFnw" source="_gK128BHbEeWx5e2dXReDlw">
-              <effect xmi:type="uml:FunctionBehavior" xmi:id="_Z0hRcRIEEeWA7uJHonRzDQ" name="calcularPresenca" specification="_HQGfwOzQEduqQpSKns4XGA"/>
-              <trigger xmi:id="_Z0hRchIEEeWA7uJHonRzDQ" name="calcularPresenca" event="_MaE9UOjKEdu6LJeVabImNg"/>
-            </transition>
-            <transition xmi:id="_v9md4BIDEeWA7uJHonRzDQ" name="calculando2presente" target="_7YFmMJeEEdyCyNzfMULFnw" source="_6TZPAJeEEdyCyNzfMULFnw">
-              <effect xmi:type="uml:FunctionBehavior" xmi:id="_v9md4RIDEeWA7uJHonRzDQ" name="calcularPresenca"/>
-              <trigger xmi:id="_v9md4hIDEeWA7uJHonRzDQ" name="calcularPresenca" event="_MaE9UOjKEdu6LJeVabImNg"/>
-            </transition>
-            <transition xmi:id="_w2bjUBIDEeWA7uJHonRzDQ" name="calculando2ausente" target="_7jj2YJeEEdyCyNzfMULFnw" source="_6TZPAJeEEdyCyNzfMULFnw">
-              <effect xmi:type="uml:FunctionBehavior" xmi:id="_w2bjURIDEeWA7uJHonRzDQ" name="calcularPresenca"/>
-              <trigger xmi:id="_w2bjUhIDEeWA7uJHonRzDQ" name="calcularPresenca" event="_MaE9UOjKEdu6LJeVabImNg"/>
-            </transition>
-          </region>
-        </ownedBehavior>
+      <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_5-QZYBHVEeWx5e2dXReDlw" name="Presenca">
+        <region xmi:id="_VIx8EJKuEdyUSNhMCOPPLg" name="sort">
+          <subvertex xmi:type="uml:Pseudostate" xmi:id="_ZMY7cJKuEdyUSNhMCOPPLg" name="init"/>
+          <subvertex xmi:type="uml:State" xmi:id="_eQ3dkBHbEeWx5e2dXReDlw" name="em_branco">
+            <stateInvariant xmi:id="_eQ3dkRHbEeWx5e2dXReDlw" name="">
+              <specification xmi:type="uml:LiteralString" xmi:id="_eQ3dkhHbEeWx5e2dXReDlw" value="state  = PresencaState::em_branco"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_y9ig8BHbEeWx5e2dXReDlw" name="em_aula">
+            <stateInvariant xmi:id="_y9ig8RHbEeWx5e2dXReDlw">
+              <specification xmi:type="uml:LiteralString" xmi:id="_y9ig8hHbEeWx5e2dXReDlw" value="state  = PresencaState::em_aula"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_gK128BHbEeWx5e2dXReDlw" name="fora_de_aula">
+            <stateInvariant xmi:id="_gK128RHbEeWx5e2dXReDlw">
+              <specification xmi:type="uml:LiteralString" xmi:id="_gK128hHbEeWx5e2dXReDlw" value="state  = PresencaState::fora_de_aula"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_6TZPAJeEEdyCyNzfMULFnw" name="calculando">
+            <stateInvariant xmi:id="_3qwZwAr8Ed2Pmahp7QLr3A">
+              <specification xmi:type="uml:LiteralString" xmi:id="_4TlUUAr8Ed2Pmahp7QLr3A" value="state  = PresencaState::calculando"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_7YFmMJeEEdyCyNzfMULFnw" name="presente">
+            <stateInvariant xmi:id="_7cJnwAr8Ed2Pmahp7QLr3A">
+              <specification xmi:type="uml:LiteralString" xmi:id="_88RWsAr8Ed2Pmahp7QLr3A" value="state  = PresencaState::presente"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_7jj2YJeEEdyCyNzfMULFnw" name="ausente">
+            <stateInvariant xmi:id="_-zCEAAr8Ed2Pmahp7QLr3A">
+              <specification xmi:type="uml:LiteralString" xmi:id="__floAAr8Ed2Pmahp7QLr3A" value="state  = PresencaState::ausente"/>
+            </stateInvariant>
+          </subvertex>
+          <transition xmi:id="_KHZoYJeHEdyqN79LFuBS7A" name="init2em_branco" target="_eQ3dkBHbEeWx5e2dXReDlw" source="_ZMY7cJKuEdyUSNhMCOPPLg"/>
+          <transition xmi:id="_KncaYJeHEdyqN79LFuBS7A" name="em_branco2em_aula" target="_y9ig8BHbEeWx5e2dXReDlw" source="_eQ3dkBHbEeWx5e2dXReDlw">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_wOwkgJeIEdyqN79LFuBS7A" name="checkInPresenca" specification="_DBZYkBH8EeWA7uJHonRzDQ"/>
+            <trigger xmi:id="_uATI4JeIEdyqN79LFuBS7A" name="checkInPresenca" event="_3s26UBHcEeWx5e2dXReDlw"/>
+          </transition>
+          <transition xmi:id="_3Qb84BIEEeWA7uJHonRzDQ" name="em_branco2calculando" target="_6TZPAJeEEdyCyNzfMULFnw" source="_eQ3dkBHbEeWx5e2dXReDlw">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_3Qb84RIEEeWA7uJHonRzDQ" name="calcularPresenca" specification="_HQGfwOzQEduqQpSKns4XGA"/>
+            <trigger xmi:id="_3Qlt4BIEEeWA7uJHonRzDQ" name="calcularPresenca" event="_MaE9UOjKEdu6LJeVabImNg"/>
+          </transition>
+          <transition xmi:id="_LbJvQJeHEdyqN79LFuBS7A" name="em_aula2fora_de_aula" target="_gK128BHbEeWx5e2dXReDlw" source="_y9ig8BHbEeWx5e2dXReDlw">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_ZYnI8Ak6EeW4Zd_Lzs5Nzg" name="checkOutPresenca" specification="_DobjYBH8EeWA7uJHonRzDQ"/>
+            <trigger xmi:id="_YWpVoAk6EeW4Zd_Lzs5Nzg" name="checkOutPresenca" event="_ufpUEAZ8EeW1-OgwpVc0Kw"/>
+          </transition>
+          <transition xmi:id="_DD6yABIFEeWA7uJHonRzDQ" name="em_aula2calculando" target="_6TZPAJeEEdyCyNzfMULFnw" source="_y9ig8BHbEeWx5e2dXReDlw">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_DD6yARIFEeWA7uJHonRzDQ" name="calcularPresenca" specification="_HQGfwOzQEduqQpSKns4XGA"/>
+            <trigger xmi:id="_DD6yAhIFEeWA7uJHonRzDQ" name="calcularPresenca" event="_MaE9UOjKEdu6LJeVabImNg"/>
+          </transition>
+          <transition xmi:id="_Z0hRcBIEEeWA7uJHonRzDQ" name="fora_de_aula2calculando" target="_6TZPAJeEEdyCyNzfMULFnw" source="_gK128BHbEeWx5e2dXReDlw">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_Z0hRcRIEEeWA7uJHonRzDQ" name="calcularPresenca" specification="_HQGfwOzQEduqQpSKns4XGA"/>
+            <trigger xmi:id="_Z0hRchIEEeWA7uJHonRzDQ" name="calcularPresenca" event="_MaE9UOjKEdu6LJeVabImNg"/>
+          </transition>
+          <transition xmi:id="_v9md4BIDEeWA7uJHonRzDQ" name="calculando2presente" target="_7YFmMJeEEdyCyNzfMULFnw" source="_6TZPAJeEEdyCyNzfMULFnw">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_v9md4RIDEeWA7uJHonRzDQ" name="calcularPresenca"/>
+            <trigger xmi:id="_v9md4hIDEeWA7uJHonRzDQ" name="calcularPresenca"/>
+          </transition>
+          <transition xmi:id="_w2bjUBIDEeWA7uJHonRzDQ" name="calculando2ausente" target="_7jj2YJeEEdyCyNzfMULFnw" source="_6TZPAJeEEdyCyNzfMULFnw">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_w2bjURIDEeWA7uJHonRzDQ" name="calcularPresenca"/>
+            <trigger xmi:id="_w2bjUhIDEeWA7uJHonRzDQ" name="calcularPresenca"/>
+          </transition>
+        </region>
       </ownedBehavior>
       <ownedOperation xmi:id="_DBZYkBH8EeWA7uJHonRzDQ" name="checkInPresenca" method="_wOwkgJeIEdyqN79LFuBS7A" postcondition="_DBZYkRH8EeWA7uJHonRzDQ">
         <ownedRule xmi:id="_DBZYkRH8EeWA7uJHonRzDQ" name="post">
