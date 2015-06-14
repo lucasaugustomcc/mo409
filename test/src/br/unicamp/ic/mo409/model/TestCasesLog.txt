@@ -1,21 +1,41 @@
 ### Test Case Generation Statistics
 ### Test Goal Satisfaction
- - defined 3 test goals
- - satisfied 3 test goals (100.0 %)
+ - defined 8 test goals
+ - satisfied 6 test goals (75.0 %)
 
 ### unsatisfied test goals
 
+ - not satisfied: (test goal #1 - traversed transition) 
+   from node Presenca::sort::calculando
+   to node Presenca::sort::ausente
+   triggered by calcularPresencaEvent
+ - not satisfied: (test goal #2 - traversed transition) 
+   from node Presenca::sort::calculando
+   to node Presenca::sort::presente
+   triggered by calcularPresencaEvent
 
 ### satisfied test goals
 
- - satisfied: (test goal #1 - traversed transition) 
-   from node Chamada::sort::presente
-   to node tmp2
-   triggered by encerrarPresencaEvent
- - satisfied: (test goal #2 - traversed transition) 
-   from node Chamada::sort::calculando
-   to node tmp1
-   triggered by calcularPresencaEvent
  - satisfied: (test goal #3 - traversed transition) 
-   from node Chamada::sort::init
-   to node Chamada::sort::calculando
+   from node Presenca::sort::fora_de_aula
+   to node tmp5
+   triggered by calcularPresencaEvent
+ - satisfied: (test goal #4 - traversed transition) 
+   from node Presenca::sort::em_aula
+   to node tmp3
+   triggered by checkOutPresencaEvent
+ - satisfied: (test goal #5 - traversed transition) 
+   from node Presenca::sort::em_aula
+   to node tmp4
+   triggered by calcularPresencaEvent
+ - satisfied: (test goal #6 - traversed transition) 
+   from node Presenca::sort::em_branco
+   to node tmp2
+   triggered by calcularPresencaEvent
+ - satisfied: (test goal #7 - traversed transition) 
+   from node Presenca::sort::em_branco
+   to node tmp1
+   triggered by checkInPresencaEvent
+ - satisfied: (test goal #8 - traversed transition) 
+   from node Presenca::sort::init
+   to node Presenca::sort::em_branco

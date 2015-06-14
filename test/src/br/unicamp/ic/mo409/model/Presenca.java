@@ -9,6 +9,7 @@ public class Presenca {
 
 	public PresencaState state;
 	public Integer minTicks;
+	public Integer numTicks;
 	public Date hora_inicio;
 	public Date hora_fim;
 	public Date data_aula;
@@ -29,28 +30,48 @@ public class Presenca {
 		}
 	}
 
-	public void encerrarPresenca(Time horaFim) {
-		state = ChamadaState.encerrada;
+	public void checkInPresenca(Integer idTurma, Integer raAluno, Date dataAula, Time horaInicio) {
+		state = PresencaState.em_branco;  ///??
 	}
 
+	public void checkOutPresenca(Integer idTurma, Integer raAluno, Date dataAula, Time horaInicio) {
+		state = PresencaState.em_aula;    ///??
+	}
+	
 ////////
 	
 	public void handleEvent(Object... in_colObject) {
 		if (in_colObject.length > 0) 
 		{
 			String sEventName = (String) in_colObject[0];
-			if ((state == ChamadaState.nao_aberta)
-					&& (sEventName.compareTo("abrirChamadaEvent") == 0)) 
+			if ((state == PresencaState.em_branco)
+					&& (sEventName.compareTo("checkInPresencaEvent") == 0)) 
 			{
-				Integer tempIDTurma     = (Integer) in_colObject[1];
+				Integer tempIDTurma    = (Integer) in_colObject[1];
 				Integer idTurma;
-				Integer tempRAProfessor = (Integer) in_colObject[2];
-				Integer raProfessor;
-				Integer tempDataAula    = (Integer) in_colObject[3];
+				Integer tempRAAluno    = (Integer) in_colObject[2];
+				Integer raAluno;
+				Integer tempDataAula   = (Integer) in_colObject[3];
 				Date    dataAula;
 				Integer tempHoraInicio = (Integer) in_colObject[4];
 				Time    horaInicio;
 				
+				if (tempIDTurma > 0)
+				{
+				    idTurma = 1;
+				}
+				else
+				{
+					idTurma = 2;
+				}
+				if (tempRAAluno > 0)
+				{
+				    raAluno = 1;
+				}
+				else
+				{
+					raAluno = 2;
+				}
 				if (tempDataAula > 0)
 				{
 				    dataAula = new Date(2015,6,1);
@@ -67,6 +88,21 @@ public class Presenca {
 				{
 					horaInicio = new Time(16,0,0);
 				}
+				checkInPresenca(idTurma, raAluno, dataAula, horaInicio);
+			}
+			
+			if ((state == PresencaState.em_aula)
+					&& (sEventName.compareTo("checkOutPresencaEvent") == 0)) 
+			{
+				Integer tempIDTurma    = (Integer) in_colObject[1];
+				Integer idTurma;
+				Integer tempRAAluno    = (Integer) in_colObject[2];
+				Integer raAluno;
+				Integer tempDataAula   = (Integer) in_colObject[3];
+				Date    dataAula;
+				Integer tempHoraInicio = (Integer) in_colObject[4];
+				Time    horaInicio;
+				
 				if (tempIDTurma > 0)
 				{
 				    idTurma = 1;
@@ -75,48 +111,233 @@ public class Presenca {
 				{
 					idTurma = 2;
 				}
-				if (tempRAProfessor > 0)
+				if (tempRAAluno > 0)
 				{
-				    raProfessor = 1;
+				    raAluno = 1;
 				}
 				else
 				{
-					raProfessor = 2;
+					raAluno = 2;
 				}
-				abrirChamada(idTurma, raProfessor, dataAula, horaInicio);
+				if (tempDataAula > 0)
+				{
+				    dataAula = new Date(2015,6,1);
+				}
+				else
+				{
+					dataAula = new Date(2010,5,1);
+				}
+				if (tempHoraInicio > 0)
+				{
+				    horaInicio = new Time(10,0,0);
+				}
+				else
+				{
+					horaInicio = new Time(16,0,0);
+				}
+				checkOutPresenca(idTurma, raAluno, dataAula, horaInicio);
 			}
 			
-			if (sEventName.compareTo("encerrarChamadaEvent") == 0 && state == ChamadaState.aberta) 
+			if ((state == PresencaState.em_branco) 
+					&& sEventName.compareTo("calcularPresencaEvent") == 0 ) 
 			{
-				Integer tempHoraFim = (Integer) in_colObject[1];
-				Time    horaFim;
+				Integer tempIDTurma    = (Integer) in_colObject[1];
+				Integer idTurma;
+				Integer tempRAAluno    = (Integer) in_colObject[2];
+				Integer raAluno;
+				Integer tempDataAula   = (Integer) in_colObject[3];
+				Date    dataAula;
+				Integer tempHoraInicio = (Integer) in_colObject[4];
+				Time    horaInicio;
 				
-				if (tempHoraFim > 0)
+				if (tempIDTurma > 0)
 				{
-				    horaFim = new Time(10,0,0);
+				    idTurma = 1;
 				}
 				else
 				{
-					horaFim = new Time(16,0,0);
+					idTurma = 2;
 				}
-				encerrarChamada(horaFim);
+				if (tempRAAluno > 0)
+				{
+				    raAluno = 1;
+				}
+				else
+				{
+					raAluno = 2;
+				}
+				if (tempDataAula > 0)
+				{
+				    dataAula = new Date(2015,6,1);
+				}
+				else
+				{
+					dataAula = new Date(2010,5,1);
+				}
+				if (tempHoraInicio > 0)
+				{
+				    horaInicio = new Time(10,0,0);
+				}
+				else
+				{
+					horaInicio = new Time(16,0,0);
+				}
+				calcularPresenca(idTurma, raAluno, dataAula, horaInicio, numTicks);
 			}
 			
-			if (sEventName.compareTo("calcularPresencaEvent") == 0 && state == ChamadaState.encerrada) 
+			if ((state == PresencaState.em_aula) 
+					&& (sEventName.compareTo("calcularPresencaEvent") == 0))
 			{
-				Integer tempListaPresencas = (Integer) in_colObject[1];
-				List<Presenca>    listaPresencas = new ArrayList<Presenca>();;
+				Integer tempIDTurma    = (Integer) in_colObject[1];
+				Integer idTurma;
+				Integer tempRAAluno    = (Integer) in_colObject[2];
+				Integer raAluno;
+				Integer tempDataAula   = (Integer) in_colObject[3];
+				Date    dataAula;
+				Integer tempHoraInicio = (Integer) in_colObject[4];
+				Time    horaInicio;
 				
-				if (tempListaPresencas > 0)
+				if (tempIDTurma > 0)
 				{
-					listaPresencas.add(new Presenca());
+				    idTurma = 1;
 				}
 				else
 				{
-					listaPresencas.add(new Presenca());
+					idTurma = 2;
 				}
-				calcularPresenca(listaPresencas);
+				if (tempRAAluno > 0)
+				{
+				    raAluno = 1;
+				}
+				else
+				{
+					raAluno = 2;
+				}
+				if (tempDataAula > 0)
+				{
+				    dataAula = new Date(2015,6,1);
+				}
+				else
+				{
+					dataAula = new Date(2010,5,1);
+				}
+				if (tempHoraInicio > 0)
+				{
+				    horaInicio = new Time(10,0,0);
+				}
+				else
+				{
+					horaInicio = new Time(16,0,0);
+				}
+				calcularPresenca(idTurma, raAluno, dataAula, horaInicio, numTicks);
 			}
+			
+			if ((state == PresencaState.fora_de_aula)
+					&& (sEventName.compareTo("calcularPresencaEvent") == 0)) 
+			{
+				Integer tempIDTurma    = (Integer) in_colObject[1];
+				Integer idTurma;
+				Integer tempRAAluno    = (Integer) in_colObject[2];
+				Integer raAluno;
+				Integer tempDataAula   = (Integer) in_colObject[3];
+				Date    dataAula;
+				Integer tempHoraInicio = (Integer) in_colObject[4];
+				Time    horaInicio;
+				
+				if (tempIDTurma > 0)
+				{
+				    idTurma = 1;
+				}
+				else
+				{
+					idTurma = 2;
+				}
+				if (tempRAAluno > 0)
+				{
+				    raAluno = 1;
+				}
+				else
+				{
+					raAluno = 2;
+				}
+				if (tempDataAula > 0)
+				{
+				    dataAula = new Date(2015,6,1);
+				}
+				else
+				{
+					dataAula = new Date(2010,5,1);
+				}
+				if (tempHoraInicio > 0)
+				{
+				    horaInicio = new Time(10,0,0);
+				}
+				else
+				{
+					horaInicio = new Time(16,0,0);
+				}
+				calcularPresenca(idTurma, raAluno, dataAula, horaInicio, numTicks);
+			}
+			
+			if ((state == PresencaState.calculando) 
+					&& (sEventName.compareTo("calcularPresencaEvent") == 0)) 
+			{
+				Integer tempIDTurma    = (Integer) in_colObject[1];
+				Integer idTurma;
+				Integer tempRAAluno    = (Integer) in_colObject[2];
+				Integer raAluno;
+				Integer tempDataAula   = (Integer) in_colObject[3];
+				Date    dataAula;
+				Integer tempHoraInicio = (Integer) in_colObject[4];
+				Time    horaInicio;
+				
+				if (tempIDTurma > 0)
+				{
+				    idTurma = 1;
+				}
+				else
+				{
+					idTurma = 2;
+				}
+				if (tempRAAluno > 0)
+				{
+				    raAluno = 1;
+				}
+				else
+				{
+					raAluno = 2;
+				}
+				if (tempDataAula > 0)
+				{
+				    dataAula = new Date(2015,6,1);
+				}
+				else
+				{
+					dataAula = new Date(2010,5,1);
+				}
+				if (tempHoraInicio > 0)
+				{
+				    horaInicio = new Time(10,0,0);
+				}
+				else
+				{
+					horaInicio = new Time(16,0,0);
+				}
+				calcularPresenca(idTurma, raAluno, dataAula, horaInicio, numTicks);
+			}
+			
+//          Se estiver no estado "calculando", independentemente de acao de disparo, vai para:
+//			"presente" se numTicks >= minTicks   ou
+//			"ausente"  caso contrario
+//          Deixei o esqueleto de codigo logo a seguir apenas para caso seja necessario 
+//			tratar aqui estas condicoes.
+//			
+//			if ((state == PresencaState.calculando) 
+//				&& (????))			
+//		    {
+//		    	
+//		    }
+
 		}
 	}
 
