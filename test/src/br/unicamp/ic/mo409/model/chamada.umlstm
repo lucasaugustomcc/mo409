@@ -70,15 +70,6 @@
     <element xmi:type="uml:Transition" href="chamada.uml#_KncaYJeHEdyqN79LFuBS7A"/>
     <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_bGrfRA_HEeW9tOBv2PuSDg" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
   </edges>
-  <edges xmi:type="notation:Edge" xmi:id="_bG1QQA_HEeW9tOBv2PuSDg" type="4001" source="_bFo9cA_HEeW9tOBv2PuSDg" target="_bFo9cA_HEeW9tOBv2PuSDg">
-    <children xmi:type="notation:Node" xmi:id="_bG1QRA_HEeW9tOBv2PuSDg" type="6001">
-      <layoutConstraint xmi:type="notation:Location" xmi:id="_bG1QRQ_HEeW9tOBv2PuSDg" x="-20" y="46"/>
-    </children>
-    <styles xmi:type="notation:ConnectorStyle" xmi:id="_bG1QQQ_HEeW9tOBv2PuSDg"/>
-    <styles xmi:type="notation:FontStyle" xmi:id="_bG1QQg_HEeW9tOBv2PuSDg" fontName="Segoe UI"/>
-    <element xmi:type="uml:Transition" href="chamada.uml#_LBEbUJeHEdyqN79LFuBS7A"/>
-    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_bG1QQw_HEeW9tOBv2PuSDg" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
-  </edges>
   <edges xmi:type="notation:Edge" xmi:id="_bG1QRg_HEeW9tOBv2PuSDg" type="4001" source="_bFo9cA_HEeW9tOBv2PuSDg" target="_bFyucw_HEeW9tOBv2PuSDg">
     <children xmi:type="notation:Node" xmi:id="_bG1QSg_HEeW9tOBv2PuSDg" type="6001">
       <layoutConstraint xmi:type="notation:Location" xmi:id="_bG1QSw_HEeW9tOBv2PuSDg" x="39" y="-126"/>

@@ -3,6 +3,7 @@
   <packagedElement xmi:type="uml:Package" xmi:id="_wPxqwOjJEdu6LJeVabImNg" name="br.unicamp.ic.mo409.model">
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_3s26UBHcEeWx5e2dXReDlw" name="checkInPresencaEvent" operation="_DBZYkBH8EeWA7uJHonRzDQ"/>
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_ufpUEAZ8EeW1-OgwpVc0Kw" name="checkOutPresencaEvent" operation="_DobjYBH8EeWA7uJHonRzDQ"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_fdj-sBLiEeW8wLTPs8FuLw" name="receberTickEvent" operation="_HQGfwOzQEduqQpSKns4XGA"/>
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_MaE9UOjKEdu6LJeVabImNg" name="calcularPresencaEvent" operation="_HQGfwOzQEduqQpSKns4XGA"/>
     <packagedElement xmi:type="uml:Class" xmi:id="_CbgIUOzQEduqQpSKns4XGA" name="Presenca" classifierBehavior="_2Y0fgJ0ZEdyNrffIHb491A">
       <ownedAttribute xmi:id="_LlucMOzQEduqQpSKns4XGA" name="hora_inicio" isReadOnly="true" isDerivedUnion="true">
@@ -88,6 +89,10 @@
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_3Qb84RIEEeWA7uJHonRzDQ" name="calcularPresenca" specification="_HQGfwOzQEduqQpSKns4XGA"/>
             <trigger xmi:id="_3Qlt4BIEEeWA7uJHonRzDQ" name="calcularPresenca" event="_MaE9UOjKEdu6LJeVabImNg"/>
           </transition>
+          <transition xmi:id="_PVAcMBLhEeW8wLTPs8FuLw" name="em_aula2em_aula" target="_y9ig8BHbEeWx5e2dXReDlw" source="_y9ig8BHbEeWx5e2dXReDlw">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_PVAcMRLhEeW8wLTPs8FuLw" name="receberTick"/>
+            <trigger xmi:id="_PVAcMhLhEeW8wLTPs8FuLw" name="receberTick" event="_fdj-sBLiEeW8wLTPs8FuLw"/>
+          </transition>
           <transition xmi:id="_LbJvQJeHEdyqN79LFuBS7A" name="em_aula2fora_de_aula" target="_gK128BHbEeWx5e2dXReDlw" source="_y9ig8BHbEeWx5e2dXReDlw">
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_ZYnI8Ak6EeW4Zd_Lzs5Nzg" name="checkOutPresenca" specification="_DobjYBH8EeWA7uJHonRzDQ"/>
             <trigger xmi:id="_YWpVoAk6EeW4Zd_Lzs5Nzg" name="checkOutPresenca" event="_ufpUEAZ8EeW1-OgwpVc0Kw"/>
@@ -161,6 +166,26 @@
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
         </ownedParameter>
         <ownedParameter xmi:id="_byVUsBHSEeWx5e2dXReDlw" name="numTicks">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_jdc7sBLiEeW8wLTPs8FuLw" name="receberTick" postcondition="_jdc7sRLiEeW8wLTPs8FuLw">
+        <ownedRule xmi:id="_jdc7sRLiEeW8wLTPs8FuLw" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_jdc7shLiEeW8wLTPs8FuLw" value="if ((state = PresencaState::calculando) and (numTicks >= minTicks)) then  state=PresencaState::presente else state=PresencaState::ausente endif"/>
+        </ownedRule>
+        <ownedParameter xmi:id="_jdc7sxLiEeW8wLTPs8FuLw" name="idTurma">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_jdc7tBLiEeW8wLTPs8FuLw" name="raAluno">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_jdc7tRLiEeW8wLTPs8FuLw" name="dataAula">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_jdc7thLiEeW8wLTPs8FuLw" name="horaInicio">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_jdc7txLiEeW8wLTPs8FuLw" name="numTicks">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
         </ownedParameter>
       </ownedOperation>
