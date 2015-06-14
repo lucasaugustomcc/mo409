@@ -1,6 +1,7 @@
 package br.unicamp.ic.mo409.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -76,6 +77,11 @@ public class Presenca implements Serializable {
 
 	public void setChamada(Chamada chamada) {
 		this.chamada = chamada;
+	}
+
+	public void calcularPresenca(Integer numTicksMinino) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

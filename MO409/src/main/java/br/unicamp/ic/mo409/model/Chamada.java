@@ -2,18 +2,20 @@ package br.unicamp.ic.mo409.model;
 
 import java.io.Serializable;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,10 +26,16 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "tb_chamada")
-@NamedQuery(name = "Chamada.findAll", query = "SELECT a FROM Chamada a")
 public class Chamada implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
+	ChamadaState state;
+	private static final Integer numTicksMinino = 20; 
+	private static final Integer tempoTicks = 5; 
+	
+	@PersistenceContext(unitName = "persistenceUnit")
+	protected EntityManager entityManager;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_chamada", unique = true, nullable = false)
@@ -62,22 +70,115 @@ public class Chamada implements Serializable {
 	private List<Tick> ticks;
 
 	public Chamada() {
-	}
-
-	public boolean abrirChamada(Turma turma, Professor professor, Date data_aula, Time hora_inicio) {
-		return false;
-	}
-
-	public boolean encerrarChamada(Time hora_fim) {
-		return false;
-	}
-
-	public Tick receberTick(Tick tick) {
-		return null;
+		state = ChamadaState.nao_aberta;
 	}
 	
-	public List<Presenca> calcularPresencas(List<Tick> ticks) {
-		return null;
+	public void handleEvent(Object... in_colObject) {
+		if (in_colObject.length > 0) 
+		{
+			String sEventName = (String) in_colObject[0];
+			if ((state == ChamadaState.nao_aberta)
+					&& (sEventName.compareTo("abrirChamadaEvent") == 0)) 
+			{
+				Integer tempIDTurma     = (Integer) in_colObject[1];
+				Integer idTurma;
+				Integer tempRAProfessor = (Integer) in_colObject[2];
+				Integer raProfessor;
+				Integer tempDataChamada    = (Integer) in_colObject[3];
+				Date    dataChamada;
+				Integer tempHoraInicio = (Integer) in_colObject[4];
+				Time    horaInicio;
+				
+				if (tempDataChamada > 0)
+				{
+				    dataChamada = new Date(2015,6,1);
+				}
+				else
+				{
+					dataChamada = new Date(2010,5,1);
+				}
+				if (tempHoraInicio > 0)
+				{
+				    horaInicio = new Time(10,0,0);
+				}
+				else
+				{
+					horaInicio = new Time(16,0,0);
+				}
+				if (tempIDTurma > 0)
+				{
+				    idTurma = 1;
+				}
+				else
+				{
+					idTurma = 2;
+				}
+				if (tempRAProfessor > 0)
+				{
+				    raProfessor = 1;
+				}
+				else
+				{
+					raProfessor = 2;
+				}
+				Turma turma = entityManager.getReference(Turma.class, idTurma);
+				Professor professor = entityManager.getReference(Professor.class, raProfessor);
+				abrirChamada(turma, professor, dataChamada, horaInicio);
+			}
+			
+			if (sEventName.compareTo("encerrarChamadaEvent") == 0 && state == ChamadaState.aberta) 
+			{
+				Integer tempHoraFim = (Integer) in_colObject[1];
+				Time    horaFim;
+				
+				if (tempHoraFim > 0)
+				{
+				    horaFim = new Time(10,0,0);
+				}
+				else
+				{
+					horaFim = new Time(16,0,0);
+				}
+				encerrarChamada(horaFim);
+			}
+			
+			if (sEventName.compareTo("calcularPresencaEvent") == 0 && state == ChamadaState.encerrada) 
+			{
+				Integer tempListaPresencas = (Integer) in_colObject[1];
+				List<Presenca>    listaPresencas = new ArrayList<Presenca>();;
+				
+				if (tempListaPresencas > 0)
+				{
+					listaPresencas.add(new Presenca());
+				}
+				else
+				{
+					listaPresencas.add(new Presenca());
+				}
+				calcularPresenca(listaPresencas);
+			}
+		}
+	}
+
+	public void abrirChamada(Turma turma, Professor professor, Date dataChamada, Time horaInicio) {		
+		this.setProfessor(professor);
+		this.setTurma(turma);
+		this.setDataChamada(dataChamada);
+		this.setHoraInicio(horaInicio);
+		state = ChamadaState.aberta;
+	}
+
+	public void encerrarChamada(Time horaFim) {
+		this.setHoraFim(horaFim);
+		state = ChamadaState.encerrada;
+	}
+	
+	public void calcularPresenca(List<Presenca> presencas) {
+		for (Presenca presenca : presencas)
+		{
+			presenca.calcularPresenca(numTicksMinino);
+		}
+		state = ChamadaState.encerrada;		
 	}
 
 	public int getIdChamada() {

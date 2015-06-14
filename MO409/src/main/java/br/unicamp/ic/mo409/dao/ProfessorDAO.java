@@ -28,10 +28,10 @@ public class ProfessorDAO implements Serializable {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Turma> listTurmasByProfessor(Professor professor) 
+	public List<Turma> listTurmasByProfessor(Integer raProfessor) 
 	{		
 		return entityManager.createQuery("SELECT t FROM Turma t join t.professores p WHERE t.periodo = 1 AND p.raProfessor = :RaProfessor")
-				.setParameter("RaProfessor", professor.getRaProfessor())
+				.setParameter("RaProfessor", raProfessor)
 				.getResultList();
 	}
 }
