@@ -13,8 +13,8 @@ angular.module('ionic-http-auth', [
   'ionic-http-auth.services',
   'ionic-http-auth.controllers'])
 
-  .run(function($rootScope, $ionicPlatform, $httpBackend, localStorageService) {
-
+  .run(function($http, $rootScope, $ionicPlatform, $httpBackend, localStorageService) {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
 	$ionicPlatform.ready(function() {
     if(window.StatusBar) {
       // org.apache.cordova.statusbar required
@@ -367,10 +367,6 @@ var ENV = (function() {
 
 var app = {
     /**
-    * @property {google.maps.Map} map
-    */
-    map: undefined,
-    /**
     * @property {google.maps.Marker} location The current location
     */
     location: undefined,
@@ -378,10 +374,7 @@ var app = {
     * @property {google.map.PolyLine} path The list of background geolocations
     */
     path: undefined,
-    /**
-    * @property {Boolean} aggressiveEnabled
-    */
-    aggressiveEnabled: false,
+    
     /**
     * @property {Array} locations List of rendered map markers of prev locations
     */
@@ -397,25 +390,6 @@ var app = {
     // Application Constructor  
     initialize: function() {
         this.bindEvents();
-        google.maps.event.addDomListener(window, 'load', app.initializeMap);
-    },
-    initializeMap: function() {
-        
-        var mapOptions = {
-          center: { lat: -34.397, lng: 150.644},
-          zoom: 8,
-          zoomControl: false
-        };
-
-        var header = $('#header'),
-            footer = $('#footer'),
-            canvas = $('#map-canvas'),
-            canvasHeight = window.innerHeight - header[0].clientHeight - footer[0].clientHeight;
-
-        canvas.height(canvasHeight);
-        canvas.width(window.clientWidth);
-
-        app.map = new google.maps.Map(canvas[0], mapOptions);
     },
     // Bind Event Listeners
     //
@@ -425,25 +399,6 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady, false);
         document.addEventListener('pause', this.onPause, false);
         document.addEventListener('resume', this.onResume, false);
-
-        // Init UI buttons
-        this.btnHome        = $('button#btn-home');
-        this.btnReset       = $('button#btn-reset');
-        this.btnPace        = $('button#btn-pace');
-        this.btnEnabled     = $('button#btn-enabled');
-
-        if (ENV.settings.aggressive == 'true') {
-            this.btnPace.addClass('btn-danger');
-        } else {
-            this.btnPace.addClass('btn-success');
-        }
-        if (ENV.settings.enabled == 'true') {
-            this.btnEnabled.addClass('btn-danger');
-            this.btnEnabled[0].innerHTML = 'Stop';
-        } else {
-            this.btnEnabled.addClass('btn-success');
-            this.btnEnabled[0].innerHTML = 'Start';
-        }
         
         this.btnHome.on('click', this.onClickHome);
         this.btnReset.on('click', this.onClickReset);
@@ -454,45 +409,15 @@ var app = {
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        $("#login-form").on("submit",function(e) {
-            e.preventDefault();
-            //disable the button so we can't resubmit while we wait
-            //$("#submitButton",this).attr("disabled","disabled");
-            var u = $("#username", this).val();
-            var p = $("#password", this).val();
-            if(u != '' && p!= '') {
-                navigator.notification.alert("submiting", function() {});
-                $.ajax({
-                    url: 'http://192.168.1.8/json-android.php',
-                    crossDomain: true,
-                    data: {username:u,password:p}, // your data (if any) should go here
-                    dataType: 'text json', // or whatever you expect back
-                    success: function(data) {
-                        navigator.notification.alert("posted", function() {});
-                        console.log('In callback');
-                        console.log(data);
-                    },
-                    error: function(error) {
-                        navigator.notification.alert("Your login failed " + JSON.stringify(error), function() {});
-                        console.log("erro connection ajax" + JSON.stringify(error));
-                    }
-                });
-                
-            }
-            return false;
-        });
+    onDeviceReady: function() {        
         app.receivedEvent('deviceready');
         app.configureBackgroundGeoLocation();
-        app.watchPosition();
     },
     configureBackgroundGeoLocation: function() {
         var fgGeo = window.navigator.geolocation,
             bgGeo = window.plugins.backgroundGeoLocation;
 
-        app.onClickHome();
-
-        /**
+       /**
         * This would be your own callback for Ajax-requests after POSTing background geolocation to your server.
         */
         var yourAjaxCallback = function(response) {
@@ -514,24 +439,7 @@ var app = {
 
         var failureFn = function(error) {
             console.log('BackgroundGeoLocation error');
-        };
-
-        // Only ios emits this stationary event
-        bgGeo.onStationary(function(location) {
-            if (!app.stationaryRadius) {
-                app.stationaryRadius = new google.maps.Circle({
-                    fillColor: '#cc0000',
-                    fillOpacity: 0.4,
-                    strokeOpacity: 0,
-                    map: app.map
-                });
-            }
-            var radius = (location.accuracy < location.radius) ? location.radius : location.accuracy;
-            var center = new google.maps.LatLng(location.latitude, location.longitude);
-            app.stationaryRadius.setRadius(radius);
-            app.stationaryRadius.setCenter(center);
-
-        });
+        };        
 
         // BackgroundGeoLocation is highly configurable.
         bgGeo.configure(callbackFn, failureFn, {
@@ -540,6 +448,7 @@ var app = {
                 auth_token: 'user_secret_auth_token',    //  <-- Android ONLY:  HTTP POST params sent to your server when persisting locations.
                 name: 'oioo'                              //  <-- Android ONLY:  HTTP POST params sent to your server when persisting locations.
             },
+            token: '1212312312312312312312',
             desiredAccuracy: 0,
             stationaryRadius: 50,
             distanceFilter: 50,
@@ -561,25 +470,6 @@ var app = {
             }
         }
     },
-    onClickHome: function() {
-        var fgGeo = window.navigator.geolocation;
-
-        // Your app must execute AT LEAST ONE call for the current position via standard Cordova geolocation,
-        //  in order to prompt the user for Location permission.
-        fgGeo.getCurrentPosition(function(location) {
-            var map     = app.map,
-                coords  = location.coords,
-                ll      = new google.maps.LatLng(coords.latitude, coords.longitude),
-                zoom    = map.getZoom();
-
-            map.setCenter(ll);
-            if (zoom < 15) {
-                map.setZoom(15);
-            }
-            $.ajax({url: "http://192.168.1.8/json-android.php?name=" + coords.latitude});
-            app.setCurrentLocation(coords);
-        });
-    },
     onClickToggleEnabled: function(value) {
         var bgGeo       = window.plugins.backgroundGeoLocation,
             btnEnabled  = app.btnEnabled,
@@ -598,28 +488,6 @@ var app = {
             bgGeo.stop();
         }
     },
-    watchPosition: function() {
-        var fgGeo = window.navigator.geolocation;
-        if (app.watchId) {
-            app.stopPositionWatch();
-        }
-        // Watch foreground location
-        app.watchId = fgGeo.watchPosition(function(location) {
-            app.setCurrentLocation(location.coords);
-        }, function() {}, {
-            enableHighAccuracy: true,
-            maximumAge: 5000,
-            frequency: 10000,
-            timeout: 10000
-        });
-    },
-    stopPositionWatch: function() {
-        var fgGeo = window.navigator.geolocation;
-        if (app.watchId) {
-            fgGeo.clearWatch(app.watchId);
-            app.watchId = undefined;
-        }
-    },
     /**
     * Cordova foreground geolocation watch has no stop/start detection or scaled distance-filtering to conserve HTTP requests based upon speed.  
     * You can't leave Cordova's GeoLocation running in background or it'll kill your battery.  This is the purpose of BackgroundGeoLocation:  to intelligently 
@@ -627,14 +495,12 @@ var app = {
     */
     onPause: function() {
         console.log('- onPause');
-        app.stopPositionWatch();
     },
     /**
     * Once in foreground, re-engage foreground geolocation watch with standard Cordova GeoLocation api
     */
     onResume: function() {
         console.log('- onResume');
-        app.watchPosition();
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {

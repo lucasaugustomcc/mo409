@@ -101,8 +101,8 @@ angular.module('ionic-http-auth.services', ['http-auth-interceptor'])
 function(Base64, $rootScope, $http, authService, localStorageService, $state) {
   var service = {
     login: function(user) {
-      $http.defaults.headers.common['Authorization'] = 'Basic MTpzZW5oYQ==';
- 
+      
+       
       $http( { url: 'http://www.webulando.com.br/mo409/login', method: 'POST' } )
       .success(function (data, status, headers, config) {
     	 // Step 1

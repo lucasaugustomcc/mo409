@@ -73,6 +73,7 @@ public class LocationUpdateService extends Service implements LocationListener {
     private JSONObject params;
     private JSONObject headers;
     private String url = "http://192.168.2.15:3000/users/current_location.json";
+    private String token;
 
     private float stationaryRadius;
     private Location stationaryLocation;
@@ -172,6 +173,7 @@ public class LocationUpdateService extends Service implements LocationListener {
                 e.printStackTrace();
             }
             url = intent.getStringExtra("url");
+            token = intent.getStringExtra("token");
             stationaryRadius = Float.parseFloat(intent.getStringExtra("stationaryRadius"));
             distanceFilter = Integer.parseInt(intent.getStringExtra("distanceFilter"));
             scaledDistanceFilter = distanceFilter;
@@ -678,6 +680,7 @@ public class LocationUpdateService extends Service implements LocationListener {
             request.setEntity(se);
             request.setHeader("Accept", "application/json");
             request.setHeader("Content-type", "application/json");
+            request.setHeader("X-Auth-Token", token);
 
             Iterator<String> headkeys = headers.keys();
             while( headkeys.hasNext() ){
