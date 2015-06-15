@@ -1,0 +1,33 @@
+h1 {
+	font-family: Arial;
+	font-size: 1.0em;
+	color: blue;
+}
+
+.botao {
+  border-color: #b2b2b2;
+  background-color: #f8f8f8;
+  color: #444;
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  padding: 0 12px;
+  min-width: 52px;
+  min-height: 47px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 2px;
+  vertical-align: top;
+  text-align: center;
+  text-overflow: ellipsis;
+  font-size: 16px;
+  line-height: 42px;
+  cursor: pointer; 
+}
+.botao.botao-positivo {
+    border-color: #0c63ee;
+    background-color: #000000;
+    color: #fff; 
+	align: center;
+	}
+
