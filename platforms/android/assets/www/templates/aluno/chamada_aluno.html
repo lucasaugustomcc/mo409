@@ -1,0 +1,28 @@
+<ion-view title="Realizar Checkin">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left"class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-content padding="true">
+  		<div>
+  			<h2>Data Chamada: {{ chamada.dataChamada }}</h2>
+  			<h2>Hora Início: {{ chamada.horaInicio }}</h2>
+  		</div>
+		<ul class="list">
+			<li class="item item-checkbox">
+				<div class="row">
+					<div class="col-10">
+							<h2>{{ chamada.turma.codDisciplina }}</h2>
+							<h3>TURMA {{ chamada.turma.codTurma }}</h3>
+					</div>
+					<div class="col-8">
+							<p>{{ chamada.turma.nomeDisciplina }}</p>
+							<p>{{ chamada.turma.nomeProfessor }}</p>
+					</div>
+				<div>				
+			</li>			
+		</ul>
+		<button  class="button button-block button-positive icon-left ion-android-checkbox-outline" ng-click="confirmCheckIn()">
+				Fazer Checkin
+		</button>	
+  </ion-content>
+</ion-view>	

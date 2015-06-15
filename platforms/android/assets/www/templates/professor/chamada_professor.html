@@ -1,0 +1,26 @@
+<ion-view title="Realizar Chamada">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left"class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-content padding="true">	 
+		<ul class="list">
+			<li class="item item-checkbox" ng-repeat="turma in turmas">
+				<div class="row">
+					<div class="col-10">
+							<h2>{{ turma.codDisciplina }}</h2>
+							<h3>TURMA {{ turma.codTurma }}</h3>
+					</div>
+					<div class="col-8">
+							<p>{{ turma.nomeDisciplina }}</p>
+					</div>
+				<div>
+				<label class="checkbox">
+					<input type="checkbox" name="turma" ng-model="formData.turma" ng-true-value="{{ turma.idTurma }}" ng-value="{{ turma.idTurma }}">
+				</label>				
+			</li>			
+		</ul>
+		<button  class="button button-block button-positive icon-left ion-android-checkbox-outline" ng-click="confirmChamada()">
+				Abrir Chamada
+		</button>	
+  </ion-content>
+</ion-view>	
