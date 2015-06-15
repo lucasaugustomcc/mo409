@@ -1,6 +1,9 @@
 package br.unicamp.ic.mo409.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +24,11 @@ public class LoginController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public Usuario login() {
-		return null;
+		Authentication auth = (Authentication) SecurityContextHolder
+				.getContext().getAuthentication();
+		UserDetails usuario = (UserDetails) auth.getPrincipal();
+		Usuario user = usuarioDAO.loadUsuarioByUsername(usuario.getUsername());
+			
+		return user;
 	}
 }

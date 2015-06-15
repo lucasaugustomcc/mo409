@@ -30,7 +30,6 @@ import javax.persistence.Transient;
 public class Chamada implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@Transient
 	ChamadaState state;
 	
 	@Transient

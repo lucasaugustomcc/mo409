@@ -22,6 +22,8 @@ public class Presenca implements Serializable {
 
 	@Column(name="is_presente")
 	private boolean isPresente;
+	
+	PresencaState state;
 
 	@Column(name="num_ticks", nullable=false)
 	private int numTicks;
@@ -37,6 +39,7 @@ public class Presenca implements Serializable {
 	private Chamada chamada;
 
 	public Presenca() {
+		state = PresencaState.em_branco;
 	}
 
 	public int getIdPresenca() {
@@ -80,8 +83,114 @@ public class Presenca implements Serializable {
 	}
 
 	public void calcularPresenca(Integer numTicksMinino) {
-		// TODO Auto-generated method stub
+		state = PresencaState.calculando;
 		
+		if (numTicks >= numTicksMinino)
+		{
+			state = PresencaState.presente;
+		}
+		else
+		{
+			state = PresencaState.ausente;
+		}
+	}
+	
+	public void handleEvent(Object... in_colObject) {
+		if (in_colObject.length > 0) 
+		{
+			String sEventName = (String) in_colObject[0];
+			if ((state == PresencaState.em_branco)
+					&& (sEventName.compareTo("checkInPresencaEvent") == 0)) 
+			{
+				checkInPresenca();
+			}
+			
+			if ((state == PresencaState.em_aula)
+					&& (sEventName.compareTo("checkOutPresencaEvent") == 0)) 
+			{
+				checkOutPresenca();
+			}
+			
+			if ((state == PresencaState.em_branco) 
+					&& sEventName.compareTo("calcularPresencaEvent") == 0 ) 
+			{				
+				Integer tempNumTicks    = (Integer) in_colObject[1];
+				Integer numMinTicks;
+				
+				if (tempNumTicks > 0)
+				{
+				    numMinTicks = 1;
+				}
+				else
+				{
+					numMinTicks = 2;
+				}
+				setNumTicks(5);
+				calcularPresenca(numMinTicks);
+			}
+			
+			if ((state == PresencaState.em_aula) 
+					&& (sEventName.compareTo("calcularPresencaEvent") == 0))
+			{
+				Integer tempNumTicks    = (Integer) in_colObject[1];
+				Integer numMinTicks;
+				
+				if (tempNumTicks > 0)
+				{
+					numMinTicks = 1;
+				}
+				else
+				{
+					numMinTicks = 2;
+				}
+				setNumTicks(5);
+				calcularPresenca(numMinTicks);
+			}
+			
+			if ((state == PresencaState.fora_de_aula)
+					&& (sEventName.compareTo("calcularPresencaEvent") == 0)) 
+			{
+				Integer tempNumTicks = (Integer) in_colObject[1];
+				Integer numTicks;
+				
+				if (tempNumTicks > 0)
+				{
+				    numTicks = 1;
+				}
+				else
+				{
+					numTicks = 2;
+				}
+				setNumTicks(5);
+				calcularPresenca(numTicks);
+			}
+			
+			if ((state == PresencaState.calculando) 
+					&& (sEventName.compareTo("calcularPresencaEvent") == 0)) 
+			{
+				Integer tempNumTicks = (Integer) in_colObject[1];
+				Integer numTicks;
+				
+				if (tempNumTicks > 0)
+				{
+				    numTicks = 1;
+				}
+				else
+				{
+					numTicks = 2;
+				}
+				setNumTicks(5);
+				calcularPresenca(numTicks);
+			}
+		}
+	}
+
+	private void checkOutPresenca() {
+		state = PresencaState.fora_de_aula;
+	}
+
+	private void checkInPresenca() {
+		state = PresencaState.em_aula;
 	}
 
 }
