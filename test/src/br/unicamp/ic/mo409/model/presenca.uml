@@ -6,40 +6,30 @@
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_fdj-sBLiEeW8wLTPs8FuLw" name="receberTickEvent" operation="_HQGfwOzQEduqQpSKns4XGA"/>
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_MaE9UOjKEdu6LJeVabImNg" name="calcularPresencaEvent" operation="_HQGfwOzQEduqQpSKns4XGA"/>
     <packagedElement xmi:type="uml:Class" xmi:id="_CbgIUOzQEduqQpSKns4XGA" name="Presenca" classifierBehavior="_2Y0fgJ0ZEdyNrffIHb491A">
-      <ownedAttribute xmi:id="_LlucMOzQEduqQpSKns4XGA" name="hora_inicio" isReadOnly="true" isDerivedUnion="true">
-        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#TimeExpression"/>
-        <defaultValue xmi:type="uml:LiteralString" xmi:id="_YAFOcJKwEdyUSNhMCOPPLg" name="" value="10:00"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="_eN0dAO2yEdu00tpIhIjmTg" name="hora_fim" isReadOnly="true">
-        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#TimeExpression"/>
-        <defaultValue xmi:type="uml:LiteralString" xmi:id="_H4HP4JKxEdyUSNhMCOPPLg" name="" value="12:00"/>
-      </ownedAttribute>
       <ownedAttribute xmi:id="_GTqyoJ0aEdyNrffIHb491A" name="state" type="_dMVB4JsBEd20fKiJK1xsTw"/>
       <ownedAttribute xmi:id="_SDlD4AhwEeWo2qsvHoqUxQ" name="minTicks">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
         <upperValue xmi:type="uml:LiteralString" xmi:id="_1SaCgA3pEeWMKsVXT7gRww" name="" value="1"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_PSCUoA3nEeWfg8LmfrVuEg" name="turma" type="_8CmWMA3kEeWfg8LmfrVuEg">
-        <upperValue xmi:type="uml:LiteralString" xmi:id="_3CBmAA3pEeWMKsVXT7gRww" name="" value="null"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="_UeZEwA3nEeWfg8LmfrVuEg" name="professor" type="_hFgdoA3kEeWfg8LmfrVuEg">
-        <upperValue xmi:type="uml:LiteralString" xmi:id="_39iMAA3pEeWMKsVXT7gRww" name="" value="null"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="_p7uwEA3nEeWfg8LmfrVuEg" name="data_aula" isReadOnly="true" isDerivedUnion="true">
-        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#TimeExpression"/>
-        <defaultValue xmi:type="uml:LiteralString" xmi:id="_p7uwEQ3nEeWfg8LmfrVuEg" name="" value="2015-03-10 10:00:00"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="_7rx-MBBAEeWaCPRCPew3ZA" name="m_location">
+      <ownedAttribute xmi:id="_PSCUoA3nEeWfg8LmfrVuEg" name="idAula">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        <upperValue xmi:type="uml:LiteralString" xmi:id="_7rx-MRBAEeWaCPRCPew3ZA" name="" value="0"/>
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_3CBmAA3pEeWMKsVXT7gRww" name="" value="1"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_dV3ZYBKVEeWCyZ-o2cJk7w" name="checkIn">
+      <ownedAttribute xmi:id="_UeZEwA3nEeWfg8LmfrVuEg" name="raAluno">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_39iMAA3pEeWMKsVXT7gRww" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_dV3ZYBKVEeWCyZ-o2cJk7w" name="isPresent">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
         <upperValue xmi:type="uml:LiteralString" xmi:id="_dV3ZYRKVEeWCyZ-o2cJk7w" name="" value="false"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_j_WO0BKVEeWCyZ-o2cJk7w" name="checkOut">
+      <ownedAttribute xmi:id="_59ddIBNfEeWBTt9NqZUcyg" name="checkIn">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        <upperValue xmi:type="uml:LiteralString" xmi:id="_j_WO0RKVEeWCyZ-o2cJk7w" name="" value="false"/>
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_59ddIRNfEeWBTt9NqZUcyg" name="" value="false"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_8KWLcBNfEeWBTt9NqZUcyg" name="checkOut">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_8KWLcRNfEeWBTt9NqZUcyg" name="" value="false"/>
       </ownedAttribute>
       <ownedBehavior xmi:type="uml:FunctionBehavior" xmi:id="_2Y0fgJ0ZEdyNrffIHb491A" name="setState" postcondition="_KTh6cJ0aEdyNrffIHb491A">
         <ownedRule xmi:id="_KTh6cJ0aEdyNrffIHb491A">
@@ -119,75 +109,24 @@
         <ownedRule xmi:id="_DBZYkRH8EeWA7uJHonRzDQ" name="post">
           <specification xmi:type="uml:LiteralString" xmi:id="_DBZYkhH8EeWA7uJHonRzDQ" value="if ((state = PresencaState::em_branco) and (checkIn = true)) then  state=PresencaState::em_aula else state=PresencaState::em_branco endif"/>
         </ownedRule>
-        <ownedParameter xmi:id="_DBZYkxH8EeWA7uJHonRzDQ" name="idTurma">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        </ownedParameter>
-        <ownedParameter xmi:id="_DBZYlBH8EeWA7uJHonRzDQ" name="raProfessor">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        </ownedParameter>
-        <ownedParameter xmi:id="_DBZYlRH8EeWA7uJHonRzDQ" name="dataAula">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        </ownedParameter>
-        <ownedParameter xmi:id="_DBZYlhH8EeWA7uJHonRzDQ" name="horaInicio">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="_DobjYBH8EeWA7uJHonRzDQ" name="checkOutPresenca" method="_ZYnI8Ak6EeW4Zd_Lzs5Nzg" postcondition="_DobjYRH8EeWA7uJHonRzDQ">
         <ownedRule xmi:id="_DobjYRH8EeWA7uJHonRzDQ" name="post">
           <specification xmi:type="uml:LiteralString" xmi:id="_DobjYhH8EeWA7uJHonRzDQ" value="if ((state = PresencaState::em_aula) and (checkOut = true)) then  state=PresencaState::fora_de_aula else state=PresencaState::em_aula endif"/>
         </ownedRule>
-        <ownedParameter xmi:id="_DobjYxH8EeWA7uJHonRzDQ" name="idTurma">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        </ownedParameter>
-        <ownedParameter xmi:id="_DocKcBH8EeWA7uJHonRzDQ" name="raProfessor">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        </ownedParameter>
-        <ownedParameter xmi:id="_DocKcRH8EeWA7uJHonRzDQ" name="dataAula">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        </ownedParameter>
-        <ownedParameter xmi:id="_DocKchH8EeWA7uJHonRzDQ" name="horaInicio">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="_HQGfwOzQEduqQpSKns4XGA" name="calcularPresenca" method="_3Qb84RIEEeWA7uJHonRzDQ _DD6yARIFEeWA7uJHonRzDQ _Z0hRcRIEEeWA7uJHonRzDQ" postcondition="_QxNNEAkgEeWyXqZbehidIA">
         <ownedRule xmi:id="_QxNNEAkgEeWyXqZbehidIA" name="post">
           <specification xmi:type="uml:LiteralString" xmi:id="_SZmHMAkgEeWyXqZbehidIA" value="if ((state = PresencaState::calculando) and (numTicks >= minTicks)) then  state=PresencaState::presente else state=PresencaState::ausente endif"/>
         </ownedRule>
-        <ownedParameter xmi:id="_xSG1wA6tEeWOgpCl8lrPTA" name="idTurma">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        </ownedParameter>
-        <ownedParameter xmi:id="_PmgAgBFPEeWObsAYedfGJA" name="raAluno">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        </ownedParameter>
-        <ownedParameter xmi:id="_bJC2oBFPEeWObsAYedfGJA" name="dataAula">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        </ownedParameter>
-        <ownedParameter xmi:id="_dlqDABFPEeWObsAYedfGJA" name="horaInicio">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        </ownedParameter>
         <ownedParameter xmi:id="_byVUsBHSEeWx5e2dXReDlw" name="numTicks">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="_jdc7sBLiEeW8wLTPs8FuLw" name="receberTick" postcondition="_jdc7sRLiEeW8wLTPs8FuLw">
         <ownedRule xmi:id="_jdc7sRLiEeW8wLTPs8FuLw" name="post">
-          <specification xmi:type="uml:LiteralString" xmi:id="_jdc7shLiEeW8wLTPs8FuLw" value="if ((state = PresencaState::calculando) and (numTicks >= minTicks)) then  state=PresencaState::presente else state=PresencaState::ausente endif"/>
+          <specification xmi:type="uml:LiteralString" xmi:id="_jdc7shLiEeW8wLTPs8FuLw" value="if ((state = PresencaState::em_aula) and (chamada.state=ChamadaState::aberta)) then  state=PresencaState::em_aula endif"/>
         </ownedRule>
-        <ownedParameter xmi:id="_jdc7sxLiEeW8wLTPs8FuLw" name="idTurma">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        </ownedParameter>
-        <ownedParameter xmi:id="_jdc7tBLiEeW8wLTPs8FuLw" name="raAluno">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        </ownedParameter>
-        <ownedParameter xmi:id="_jdc7tRLiEeW8wLTPs8FuLw" name="dataAula">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        </ownedParameter>
-        <ownedParameter xmi:id="_jdc7thLiEeW8wLTPs8FuLw" name="horaInicio">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        </ownedParameter>
-        <ownedParameter xmi:id="_jdc7txLiEeW8wLTPs8FuLw" name="numTicks">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        </ownedParameter>
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Enumeration" xmi:id="_dMVB4JsBEd20fKiJK1xsTw" name="PresencaState">
