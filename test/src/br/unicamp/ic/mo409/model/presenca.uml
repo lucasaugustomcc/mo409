@@ -7,6 +7,10 @@
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_MaE9UOjKEdu6LJeVabImNg" name="calcularPresencaEvent" operation="_HQGfwOzQEduqQpSKns4XGA"/>
     <packagedElement xmi:type="uml:Class" xmi:id="_CbgIUOzQEduqQpSKns4XGA" name="Presenca" classifierBehavior="_2Y0fgJ0ZEdyNrffIHb491A">
       <ownedAttribute xmi:id="_GTqyoJ0aEdyNrffIHb491A" name="state" type="_dMVB4JsBEd20fKiJK1xsTw"/>
+      <ownedAttribute xmi:id="_Cckq8BPCEeW3muLp4bgboA" name="numTicks">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_CclSABPCEeW3muLp4bgboA" name="" value="1"/>
+      </ownedAttribute>
       <ownedAttribute xmi:id="_SDlD4AhwEeWo2qsvHoqUxQ" name="minTicks">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
         <upperValue xmi:type="uml:LiteralString" xmi:id="_1SaCgA3pEeWMKsVXT7gRww" name="" value="1"/>
@@ -30,6 +34,10 @@
       <ownedAttribute xmi:id="_8KWLcBNfEeWBTt9NqZUcyg" name="checkOut">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
         <upperValue xmi:type="uml:LiteralString" xmi:id="_8KWLcRNfEeWBTt9NqZUcyg" name="" value="false"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_v77hoBO-EeWqh7fhhZq2Rw" name="isChamadaAberta">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_v78IsBO-EeWqh7fhhZq2Rw" name="" value="false"/>
       </ownedAttribute>
       <ownedBehavior xmi:type="uml:FunctionBehavior" xmi:id="_2Y0fgJ0ZEdyNrffIHb491A" name="setState" postcondition="_KTh6cJ0aEdyNrffIHb491A">
         <ownedRule xmi:id="_KTh6cJ0aEdyNrffIHb491A">
@@ -71,15 +79,24 @@
             </stateInvariant>
           </subvertex>
           <transition xmi:id="_KHZoYJeHEdyqN79LFuBS7A" name="init2em_branco" target="_eQ3dkBHbEeWx5e2dXReDlw" source="_ZMY7cJKuEdyUSNhMCOPPLg"/>
-          <transition xmi:id="_KncaYJeHEdyqN79LFuBS7A" name="em_branco2em_aula" target="_y9ig8BHbEeWx5e2dXReDlw" source="_eQ3dkBHbEeWx5e2dXReDlw">
+          <transition xmi:id="_KncaYJeHEdyqN79LFuBS7A" name="em_branco2em_aula" guard="_QLy7YBO_EeWqh7fhhZq2Rw" target="_y9ig8BHbEeWx5e2dXReDlw" source="_eQ3dkBHbEeWx5e2dXReDlw">
+            <ownedRule xmi:id="_QLy7YBO_EeWqh7fhhZq2Rw">
+              <specification xmi:type="uml:LiteralString" xmi:id="_QLy7YRO_EeWqh7fhhZq2Rw" value="isChamadaAberta = true"/>
+            </ownedRule>
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_wOwkgJeIEdyqN79LFuBS7A" name="checkInPresenca" specification="_DBZYkBH8EeWA7uJHonRzDQ"/>
             <trigger xmi:id="_uATI4JeIEdyqN79LFuBS7A" name="checkInPresenca" event="_3s26UBHcEeWx5e2dXReDlw"/>
           </transition>
-          <transition xmi:id="_3Qb84BIEEeWA7uJHonRzDQ" name="em_branco2calculando" target="_6TZPAJeEEdyCyNzfMULFnw" source="_eQ3dkBHbEeWx5e2dXReDlw">
+          <transition xmi:id="_3Qb84BIEEeWA7uJHonRzDQ" name="em_branco2calculando" guard="_-IRhABO9EeWFL-id5q4VVg" target="_6TZPAJeEEdyCyNzfMULFnw" source="_eQ3dkBHbEeWx5e2dXReDlw">
+            <ownedRule xmi:id="_-IRhABO9EeWFL-id5q4VVg">
+              <specification xmi:type="uml:LiteralString" xmi:id="_-IRhARO9EeWFL-id5q4VVg" value="isChamadaAberta = false"/>
+            </ownedRule>
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_3Qb84RIEEeWA7uJHonRzDQ" name="calcularPresenca" specification="_HQGfwOzQEduqQpSKns4XGA"/>
             <trigger xmi:id="_3Qlt4BIEEeWA7uJHonRzDQ" name="calcularPresenca" event="_MaE9UOjKEdu6LJeVabImNg"/>
           </transition>
-          <transition xmi:id="_PVAcMBLhEeW8wLTPs8FuLw" name="em_aula2em_aula" target="_y9ig8BHbEeWx5e2dXReDlw" source="_y9ig8BHbEeWx5e2dXReDlw">
+          <transition xmi:id="_PVAcMBLhEeW8wLTPs8FuLw" name="em_aula2em_aula" guard="_-7M9UBO-EeWqh7fhhZq2Rw" target="_y9ig8BHbEeWx5e2dXReDlw" source="_y9ig8BHbEeWx5e2dXReDlw">
+            <ownedRule xmi:id="_-7M9UBO-EeWqh7fhhZq2Rw">
+              <specification xmi:type="uml:LiteralString" xmi:id="_-7M9URO-EeWqh7fhhZq2Rw" value="isChamadaAberta = true"/>
+            </ownedRule>
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_PVAcMRLhEeW8wLTPs8FuLw" name="receberTick"/>
             <trigger xmi:id="_PVAcMhLhEeW8wLTPs8FuLw" name="receberTick" event="_fdj-sBLiEeW8wLTPs8FuLw"/>
           </transition>
@@ -87,21 +104,29 @@
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_ZYnI8Ak6EeW4Zd_Lzs5Nzg" name="checkOutPresenca" specification="_DobjYBH8EeWA7uJHonRzDQ"/>
             <trigger xmi:id="_YWpVoAk6EeW4Zd_Lzs5Nzg" name="checkOutPresenca" event="_ufpUEAZ8EeW1-OgwpVc0Kw"/>
           </transition>
-          <transition xmi:id="_DD6yABIFEeWA7uJHonRzDQ" name="em_aula2calculando" target="_6TZPAJeEEdyCyNzfMULFnw" source="_y9ig8BHbEeWx5e2dXReDlw">
+          <transition xmi:id="_DD6yABIFEeWA7uJHonRzDQ" name="em_aula2calculando" guard="_BU0gEBO_EeWqh7fhhZq2Rw" target="_6TZPAJeEEdyCyNzfMULFnw" source="_y9ig8BHbEeWx5e2dXReDlw">
+            <ownedRule xmi:id="_BU0gEBO_EeWqh7fhhZq2Rw">
+              <specification xmi:type="uml:LiteralString" xmi:id="_BU0gERO_EeWqh7fhhZq2Rw" value="isChamadaAberta = false"/>
+            </ownedRule>
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_DD6yARIFEeWA7uJHonRzDQ" name="calcularPresenca" specification="_HQGfwOzQEduqQpSKns4XGA"/>
             <trigger xmi:id="_DD6yAhIFEeWA7uJHonRzDQ" name="calcularPresenca" event="_MaE9UOjKEdu6LJeVabImNg"/>
           </transition>
-          <transition xmi:id="_Z0hRcBIEEeWA7uJHonRzDQ" name="fora_de_aula2calculando" target="_6TZPAJeEEdyCyNzfMULFnw" source="_gK128BHbEeWx5e2dXReDlw">
+          <transition xmi:id="_Z0hRcBIEEeWA7uJHonRzDQ" name="fora_de_aula2calculando" guard="_E80hgBO_EeWqh7fhhZq2Rw" target="_6TZPAJeEEdyCyNzfMULFnw" source="_gK128BHbEeWx5e2dXReDlw">
+            <ownedRule xmi:id="_E80hgBO_EeWqh7fhhZq2Rw">
+              <specification xmi:type="uml:LiteralString" xmi:id="_E80hgRO_EeWqh7fhhZq2Rw" value="isChamadaAberta = false"/>
+            </ownedRule>
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_Z0hRcRIEEeWA7uJHonRzDQ" name="calcularPresenca" specification="_HQGfwOzQEduqQpSKns4XGA"/>
             <trigger xmi:id="_Z0hRchIEEeWA7uJHonRzDQ" name="calcularPresenca" event="_MaE9UOjKEdu6LJeVabImNg"/>
           </transition>
-          <transition xmi:id="_v9md4BIDEeWA7uJHonRzDQ" name="calculando2presente" target="_7YFmMJeEEdyCyNzfMULFnw" source="_6TZPAJeEEdyCyNzfMULFnw">
-            <effect xmi:type="uml:FunctionBehavior" xmi:id="_v9md4RIDEeWA7uJHonRzDQ" name="calcularPresenca"/>
-            <trigger xmi:id="_v9md4hIDEeWA7uJHonRzDQ" name="calcularPresenca"/>
+          <transition xmi:id="_v9md4BIDEeWA7uJHonRzDQ" name="calculando2presente" guard="_jKKUwBO9EeWFL-id5q4VVg" target="_7YFmMJeEEdyCyNzfMULFnw" source="_6TZPAJeEEdyCyNzfMULFnw">
+            <ownedRule xmi:id="_jKKUwBO9EeWFL-id5q4VVg">
+              <specification xmi:type="uml:LiteralString" xmi:id="_jKKUwRO9EeWFL-id5q4VVg" value="numTicks >= minTicks"/>
+            </ownedRule>
           </transition>
-          <transition xmi:id="_w2bjUBIDEeWA7uJHonRzDQ" name="calculando2ausente" target="_7jj2YJeEEdyCyNzfMULFnw" source="_6TZPAJeEEdyCyNzfMULFnw">
-            <effect xmi:type="uml:FunctionBehavior" xmi:id="_w2bjURIDEeWA7uJHonRzDQ" name="calcularPresenca"/>
-            <trigger xmi:id="_w2bjUhIDEeWA7uJHonRzDQ" name="calcularPresenca"/>
+          <transition xmi:id="_w2bjUBIDEeWA7uJHonRzDQ" name="calculando2ausente" guard="_nhs8wBO9EeWFL-id5q4VVg" target="_7jj2YJeEEdyCyNzfMULFnw" source="_6TZPAJeEEdyCyNzfMULFnw">
+            <ownedRule xmi:id="_nhs8wBO9EeWFL-id5q4VVg">
+              <specification xmi:type="uml:LiteralString" xmi:id="_nhs8wRO9EeWFL-id5q4VVg" value="numTicks &lt; minTicks"/>
+            </ownedRule>
           </transition>
         </region>
       </ownedBehavior>
