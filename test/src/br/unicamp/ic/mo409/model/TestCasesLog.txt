@@ -41,14 +41,14 @@
 ((chamadaState = aberta))
  - not satisfied: (test goal #7 - traversed transition) 
    from node Presenca::sort::em_branco
-   to node tmp2
-   triggered by calcularPresencaEvent
+   to node tmp1
+   triggered by checkInPresencaEvent
    with condition truth: true
 ((chamadaState = aberta))
  - not satisfied: (test goal #8 - traversed transition) 
    from node Presenca::sort::em_branco
-   to node tmp1
-   triggered by checkInPresencaEvent
+   to node tmp2
+   triggered by calcularPresencaEvent
    with condition truth: true
 ((chamadaState = aberta))
 
