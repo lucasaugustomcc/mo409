@@ -138,10 +138,5 @@
         <defaultValue xmi:type="uml:LiteralString" xmi:id="_zHW4URA7EeWaCPRCPew3ZA" name="" value="1234"/>
       </ownedAttribute>
     </packagedElement>
-    <packagedElement xmi:type="uml:Enumeration" xmi:id="_pGpSQBBEEeWXhZxsUZ3vgQ" name="ListaDeDisciplinas">
-      <ownedLiteral xmi:id="_pGpSQRBEEeWXhZxsUZ3vgQ" name="MO409"/>
-      <ownedLiteral xmi:id="_pGpSQhBEEeWXhZxsUZ3vgQ" name="MO410"/>
-      <ownedLiteral xmi:id="_pGpSQxBEEeWXhZxsUZ3vgQ" name="MO210"/>
-    </packagedElement>
   </packagedElement>
 </uml:Model>
