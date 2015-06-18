@@ -8,6 +8,9 @@ public class Presenca {
 	public Boolean isPresent;
 	public Integer minTicks;
 
+	
+//	cham.state=ChamadaState::aberta;
+	
 	public Presenca()
 	{
 		state = PresencaState.calculando;

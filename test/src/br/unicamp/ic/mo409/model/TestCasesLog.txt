@@ -1,59 +1,59 @@
 ### Test Case Generation Statistics
 ### Test Goal Satisfaction
  - defined 9 test goals
- - satisfied 1 test goals (11.11111111111111 %)
+ - satisfied 9 test goals (100.0 %)
 
 ### unsatisfied test goals
 
- - not satisfied: (test goal #1 - traversed transition) 
-   from node Presenca::sort::calculando
-   to node Presenca::sort::ausente
-   triggered by default
-   with condition truth: true
-((numTicks < minTicks))
- - not satisfied: (test goal #2 - traversed transition) 
+
+### satisfied test goals
+
+ - satisfied: (test goal #1 - traversed transition) 
    from node Presenca::sort::calculando
    to node Presenca::sort::presente
    triggered by default
    with condition truth: true
 ((numTicks >= minTicks))
- - not satisfied: (test goal #3 - traversed transition) 
+ - satisfied: (test goal #2 - traversed transition) 
+   from node Presenca::sort::calculando
+   to node Presenca::sort::ausente
+   triggered by default
+   with condition truth: true
+((numTicks < minTicks))
+ - satisfied: (test goal #3 - traversed transition) 
    from node Presenca::sort::fora_de_aula
    to node tmp5
    triggered by calcularPresencaEvent
    with condition truth: true
-((chamadaState = aberta))
- - not satisfied: (test goal #4 - traversed transition) 
+((chamada = null))
+ - satisfied: (test goal #4 - traversed transition) 
    from node Presenca::sort::em_aula
    to node tmp3
    triggered by checkOutPresencaEvent
- - not satisfied: (test goal #5 - traversed transition) 
-   from node Presenca::sort::em_aula
-   to node Presenca::sort::em_aula
-   triggered by receberTickEvent
-   with condition truth: true
-((chamadaState = aberta))
- - not satisfied: (test goal #6 - traversed transition) 
+ - satisfied: (test goal #5 - traversed transition) 
    from node Presenca::sort::em_aula
    to node tmp4
    triggered by calcularPresencaEvent
    with condition truth: true
-((chamadaState = aberta))
- - not satisfied: (test goal #7 - traversed transition) 
+((chamada = null))
+ - satisfied: (test goal #6 - traversed transition) 
+   from node Presenca::sort::em_aula
+   to node Presenca::sort::em_aula
+   triggered by receberTickEvent
+   with condition truth: true
+((chamada = null))
+ - satisfied: (test goal #7 - traversed transition) 
    from node Presenca::sort::em_branco
    to node tmp1
    triggered by checkInPresencaEvent
    with condition truth: true
-((chamadaState = aberta))
- - not satisfied: (test goal #8 - traversed transition) 
+((chamada = null))
+ - satisfied: (test goal #8 - traversed transition) 
    from node Presenca::sort::em_branco
    to node tmp2
    triggered by calcularPresencaEvent
    with condition truth: true
-((chamadaState = aberta))
-
-### satisfied test goals
-
+((chamada = null))
  - satisfied: (test goal #9 - traversed transition) 
    from node Presenca::sort::init
    to node Presenca::sort::em_branco
