@@ -6,18 +6,29 @@
 
   <ion-side-menu side="left">
     <header class="bar bar-header bar-stable">
-      <h1 class="title">Menu</h1>
+      <h1 class="title">Professor</h1>
     </header>
     <ion-content class="has-header">
       <ion-list>
-        <ion-item nav-clear menu-close ui-sref="professor.home" ui-sref-opts="{reload: true}">
-          Home
+        <ion-item class="item-icon-left" nav-clear menu-close ui-sref="professor.home" ui-sref-opts="{reload: true}">
+          <i class="icon ion-home"></i>
+		  Home
         </ion-item>
-        <ion-item nav-clear menu-close ui-sref="professor.chamada-turmas" ui-sref-opts="{reload: true}">
-          Chamada
+        <ion-item class="item-icon-left"  nav-clear menu-close">
+          <i class="icon ion-gear-b"></i>
+		  Configuração
         </ion-item>
-        <ion-item nav-clear menu-close ui-sref="app.logout" ui-sref-opts="{reload: true}">
-          Logout
+		<ion-item class="item-icon-left"  nav-clear menu-close">
+          <i class="icon ion-android-warning"></i>
+		  Reportar Problema
+        </ion-item>
+		<ion-item class="item-icon-left"  nav-clear menu-close">
+		<i class="icon ion-information-circled"></i>
+		 Sobre
+        </ion-item>
+        <ion-item class="item-icon-left"  nav-clear menu-close ui-sref="app.logout" ui-sref-opts="{reload: true}">
+		<i class="icon ion-close-circled"></i>
+		 Sair
         </ion-item>
       </ion-list>
     </ion-content>

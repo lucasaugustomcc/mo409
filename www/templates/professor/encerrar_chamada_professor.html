@@ -3,6 +3,8 @@
     <button menu-toggle="left"class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   <ion-content padding="true">		
+  
+  <!--
 		<ul class="list">
 			<li class="item item-checkbox" ng-repeat="chamada in chamadas">
 				<div class="row responsive-sm">
@@ -20,7 +22,30 @@
 			</li>			
 		</ul>	
 		
-		<button  class="button button-block button-positive icon-left ion-android-checkbox-outline" ng-click="confirmEncerrarChamada()">
+		-->
+		
+
+		<div class="card">
+			<div class="item item-text-wrap">
+				<div class="row responsive-sm">
+					<div class="col">
+							<h2>Engenharia de Software I{{ chamada.turma.codDisciplina }}</h2>
+							<h3>TURMA MO409{{ chamada.turma.codTurma }}</h3>
+					</div>
+					<div class="col">
+							<p>{{ chamada.turma.nomeDisciplina }}</p>
+					</div>
+				</div>
+
+				<p> Terça-feira, 17 de junho de 2015. </p>
+		
+				<p> <br/> <b> Duração da aula: </b>  <span id="hora">00h</span><span id="minuto">00m</span><span id="segundo">00s</span> </p><br/>
+				</div> 
+		</div>
+		
+
+		
+		<button  class="button button-block button-assertive icon-left ion-android-checkbox-outline" ng-click="confirmEncerrarChamada()">
 			Encerrar Chamada
 		</button>
   </ion-content>
