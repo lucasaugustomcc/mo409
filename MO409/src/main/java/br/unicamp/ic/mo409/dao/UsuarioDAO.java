@@ -10,13 +10,14 @@ import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import br.unicamp.ic.mo409.model.Usuario;
 
 @Repository("UsuarioDAO")
-public class UsuarioDAO implements Serializable {
+public class UsuarioDAO implements UserDetailsService {
 
 	/**
 	 * 
@@ -48,8 +49,10 @@ public class UsuarioDAO implements Serializable {
 	}
 	
 	public Usuario loadUsuarioByUsername(String usuario) {
+		System.out.println(usuario);
 	    Query query = entityManager
-	            .createQuery("SELECT u FROM Usuario u  left join u.professor p left join u.aluno a WHERE p.raProfessor=:usuarionameparam OR a.raAluno=:usuarionameparam");
+	            //.createQuery("SELECT u FROM Usuario u  where p.raprofessor=:usuarionameparam OR a.raAluno=:usuarionameparam");
+	    		.createQuery("SELECT u FROM Usuario u  where u.id=:usuarionameparam");
 	    query.setParameter("usuarionameparam", Integer.valueOf(usuario));
 
 	    try 
@@ -60,5 +63,12 @@ public class UsuarioDAO implements Serializable {
     	{
     		throw new UsernameNotFoundException("not found");
     	}	    
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username)
+			throws UsernameNotFoundException {
+		System.out.println(username);
+		return (UserDetails) loadUsuarioByUsername(username);
 	}
 }

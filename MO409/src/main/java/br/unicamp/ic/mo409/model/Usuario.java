@@ -3,7 +3,11 @@ package br.unicamp.ic.mo409.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,7 +30,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Entity
 @Table(name="tb_usuario")
 @NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
-public class Usuario implements Serializable {
+public class Usuario implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -119,8 +123,59 @@ public class Usuario implements Serializable {
 		this.papel = papel;
 	}
 
-	public String[] getRoles() {
-		String roles[] = papel.split(",");
+	public Set<String> getRoles() {
+		Set<String> roles = new TreeSet<String>();
+		roles.add(this.papel);
 		return roles;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities()
+	{
+		Set<String> roles = this.getRoles();
+
+		if (roles == null) {
+			return Collections.emptyList();
+		}
+
+		Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
+		for (String role : roles) {
+			authorities.add(new SimpleGrantedAuthority(role));
+		}
+
+		return authorities;
+	}
+
+	@Override
+	public String getPassword() {
+		return senha;
+	}
+
+	@Override
+	public String getUsername() {
+//		if (this.aluno != null)
+//			return String.valueOf(this.aluno.getRaAluno());
+//		return String.valueOf(this.professor.getRaProfessor());
+		return String.valueOf(idUsuario);
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
 	}
 }

@@ -29,5 +29,6 @@
 
 	<!-- for spring-security-with-oauth configuration -->
 	<import resource="spring-security.xml" />
+	 
 	
 </beans>

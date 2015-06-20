@@ -6,11 +6,12 @@
 			org.glassfish.jersey.servlet.ServletContainer
 		</servlet-class>
 		<init-param>
-			<param-name>javax.ws.rs.Application</param-name>
-			<param-value>br.unicamp.ic.mo409.rest.RestApp</param-value>
+			<param-name>jersey.config.server.provider.packages</param-name>
+			<param-value>net.dontdrinkandroot.example.angularrestspringsecurity.rest</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	
 	<filter>
         <filter-name>cors</filter-name>
         <filter-class>br.unicamp.ic.mo409.rest.CORSResponseFilter</filter-class>
@@ -20,6 +21,7 @@
         <filter-name>cors</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    
 	<servlet>
 		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
 		<servlet-class>
@@ -71,6 +73,7 @@
 		<listener-class>org.springframework.web.util.Log4jConfigListener
 		</listener-class>
 	</listener>
+	
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy
@@ -80,4 +83,5 @@
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	 
 </web-app>

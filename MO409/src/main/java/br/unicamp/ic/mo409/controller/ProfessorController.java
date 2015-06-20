@@ -51,11 +51,11 @@ public class ProfessorController {
 	public JSONArray turmasChamada() {
 		Authentication auth = (Authentication) SecurityContextHolder
 				.getContext().getAuthentication();
-		if (auth != null) {
-			UserDetails usuario = (UserDetails) auth.getPrincipal();
+		//if (auth != null) {
+			//UserDetails usuario = (UserDetails) auth.getPrincipal();
 
 			List<Turma> turmas = professorDAO.listTurmasByProfessor(Integer
-					.valueOf(usuario.getUsername()));
+					.valueOf(1));
 
 			JSONArray array = new JSONArray();
 			for (Turma turma : turmas) {
@@ -69,8 +69,8 @@ public class ProfessorController {
 				array.add(obj);
 			}
 			return array;
-		}
-		return null;
+//		}
+//		return null;
 	}
 
 	@SuppressWarnings("unchecked")
