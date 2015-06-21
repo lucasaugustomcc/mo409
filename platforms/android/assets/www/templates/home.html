@@ -1,13 +1,25 @@
 <ion-view title="Home">
+  <!--
   <ion-nav-buttons side="left">
     <button menu-toggle="left"class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
+  -->
   <ion-content padding="true">
   
-    <p>Welcome to the ionic-http-auth home page!</p>
-    <p>Select the menu icon at the top of the page and select the Customers link.</p>
-    <p>You will then be prompted to login.  You can just tap the login button to be logged in.</p>
-    <p>You will then see the customers displayed.</p>
+
+		<div class="row responsive-sm">
+			<div class="col"></div>
+			<div class="col">
+				<img class="item-image"src="img\logoapp.png" style="left: 90px; !important"  /> 
+			</div>
+			<div class="col"></div>
+		</div>
+  
+	  
+	 <br/>
+	  <button class="button button-block button-positive" ui-sref="aluno.home" ui-sref-opts="{reload: true}"> Aluno </button>
+	  <button class="button button-block button-positive" ui-sref="professor.home" ui-sref-opts="{reload: true}"> Professor</button>
+    
     
   </ion-content>
 </ion-view>

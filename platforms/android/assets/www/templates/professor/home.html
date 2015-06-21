@@ -1,13 +1,15 @@
-<ion-view title="Professor: Home">
+<ion-view title="Professor">
   <ion-nav-buttons side="left">
     <button menu-toggle="left"class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   <ion-content padding="true">
-  
-    <p>Welcome to the ionic-http-auth home page!</p>
-    <p>Select the menu icon at the top of the page and select the Customers link.</p>
-    <p>You will then be prompted to login.  You can just tap the login button to be logged in.</p>
-    <p>You will then see the customers displayed.</p>
+	  <br/><br/><br/><br/>
+      <button class="button button-block button-positive icon-left ion-android-checkbox-outline" 
+										ui-sref="professor.chamada-turmas" ui-sref-opts="{reload: true}"> Chamada </button>
+	  <button class="button button-block button-positive icon-left ion-ios-folder"> Disciplinas </button>
+	  <button class="button button-block button-positive icon-left ion-android-contacts"> Alunos </button>
+	  <button class="button button-block button-positive icon-left ion-document-text"> Relatórios </button>
+	  
     
   </ion-content>
 </ion-view>

@@ -12,12 +12,18 @@
     <link rel="stylesheet" href="css/style.css" >
  
     <!-- ionic/angularjs scripts -->
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
-    <script src="lib/angular-mocks.js"></script>
+    <script src="lib/jquery-2.0.2.js"></script>
+    <script src="lib/bootstrap-3.1.1.min.js"></script>
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-resource-1.2.3.js"></script>
+    <script src="lib/ionic/js/ionic.js"></script>
+    <script src="lib/ionic/js/ionic-angular.js"></script>
+    <script src="lib/angular/angular-animate.js"></script>
+    <script src="lib/angular/angular-sanitize.js"></script>
+    <script src="lib/ionic/js/angular-ui/angular-ui-router.js"></script>
+    <script src="js/config.js"></script>
     <script src="lib/angular-local-storage.min.js"></script>
      
-    <!-- http-auth-interceptor to automatically detect login required -->
-    <script src="lib/http-auth-interceptor.js"></script>
  
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
@@ -31,7 +37,7 @@
   <!--
     'ionic-http-auth' is the name of this angular module (js/app.js)
   -->
-  <body ng-app="ionic-http-auth" animation="slide-left-right-ios7">
-		<ion-nav-view></ion-nav-view>
+  <body ng-app="exampleApp" animation="slide-left-right-ios7">
+    <ion-nav-view></ion-nav-view>
   </body>
 </html>
