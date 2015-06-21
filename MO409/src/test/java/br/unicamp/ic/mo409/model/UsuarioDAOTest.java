@@ -44,11 +44,6 @@ public class UsuarioDAOTest {
 	}
 
 	@Test
-	public void test() {
-		assertEquals(true, user.isUsuarioValido("161255", "senha"));
-	}
-
-	@Test
 	public void test2() {
 		Usuario user = new Usuario();
 		user.setNome("lucas");

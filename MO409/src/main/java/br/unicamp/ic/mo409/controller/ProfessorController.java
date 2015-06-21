@@ -27,6 +27,7 @@ import br.unicamp.ic.mo409.model.Aluno;
 import br.unicamp.ic.mo409.model.Chamada;
 import br.unicamp.ic.mo409.model.Professor;
 import br.unicamp.ic.mo409.model.Turma;
+import br.unicamp.ic.mo409.model.Usuario;
 
 @Component
 @RestController
@@ -74,7 +75,7 @@ public class ProfessorController {
 	}
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/professor/chamada/abrir", method = RequestMethod.POST, consumes = "application/json")
+	@RequestMapping(value = "/professor/chamada/abrir", method = RequestMethod.POST)
 	@Secured({ "ROLE_PROFESSOR" })
 	@ResponseBody
 	public JSONArray abrirChamada(@RequestBody List<Turma> turmas) {
@@ -82,8 +83,9 @@ public class ProfessorController {
 				.getContext().getAuthentication();
 
 		UserDetails usuario = (UserDetails) auth.getPrincipal();
-		Professor professor = professorDAO.find(Integer.valueOf(usuario
+		Usuario user = usuarioDAO.find(Integer.valueOf(usuario
 				.getUsername()));
+		Professor professor = professorDAO.find(user.getProfessor().getRaProfessor());
 
 		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
 		SimpleDateFormat shf = new SimpleDateFormat("HH:mm");

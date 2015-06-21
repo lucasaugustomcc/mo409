@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
+import br.unicamp.ic.mo409.model.Chamada;
 import br.unicamp.ic.mo409.model.Usuario;
 
 @Repository("UsuarioDAO")
@@ -26,26 +27,10 @@ public class UsuarioDAO implements UserDetailsService {
 	
 	@PersistenceContext(unitName = "persistenceUnit")
 	protected EntityManager entityManager;
-
-	public boolean existeUsuario(Usuario usuario) {
-		return entityManager.find(Usuario.class, usuario.getIdUsuario()) != null;
-	}
-
-	public boolean isUsuarioValido(String usuario, String password) {
-	    Query query = entityManager
-	            .createQuery("SELECT u FROM Usuario u left join u.professor p left join u.aluno a WHERE (p.raProfessor=:usuarionameparam OR a.raAluno=:usuarionameparam) AND u.senha=:passwordparam");
-	    query.setParameter("usuarionameparam", Integer.valueOf(usuario));
-	    query.setParameter("passwordparam", password);
-
-	    try 
-	    {
-	    	query.getSingleResult();
-	    	return true;
-	    }
-	    catch (NoResultException e)
-    	{
-    		return false;
-    	}	    
+	
+	public Usuario find(Integer id) 
+	{
+		return entityManager.find(Usuario.class, id);
 	}
 	
 	public Usuario loadUsuarioByUsername(String usuario) {
