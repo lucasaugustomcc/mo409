@@ -156,10 +156,8 @@ angular.module('exampleApp', ['ui.router', 'ionic', 'LocalStorageModule', 'examp
               'request': function(config) {
                 if (angular.isDefined($rootScope.authToken)) {
                   var authToken = $rootScope.authToken;
-                  if (exampleAppConfig.useAuthTokenHeader && authToken != null) {
+                  if (authToken != null) {
                     config.headers['X-Auth-Token'] = authToken;
-                  } else if (authToken != null) {
-                    config.url = config.url + "?token=" + authToken;
                   }
                 }
                 return config || $q.when(config);
