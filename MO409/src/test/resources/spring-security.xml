@@ -1,30 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bean:beans
-	xmlns:bean="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:c="http://www.springframework.org/schema/c"
+<bean:beans xmlns:bean="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:c="http://www.springframework.org/schema/c"
 	xmlns="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 		http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-	<!--
-	Applies to root appContext beans only, for MVC Controllers is this declaration repeated in MVC config.
-	Actually, we currently don't need this as we have on annotation outside of MVC.
-	There is more here that can go wrong. If you use interface-based proxy (our demo uses CGLib), you may
-	need to add proxy-target-class="true" as well. Book "Spring Security 3.1", Chapter 10, Fine-grained
-	Access Control, from header "Method security on Spring MVC controllers" on discusses these topics.
-	-->
-	<global-method-security secured-annotations="enabled"/>
+	<!-- Applies to root appContext beans only, for MVC Controllers is this 
+		declaration repeated in MVC config. Actually, we currently don't need this 
+		as we have on annotation outside of MVC. There is more here that can go wrong. 
+		If you use interface-based proxy (our demo uses CGLib), you may need to add 
+		proxy-target-class="true" as well. Book "Spring Security 3.1", Chapter 10, 
+		Fine-grained Access Control, from header "Method security on Spring MVC controllers" 
+		on discusses these topics. -->
 
-	<bean:bean id="passwordEncoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder">
+	<bean:bean id="passwordEncoder"
+		class="org.springframework.security.crypto.password.StandardPasswordEncoder">
 		<bean:constructor-arg value="ThisIsASecretSoChangeMe" />
 	</bean:bean>
-	
+
 	<bean:bean id="UsuarioDAO" class="br.unicamp.ic.mo409.dao.UsuarioDAO">
-	</bean:bean>		
-	
+	</bean:bean>
+
 	<authentication-manager id="authenticationManager">
 		<authentication-provider user-service-ref="UsuarioDAO">
 			<password-encoder ref="passwordEncoder"></password-encoder>
@@ -46,9 +44,12 @@
 		<intercept-url method="DELETE" pattern="/rest/news/**" access="hasRole('admin')" />
 	</http>
 
-	<bean:bean id="unauthorizedEntryPoint" class="net.dontdrinkandroot.example.angularrestspringsecurity.rest.UnauthorizedEntryPoint" />
+	<bean:bean id="unauthorizedEntryPoint"
+		class="net.dontdrinkandroot.example.angularrestspringsecurity.rest.UnauthorizedEntryPoint" />
 
-	<bean:bean class="net.dontdrinkandroot.example.angularrestspringsecurity.rest.AuthenticationTokenProcessingFilter" id="authenticationTokenProcessingFilter">
+	<bean:bean
+		class="net.dontdrinkandroot.example.angularrestspringsecurity.rest.AuthenticationTokenProcessingFilter"
+		id="authenticationTokenProcessingFilter">
 		<bean:constructor-arg ref="UsuarioDAO" />
 	</bean:bean>
 </bean:beans>

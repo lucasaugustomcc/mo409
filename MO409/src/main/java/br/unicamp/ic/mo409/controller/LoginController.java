@@ -49,8 +49,8 @@ public class LoginController
 	 * 
 	 * @return A transfer containing the username and the roles.
 	 */
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
+	@RequestMapping(value = "/rest/user", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
 	public UserTransfer getUser()
 	{
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

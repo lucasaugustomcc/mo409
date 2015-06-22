@@ -9,6 +9,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -48,15 +49,19 @@ public class ProfessorController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/professor/chamada/turmas", method = RequestMethod.GET, produces = "application/json")
 	@Secured({ "ROLE_PROFESSOR" })
+	@PreAuthorize(value = "")
 	@ResponseBody
 	public JSONArray turmasChamada() {
 		Authentication auth = (Authentication) SecurityContextHolder
 				.getContext().getAuthentication();
-		//if (auth != null) {
-			//UserDetails usuario = (UserDetails) auth.getPrincipal();
+		
+		System.out.println("usuario" + auth);
+		if (auth != null) {
+			UserDetails usuario = (UserDetails) auth.getPrincipal();
+			System.out.println("usuario"+usuario.getUsername());
 
 			List<Turma> turmas = professorDAO.listTurmasByProfessor(Integer
-					.valueOf(1));
+					.valueOf(usuario.getUsername()));
 
 			JSONArray array = new JSONArray();
 			for (Turma turma : turmas) {
@@ -70,8 +75,8 @@ public class ProfessorController {
 				array.add(obj);
 			}
 			return array;
-//		}
-//		return null;
+		}
+		return null;
 	}
 
 	@SuppressWarnings("unchecked")

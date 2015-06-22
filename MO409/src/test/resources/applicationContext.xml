@@ -8,7 +8,7 @@
 
 	<!-- Activates various annotations to be detected in bean classes -->
 	<context:annotation-config />
-	
+
 	<mvc:annotation-driven />
 
 	<!-- Scans the classpath for annotated components that will be auto-registered 
@@ -28,5 +28,5 @@
 	<import resource="db-configuration.xml" />
 
 	<import resource="spring-security.xml" />
-	
+
 </beans>

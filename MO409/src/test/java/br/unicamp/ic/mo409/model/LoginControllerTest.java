@@ -1,11 +1,10 @@
 package br.unicamp.ic.mo409.model;
 
+//import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.core.StringContains.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -17,38 +16,38 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.test.context.web.GenericXmlWebContextLoader;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import br.unicamp.ic.mo409.controller.LoginController;
 import br.unicamp.ic.mo409.dao.TurmaDAO;
 import br.unicamp.ic.mo409.dao.UsuarioDAO;
 
+@WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "file:src/test/resources/applicationContext.xml" })
+@ContextConfiguration(
+		loader=GenericXmlWebContextLoader.class,
+		value={
+			//"file:src/test/resources/spring-security.xml",
+			"file:src/test/resources/applicationContext.xml"
+		})
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = false)
 @Transactional
 public class LoginControllerTest {
 
+	@Autowired
+	private FilterChainProxy springSecurityFilterChain;
+	
 	@Mock
 	private TurmaDAO turmaDAO;
 
-	@InjectMocks
-	private LoginController professorController;
-	
-	@InjectMocks
-	private UsuarioDAO userService;
+
 
 	private MockMvc mockMvc;
 	
@@ -62,7 +61,9 @@ public class LoginControllerTest {
 		MockitoAnnotations.initMocks(this);
 
 		// Setup Spring test in standalone mode
-		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac)
+				//.addFilters(this.springSecurityFilterChain)
+				.build();
 
 	}
 
@@ -96,35 +97,15 @@ public class LoginControllerTest {
 
 	}
 	
-	
-	 
-    /**
-     * Test the INVALID user
-     * */
-    @Test (expected = AccessDeniedException.class)
-    public void testInvalidUser()
-    {
-        UserDetails userDetails = userService.loadUserByUsername ("admin");
-        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new GrantedAuthorityImpl("ROLE_INVALID"));
-        Authentication authToken = new UsernamePasswordAuthenticationToken (userDetails.getUsername(), userDetails.getPassword(), authorities);
-        SecurityContextHolder.getContext().setAuthentication(authToken);
-    }
-
-	@Test
-	public void testCreateSignupFormInvalidUser() throws Exception {
-
-		// when(turmaDAO.saveFrom(any(Aluno.class)))
-		// .thenThrow(new NoResultException("For Testing"));
-		
+	@Test ()
+	public void testAuthenticateUser() throws Exception {
 		this.mockMvc
 				.perform(
 						post("/rest/user/authenticate")
 								.contentType(MediaType.APPLICATION_FORM_URLENCODED)
 								.param("username", "35")
-								.param("password", "uuuser"))
-				.andExpect(content().json("{'message':'ok'}"))
+								.param("password", "user"))
+				.andExpect(content().string(containsString("{\"token\":")))
 				.andExpect(status().is(200));
-
 	}
 }
