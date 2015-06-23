@@ -28,16 +28,7 @@ angular.module('exampleApp', ['ui.router', 'ionic', 'LocalStorageModule', 'examp
       abstract: true,
       templateUrl: "templates/aluno/menu.html",
       controller: 'MenuController'
-    })
-    .state('app.home', {
-      url: "/home",
-      views: {
-        'menuContent' :{
-            controller:  "HomeCtrl",
-            templateUrl: "templates/home.html"              
-        }
-    }         
-    })
+    })  
     .state('aluno.home', {
       url: "/home",
       views: {

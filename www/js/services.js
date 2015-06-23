@@ -2,7 +2,7 @@ var services = angular.module('exampleApp.services', ['ngResource']);
 
 services.factory('UserService', function($resource) {
   
-  return $resource('http://www.webulando.com.br/mo409/rest/user/:action', {},
+  return $resource(exampleAppConfig.host+'/rest/user/:action', {},
       {
         authenticate: {
           method: 'POST',
@@ -28,7 +28,7 @@ services.factory('MenuService', function() {
 });
 services.factory('ChamadaService', function($resource) {
   
-  return $resource('http://www.webulando.com.br/mo409/professor/chamada/:action', {},
+  return $resource(exampleAppConfig.host+'/professor/chamada/:action', {},
     {
         turmas: {
           method: 'GET',

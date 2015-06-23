@@ -128,7 +128,7 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
 
     //$http.defaults.headers.get = {'X-Auth-Token':'okasd'};
 
-    $http.get('http://www.webulando.com.br/mo409/aluno/chamada')
+    $http.get(exampleAppConfig.host+'/aluno/chamada')
         .success(function (data, status, headers, config) {
             $scope.chamada = data;
             console.dir(data);
@@ -139,7 +139,7 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
 
       $scope.confirmCheckIn = function() {
 
-        $http.post('http://www.webulando.com.br/mo409/aluno/chamada/checkin', 
+        $http.post(exampleAppConfig.host+'/aluno/chamada/checkin', 
           { headers: { 'Content-Type': 'application/json' },
             data: { "idChamada":1 }
           })
@@ -160,7 +160,7 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
 
     $scope.confirmCheckOut = function() {
 
-        $http.post('http://www.webulando.com.br/mo409/aluno/chamada/checkout', 
+        $http.post(exampleAppConfig.host+'/aluno/chamada/checkout', 
           { headers: { 'Content-Type': 'application/json' },
             data: { "idChamada":1 }
           })
