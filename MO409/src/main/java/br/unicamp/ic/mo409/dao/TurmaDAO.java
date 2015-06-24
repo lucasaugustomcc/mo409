@@ -38,14 +38,22 @@ public class TurmaDAO implements Serializable {
 		entityManager.merge(turma);
 	}
 
-	@Transactional
-	public void remove(Turma turma) {
-		entityManager.remove(turma);
+	@SuppressWarnings("unchecked")
+	public List<Turma> listarTurmasProfessor(Integer raProfessor) 
+	{		
+		return entityManager.createQuery("SELECT t FROM Turma t join t.professores p WHERE t.periodo = 1 AND p.raProfessor = :RaProfessor")
+				.setParameter("RaProfessor", raProfessor)
+				.getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Turma> findAll() {		
 		return entityManager.createQuery("SELECT c FROM Turma c")
 				.getResultList();
+	}
+
+	public Turma getTurmaChamadaAbertaAluno(int raAluno) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

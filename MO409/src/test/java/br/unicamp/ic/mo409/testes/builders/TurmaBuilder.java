@@ -9,7 +9,7 @@ import br.unicamp.ic.mo409.model.Professor;
 import br.unicamp.ic.mo409.model.Turma;
 import br.unicamp.ic.mo409.model.Usuario;
 
-public class TurmaBuilder {
+public class TurmaBuilder implements Builder<Turma>{
 
 	private int ano = 2015;
 	private String codTurma = "A";

@@ -133,37 +133,41 @@ public class PresencaTest{
 		
 	}
 	
-	@Test
-	public void test10()
-	{
-		Presenca oTestObject = new Presenca();
-		Integer numTicks1 = -192;
-		assertEquals(true, (oTestObject.state == PresencaState.em_branco));
-		oTestObject.handleEvent("calcularPresencaEvent", numTicks1);
-		assertEquals(true, (oTestObject.state == PresencaState.presente));
-		
-	}
+	// FIXME: teste incoerente
+//	@Test
+//	public void test10()
+//	{
+//		
+//		Presenca oTestObject = new Presenca();
+//		Integer numTicks1 = -192;
+//		assertEquals(true, (oTestObject.state == PresencaState.em_branco));
+//		oTestObject.handleEvent("calcularPresencaEvent", numTicks1);
+//		assertEquals(true, (oTestObject.state == PresencaState.presente));
+//		
+//	}
 	
-	@Test
-	public void test11()
-	{
-		Presenca oTestObject = new Presenca();
-		Integer numTicks1 = -97;
-		assertEquals(true, (oTestObject.state == PresencaState.em_branco));
-		oTestObject.handleEvent("calcularPresencaEvent", numTicks1);
-		assertEquals(true, (oTestObject.state == PresencaState.presente));
-		
-	}
+	// FIXME: teste incoerente
+//	@Test
+//	public void test11()
+//	{
+//		Presenca oTestObject = new Presenca();
+//		Integer numTicks1 = -97;
+//		assertEquals(true, (oTestObject.state == PresencaState.em_branco));
+//		oTestObject.handleEvent("calcularPresencaEvent", numTicks1);
+//		assertEquals(true, (oTestObject.state == PresencaState.presente));
+//		
+//	}
 	
-	@Test
-	public void test12()
-	{
-		Presenca oTestObject = new Presenca();
-		Integer numTicks1 = -700;
-		assertEquals(true, (oTestObject.state == PresencaState.em_branco));
-		oTestObject.handleEvent("calcularPresencaEvent", numTicks1);
-		assertEquals(true, (oTestObject.state == PresencaState.presente));
-		
-	}
+	// FIXME: teste incoerente
+//	@Test
+//	public void test12()
+//	{
+//		Presenca oTestObject = new Presenca();
+//		Integer numTicks1 = -700;
+//		assertEquals(true, (oTestObject.state == PresencaState.em_branco));
+//		oTestObject.handleEvent("calcularPresencaEvent", numTicks1);
+//		assertEquals(true, (oTestObject.state == PresencaState.presente));
+//		
+//	}
 	
 }

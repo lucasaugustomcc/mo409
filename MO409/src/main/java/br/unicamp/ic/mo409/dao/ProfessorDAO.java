@@ -25,13 +25,5 @@ public class ProfessorDAO implements Serializable {
 	public Professor find(Integer id) 
 	{
 		return entityManager.find(Professor.class, id);
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<Turma> listTurmasByProfessor(Integer raProfessor) 
-	{		
-		return entityManager.createQuery("SELECT t FROM Turma t join t.professores p WHERE t.periodo = 1 AND p.raProfessor = :RaProfessor")
-				.setParameter("RaProfessor", raProfessor)
-				.getResultList();
-	}
+	}	
 }

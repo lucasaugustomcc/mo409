@@ -47,7 +47,8 @@ public class LoginControllerTest {
 	@Mock
 	private TurmaDAO turmaDAO;
 
-
+	@Autowired
+	private LoginController loginController;
 
 	private MockMvc mockMvc;
 	
@@ -57,48 +58,16 @@ public class LoginControllerTest {
 	@Before
 	public void setup() {
 
-		// Process mock annotations
-		MockitoAnnotations.initMocks(this);
-
 		// Setup Spring test in standalone mode
-		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac)
-				.addFilters(this.springSecurityFilterChain)
+		this.mockMvc = MockMvcBuilders.standaloneSetup(this.loginController)
+		// .addFilters(this.springSecurityFilterChain)
 				.build();
-
-	}
-
-	@Test
-	public void testLoginUser() throws Exception {
-
-		// when(turmaDAO.saveFrom(any(Aluno.class)))
-		// .thenThrow(new NoResultException("For Testing"));
-
-
-//		ResultActions resultActions = 
-//		this.mockMvc.perform(post("/professor/chamada/abrir").contentType(MediaType.APPLICATION_JSON)
-//				.content("[{ 'idTurmas':1 }, { 'idTurmas':2 } ]"));
-//		;
-//		MvcResult mvcResult = resultActions.andReturn();
-//		String headerValue = mvcResult.getResponse().getHeader("X-Auth-Token");
-//		String content = mvcResult.getResponse().getContentAsString();
-//		System.out.println(headerValue);
-//		System.out.println(content);
-//		System.out.println(mvcResult.getResponse().toString());
-//		System.out.println(resultActions.andDo(print()));
-//		
-//		resultActions.andExpect(status().is(400))				
-//		.andExpect(content().string(""))
-//		.andExpect(header().string( "X-Auth-Token", notNullValue() ));
-		
-//		this.mockMvc.perform(
-//				get("/professor/chamada/turmas").header("X-Auth-Token",
-//						headerValue).contentType(MediaType.APPLICATION_JSON))
-//				.andExpect(status().is(200));
 
 	}
 	
 	@Test ()
 	public void testAuthenticateUser() throws Exception {
+		// TODO: erro
 		this.mockMvc
 				.perform(
 						post("/rest/user/authenticate")

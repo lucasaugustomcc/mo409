@@ -10,7 +10,6 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -55,7 +54,6 @@ public class ProfessorController {
 				.getContext().getAuthentication();
 		
 		UserDetails user = (UserDetails) auth.getPrincipal();
-		System.out.println(user.getUsername());
 		Usuario usuario = usuarioDAO.loadUsuarioByUsername(user.getUsername());
 		
         return usuario;
@@ -67,7 +65,7 @@ public class ProfessorController {
 	@ResponseBody
 	public JSONArray turmasChamada(@ModelAttribute("usuario") Usuario usuario) {
 
-		List<Turma> turmas = professorDAO.listTurmasByProfessor(Integer
+		List<Turma> turmas = turmaDAO.listarTurmasProfessor(Integer
 				.valueOf(usuario.getProfessor().getRaProfessor()));
 		
 
@@ -142,14 +140,14 @@ public class ProfessorController {
 	@ResponseBody
 	public JSONArray encerrarChamada(@ModelAttribute("usuario") Usuario usuario, @RequestBody List<Chamada> chamadas) {
 				
-		Professor professor = professorDAO.find(Integer.valueOf(usuario
-				.getUsername()));
+		Professor professor = usuario.getProfessor();
 				
 		// construir resposta JSON
 		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
 		SimpleDateFormat shf = new SimpleDateFormat("HH:mm");
 		JSONArray array = new JSONArray();
-		for (Chamada chamada : chamadas) {
+		for (Chamada chamada : chamadas) 
+		{
 			chamada = chamadaDAO.find(chamada.getIdChamada());
 			chamada.encerrarChamada(new Time(System.currentTimeMillis()));
 			
@@ -162,6 +160,10 @@ public class ProfessorController {
 			
 			// obtendo dados da turma
 			Turma turma = chamada.getTurma();
+			if (!turma.getProfessores().contains(professor))
+			{
+				throw new AccessDeniedException("Professor não associado a turma.");
+			}	
 			JSONObject objTurma = new JSONObject();
 			objTurma.put("idTurma", turma.getIdTurma());
 			objTurma.put("codTurma", turma.getCodTurma());
@@ -179,6 +181,8 @@ public class ProfessorController {
 	@ResponseBody
 	public JSONArray relatorioChamada(@ModelAttribute("usuario") Usuario usuario, @RequestBody List<Chamada> chamadas) {
 		
+		Professor professor = usuario.getProfessor();
+		
 		// construir resposta JSON
 		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
 		SimpleDateFormat shf = new SimpleDateFormat("HH:mm");
@@ -195,10 +199,13 @@ public class ProfessorController {
 			obj.put("dataChamada", sdf.format(chamada.getDataChamada()));
 			obj.put("horaInicio", shf.format(chamada.getHoraInicio()));
 			obj.put("horaFim", shf.format(chamada.getHoraInicio()));
-			
-			
+						
 			// obtendo dados da turma
 			Turma turma = chamada.getTurma();	
+			if (!turma.getProfessores().contains(professor))
+			{
+				throw new AccessDeniedException("Professor não associado a turma.");
+			}	
 			JSONObject objTurma = new JSONObject();
 			objTurma.put("idTurma", turma.getIdTurma());
 			objTurma.put("codTurma", turma.getCodTurma());

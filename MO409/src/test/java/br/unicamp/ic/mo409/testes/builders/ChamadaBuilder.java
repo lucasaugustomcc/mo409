@@ -6,11 +6,10 @@ import java.util.Date;
 import br.unicamp.ic.mo409.model.Chamada;
 import br.unicamp.ic.mo409.model.Professor;
 import br.unicamp.ic.mo409.model.Turma;
-import br.unicamp.ic.mo409.model.Usuario;
 
-public class ChamadaBuilder {
-
-
+@SuppressWarnings("deprecation")
+public class ChamadaBuilder implements Builder<Chamada>{
+	
 	private Date dataChamada = new Date(2015,6,5);
 	private Time horaFim = new Time(22,0,0);
 	private Professor professor;

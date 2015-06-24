@@ -3,7 +3,7 @@ package br.unicamp.ic.mo409.testes.builders;
 import br.unicamp.ic.mo409.model.Professor;
 import br.unicamp.ic.mo409.model.Usuario;
 
-public class ProfessorBuilder {
+public class ProfessorBuilder  implements Builder<Professor>{
 
     private int raProfessor = 1;
 	private String nome = "Eliane Martins";

@@ -1,20 +1,15 @@
 package br.unicamp.ic.mo409.dao;
 
-import java.io.Serializable;
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.transaction.Transactional;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
-import br.unicamp.ic.mo409.model.Chamada;
 import br.unicamp.ic.mo409.model.Usuario;
 
 @Repository("UsuarioDAO")
@@ -34,7 +29,6 @@ public class UsuarioDAO implements UserDetailsService {
 	}
 	
 	public Usuario loadUsuarioByUsername(String usuario) {
-		System.out.println(usuario);
 	    Query query = entityManager
 	            //.createQuery("SELECT u FROM Usuario u  where p.raprofessor=:usuarionameparam OR a.raAluno=:usuarionameparam");
 	    		.createQuery("SELECT u FROM Usuario u  where u.id=:usuarionameparam");
