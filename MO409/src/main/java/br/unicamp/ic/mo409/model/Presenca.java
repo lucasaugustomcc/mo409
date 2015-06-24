@@ -125,7 +125,7 @@ public class Presenca implements Serializable {
 				{
 					numMinTicks = 2;
 				}
-				setNumTicks(5);
+				setNumTicks(0);
 				calcularPresenca(numMinTicks);
 			}
 			
@@ -185,12 +185,14 @@ public class Presenca implements Serializable {
 		}
 	}
 
-	private void checkOutPresenca() {
+	public void checkOutPresenca() {
 		state = PresencaState.fora_de_aula;
+		
 	}
 
-	private void checkInPresenca() {
+	public void checkInPresenca() {
 		state = PresencaState.em_aula;
+		
 	}
 
 }

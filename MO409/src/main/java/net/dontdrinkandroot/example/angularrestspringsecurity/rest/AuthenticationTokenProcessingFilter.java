@@ -7,8 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,7 +30,7 @@ public class AuthenticationTokenProcessingFilter extends GenericFilterBean
 
 
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse servletResponse, FilterChain chain) throws IOException,
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
 			ServletException
 	{
 		HttpServletRequest httpRequest = this.getAsHttpRequest(request);
@@ -49,12 +49,11 @@ public class AuthenticationTokenProcessingFilter extends GenericFilterBean
 				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpRequest));
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 			}
+			else
+			{
+				throw new BadCredentialsException("token inválido");
+			}
 		}
-		HttpServletResponse response = (HttpServletResponse) servletResponse;
-		response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Credentials", "true");
-        response.setHeader("Access-Control-Allow-Methods", "POST, GET, HEAD, OPTIONS");
-        response.setHeader("Access-Control-Allow-Headers", "X-Auth-Token, Authorization, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
 
 		chain.doFilter(request, response);
 	}

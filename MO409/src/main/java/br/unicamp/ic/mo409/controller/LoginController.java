@@ -4,12 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.MediaType;
 
 import net.dontdrinkandroot.example.angularrestspringsecurity.rest.TokenUtils;
 import net.dontdrinkandroot.example.angularrestspringsecurity.transfer.TokenTransfer;
@@ -23,12 +18,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import br.unicamp.ic.mo409.dao.UsuarioDAO;
 
 
 @Component
@@ -37,7 +33,7 @@ public class LoginController
 {
 
 	@Autowired
-	private UserDetailsService userService;
+	private UsuarioDAO userService;
 
 	@Autowired
 	@Qualifier("authenticationManager")
@@ -77,7 +73,6 @@ public class LoginController
 	@ResponseBody
 	public TokenTransfer authenticate(@FormParam("username") String username, @FormParam("password") String password)
 	{
-		System.out.println(username);
 		UsernamePasswordAuthenticationToken authenticationToken =
 				new UsernamePasswordAuthenticationToken(username, password);
 		Authentication authentication = this.authManager.authenticate(authenticationToken);

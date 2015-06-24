@@ -18,6 +18,8 @@
 	<context:component-scan base-package="br.unicamp.ic.mo409.model" />
 	<context:component-scan base-package="br.unicamp.ic.mo409.dao" />
 	
+	<mvc:default-servlet-handler />
+	
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />

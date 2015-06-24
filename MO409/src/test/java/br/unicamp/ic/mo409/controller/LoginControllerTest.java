@@ -1,4 +1,4 @@
-package br.unicamp.ic.mo409.model;
+package br.unicamp.ic.mo409.controller;
 
 //import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.core.StringContains.containsString;
@@ -62,7 +62,7 @@ public class LoginControllerTest {
 
 		// Setup Spring test in standalone mode
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac)
-				//.addFilters(this.springSecurityFilterChain)
+				.addFilters(this.springSecurityFilterChain)
 				.build();
 
 	}

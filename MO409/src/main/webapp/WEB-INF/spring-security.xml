@@ -23,7 +23,10 @@
 	</bean:bean>
 	
 	<bean:bean id="UsuarioDAO" class="br.unicamp.ic.mo409.dao.UsuarioDAO">
-	</bean:bean>		
+	</bean:bean>	
+	
+	<bean:bean id="nonRedirectingAccessDeniedHandler" class="org.springframework.security.web.access.AccessDeniedHandlerImpl"/>
+	<bean:bean id="oauthAccessDeniedHandler" class="org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler" />
 	
 	<authentication-manager id="authenticationManager">
 		<authentication-provider user-service-ref="UsuarioDAO">
@@ -44,6 +47,7 @@
 		<intercept-url method="PUT" pattern="/rest/news/**" access="hasRole('admin')" />
 		<intercept-url method="POST" pattern="/rest/news/**" access="hasRole('admin')" />
 		<intercept-url method="DELETE" pattern="/rest/news/**" access="hasRole('admin')" />
+		<access-denied-handler ref="oauthAccessDeniedHandler" />
 	</http>
 
 	<bean:bean id="unauthorizedEntryPoint" class="net.dontdrinkandroot.example.angularrestspringsecurity.rest.UnauthorizedEntryPoint" />

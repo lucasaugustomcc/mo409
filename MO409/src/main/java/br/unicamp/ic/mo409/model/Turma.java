@@ -47,7 +47,7 @@ public class Turma implements Serializable {
 	private List<Chamada> aulas;
 
 	//bi-directional many-to-many association to Professor
-	@ManyToMany(mappedBy="turmas")
+	@ManyToMany(mappedBy="turmas", fetch = FetchType.EAGER)
 	private List<Professor> professores;
 
 	//bi-directional many-to-one association to Disciplina
@@ -56,7 +56,7 @@ public class Turma implements Serializable {
 	private Disciplina disciplina;
 
 	//bi-directional many-to-many association to Aluno
-	@ManyToMany
+	@ManyToMany(cascade={CascadeType.REMOVE}, fetch = FetchType.EAGER)
 	@JoinTable(
 		name="tb_turma_aluno"
 		, joinColumns={

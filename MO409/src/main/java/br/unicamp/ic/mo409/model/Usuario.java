@@ -11,6 +11,7 @@ import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -51,11 +52,11 @@ public class Usuario implements UserDetails {
 	private String papel;
 
 	//bi-directional one-to-one association to Aluno
-	@OneToOne(mappedBy="usuario")
+	@OneToOne(mappedBy="usuario", fetch = FetchType.EAGER)
 	private Aluno aluno;
 
 	//bi-directional one-to-one association to Professor
-	@OneToOne(mappedBy="usuario")
+	@OneToOne(mappedBy="usuario", fetch = FetchType.EAGER)
 	private Professor professor;
 
 	public Usuario() {
