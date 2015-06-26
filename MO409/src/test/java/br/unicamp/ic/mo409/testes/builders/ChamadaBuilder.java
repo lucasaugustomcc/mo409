@@ -4,18 +4,20 @@ import java.sql.Time;
 import java.util.Date;
 
 import br.unicamp.ic.mo409.model.Chamada;
+import br.unicamp.ic.mo409.model.ChamadaState;
 import br.unicamp.ic.mo409.model.Professor;
 import br.unicamp.ic.mo409.model.Turma;
 
 @SuppressWarnings("deprecation")
 public class ChamadaBuilder implements Builder<Chamada>{
 	
-	private Date dataChamada = new Date(2015,6,5);
-	private Time horaFim = new Time(22,0,0);
+	private Date dataChamada = new Date(115,6,5);
+	private Time horaFim = new Time(12,0,0);
 	private Professor professor;
 	private Turma turma;
 	private int idChamada = 1;
-	private Time horaInicio = new Time(20,0,0);
+	private Time horaInicio = new Time(10,0,0);
+	private ChamadaState chamadaState = ChamadaState.nao_aberta;
 
 	public ChamadaBuilder() {}
 
@@ -48,6 +50,11 @@ public class ChamadaBuilder implements Builder<Chamada>{
 		this.idChamada = idChamada;
 		return this;
 	}
+	
+	public ChamadaBuilder withChamadaState(ChamadaState chamadaState) {
+		this.chamadaState = chamadaState;
+		return this;
+	}
 
     public Chamada build() {
     	Chamada chamada = new Chamada();    	    
@@ -57,6 +64,7 @@ public class ChamadaBuilder implements Builder<Chamada>{
     	chamada.setTurma(turma);
     	chamada.setIdChamada(idChamada);
     	chamada.setHoraInicio(horaInicio);
+    	chamada.setState(chamadaState );
         return chamada;
     }
 

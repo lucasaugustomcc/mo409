@@ -14,6 +14,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +23,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import br.unicamp.ic.mo409.dao.TurmaDAOTest.InfrastructureContextConfiguration;
 import br.unicamp.ic.mo409.model.Professor;
@@ -29,8 +31,9 @@ import br.unicamp.ic.mo409.model.Turma;
 import br.unicamp.ic.mo409.testes.builders.ProfessorBuilder;
 import br.unicamp.ic.mo409.testes.builders.TurmaBuilder;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { InfrastructureContextConfiguration.class })
+@WebAppConfiguration
+@RunWith(MockitoJUnitRunner.class)
+@ContextConfiguration (locations = {"file:src/test/resources/applicationContext.xml"}) 
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = false)
 @Transactional
 public class TurmaDAOTest {

@@ -5,7 +5,7 @@ import br.unicamp.ic.mo409.model.Usuario;
 
 public class AlunoBuilder  implements Builder<Aluno>{
 
-    private int raAluno = 161255;
+    private int raAluno = 1;
 	private String nome = "Lucas Augusto Carvalho";
 	private int idUsuario = 1;
 

@@ -13,7 +13,8 @@ import java.util.List;
 @Entity
 @Table(name = "tb_professor")
 @NamedQuery(name = "Professor.findAll", query = "SELECT p FROM Professor p")
-public class Professor implements Serializable {
+public class Professor implements Serializable
+{
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -35,61 +36,75 @@ public class Professor implements Serializable {
 	@JoinColumn(name = "tb_usuario_id_usuario", nullable = false)
 	private Usuario usuario;
 
-	public Professor() {
+	public Professor()
+	{
 	}
 
-	public int getRaProfessor() {
+	public int getRaProfessor()
+	{
 		return this.raProfessor;
 	}
 
-	public void setRaProfessor(int raProfessor) {
+	public void setRaProfessor(int raProfessor)
+	{
 		this.raProfessor = raProfessor;
 	}
 
-	public List<Chamada> getAulas() {
+	public List<Chamada> getAulas()
+	{
 		return this.aulas;
 	}
 
-	public void setAulas(List<Chamada> aulas) {
+	public void setAulas(List<Chamada> aulas)
+	{
 		this.aulas = aulas;
 	}
 
-	public Chamada addAula(Chamada aula) {
+	public Chamada addAula(Chamada aula)
+	{
 		getAulas().add(aula);
 		aula.setProfessor(this);
 
 		return aula;
 	}
 
-	public Chamada removeAula(Chamada aula) {
+	public Chamada removeAula(Chamada aula)
+	{
 		getAulas().remove(aula);
 		aula.setProfessor(null);
 
 		return aula;
 	}
 
-	public List<Turma> getTurmas() {
+	public List<Turma> getTurmas()
+	{
 		return this.turmas;
 	}
 
-	public void setTurmas(List<Turma> turmas) {
+	public void setTurmas(List<Turma> turmas)
+	{
 		this.turmas = turmas;
 	}
 
-	public Usuario getUsuario() {
+	public Usuario getUsuario()
+	{
 		return this.usuario;
 	}
 
-	public void setUsuario(Usuario usuario) {
+	public void setUsuario(Usuario usuario)
+	{
 		this.usuario = usuario;
 	}
 
 	@Override
-	public boolean equals(Object object) {
+	public boolean equals(Object object)
+	{
 		boolean sameSame = false;
 
-		if (object != null && object instanceof Professor) {
-			sameSame = this.raProfessor == ((Professor) object).getRaProfessor();
+		if (object != null && object instanceof Professor)
+		{
+			sameSame = this.raProfessor == ((Professor) object)
+					.getRaProfessor();
 		}
 
 		return sameSame;

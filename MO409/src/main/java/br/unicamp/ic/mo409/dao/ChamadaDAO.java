@@ -9,7 +9,9 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
+import br.unicamp.ic.mo409.model.Aluno;
 import br.unicamp.ic.mo409.model.Chamada;
+import br.unicamp.ic.mo409.model.ChamadaState;
 
 @Repository("ChamadaDAO")
 public class ChamadaDAO implements Serializable {
@@ -47,5 +49,24 @@ public class ChamadaDAO implements Serializable {
 	public List<Chamada> findAll() {		
 		return entityManager.createQuery("SELECT c FROM Aula c")
 				.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public boolean hasChamadaAbertaTurma(Integer idTurma) 
+	{
+		System.out.println("aberta: " + ChamadaState.aberta);
+		List<Chamada> resultado = entityManager.createQuery("SELECT c FROM Chamada c left join c.turma t WHERE t.id = :idTurma AND c.state = :chamadaState")
+				.setParameter("idTurma", idTurma)
+				.setParameter("chamadaState", ChamadaState.aberta)
+				.getResultList();
+		return resultado.size() > 0;
+	}
+
+	public Chamada findChamadaAbertaAluno(Integer raAluno) 
+	{
+		return (Chamada) entityManager.createQuery("SELECT c FROM Chamada c left join c.turma t left join t.alunos a WHERE a.raAluno = :raAluno AND c.state = :chamadaState")
+				.setParameter("raAluno", raAluno)
+				.setParameter("chamadaState", ChamadaState.aberta)
+				.getSingleResult();
 	}
 }

@@ -51,9 +51,4 @@ public class TurmaDAO implements Serializable {
 		return entityManager.createQuery("SELECT c FROM Turma c")
 				.getResultList();
 	}
-
-	public Turma getTurmaChamadaAbertaAluno(int raAluno) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

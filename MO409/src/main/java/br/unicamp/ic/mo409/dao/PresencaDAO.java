@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
+import br.unicamp.ic.mo409.model.ChamadaState;
 import br.unicamp.ic.mo409.model.Presenca;
 
 @Repository("PresencaDAO")
@@ -27,7 +28,6 @@ public class PresencaDAO implements Serializable {
 		return entityManager.find(Presenca.class, id);
 	}
 
-	@Transactional
 	public void persist(Presenca Presenca) {
 		entityManager.persist(Presenca);
 		entityManager.flush();
@@ -38,7 +38,6 @@ public class PresencaDAO implements Serializable {
 		entityManager.merge(Presenca);
 	}
 
-	@Transactional
 	public void remove(Presenca Presenca) {
 		entityManager.remove(Presenca);
 	}
@@ -47,5 +46,16 @@ public class PresencaDAO implements Serializable {
 	public List<Presenca> findAll() {		
 		return entityManager.createQuery("SELECT c FROM Presenca c")
 				.getResultList();
+	}
+	
+	public Presenca findPresencaChamadaAbertaAluno(Integer idChamada, Integer raAluno) 
+	{
+		return (Presenca) entityManager.createQuery("SELECT p FROM Presenca p left join p.chamada c left join p.aluno a WHERE a.raAluno = :raAluno"
+				+ " AND c.idChamada = :idChamada"
+				+ " AND c.state = :chamadaState")
+				.setParameter("raAluno", raAluno)
+				.setParameter("idChamada", idChamada)
+				.setParameter("chamadaState", ChamadaState.aberta)
+				.getSingleResult();
 	}
 }

@@ -46,12 +46,13 @@ public class ChamadaDAOTest {
 		chamada = new ChamadaBuilder()
 			.withDataChamada(new Date(2015,05,20))
 		.build();
+		entityManager.merge(chamada);
 	}
 
 	@Test
 	public void test2() {
 		
-		entityManager.merge(chamada);
+		
 	}
 
 	@After
