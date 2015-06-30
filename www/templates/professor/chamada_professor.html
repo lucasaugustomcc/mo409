@@ -2,8 +2,14 @@
   <ion-nav-buttons side="left">
     <button menu-toggle="left"class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
-  <ion-content padding="true">	 
-  <ul class="list">
+  
+
+  <ion-tabs class="tabs-striped tabs-top tabs-background-light tabs-color-positive">
+    <!-- Abrir chamada -->
+		<ion-tab title="Realizar Chamada" href="#/professor/chamada_professor">
+			<ion-nav-view name="chamada_disciplinas"></ion-nav-view>
+			<ion-content>
+			<ul class="list">
 			<li class="item item-checkbox" ng-repeat="turma in turmas">
 				<div class="row responsive-sm">
 					<div class="col-10">
@@ -15,15 +21,39 @@
 					</div>
 				<div>
 				<label class="checkbox">
-					<input type="checkbox" name="turma" ng-model="formData.turma" ng-true-value="{{ turma.idTurma }}" ng-value="{{ turma.idTurma }}">
+					<input type="checkbox" name="turma" ng-model="formData.turma" ng-true-value="{{ turma.idTurma }}" 
+																							ng-value="{{ turma.idTurma }}">
 				</label>				
 			</li>			
-		</ul>
-	
+		</ul> 
 		
-	
+		<br/><br/><br/>
 		<button  class="button button-block button-balanced icon-left ion-android-checkbox-outline" ng-click="confirmChamada()">
 				Abrir Chamada
-		</button>	
-  </ion-content>
+		</button>
+		</ion-content>
+		</ion-tab>
+		
+		<!-- Parâmetros -->
+		<ion-tab title="Parâmetros" href="#/professor/parametros_presenca">
+			<ion-nav-view name="parametros_presenca"></ion-nav-view>
+			<ion-content>
+				<div class="card">
+					<h4 class="title" align="center"> Parâmetros Atuais </h4>
+					<p> <b>Tempo de permanência em sala: </b> 50 mins</p>
+					<p> <b> Quantidade de ticks: </b>75% </p>
+				</div>
+				<button class="button button-positive button button-block icon-left ion-android-create" 
+																	ui-sref="professor.parametros" ui-sref-opts="{reload: true}">
+					Alterar Parâmetros
+				</button
+
+			</ion-content>
+		</ion-tab>				
+	</ion-tabs>
 </ion-view>	
+
+	<script id="templates/parametros.html" type="text/ng-template">
+		<ion-content> teste </ion-content>
+	</script>
+    
