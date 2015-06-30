@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.1/notation" xmlns:uml="http://www.eclipse.org/uml2/2.1.0/UML" xmi:id="_44yRgB87EeW0meGmwId2_g" type="UMLStateMachine" measurementUnit="Pixel">
-  <styles xmi:type="notation:DiagramStyle" xmi:id="_44yRgR87EeW0meGmwId2_g"/>
-  <element xmi:type="uml:StateMachine" href="presenca.uml#_5-QZYBHVEeWx5e2dXReDlw"/>
-</notation:Diagram>
