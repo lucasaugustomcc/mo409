@@ -19,7 +19,7 @@
 					<div class="col-8">
 							<p>{{ turma.nomeDisciplina }}</p>
 					</div>
-				<div>
+				</div>
 				<label class="checkbox">
 					<input type="checkbox" name="turma" ng-model="formData.turma" ng-true-value="{{ turma.idTurma }}" 
 																							ng-value="{{ turma.idTurma }}">
@@ -28,9 +28,15 @@
 		</ul> 
 		
 		<br/><br/><br/>
-		<button  class="button button-block button-balanced icon-left ion-android-checkbox-outline" ng-click="confirmChamada()">
-				Abrir Chamada
-		</button>
+		<div class="row responsive-sm">
+			<div class="col"></div>
+			<div class="col">
+				<button  class="button button-block button-balanced icon-left ion-android-checkbox-outline" ng-click="confirmChamada()">
+					Abrir Chamada
+				</button>
+			</div>
+		<div class="col"></div>
+		</div>
 		</ion-content>
 		</ion-tab>
 		
@@ -43,10 +49,17 @@
 					<p> <b>Tempo de permanência em sala: </b> 50 mins</p>
 					<p> <b> Quantidade de ticks: </b>75% </p>
 				</div>
+				
+		<div class="row responsive-sm">
+			<div class="col"></div>
+			<div class="col">
 				<button class="button button-positive button button-block icon-left ion-android-create" 
 																	ui-sref="professor.parametros" ui-sref-opts="{reload: true}">
 					Alterar Parâmetros
-				</button
+				</button>
+			</div>
+			<div class="col"></div>
+		</div>
 
 			</ion-content>
 		</ion-tab>				

@@ -65,6 +65,33 @@ angular.module('exampleApp', ['ui.router', 'ionic', 'LocalStorageModule', 'examp
         }
     }         
     })
+	.state('aluno.disciplinas', {
+      url: "/disciplinas",
+      views: {
+        'menuContent' :{
+            controller:  "", //colocar ontroller
+            templateUrl: "templates/aluno/disciplinas_aluno.html"              
+        }
+    }         
+    })
+	.state('aluno.frequencia', {
+      url: "/frequencia",
+      views: {
+        'menuContent' :{
+            controller:  "", //colocar ontroller
+            templateUrl: "templates/aluno/frequencia.html"              
+        }
+    }         
+    })
+	.state('aluno.about', {
+      url: "/about",
+      views: {
+        'menuContent' :{
+            controller:  "", //colocar ontroller
+            templateUrl: "templates/aluno/about.html"              
+        }
+    }         
+    })
     .state('professor.home', {
       url: "/home",
       views: {
@@ -94,6 +121,24 @@ angular.module('exampleApp', ['ui.router', 'ionic', 'LocalStorageModule', 'examp
         }
     }         
     })
+	.state('professor.parametros', {
+      url: "/chamada/parametros",
+      views: {
+        'menuContent' :{
+            controller:  "", //colocar controller
+            templateUrl: "templates/parametros.html"     
+        }
+    }         
+    })
+	.state('professor.frequencia_aluno', {
+      url: "/professor/frequencia_aluno",
+      views: {
+        'menuContent' :{
+            controller:  "", //colocar controller
+            templateUrl: "templates/frequencia_aluno.html"     
+        }
+    }         
+    })
     .state('professor.chamada-presenca', {
       url: "/chamada/presenca",
       cache: false,
@@ -101,6 +146,36 @@ angular.module('exampleApp', ['ui.router', 'ionic', 'LocalStorageModule', 'examp
         'menuContent' :{
             controller:  "ChamadaPresencaCtrl",
             templateUrl: "templates/professor/lista_presenca_aula_professor.html"             
+        }
+    }         
+    })
+	.state('professor.alunos', {
+      url: "/professor/alunos_matriculados",
+      cache: false,
+      views: {
+        'menuContent' :{
+            controller:  "", //colocar controller
+            templateUrl: "templates/professor/pesquisar_alunos.html"             
+        }
+    }         
+    })
+	.state('professor.disciplinas', {
+      url: "/professor/disciplinas",
+      cache: false,
+      views: {
+        'menuContent' :{
+            controller:  "", //colocar controller
+            templateUrl: "templates/professor/disciplinas_professor.html"             
+        }
+    }         
+    })
+	.state('professor.lista_alunos', {
+      url: "/professor/lista_alunos",
+      cache: false,
+      views: {
+        'menuContent' :{
+            controller:  "", //colocar controller
+            templateUrl: "templates/professor/lista_alunos_professor.html"             
         }
     }         
     })
@@ -112,6 +187,20 @@ angular.module('exampleApp', ['ui.router', 'ionic', 'LocalStorageModule', 'examp
            templateUrl: "templates/login.html"
          }
       } 
+    })
+	 .state('professor.about', {
+      url: "/about",
+      views: {
+         'menuContent' :{
+           controller: "", //colocar controller
+           templateUrl: "templates/professor/about.html"
+         }
+      } 
+    })
+	.state('tabs', { // para funcionar as abas na chamada do professor
+      url: "/tab",
+      abstract: true,
+      templateUrl: "templates/tabs.html"
     });
   //$urlRouterProvider.otherwise("/app/home");
       
