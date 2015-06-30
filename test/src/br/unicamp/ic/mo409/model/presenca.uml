@@ -5,6 +5,7 @@
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_ufpUEAZ8EeW1-OgwpVc0Kw" name="checkOutPresencaEvent" operation="_DobjYBH8EeWA7uJHonRzDQ"/>
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_fdj-sBLiEeW8wLTPs8FuLw" name="receberTickEvent" operation="_HQGfwOzQEduqQpSKns4XGA"/>
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_MaE9UOjKEdu6LJeVabImNg" name="calcularPresencaEvent" operation="_HQGfwOzQEduqQpSKns4XGA"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_MiwzsB86EeW0meGmwId2_g" name="visualizarPresencaEvent" operation="_RUqccB86EeW0meGmwId2_g"/>
     <packagedElement xmi:type="uml:Class" xmi:id="_CbgIUOzQEduqQpSKns4XGA" name="Presenca" classifierBehavior="_2Y0fgJ0ZEdyNrffIHb491A">
       <ownedAttribute xmi:id="_GTqyoJ0aEdyNrffIHb491A" name="state" type="_dMVB4JsBEd20fKiJK1xsTw"/>
       <ownedAttribute xmi:id="_Cckq8BPCEeW3muLp4bgboA" name="numTicks">
@@ -78,6 +79,11 @@
               <specification xmi:type="uml:LiteralString" xmi:id="__floAAr8Ed2Pmahp7QLr3A" value="state  = PresencaState::ausente"/>
             </stateInvariant>
           </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_8NNXAB84EeW0meGmwId2_g" name="visualizando_presenca">
+            <stateInvariant xmi:id="_8NNXAR84EeW0meGmwId2_g">
+              <specification xmi:type="uml:LiteralString" xmi:id="_8NNXAh84EeW0meGmwId2_g" value="state  = PresencaState::visualizando_presenca"/>
+            </stateInvariant>
+          </subvertex>
           <transition xmi:id="_KHZoYJeHEdyqN79LFuBS7A" name="init2em_branco" target="_eQ3dkBHbEeWx5e2dXReDlw" source="_ZMY7cJKuEdyUSNhMCOPPLg"/>
           <transition xmi:id="_KncaYJeHEdyqN79LFuBS7A" name="em_branco2em_aula" guard="_QLy7YBO_EeWqh7fhhZq2Rw" target="_y9ig8BHbEeWx5e2dXReDlw" source="_eQ3dkBHbEeWx5e2dXReDlw">
             <ownedRule xmi:id="_QLy7YBO_EeWqh7fhhZq2Rw">
@@ -123,10 +129,24 @@
               <specification xmi:type="uml:LiteralString" xmi:id="_jKKUwRO9EeWFL-id5q4VVg" value="numTicks >= minTicks"/>
             </ownedRule>
           </transition>
-          <transition xmi:id="_w2bjUBIDEeWA7uJHonRzDQ" name="calculando2ausente" guard="_nhs8wBO9EeWFL-id5q4VVg" target="_7jj2YJeEEdyCyNzfMULFnw" source="_6TZPAJeEEdyCyNzfMULFnw">
-            <ownedRule xmi:id="_nhs8wBO9EeWFL-id5q4VVg">
-              <specification xmi:type="uml:LiteralString" xmi:id="_nhs8wRO9EeWFL-id5q4VVg" value="numTicks &lt; minTicks"/>
+          <transition xmi:id="_q0O8MB88EeWFfZ949XHazg" name="calculando2ausente" guard="_q0O8MR88EeWFfZ949XHazg" target="_7jj2YJeEEdyCyNzfMULFnw" source="_6TZPAJeEEdyCyNzfMULFnw">
+            <ownedRule xmi:id="_q0O8MR88EeWFfZ949XHazg">
+              <specification xmi:type="uml:LiteralString" xmi:id="_q0O8Mh88EeWFfZ949XHazg" value="numTicks &lt; minTicks"/>
             </ownedRule>
+          </transition>
+          <transition xmi:id="_w2bjUBIDEeWA7uJHonRzDQ" name="ausente2visualizando_presenca" guard="_nhs8wBO9EeWFL-id5q4VVg" target="_8NNXAB84EeW0meGmwId2_g" source="_7jj2YJeEEdyCyNzfMULFnw">
+            <ownedRule xmi:id="_nhs8wBO9EeWFL-id5q4VVg">
+              <specification xmi:type="uml:LiteralString" xmi:id="_nhs8wRO9EeWFL-id5q4VVg" value="chamada = true"/>
+            </ownedRule>
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_goHRAB89EeWFfZ949XHazg" name="visualizarPresenca"/>
+            <trigger xmi:id="_vDUWUB89EeWFfZ949XHazg" name="visualizarPresenca" event="_MiwzsB86EeW0meGmwId2_g"/>
+          </transition>
+          <transition xmi:id="_09a6EB85EeW0meGmwId2_g" name="presente2visualizando_presenca" guard="_09a6ER85EeW0meGmwId2_g" target="_8NNXAB84EeW0meGmwId2_g" source="_7YFmMJeEEdyCyNzfMULFnw">
+            <ownedRule xmi:id="_09a6ER85EeW0meGmwId2_g">
+              <specification xmi:type="uml:LiteralString" xmi:id="_09a6Eh85EeW0meGmwId2_g" value="chamada = true"/>
+            </ownedRule>
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_hekX4B89EeWFfZ949XHazg" name="visualizarPresenca"/>
+            <trigger xmi:id="_vcN-gB89EeWFfZ949XHazg" name="visualizarPresenca" event="_MiwzsB86EeW0meGmwId2_g"/>
           </transition>
         </region>
       </ownedBehavior>
@@ -165,6 +185,14 @@
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
         </ownedParameter>
       </ownedOperation>
+      <ownedOperation xmi:id="_RUqccB86EeW0meGmwId2_g" name="visualizarPresenca" postcondition="_RUqccR86EeW0meGmwId2_g">
+        <ownedRule xmi:id="_RUqccR86EeW0meGmwId2_g" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_RUqcch86EeW0meGmwId2_g" value="if (((state = PresencaState::presente) or state = PresencaState::ausente) and (verificarPresenca = true)) then  state=PresencaState::visualizando_presenca endif"/>
+        </ownedRule>
+        <ownedParameter xmi:id="_RUqccx86EeW0meGmwId2_g" name="chamada">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+      </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Enumeration" xmi:id="_dMVB4JsBEd20fKiJK1xsTw" name="PresencaState">
       <ownedLiteral xmi:id="_lHPfgBHbEeWx5e2dXReDlw" name="em_branco"/>
@@ -173,9 +201,13 @@
       <ownedLiteral xmi:id="_iYoHoJsBEd20fKiJK1xsTw" name="calculando"/>
       <ownedLiteral xmi:id="_ilI5oJsBEd20fKiJK1xsTw" name="presente"/>
       <ownedLiteral xmi:id="_ixNmwJsBEd20fKiJK1xsTw" name="ausente"/>
+      <ownedLiteral xmi:id="_BzLhAB85EeW0meGmwId2_g" name="visualizando_presenca"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Enumeration" xmi:id="_3DmGQBQeEeWOt5z3R7GnrQ" name="ChamadaState">
       <ownedLiteral xmi:id="_3DmGRBQeEeWOt5z3R7GnrQ" name="nao_aberta"/>
+      <ownedLiteral xmi:id="_LDw7kB85EeW0meGmwId2_g" name="visualizando_parametros"/>
+      <ownedLiteral xmi:id="_H39G4B85EeW0meGmwId2_g" name="atribuindo_parametros"/>
+      <ownedLiteral xmi:id="_GGl28B85EeW0meGmwId2_g" name="atribuindo_localizacao"/>
       <ownedLiteral xmi:id="_3DmGRRQeEeWOt5z3R7GnrQ" name="aberta"/>
       <ownedLiteral xmi:id="_3DmGRhQeEeWOt5z3R7GnrQ" name="encerrada"/>
     </packagedElement>

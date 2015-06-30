@@ -1,7 +1,12 @@
 package br.unicamp.ic.mo409.model;
 
 public enum ChamadaState {
-	encerrada,
+	nao_aberta,
+	visualizando_parametros,
+	atribuindo_parametros,
+	atribuindo_localizacao,
 	aberta,
-	nao_aberta
+	encerrada
+
+
 }

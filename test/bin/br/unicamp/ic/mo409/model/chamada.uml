@@ -2,6 +2,9 @@
 <uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/2.1.0/UML" xmi:id="_soD9MOjJEdu6LJeVabImNg">
   <packagedElement xmi:type="uml:Package" xmi:id="_wPxqwOjJEdu6LJeVabImNg" name="br.unicamp.ic.mo409.model">
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_MaE9UOjKEdu6LJeVabImNg" name="abrirChamadaEvent" operation="_HQGfwOzQEduqQpSKns4XGA"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="__1OScB8rEeW6ooM7jnMepg" name="visualizarParametrosEvent" operation="_QIMxsB8sEeW6ooM7jnMepg"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_FzSMUB8sEeW6ooM7jnMepg" name="atribuirParametrosEvent" operation="_RCSbYB8sEeW6ooM7jnMepg"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_MabfcB8sEeW6ooM7jnMepg" name="atribuirLocalizacaoProfessorEvent" operation="_QywKkB8sEeW6ooM7jnMepg"/>
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_treFIAZ8EeW1-OgwpVc0Kw" name="receberTickEvent"/>
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_ufpUEAZ8EeW1-OgwpVc0Kw" name="encerrarChamadaEvent" operation="_wegX8JG6EdydJaDhzZfmUQ"/>
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_ssPcwAZ8EeW1-OgwpVc0Kw" name="calcularPresencaEvent" operation="_Rmy5cAZ8EeW1-OgwpVc0Kw"/>
@@ -31,7 +34,23 @@
       </ownedAttribute>
       <ownedAttribute xmi:id="_7rx-MBBAEeWaCPRCPew3ZA" name="m_location">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        <upperValue xmi:type="uml:LiteralString" xmi:id="_7rx-MRBAEeWaCPRCPew3ZA" name="" value="0"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_HuNygB8tEeW6ooM7jnMepg" value="100"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_csDB4B8uEeW6ooM7jnMepg" name="localizacao_latitude">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_csDB4R8uEeW6ooM7jnMepg" value="100000"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_hKKzAB8uEeW6ooM7jnMepg" name="localizacao_longitude">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_hKKzAR8uEeW6ooM7jnMepg" value="100000"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_sPsLYB8tEeW6ooM7jnMepg" name="parametro_duracao">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uiBaYB8tEeW6ooM7jnMepg" value="100"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_YhOnQB8uEeW6ooM7jnMepg" name="parametro_porcentagem">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_YhOnQR8uEeW6ooM7jnMepg" value="100"/>
       </ownedAttribute>
       <ownedBehavior xmi:type="uml:FunctionBehavior" xmi:id="_2Y0fgJ0ZEdyNrffIHb491A" name="setState" postcondition="_KTh6cJ0aEdyNrffIHb491A">
         <ownedRule xmi:id="_KTh6cJ0aEdyNrffIHb491A">
@@ -47,6 +66,21 @@
               <specification xmi:type="uml:LiteralString" xmi:id="_4TlUUAr8Ed2Pmahp7QLr3A" value="state  = ChamadaState::nao_aberta"/>
             </stateInvariant>
           </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_ts6mEB8nEeW6ooM7jnMepg" name="visualizando_parametros">
+            <stateInvariant xmi:id="_ts7NIB8nEeW6ooM7jnMepg">
+              <specification xmi:type="uml:LiteralString" xmi:id="_ts7NIR8nEeW6ooM7jnMepg" value="state  = ChamadaState::visualizando_parametros"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_D3o70B8oEeW6ooM7jnMepg" name="atribuindo_parametros">
+            <stateInvariant xmi:id="_D3pi4B8oEeW6ooM7jnMepg">
+              <specification xmi:type="uml:LiteralString" xmi:id="_D3pi4R8oEeW6ooM7jnMepg" value="state  = ChamadaState::atribuindo_parametros"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_LxHZgB8oEeW6ooM7jnMepg" name="atribuindo_localizacao">
+            <stateInvariant xmi:id="_LxHZgR8oEeW6ooM7jnMepg">
+              <specification xmi:type="uml:LiteralString" xmi:id="_LxHZgh8oEeW6ooM7jnMepg" value="state  = ChamadaState::atribuindo_localizacao"/>
+            </stateInvariant>
+          </subvertex>
           <subvertex xmi:type="uml:State" xmi:id="_7YFmMJeEEdyCyNzfMULFnw" name="aberta">
             <stateInvariant xmi:id="_7cJnwAr8Ed2Pmahp7QLr3A">
               <specification xmi:type="uml:LiteralString" xmi:id="_88RWsAr8Ed2Pmahp7QLr3A" value="state  = ChamadaState::aberta"/>
@@ -58,7 +92,23 @@
             </stateInvariant>
           </subvertex>
           <transition xmi:id="_KHZoYJeHEdyqN79LFuBS7A" name="init2nao_aberta" target="_6TZPAJeEEdyCyNzfMULFnw" source="_ZMY7cJKuEdyUSNhMCOPPLg"/>
-          <transition xmi:id="_KncaYJeHEdyqN79LFuBS7A" name="nao_aberta2aberta" target="_7YFmMJeEEdyCyNzfMULFnw" source="_6TZPAJeEEdyCyNzfMULFnw">
+          <transition xmi:id="_rAtzoB8pEeW6ooM7jnMepg" name="nao_aberta2visualizando_parametros" target="_ts6mEB8nEeW6ooM7jnMepg" source="_6TZPAJeEEdyCyNzfMULFnw">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_rAuasB8pEeW6ooM7jnMepg" name="visualizarParametros"/>
+            <trigger xmi:id="_rAuasR8pEeW6ooM7jnMepg" name="visualizarParametros" event="__1OScB8rEeW6ooM7jnMepg"/>
+          </transition>
+          <transition xmi:id="_sfyHwB8rEeW6ooM7jnMepg" name="nao_aberta2atribuindo_localizacao" target="_LxHZgB8oEeW6ooM7jnMepg" source="_6TZPAJeEEdyCyNzfMULFnw">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_sfyHwR8rEeW6ooM7jnMepg" name="atribuirLocalizacaoProfessor"/>
+            <trigger xmi:id="_sfyHwh8rEeW6ooM7jnMepg" name="atribuirLocalizacaoProfessor" event="_MabfcB8sEeW6ooM7jnMepg"/>
+          </transition>
+          <transition xmi:id="_2d3zcB8pEeW6ooM7jnMepg" name="visualizando_parametros2atribuindo_parametros" target="_D3o70B8oEeW6ooM7jnMepg" source="_ts6mEB8nEeW6ooM7jnMepg">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_2d3zcR8pEeW6ooM7jnMepg" name="visualizarParametros"/>
+            <trigger xmi:id="_2d3zch8pEeW6ooM7jnMepg" name="visualizarParametros" event="__1OScB8rEeW6ooM7jnMepg"/>
+          </transition>
+          <transition xmi:id="_C_R6AB80EeWkgo0fqD1AkA" name="atribuindo_parametros2atribuindo_localizacao" target="_D3o70B8oEeW6ooM7jnMepg" source="_ts6mEB8nEeW6ooM7jnMepg">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_C_ShEB80EeWkgo0fqD1AkA" name="atribuirLocalizacaoProfessor"/>
+            <trigger xmi:id="_C_ShER80EeWkgo0fqD1AkA" name="atribuirLocalizacaoProfessor" event="_MabfcB8sEeW6ooM7jnMepg"/>
+          </transition>
+          <transition xmi:id="_KncaYJeHEdyqN79LFuBS7A" name="atribuindo_localizacao2aberta" target="_7YFmMJeEEdyCyNzfMULFnw" source="_LxHZgB8oEeW6ooM7jnMepg">
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_wOwkgJeIEdyqN79LFuBS7A" name="abrirChamada" specification="_HQGfwOzQEduqQpSKns4XGA"/>
             <trigger xmi:id="_uATI4JeIEdyqN79LFuBS7A" name="abrirChamada" event="_MaE9UOjKEdu6LJeVabImNg"/>
           </transition>
@@ -111,9 +161,45 @@
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
         </ownedParameter>
       </ownedOperation>
+      <ownedOperation xmi:id="_QIMxsB8sEeW6ooM7jnMepg" name="visualizarParametros">
+        <ownedRule xmi:id="_QIMxsR8sEeW6ooM7jnMepg" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_QIMxsh8sEeW6ooM7jnMepg" value="if (state = ChamadaState::nao_aberta) then recebendo_tick = true else recebendo_tick = false endif"/>
+        </ownedRule>
+        <ownedParameter xmi:id="_K1Sw0B8wEeW6ooM7jnMepg" name="duracao">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_K1Sw0R8wEeW6ooM7jnMepg" name="porcentagem">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_RCSbYB8sEeW6ooM7jnMepg" name="atribuirParametros">
+        <ownedRule xmi:id="_RCSbYR8sEeW6ooM7jnMepg" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_RCSbYh8sEeW6ooM7jnMepg" value="if (state = ChamadaState::nao_aberta) then recebendo_tick = true else recebendo_tick = false endif"/>
+        </ownedRule>
+        <ownedParameter xmi:id="_RCSbYx8sEeW6ooM7jnMepg" name="duracao">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_RMyT0B8vEeW6ooM7jnMepg" name="porcentagem">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_QywKkB8sEeW6ooM7jnMepg" name="atribuirLocalizacaoProfessor">
+        <ownedRule xmi:id="_QywxoB8sEeW6ooM7jnMepg" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_QywxoR8sEeW6ooM7jnMepg" value="if (state = ChamadaState::atribuindo_parametros) then recebendo_tick = true else recebendo_tick = false endif"/>
+        </ownedRule>
+        <ownedParameter xmi:id="_Qywxoh8sEeW6ooM7jnMepg" name="latitude">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_3heMMB8uEeW6ooM7jnMepg" name="longitude">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+      </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Enumeration" xmi:id="_dMVB4JsBEd20fKiJK1xsTw" name="ChamadaState">
       <ownedLiteral xmi:id="_iYoHoJsBEd20fKiJK1xsTw" name="nao_aberta"/>
+      <ownedLiteral xmi:id="_00YYAB8nEeW6ooM7jnMepg" name="visualizando_parametros"/>
+      <ownedLiteral xmi:id="_4PkFcB8nEeW6ooM7jnMepg" name="atribuindo_parametros"/>
+      <ownedLiteral xmi:id="_7FX08B8nEeW6ooM7jnMepg" name="atribuindo_localizacao"/>
       <ownedLiteral xmi:id="_ilI5oJsBEd20fKiJK1xsTw" name="aberta"/>
       <ownedLiteral xmi:id="_ixNmwJsBEd20fKiJK1xsTw" name="encerrada"/>
     </packagedElement>
