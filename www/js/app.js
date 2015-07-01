@@ -1,4 +1,11 @@
-angular.module('exampleApp', ['ui.router', 'ionic', 'LocalStorageModule', 'exampleApp.services', 'exampleApp.controllers'])
+angular.module('exampleApp', [
+  'ui.router', 
+  'ionic', 
+  'LocalStorageModule', 
+  'exampleApp.services', 
+  'exampleApp.controllers',
+  'ngMockE2E'
+  ])
   .config(
 [ '$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {      
       $stateProvider
@@ -16,13 +23,7 @@ angular.module('exampleApp', ['ui.router', 'ionic', 'LocalStorageModule', 'examp
       abstract: true,
       templateUrl: "templates/menu.html",
       controller: 'MenuController'
-    })
-    .state('professor', {
-      url: "/professor",
-      abstract: true,
-      templateUrl: "templates/professor/menu.html",
-      controller: 'MenuController'
-    })
+    })    
     .state('aluno', {
       url: "/aluno",
       abstract: true,
@@ -92,6 +93,12 @@ angular.module('exampleApp', ['ui.router', 'ionic', 'LocalStorageModule', 'examp
         }
     }         
     })
+    .state('professor', {
+      url: "/professor",
+      abstract: true,
+      templateUrl: "templates/professor/menu.html",
+      controller: 'MenuController'
+    })
     .state('professor.home', {
       url: "/home",
       views: {
@@ -131,11 +138,11 @@ angular.module('exampleApp', ['ui.router', 'ionic', 'LocalStorageModule', 'examp
     }         
     })
 	.state('professor.frequencia_aluno', {
-      url: "/professor/frequencia_aluno",
+      url: "/frequencia-aluno",
       views: {
         'menuContent' :{
             controller:  "", //colocar controller
-            templateUrl: "templates/frequencia_aluno.html"     
+            templateUrl: "templates/professor/frequencia_aluno.html"     
         }
     }         
     })
@@ -150,7 +157,7 @@ angular.module('exampleApp', ['ui.router', 'ionic', 'LocalStorageModule', 'examp
     }         
     })
 	.state('professor.alunos', {
-      url: "/professor/alunos_matriculados",
+      url: "/alunos_matriculados",
       cache: false,
       views: {
         'menuContent' :{
@@ -160,7 +167,7 @@ angular.module('exampleApp', ['ui.router', 'ionic', 'LocalStorageModule', 'examp
     }         
     })
 	.state('professor.disciplinas', {
-      url: "/professor/disciplinas",
+      url: "/disciplinas",
       cache: false,
       views: {
         'menuContent' :{
@@ -170,7 +177,7 @@ angular.module('exampleApp', ['ui.router', 'ionic', 'LocalStorageModule', 'examp
     }         
     })
 	.state('professor.lista_alunos', {
-      url: "/professor/lista_alunos",
+      url: "/lista_alunos",
       cache: false,
       views: {
         'menuContent' :{
@@ -248,7 +255,7 @@ angular.module('exampleApp', ['ui.router', 'ionic', 'LocalStorageModule', 'examp
        
     } ]
     
-  ).run(function($rootScope, $ionicPlatform, $location, localStorageService, UserService, $state) {
+  ).run(function($rootScope, $ionicPlatform, $location, localStorageService, UserService, $httpBackend, $state) {
     
     $ionicPlatform.ready(function() {
       if(window.StatusBar) {
@@ -261,7 +268,206 @@ angular.module('exampleApp', ['ui.router', 'ionic', 'LocalStorageModule', 'examp
       delete $rootScope.error;
     });
 
+    // Mocking code used for simulation purposes (using ngMockE2E module)
+    var turmas = [
+    {
+      "idTurma": "1",
+      "codTurma": "A",
+      "codDisciplina": "MO409",
+      "nomeDisciplina": "Engenharia de Software I"
+    },
+    {
+      "idTurma": "2",
+      "codTurma": "B",
+      "codDisciplina": "MC409",
+      "nomeDisciplina": "Engenharia de Software II"
+    }];
 
+    var usuario = 
+    {
+      "id": "1",
+      "nome": "Lucas Carvalho",
+      "email": "ra1612655@dac.unicamp.br",
+      "ra": "161255",
+      "roles": { "ROLE_PROFESSOR": true}
+    }
+  ;
+
+    var chamadaTick = 
+    {
+      "idTick": "1",
+      "dataHoraTick": "20/05/2015 10:00",
+      "chamada": { 
+        "dataChamada": "06-15-2015",
+        "idChamada": 1,
+        "horaInicio": "09:35"
+      },
+      "turma": {
+        "codDisciplina": "MO409",
+        "nomeDisciplina": "Engenharia de Software I",
+        "nomeProfessor": "Eliana Martins",
+        "idTurma": 1,
+        "codTurma": "A"
+      }    
+    };
+
+    var alunoChamada = 
+    {
+      "dataChamada": "06-15-2015",
+      "idChamada": 1,
+      "turma": {
+        "codDisciplina": "MO409",
+        "nomeDisciplina": "Engenharia de Software I",
+        "nomeProfessor": "Eliana Martins",
+        "idTurma": 1,
+        "codTurma": "A"
+      },
+      "horaInicio": "09:35"
+    };
+
+    var chamadas = [
+    {
+      "dataChamada": "06-15-2015",
+      "idChamada": 1,
+      "turma": {
+        "codDisciplina": "MO409",
+        "nomeDisciplina": "Engenharia de Software I",
+        "idTurma": 1,
+        "codTurma": "A"
+      },
+      "horaInicio": "09:35"
+    },
+    {
+      "dataChamada": "06-15-2015",
+      "idChamada": 2,
+      "turma": {
+        "codDisciplina": "MC626",
+        "nomeDisciplina": "Análise e Projeto de Sistema de Informação",
+        "idTurma": 2,
+        "codTurma": "A"
+      },
+      "horaInicio": "09:35"
+    }
+    ];
+
+    var chamadasEncerradas = [
+    {
+      "dataChamada": "06-15-2015",
+      "idChamada": 1,
+      "turma": {
+        "codDisciplina": "MO409",
+        "nomeDisciplina": "Engenharia de Software I",
+        "idTurma": 1,
+        "codTurma": "A"
+      },
+      "horaInicio": "09:35",
+      "horaFim": "12:35"
+    },
+    {
+      "dataChamada": "06-15-2015",
+      "idChamada": 2,
+      "turma": {
+        "codDisciplina": "MC626",
+        "nomeDisciplina": "Análise e Projeto de Sistema de Informação",
+        "idTurma": 2,
+        "codTurma": "A"
+      },
+      "horaInicio": "09:35",
+      "horaFim": "12:35"
+    }
+    ];
+
+    var chamadaPresenca = [
+    {
+      "dataChamada": "06-15-2015",
+      "idChamada": 1,
+      "turma": {
+        "codDisciplina": "MO409",
+        "nomeDisciplina": "Engenharia de Software I",
+        "idTurma": 1,
+        "codTurma": "A"
+      },
+      "horaInicio": "09:35",
+      "horaFim": "12:35",
+      "frequencia": [
+        {
+        "raAluno": "161255",
+        "nome":"Lucas Augusto Carvalho",
+        "status":"Presente"
+        },
+        {
+        "raAluno": "121551",
+        "nome":"João Ninguém",
+        "status":"Ausente"
+        }]
+    },
+    {
+      "dataChamada": "06-15-2015",
+      "idChamada": 2,
+      "turma": {
+        "codDisciplina": "MC626",
+        "nomeDisciplina": "Análise e Projeto de Sistema de Informação",
+        "idTurma": 2,
+        "codTurma": "A"
+      },
+      "horaInicio": "09:35",
+      "horaFim": "12:35",
+      "frequencia": [
+        {
+        "raAluno": "161255",
+        "nome":"Lucas Augusto Carvalho",
+        "status":"Presente"
+        },
+        {
+        "raAluno": "121551",
+        "nome":"João Ninguém",
+        "status":"Ausente"
+        }]
+    }
+    ];
+    
+    // returns the current list of customers or a 401 depending on authorization flag
+    
+    // $httpBackend.whenGET('http://www.webulando.com.br/mo409/rest/user').respond(function (method, url, data, headers) {
+    //   return [200, usuario];
+    // });
+
+    // $httpBackend.whenGET('http://www.webulando.com.br/mo409/professor/chamada/turmas').respond(function (method, url, data, headers) {
+    //   return [200, turmas];
+    // });
+
+    // $httpBackend.whenPOST('http://www.webulando.com.br/mo409/professor/chamada/abrir').respond(function (method, url, data, headers) {
+    //   return [200, chamadas];
+    // });
+
+    // $httpBackend.whenPOST('http://www.webulando.com.br/mo409/professor/chamada/encerrar').respond(function (method, url, data, headers) {
+    //   return [200, chamadaPresenca];
+    // });
+
+    // $httpBackend.whenGET('http://www.webulando.com.br/mo409/aluno/chamada').respond(function (method, url, data, headers) {
+    //   return [200, alunoChamada];
+    // });
+
+    // $httpBackend.whenPOST('http://www.webulando.com.br/mo409/aluno/chamada/checkin').respond(function (method, url, data, headers) {
+    //   return [200, chamadaTick];
+    // });
+
+    // $httpBackend.whenPOST('http://www.webulando.com.br/mo409/aluno/chamada/checkout').respond(function (method, url, data, headers) {
+    //   return [200, chamadaTick];
+    // });
+
+    // $httpBackend.whenPOST('http://www.webulando.com.br/mo409/login').respond(function(method, url, data) {
+    //   var authorizationToken = 'UhLP83FSzhl3SnLjqCcDH96b6I0QkdSOq4zcndTpJmQ=';
+    //   return  [200 , { authorizationToken: authorizationToken, usuario: usuario } ];
+    // });
+
+    // $httpBackend.whenPOST('http://www.webulando.com.br/mo409/logout').respond(function(method, url, data) {
+    //   return [200];
+    // });
+
+     // All other http requests will pass through
+    $httpBackend.whenGET(/.*/).passThrough();
+    $httpBackend.whenPOST(/.*/).passThrough();
     
     $rootScope.hasRole = function(role) {
       

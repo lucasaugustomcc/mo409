@@ -19,8 +19,6 @@ function tempo(op) {
 	},1000);
 }
 
-window.onload=tempo;
-
 //Data
 
 function data(){
