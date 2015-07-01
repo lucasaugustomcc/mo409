@@ -271,7 +271,7 @@ public class Presenca implements Serializable
 	 * Recebe um tick do aluno
 	 * @return objeto tick populado
 	 */
-	public Tick receberTick()
+	public Tick receberTick() throws IllegalStateException
 	{
 		if (state == PresencaState.em_aula
 				&& chamada.getState() == ChamadaState.aberta)

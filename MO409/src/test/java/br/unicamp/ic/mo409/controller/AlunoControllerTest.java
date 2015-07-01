@@ -37,6 +37,7 @@ import org.springframework.web.context.WebApplicationContext;
 import br.unicamp.ic.mo409.dao.ChamadaDAO;
 import br.unicamp.ic.mo409.dao.PresencaDAO;
 import br.unicamp.ic.mo409.dao.ProfessorDAO;
+import br.unicamp.ic.mo409.dao.TickDAO;
 import br.unicamp.ic.mo409.dao.TurmaDAO;
 import br.unicamp.ic.mo409.dao.UsuarioDAO;
 import br.unicamp.ic.mo409.model.Aluno;
@@ -97,6 +98,12 @@ public class AlunoControllerTest
 		{
 			return Mockito.mock(PresencaDAO.class);
 		}
+		
+		@Bean
+		public TickDAO TickDAO()
+		{
+			return Mockito.mock(TickDAO.class);
+		}
 	}
 
 	@Mock
@@ -110,6 +117,9 @@ public class AlunoControllerTest
 
 	@Mock
 	private ChamadaDAO chamadaDAO;
+	
+	@Mock
+	private TickDAO tickDAO;
 
 	@InjectMocks
 	private AlunoController alunoController;
@@ -137,6 +147,7 @@ public class AlunoControllerTest
 					.withDisciplina("Engenharia de Software I", "MO409")
 					.withProfessor(prof1).withAluno(10798, "Daniela Marques")
 					.withAluno(23060, "Amaury Bosso André")
+					.withAluno(aluno)
 				.build();
 
 		Chamada chamada1 = new ChamadaBuilder()
@@ -155,7 +166,7 @@ public class AlunoControllerTest
 			.withChamada(chamada1)
 			.withAluno(aluno)
 			.withPresencaState(PresencaState.em_aula)
-		.build();
+		.build();					
 
 		Mockito.when(this.turmaDAO.find(1)).thenReturn(turma1);
 		Mockito.when(this.usuarioDAO.loadUsuarioByUsername("1")).thenReturn(
@@ -167,7 +178,7 @@ public class AlunoControllerTest
 		Mockito.when(this.presencaDAO.find(1))
 				.thenReturn(presenca2);
 		Mockito.when(this.presencaDAO.findPresencaChamadaAbertaAluno(1, 1))
-				.thenReturn(presenca1);
+				.thenReturn(presenca1);		
 	}
 
 	@Test()

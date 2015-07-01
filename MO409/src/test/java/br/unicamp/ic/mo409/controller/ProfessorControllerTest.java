@@ -41,11 +41,17 @@ import br.unicamp.ic.mo409.dao.ChamadaDAO;
 import br.unicamp.ic.mo409.dao.ProfessorDAO;
 import br.unicamp.ic.mo409.dao.TurmaDAO;
 import br.unicamp.ic.mo409.dao.UsuarioDAO;
+import br.unicamp.ic.mo409.model.Aluno;
 import br.unicamp.ic.mo409.model.Chamada;
+import br.unicamp.ic.mo409.model.ChamadaState;
+import br.unicamp.ic.mo409.model.Presenca;
+import br.unicamp.ic.mo409.model.PresencaState;
 import br.unicamp.ic.mo409.model.Professor;
 import br.unicamp.ic.mo409.model.Turma;
 import br.unicamp.ic.mo409.model.Usuario;
+import br.unicamp.ic.mo409.testes.builders.AlunoBuilder;
 import br.unicamp.ic.mo409.testes.builders.ChamadaBuilder;
+import br.unicamp.ic.mo409.testes.builders.PresencaBuilder;
 import br.unicamp.ic.mo409.testes.builders.ProfessorBuilder;
 import br.unicamp.ic.mo409.testes.builders.TurmaBuilder;
 import br.unicamp.ic.mo409.testes.util.UtilTestes;
@@ -57,115 +63,151 @@ import br.unicamp.ic.mo409.testes.util.UtilTestes;
 "file:src/test/resources/applicationContext.xml" })
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = false)
 @Transactional
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class})
-public class ProfessorControllerTest {	
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class })
+public class ProfessorControllerTest
+{
 
 	private MockMvc mockMvc;
-	
+
 	@Mock
 	private UsuarioDAO usuarioDAO;
-	
+
 	@Configuration
-	static class ProfessorControllerTestConfiguration {
-		
+	static class ProfessorControllerTestConfiguration
+	{
+
 		@Bean
-		public TurmaDAO TurmaDAO() {
+		public TurmaDAO TurmaDAO()
+		{
 			return Mockito.mock(TurmaDAO.class);
 		}
-		
+
 		@Bean
-		public UsuarioDAO UsuarioDAO() {
+		public UsuarioDAO UsuarioDAO()
+		{
 			return Mockito.mock(UsuarioDAO.class);
 		}
-		
+
 		@Bean
-		public ChamadaDAO ChamadaDAO() {
+		public ChamadaDAO ChamadaDAO()
+		{
 			return Mockito.mock(ChamadaDAO.class);
 		}
 	}
-	
+
 	@Mock
 	private TurmaDAO turmaDAO;
-	
+
 	@Mock
 	private ProfessorDAO professorDAO;
-	
+
 	@Mock
 	private ChamadaDAO chamadaDAO;
-	
+
 	@InjectMocks
 	private ProfessorController professorController;
-	
+
 	@Autowired
-	private WebApplicationContext wac;	
+	private WebApplicationContext wac;
 
 	@SuppressWarnings("deprecation")
 	@Before
-	public void setup() 
+	public void setup()
 	{
 		// Process mock annotations
 		MockitoAnnotations.initMocks(this);
 
 		// Setup Spring test in standalone mode
-		this.mockMvc = MockMvcBuilders.standaloneSetup(this.professorController)
-		// .addFilters(this.springSecurityFilterChain)
-				.build();	
-		
+		this.mockMvc = MockMvcBuilders
+				.standaloneSetup(this.professorController)
+				// .addFilters(this.springSecurityFilterChain)
+				.build();
+
 		Professor prof1 = new ProfessorBuilder().build();
-		
+
 		Professor prof2 = new ProfessorBuilder()
-			.withNome("Claudia Bauzer Medeiros")
-			.withRaProfessor(2)
-			.withIdUsuario(2)
-		.build();
-						
+				.withNome("Claudia Bauzer Medeiros").withRaProfessor(2)
+				.withIdUsuario(2).build();
+
 		Turma turma1 = new TurmaBuilder()
-			.withDisciplina("Engenharia de Software I", "MO409")
-			.withProfessor(prof1)
-			.withAluno(10798,"Daniela Marques")			
-			.withAluno(23060,"Amaury Bosso André")
-		.build();	
-		
+				.withDisciplina("Engenharia de Software I", "MO409")
+				.withProfessor(prof1).withAluno(10798, "Daniela Marques")
+				.withAluno(23060, "Amaury Bosso André").build();
+
 		Turma turma2 = new TurmaBuilder()
-			.withDisciplina("Análise e Projeto de Sistema de Informação", "MC626")
-			.withProfessor(prof1)
-			.withIdTurma(2)
-		.build();					
-		
+				.withDisciplina("Análise e Projeto de Sistema de Informação",
+						"MC626").withProfessor(prof1).withIdTurma(2).build();
+
 		List<Turma> turmas = new ArrayList<Turma>();
 		turmas.add(turma1);
-		turmas.add(turma2);			
-		
+		turmas.add(turma2);
+
 		Chamada chamada1 = new ChamadaBuilder()
-			.withDataChamada(new Date(2015,05,20))
-			.withHoraInicio(new Time(20,00,00))		
-			.withProfessor(prof1)
-			.withTurma(turma1)
-		.build();
-		
+				.withDataChamada(new Date(2015, 05, 20))
+				.withHoraInicio(new Time(20, 00, 00)).withProfessor(prof1)
+				.withTurma(turma1).build();
+
 		Chamada chamada2 = new ChamadaBuilder()
-			.withDataChamada(new Date(2015,05,20))
-			.withHoraInicio(new Time(20,00,00))		
-			.withProfessor(prof1)
-			.withTurma(turma2)
-			.withIdChamada(2)
-		.build();
+				.withDataChamada(new Date(2015, 05, 20))
+				.withHoraInicio(new Time(20, 00, 00)).withProfessor(prof1)
+				.withTurma(turma2).withIdChamada(2).build();
+
+		Chamada chamada3 = new ChamadaBuilder()
+				.withDataChamada(new Date(2015, 05, 20))
+				.withHoraInicio(new Time(20, 00, 00)).withProfessor(prof1)
+				.withTurma(turma1).withChamadaState(ChamadaState.encerrada)
+				.withIdChamada(3).build();
+
+		Chamada chamada4 = new ChamadaBuilder()
+				.withDataChamada(new Date(2015, 05, 20))
+				.withHoraInicio(new Time(20, 00, 00)).withProfessor(prof1)
+				.withTurma(turma2).withChamadaState(ChamadaState.encerrada)
+				.withIdChamada(4).build();
 		
+		Aluno aluno1 = new AlunoBuilder()
+			.withNome("Daniela Marques")
+			.withRaAluno(10798)
+			.build();
+		Aluno aluno2 = new AlunoBuilder()
+			.withNome("José Viana")
+			.build();
+
+		Presenca presenca1 = new PresencaBuilder().withChamada(chamada1)
+				.withAluno(aluno1).build();
+
+		Presenca presenca2 = new PresencaBuilder().withChamada(chamada1)
+				.withAluno(aluno2).withPresencaState(PresencaState.em_aula)
+				.build();
+		
+		List<Presenca> presencas1 = new ArrayList<Presenca>();
+		presencas1.add(presenca1);
+		
+		List<Presenca> presencas2 = new ArrayList<Presenca>();
+		presencas2.add(presenca2);
+		
+		chamada3.setPresencas(presencas1);
+		chamada4.setPresencas(presencas2);
+
 		Mockito.when(this.turmaDAO.find(1)).thenReturn(turma1);
 		Mockito.when(this.turmaDAO.find(2)).thenReturn(turma1);
-		Mockito.when(this.usuarioDAO.loadUsuarioByUsername("35")).thenReturn(prof1.getUsuario());
-		Mockito.when(this.usuarioDAO.loadUsuarioByUsername("2")).thenReturn(prof2.getUsuario());
-		Mockito.when(this.usuarioDAO.loadUsuarioByUsername("1")).thenReturn(prof1.getUsuario());
+		Mockito.when(this.usuarioDAO.loadUsuarioByUsername("35")).thenReturn(
+				prof1.getUsuario());
+		Mockito.when(this.usuarioDAO.loadUsuarioByUsername("2")).thenReturn(
+				prof2.getUsuario());
+		Mockito.when(this.usuarioDAO.loadUsuarioByUsername("1")).thenReturn(
+				prof1.getUsuario());
 		Mockito.when(this.professorDAO.find(1)).thenReturn(prof1);
 		Mockito.when(this.professorDAO.find(2)).thenReturn(prof2);
 		Mockito.when(this.professorDAO.find(35)).thenReturn(prof1);
 		Mockito.when(this.chamadaDAO.find(1)).thenReturn(chamada1);
 		Mockito.when(this.chamadaDAO.find(2)).thenReturn(chamada2);
+		Mockito.when(this.chamadaDAO.find(3)).thenReturn(chamada3);
+		Mockito.when(this.chamadaDAO.find(4)).thenReturn(chamada4);
 		Mockito.when(this.turmaDAO.listarTurmasProfessor(1)).thenReturn(turmas);
 	}
 
 	@Test()
-	public void testChamadaTurmas() throws Exception 
+	public void testChamadaTurmas() throws Exception
 	{
 		Usuario user = usuarioDAO.loadUsuarioByUsername("35");
 
@@ -175,18 +217,21 @@ public class ProfessorControllerTest {
 				authenticationToken);
 
 		this.mockMvc
-				.perform(
-						get("/professor/chamada/turmas"))
+				.perform(get("/professor/chamada/turmas"))
 				.andExpect(status().is(200))
-				.andExpect(content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
-				.andExpect(content().json("[{codDisciplina: \"MO409\", \"nomeDisciplina\": \"Engenharia de Software I\", \"codTurma\": \"A\", idTurma:1},"
-						+ "{idTurma:2, codDisciplina: \"MC626\", \"nomeDisciplina\": \"Análise e Projeto de Sistema de Informação\", \"codTurma\": \"A\" }]"));
+				.andExpect(
+						content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
+				.andExpect(
+						content()
+								.json("[{codDisciplina: \"MO409\", \"nomeDisciplina\": \"Engenharia de Software I\", \"codTurma\": \"A\", idTurma:1},"
+										+ "{idTurma:2, codDisciplina: \"MC626\", \"nomeDisciplina\": \"Análise e Projeto de Sistema de Informação\", \"codTurma\": \"A\" }]"));
 	}
-	
+
 	@Test()
-	public void testAbrirChamadaProfessorCorreto() throws Exception 
+	public void testAbrirChamadaProfessorCorreto() throws Exception
 	{
-		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(this.professorController).build();
+		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(
+				this.professorController).build();
 
 		Usuario user = usuarioDAO.loadUsuarioByUsername("35");
 
@@ -195,17 +240,19 @@ public class ProfessorControllerTest {
 		SecurityContextHolder.getContext().setAuthentication(
 				authenticationToken);
 
-		mockMvc
-				.perform(
-						post("/professor/chamada/abrir").content("[{ \"idTurma\":1}, {\"idTurma\":2 }]").header("content-type", "application/json"))				
+		mockMvc.perform(
+				post("/professor/chamada/abrir").content(
+						"[{ \"idTurma\":1}, {\"idTurma\":2 }]").header(
+						"content-type", "application/json"))
 				.andExpect(status().is(200))
-				.andExpect(content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
+				.andExpect(
+						content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
 				.andExpect(content().json("[{idChamada:0},{idChamada:0}]"));
 	}
-	
-	//@Test ()
-	@Test(expected=NestedServletException.class)
-	public void testAbrirChamadaProfessorIncorreto() throws Exception 
+
+	// @Test ()
+	@Test(expected = NestedServletException.class)
+	public void testAbrirChamadaProfessorIncorreto() throws Exception
 	{
 		// TODO: descobrir como tirar as NestedServletException
 		Usuario user = usuarioDAO.loadUsuarioByUsername("2");
@@ -217,14 +264,17 @@ public class ProfessorControllerTest {
 
 		this.mockMvc
 				.perform(
-						post("/professor/chamada/abrir").content("[{ \"idTurma\":1}, {\"idTurma\":2 }]").header("content-type", "application/json"))				
+						post("/professor/chamada/abrir").content(
+								"[{ \"idTurma\":1}, {\"idTurma\":2 }]").header(
+								"content-type", "application/json"))
 				.andExpect(status().is(200))
-				.andExpect(content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
+				.andExpect(
+						content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
 				.andExpect(content().json("[{idChamada:0},{idChamada:0}]"));
-	}	
-	
+	}
+
 	@Test()
-	public void testEncerrarChamadaProfessorCorreto() throws Exception 
+	public void testEncerrarChamadaProfessorCorreto() throws Exception
 	{
 		Usuario user = usuarioDAO.loadUsuarioByUsername("35");
 
@@ -235,15 +285,18 @@ public class ProfessorControllerTest {
 
 		this.mockMvc
 				.perform(
-						post("/professor/chamada/encerrar").content("[{ \"idChamada\":1}, {\"idChamada\":2 }]").header("content-type", "application/json"))				
+						post("/professor/chamada/encerrar").content(
+								"[{ \"idChamada\":1}, {\"idChamada\":2 }]")
+								.header("content-type", "application/json"))
 				.andExpect(status().is(200))
-				.andExpect(content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
+				.andExpect(
+						content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
 				.andExpect(content().json("[{idChamada:1},{idChamada:2}]"));
 	}
-	
-	//@Test ()
-	@Test(expected=NestedServletException.class)
-	public void testEncerrarChamadaProfessorIncorreto() throws Exception 
+
+	// @Test ()
+	@Test(expected = NestedServletException.class)
+	public void testEncerrarChamadaProfessorIncorreto() throws Exception
 	{
 		// TODO
 		Usuario user = usuarioDAO.loadUsuarioByUsername("2");
@@ -255,14 +308,17 @@ public class ProfessorControllerTest {
 
 		this.mockMvc
 				.perform(
-						post("/professor/chamada/encerrar").content("[{ \"idChamada\":1}, {\"idChamada\":2 }]").header("content-type", "application/json"))				
+						post("/professor/chamada/encerrar").content(
+								"[{ \"idChamada\":1}, {\"idChamada\":2 }]")
+								.header("content-type", "application/json"))
 				.andExpect(status().is(200))
-				.andExpect(content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
+				.andExpect(
+						content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
 				.andExpect(content().json("[{idChamada:1},{idChamada:2}]"));
 	}
-	
+
 	@Test()
-	public void testRelatorioChamadaProfessorCorreto() throws Exception 
+	public void testRelatorioChamadaProfessorCorreto() throws Exception
 	{
 		Usuario user = usuarioDAO.loadUsuarioByUsername("35");
 
@@ -273,16 +329,24 @@ public class ProfessorControllerTest {
 
 		this.mockMvc
 				.perform(
-						post("/professor/chamada/relatorio").content("[{ \"idChamada\":1},{\"idChamada\":2}]").header("content-type", "application/json"))				
+						post("/professor/chamada/relatorio").content(
+								"[{ \"idChamada\":3},{\"idChamada\":4}]")
+								.header("content-type", "application/json"))
 				.andExpect(status().is(200))
-				.andExpect(content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
-				.andExpect(content().json("[{ \"idChamada\": 1, \"turma\": { \"codDisciplina\": \"MO409\", \"nomeDisciplina\": \"Engenharia de Software I\", \"idTurma\": 1, \"codTurma\": \"A\" }}, {\"idChamada\":2 }]"))
-				.andExpect(content().string(containsString("\"alunos\":[{\"nomeAluno\":\"Daniela Marques\",\"raAluno\":10798}")));
+				.andExpect(
+						content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
+				.andExpect(
+						content()
+								.json("[{ \"idChamada\": 3, "
+										+ "\"alunos\":[{\"nomeAluno\":\"Daniela Marques\",\"raAluno\":10798}], \"turma\": "
+										+ "{ \"codDisciplina\": \"MO409\", \"nomeDisciplina\": \"Engenharia de Software I\", \"idTurma\": 1, \"codTurma\": \"A\" }}, "
+									+ "{\"idChamada\":4 }]"))
+				;
 	}
-	
-	//@Test ()
-	@Test(expected=NestedServletException.class)
-	public void testRelatorioChamadaProfessorIncorreto() throws Exception 
+
+	// @Test ()
+	@Test(expected = NestedServletException.class)
+	public void testRelatorioChamadaProfessorIncorreto() throws Exception
 	{
 		// TODO
 		Usuario user = usuarioDAO.loadUsuarioByUsername("2");
@@ -294,10 +358,17 @@ public class ProfessorControllerTest {
 
 		this.mockMvc
 				.perform(
-						post("/professor/chamada/relatorio").content("[{ \"idChamada\":1},{\"idChamada\":2}]").header("content-type", "application/json"))				
+						post("/professor/chamada/relatorio").content(
+								"[{ \"idChamada\":1},{\"idChamada\":2}]")
+								.header("content-type", "application/json"))
 				.andExpect(status().is(200))
-				.andExpect(content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
-				.andExpect(content().json("[{ \"idChamada\": 1, \"turma\": { \"codDisciplina\": \"MO409\", \"nomeDisciplina\": \"Engenharia de Software I\", \"idTurma\": 1, \"codTurma\": \"A\" }}, {\"idChamada\":2 }]"))
-				.andExpect(content().string(containsString("\"alunos\":[{\"nomeAluno\":\"Daniela Marques\",\"raAluno\":10798}")));
+				.andExpect(
+						content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
+				.andExpect(
+						content()
+								.json("[{ \"idChamada\": 1, \"turma\": { \"codDisciplina\": \"MO409\", \"nomeDisciplina\": \"Engenharia de Software I\", \"idTurma\": 1, \"codTurma\": \"A\" }}, {\"idChamada\":2 }]"))
+				.andExpect(
+						content()
+								.string(containsString("\"alunos\":[{\"nomeAluno\":\"Daniela Marques\",\"raAluno\":10798}")));
 	}
 }
