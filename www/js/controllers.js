@@ -1,59 +1,30 @@
-function IndexController($scope, $routeParams, ChamadaService) {  
-  $scope.turmas = ChamadaService.query();
+var getIndexIfObjWithAttr = function(array, attr, value) {
+    for(var i = 0; i < array.length; i++) {
+        if(array[i][attr] === value) {
+            return i;
+        }
+    }
+    return -1;
+}
+var onSuccess = function(position) {
+    alert('Latitude: '          + position.coords.latitude          + '\n' +
+          'Longitude: '         + position.coords.longitude         + '\n' +
+          'Altitude: '          + position.coords.altitude          + '\n' +
+          'Accuracy: '          + position.coords.accuracy          + '\n' +
+          'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+          'Heading: '           + position.coords.heading           + '\n' +
+          'Speed: '             + position.coords.speed             + '\n' +
+          'Timestamp: '         + position.timestamp                + '\n');
 };
 
-
-function EditController($scope, $routeParams, $location, NewsService) {
-
-  $scope.newsEntry = NewsService.get({id: $routeParams.id});
-  
-  $scope.save = function() {
-    $scope.newsEntry.$save(function() {
-      $location.path('/');
-    });
-  };
-};
-
-
-
-
-function CreateController($scope, $location, NewsService) {
-  
-  $scope.newsEntry = new NewsService();
-  
-  $scope.save = function() {
-    $scope.newsEntry.$save(function() {
-      $location.path('/');
-    });
-  };
-};
-
-function ChamadaTurmasCtrl($scope, $http, ChamadaService) {
-    $scope.turmas = [];
-    $scope.chamadas = [];
-    $scope.formData = {};
-
-    //$http.defaults.headers.get = {'X-Auth-Token':'okasd'};
-
-      $scope.turmas = ChamadaService.turmas();
-
-      $scope.confirmChamada = function() {
-        console.log("Loaded. " + $scope.formData.turma);
-        $scope.turmas = ChamadaService.abrir({},[{ "idTurma":1},{ "idTurma":2 }]);        
-      }
-};
+// onError Callback receives a PositionError object
+//
+function onError(error) {
+    alert('code: '    + error.code    + '\n' +
+          'message: ' + error.message + '\n');
+}
 
 angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.services'])
-.controller('MenuController', function ($scope, $location, MenuService) {
-        // "MenuService" is a service returning mock data (services.js)
-        $scope.list = MenuService.all();
-
-        $scope.goTo = function(page) {
-            console.log('Going to ' + page);
-            //$scope.sideMenuController.toggleLeft();
-            $location.url('/' + page);
-        };
-})
 .controller('LogoutController', function($scope, $rootScope, $location, localStorageService, $state) {
  
   delete $rootScope.user;
@@ -91,69 +62,84 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
 .controller('HomeCtrl', function($rootScope, $scope, $timeout) {
 })
 .controller('ChamadaTurmasCtrl', function($scope, $state, $http, myService, ChamadaService) {
-    $scope.turmas = [];
-    $scope.chamadas = [];
-    $scope.formData = {};
-
     $scope.turmas = ChamadaService.turmas(); 
 
-    $scope.confirmChamada = function() {
-      console.dir($scope.formData);
+    $scope.checkbox = [];
 
-      $scope.turmas = ChamadaService.abrir({},[{ "idTurma":1},{ "idTurma":2 }]); 
-      $state.go('professor.chamada-aberta');
+    $scope.appendList = function(id){
+      var index = getIndexIfObjWithAttr($scope.checkbox, "idTurma", id);
+      if (index == -1) {
+          $scope.checkbox.push({ "idTurma": id });
+      } else {
+          $scope.checkbox.splice(index, 1);
+      }
+    }
+
+    $scope.confirmChamada = function() {
+      if ($scope.checkbox.length > 0)
+      {
+        // Your app must execute AT LEAST ONE call for the current position via standard Cordova geolocation,
+        //  in order to prompt the user for Location permission.
+        $scope.getPosition = function(position){
+            $scope.coords = position.coords;
+            $scope.$apply();
+            ChamadaService.abrir({},{ 'latitude': $scope.coords.latitude.toString(), 'longitude': $scope.coords.longitude.toString(), "turmas":$scope.checkbox }, 
+                function success(data) {
+                    myService.set(data);
+                    $state.go('professor.chamada-aberta');
+                }, function err() {  }
+            );  
+        };
+        $scope.getPositionErr = function(error){
+            alert('code: '    + error.code    + '\n' +
+                      'message: ' + error.message + '\n');
+        };
+        navigator.geolocation.getCurrentPosition($scope.getPosition, $scope.getPositionErr, {maximumAge: 0, timeout: 6000, enableHighAccuracy:false});        
+      }           
     }
 })
 .controller('ChamadaAbertaCtrl', function($scope, $state, $http, myService, ChamadaService) {
-    $scope.formData = {};
     $scope.chamadas = myService.get();
+    $scope.checkbox = [];
+    for (var i = 0; i < $scope.chamadas.length; i++)
+    {      
+      $scope.checkbox.push({ "idChamada": $scope.chamadas[i]["idChamada"] });
+    }
 
     $scope.confirmEncerrarChamada = function() {
-      console.log("Loaded. " + $scope.formData.turma);
-
-      $scope.turmas = ChamadaService.encerrar({},[{ "idChamada":1},{ "idChamada":2 }]); 
-      $state.go('professor.chamada-presenca');
+      $scope.turmas = ChamadaService.encerrar({},$scope.checkbox, 
+        function success(data) {
+          myService.set(data);
+          $state.go('professor.chamada-presenca');
+        });       
     }
 })
-.controller('ChamadaPresencaCtrl', ['$scope', '$state', '$http', 'myService', function($scope, $state, $http, myService) {
+.controller('ChamadaPresencaCtrl', function($scope, $state, $http, myService) {
     $scope.formData = {};
     $scope.presencas = myService.get();
     console.log("Presença");
     console.dir($scope.presencas);
-}])
-.controller('AlunoChamadaCtrl', ['$scope', '$state', '$http', 'myService', function($scope, $state, $http, myService) {
-    $scope.turmas = [];
-    $scope.chamadas = [];
-    $scope.formData = {};
+})
+.controller('AlunoChamadaCtrl', function($scope, $state, $http, myService, AlunoService) {
+    $scope.chamada = {};
 
     //$http.defaults.headers.get = {'X-Auth-Token':'okasd'};
-
-    $http.get(exampleAppConfig.host+'/aluno/chamada')
-        .success(function (data, status, headers, config) {
+    AlunoService.chamada({},{},
+        function success(data) {
             $scope.chamada = data;
-            console.dir(data);
-        })
-        .error(function (data, status, headers, config) {
-            console.log("Error occurred.  Status:" + status);
-        });
+            $scope.confirmCheckIn = function() {
+                AlunoService.checkin({},{ "idChamada": $scope.chamada.idChamada }, 
+                  function success(data) {
+                    myService.set(data);
+                    $state.go('aluno.checkin');
+                  }
+                );      
+             }  
+        }); 
 
-      $scope.confirmCheckIn = function() {
-
-        $http.post(exampleAppConfig.host+'/aluno/chamada/checkin', 
-          { headers: { 'Content-Type': 'application/json' },
-            data: { "idChamada":1 }
-          })
-        .success(function (data, status, headers, config) {
-            myService.set(data);
-            console.dir(data);
-            $state.go('aluno.checkin');
-        })
-        .error(function (data, status, headers, config) {
-            console.log("Error occurred.  Status:" + status);
-        });
-      }
-}])
-.controller('AlunoCheckInCtrl', ['$scope', '$state', '$http', 'myService', function($scope, $state, $http, myService) {
+                
+})
+.controller('AlunoCheckInCtrl', function($scope, $state, $http, myService) {
     $scope.formData = {};
     $scope.tick = myService.get();
     console.dir($scope.tick);
@@ -173,9 +159,9 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
             console.log("Error occurred.  Status:" + status);
         });
       }
-}])
-.controller('AlunoCheckOutCtrl', ['$scope', '$state', '$http', 'myService', function($scope, $state, $http, myService) {
+})
+.controller('AlunoCheckOutCtrl', function($scope, $state, $http, myService) {
     $scope.formData = {};
     $scope.tick = myService.get();
     console.dir($scope.tick);
-}]);
+});

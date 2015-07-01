@@ -10,34 +10,33 @@
 			<ion-nav-view name="chamada_disciplinas"></ion-nav-view>
 			<ion-content>
 			<ul class="list">
-			<li class="item item-checkbox" ng-repeat="turma in turmas">
-				<div class="row responsive-sm">
-					<div class="col-10">
-							<h2>{{ turma.codDisciplina }}</h2>
-							<h3>TURMA {{ turma.codTurma }}</h3>
+				<li class="item item-checkbox" ng-repeat="turma in turmas">
+					<div class="row responsive-sm">
+						<div class="col-10">
+								<h2>{{ turma.codDisciplina }}</h2>
+								<h3>TURMA {{ turma.codTurma }}</h3>
+						</div>
+						<div class="col-8">
+								<p>{{ turma.nomeDisciplina }}</p>
+						</div>
 					</div>
-					<div class="col-8">
-							<p>{{ turma.nomeDisciplina }}</p>
-					</div>
+					<label class="checkbox">
+						<input type="checkbox" ng-change="appendList(turma.idTurma)" ng-model="checkbox" ng-true-value="{{ turma.idTurma }}" 
+																								ng-value="{{ turma.idTurma }}">
+					</label>				
+				</li>			
+			</ul> 
+			
+			<div class="row responsive-sm">
+				<div class="col"></div>
+				<div class="col">
+					<button  class="button button-block button-balanced icon-left ion-android-checkbox-outline" ng-click="confirmChamada()">
+						Abrir Chamada
+					</button>
 				</div>
-				<label class="checkbox">
-					<input type="checkbox" name="turma" ng-model="formData.turma" ng-true-value="{{ turma.idTurma }}" 
-																							ng-value="{{ turma.idTurma }}">
-				</label>				
-			</li>			
-		</ul> 
-		
-		<br/><br/><br/>
-		<div class="row responsive-sm">
 			<div class="col"></div>
-			<div class="col">
-				<button  class="button button-block button-balanced icon-left ion-android-checkbox-outline" ng-click="confirmChamada()">
-					Abrir Chamada
-				</button>
 			</div>
-		<div class="col"></div>
-		</div>
-		</ion-content>
+			</ion-content>
 		</ion-tab>
 		
 		<!-- Parâmetros -->

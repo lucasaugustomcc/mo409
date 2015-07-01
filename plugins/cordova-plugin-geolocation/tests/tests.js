@@ -53,7 +53,8 @@ exports.defineAutoTests = function () {
                 done();
             });
         },
-        isWindowsStore = (cordova.platformId == "windows8") || (cordova.platformId == "windows" && !WinJS.Utilities.isPhone);
+        isWindowsStore = (cordova.platformId == "windows8") || (cordova.platformId == "windows" && !WinJS.Utilities.isPhone),
+        isAndroid = cordova.platformId == "android";
 
     describe('Geolocation (navigator.geolocation)', function () {
 
@@ -83,9 +84,10 @@ exports.defineAutoTests = function () {
         describe('error callback', function () {
 
             it("geolocation.spec.5 should be called if we set timeout to 0 and maximumAge to a very small number", function (done) {
-                // this test asks for using geolocation and interrupts autotests running.
-                // That's why we have to pending that for Windows Store 8.0/8.1 apps
-                if (isWindowsStore) {
+                // On Windows, this test prompts user for permission to use geolocation and interrupts autotests running.
+                // On Android geolocation Api is not available on emulator so we pended tests until we found the way to detect
+                // whether we run on emulator or real device from JavaScript. You can still run the tests on Android manually.
+                if (isWindowsStore || isAndroid) {
                     pending();
                 }
 
@@ -103,9 +105,10 @@ exports.defineAutoTests = function () {
         describe('success callback', function () {
 
             it("geolocation.spec.6 should be called with a Position object", function (done) {
-                // this test asks for using geolocation and interrupts autotests running.
-                // That's why we have to pending that for Windows Store 8.0/8.1 apps
-                if (isWindowsStore) {
+                // On Windows, this test prompts user for permission to use geolocation and interrupts autotests running.
+                // On Android geolocation Api is not available on emulator so we pended tests until we found the way to detect
+                // whether we run on emulator or real device from JavaScript. You can still run the tests on Android manually.
+                if (isWindowsStore || isAndroid) {
                     pending();
                 }
 
@@ -141,9 +144,10 @@ exports.defineAutoTests = function () {
             });
 
             it("geolocation.spec.7 should be called if we set timeout to 0 and maximumAge to a very small number", function (done) {
-                // this test asks for using geolocation and interrupts autotests running.
-                // That's why we have to pending that for Windows Store 8.0/8.1 apps
-                if (isWindowsStore) {
+                // On Windows, this test prompts user for permission to use geolocation and interrupts autotests running.
+                // On Android geolocation Api is not available on emulator so we pended tests until we found the way to detect
+                // whether we run on emulator or real device from JavaScript. You can still run the tests on Android manually.
+                if (isWindowsStore || isAndroid) {
                     pending();
                 }
 
@@ -167,9 +171,10 @@ exports.defineAutoTests = function () {
             });
 
             it("geolocation.spec.8 should be called with a Position object", function (done) {
-                // this test asks for using geolocation and interrupts autotests running.
-                // That's why we have to pending that for Windows Store 8.0/8.1 apps
-                if (isWindowsStore) {
+                // On Windows, this test prompts user for permission to use geolocation and interrupts autotests running.
+                // On Android geolocation Api is not available on emulator so we pended tests until we found the way to detect
+                // whether we run on emulator or real device from JavaScript. You can still run the tests on Android manually.
+                if (isWindowsStore || isAndroid) {
                     pending();
                 }
 

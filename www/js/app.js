@@ -22,13 +22,13 @@ angular.module('exampleApp', [
       url: "/app",
       abstract: true,
       templateUrl: "templates/menu.html",
-      controller: 'MenuController'
+      //controller: 'MenuController'
     })    
     .state('aluno', {
       url: "/aluno",
       abstract: true,
       templateUrl: "templates/aluno/menu.html",
-      controller: 'MenuController'
+      //controller: 'MenuController'
     })  
     .state('aluno.home', {
       url: "/home",
@@ -97,7 +97,7 @@ angular.module('exampleApp', [
       url: "/professor",
       abstract: true,
       templateUrl: "templates/professor/menu.html",
-      controller: 'MenuController'
+      //controller: 'MenuController'
     })
     .state('professor.home', {
       url: "/home",
@@ -215,7 +215,7 @@ angular.module('exampleApp', [
       
       /* Register error provider that shows message on failed requests or redirects to login page on
        * unauthenticated requests */
-        $httpProvider.interceptors.push(function ($q, $rootScope, $location) {
+        $httpProvider.interceptors.push(function ($q, $rootScope, $location, localStorageService) {
               return {
                 'responseError': function(rejection) {
                   var status = rejection.status;
@@ -224,6 +224,9 @@ angular.module('exampleApp', [
                   var url = config.url;
             
                   if (status == 401) {
+                    localStorageService.remove('authToken');
+                    delete $rootScope.user;
+                    delete $rootScope.authToken;
                     $location.path( "/app/login" );
                     //$state.go("app.login");
                   } else {
@@ -271,13 +274,13 @@ angular.module('exampleApp', [
     // Mocking code used for simulation purposes (using ngMockE2E module)
     var turmas = [
     {
-      "idTurma": "1",
+      "idTurma": "3",
       "codTurma": "A",
       "codDisciplina": "MO409",
       "nomeDisciplina": "Engenharia de Software I"
     },
     {
-      "idTurma": "2",
+      "idTurma": "5",
       "codTurma": "B",
       "codDisciplina": "MC409",
       "nomeDisciplina": "Engenharia de Software II"
