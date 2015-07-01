@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/2.1.0/UML" xmi:id="_soD9MOjJEdu6LJeVabImNg">
+  <packagedElement xmi:type="uml:Package" xmi:id="_wPxqwOjJEdu6LJeVabImNg" name="br.unicamp.ic.mo409.model">
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_FzSMUB8sEeW6ooM7jnMepg" name="preencherDiarioEvent" operation="_Rmy5cAZ8EeW1-OgwpVc0Kw"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_ZUa5sCApEeW4ysb2kbGRGQ" name="preenchidoDiarioEvent" operation="_iCmKwCApEeW4ysb2kbGRGQ"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_MaE9UOjKEdu6LJeVabImNg" name="getFrequenciaTurmaEvent" operation="_HQGfwOzQEduqQpSKns4XGA"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="__1OScB8rEeW6ooM7jnMepg" name="getFrequenciaAlunoEvent" operation="_Rmy5cAZ8EeW1-OgwpVc0Kw"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_CbgIUOzQEduqQpSKns4XGA" name="Diario" classifierBehavior="_2Y0fgJ0ZEdyNrffIHb491A">
+      <ownedAttribute xmi:id="_GTqyoJ0aEdyNrffIHb491A" name="state" type="_dMVB4JsBEd20fKiJK1xsTw"/>
+      <ownedAttribute xmi:id="_PSCUoA3nEeWfg8LmfrVuEg" name="turma" type="_8CmWMA3kEeWfg8LmfrVuEg">
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_3CBmAA3pEeWMKsVXT7gRww" name="" value="null"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_UeZEwA3nEeWfg8LmfrVuEg" name="professor" type="_hFgdoA3kEeWfg8LmfrVuEg">
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_39iMAA3pEeWMKsVXT7gRww" name="" value="null"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_SDlD4AhwEeWo2qsvHoqUxQ" name="isPreenchendoDiario">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_1SaCgA3pEeWMKsVXT7gRww" name="" value="false"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_K8cVQCAuEeW4ysb2kbGRGQ" name="hasPreenchidoDiario">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_K8cVQSAuEeW4ysb2kbGRGQ" name="" value="false"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_IWa1kCArEeW4ysb2kbGRGQ" name="hasFrequenciaTurma">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_IWbcoCArEeW4ysb2kbGRGQ" name="" value="false"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_LbvAsCArEeW4ysb2kbGRGQ" name="hasFrequenciaAluno">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_LbvAsSArEeW4ysb2kbGRGQ" name="" value="false"/>
+      </ownedAttribute>
+      <ownedBehavior xmi:type="uml:FunctionBehavior" xmi:id="_2Y0fgJ0ZEdyNrffIHb491A" name="setState" postcondition="_KTh6cJ0aEdyNrffIHb491A">
+        <ownedRule xmi:id="_KTh6cJ0aEdyNrffIHb491A">
+          <specification xmi:type="uml:LiteralString" xmi:id="_K_yjgJ0aEdyNrffIHb491A" value="state = x"/>
+        </ownedRule>
+        <ownedParameter xmi:id="_BzKb4J0aEdyNrffIHb491A" name="x"/>
+      </ownedBehavior>
+      <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_yqv4YOjJEdu6LJeVabImNg" name="Diario">
+        <region xmi:id="_VIx8EJKuEdyUSNhMCOPPLg" name="sort">
+          <subvertex xmi:type="uml:Pseudostate" xmi:id="_ZMY7cJKuEdyUSNhMCOPPLg" name="init"/>
+          <subvertex xmi:type="uml:State" xmi:id="_6TZPAJeEEdyCyNzfMULFnw" name="vazio">
+            <stateInvariant xmi:id="_3qwZwAr8Ed2Pmahp7QLr3A">
+              <specification xmi:type="uml:LiteralString" xmi:id="_4TlUUAr8Ed2Pmahp7QLr3A" value="state  = DiarioState::vazio"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_ts6mEB8nEeW6ooM7jnMepg" name="sendo_preenchido">
+            <stateInvariant xmi:id="_ts7NIB8nEeW6ooM7jnMepg">
+              <specification xmi:type="uml:LiteralString" xmi:id="_ts7NIR8nEeW6ooM7jnMepg" value="state  = DiarioState::sendo_preenchido"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_D3o70B8oEeW6ooM7jnMepg" name="nao_vazio">
+            <stateInvariant xmi:id="_D3pi4B8oEeW6ooM7jnMepg">
+              <specification xmi:type="uml:LiteralString" xmi:id="_D3pi4R8oEeW6ooM7jnMepg" value="state  = DiarioState::nao_vazio"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_LxHZgB8oEeW6ooM7jnMepg" name="frequencia_turma">
+            <stateInvariant xmi:id="_LxHZgR8oEeW6ooM7jnMepg">
+              <specification xmi:type="uml:LiteralString" xmi:id="_LxHZgh8oEeW6ooM7jnMepg" value="state  = DiarioState::frequencia_turma"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_7YFmMJeEEdyCyNzfMULFnw" name="frequencia_aluno">
+            <stateInvariant xmi:id="_7cJnwAr8Ed2Pmahp7QLr3A">
+              <specification xmi:type="uml:LiteralString" xmi:id="_88RWsAr8Ed2Pmahp7QLr3A" value="state  = DiarioState::frequencia_aluno"/>
+            </stateInvariant>
+          </subvertex>
+          <transition xmi:id="_KHZoYJeHEdyqN79LFuBS7A" name="init2vazio" target="_6TZPAJeEEdyCyNzfMULFnw" source="_ZMY7cJKuEdyUSNhMCOPPLg"/>
+          <transition xmi:id="_rAtzoB8pEeW6ooM7jnMepg" name="vazio2sendo_preenchido" target="_ts6mEB8nEeW6ooM7jnMepg" source="_6TZPAJeEEdyCyNzfMULFnw">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_rAuasB8pEeW6ooM7jnMepg" name="preencherDiario"/>
+            <trigger xmi:id="_rAuasR8pEeW6ooM7jnMepg" name="preencherDiario" event="_FzSMUB8sEeW6ooM7jnMepg"/>
+          </transition>
+          <transition xmi:id="_sfyHwB8rEeW6ooM7jnMepg" name="sendo_preenchido2nao_vazio" target="_LxHZgB8oEeW6ooM7jnMepg" source="_6TZPAJeEEdyCyNzfMULFnw">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_sfyHwR8rEeW6ooM7jnMepg" name="preenchido"/>
+            <trigger xmi:id="_sfyHwh8rEeW6ooM7jnMepg" name="preenchido"/>
+          </transition>
+          <transition xmi:id="_2d3zcB8pEeW6ooM7jnMepg" name="nao_vazio2frequencia_turma" target="_D3o70B8oEeW6ooM7jnMepg" source="_ts6mEB8nEeW6ooM7jnMepg">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_2d3zcR8pEeW6ooM7jnMepg" name="getFrequenciaTurma"/>
+            <trigger xmi:id="_2d3zch8pEeW6ooM7jnMepg" name="getFrequenciaTurma" event="_MaE9UOjKEdu6LJeVabImNg"/>
+          </transition>
+          <transition xmi:id="_C_R6AB80EeWkgo0fqD1AkA" name="nao_vazio2frequencia_aluno" target="_D3o70B8oEeW6ooM7jnMepg" source="_ts6mEB8nEeW6ooM7jnMepg">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_C_ShEB80EeWkgo0fqD1AkA" name="getFrequenciaAluno"/>
+            <trigger xmi:id="_C_ShER80EeWkgo0fqD1AkA" name="getFrequenciaAluno" event="__1OScB8rEeW6ooM7jnMepg"/>
+          </transition>
+        </region>
+      </ownedBehavior>
+      <ownedOperation xmi:id="_HQGfwOzQEduqQpSKns4XGA" name="getFrequenciaTurma" postcondition="_QxNNEAkgEeWyXqZbehidIA">
+        <ownedRule xmi:id="_QxNNEAkgEeWyXqZbehidIA" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_SZmHMAkgEeWyXqZbehidIA" value="if (state = DiarioState::nao_vazio) then hasFrequenciaTurma = true else hasFrequenciaTurma = false endif"/>
+        </ownedRule>
+        <ownedParameter xmi:id="_xSG1wA6tEeWOgpCl8lrPTA" name="idTurma">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_wegX8JG6EdydJaDhzZfmUQ" name="getFrequenciaAluno">
+        <ownedRule xmi:id="_FD7-YA3mEeWfg8LmfrVuEg" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_FD7-YQ3mEeWfg8LmfrVuEg" value="if (state = DiarioState::nao_vazio) then hasFrequenciaAluno = true else hasFrequenciaAluno = false endif"/>
+        </ownedRule>
+        <ownedParameter xmi:id="_Zw9tcA3uEeW9P_WLFKNCiw" name="idAluno">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_LgCPsCAcEeW4ysb2kbGRGQ" name="idTurma">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_Rmy5cAZ8EeW1-OgwpVc0Kw" name="preencherDiario">
+        <ownedRule xmi:id="_FTA8MA3mEeWfg8LmfrVuEg" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_FTA8MQ3mEeWfg8LmfrVuEg" value="if (state = DiarioState::sendo_preenchido) then isPreenchendoDiario = true else isPreenchendoDiario = false endif"/>
+        </ownedRule>
+        <ownedParameter xmi:id="_aJXmYA3uEeW9P_WLFKNCiw" name="listaPresencas">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_iCmKwCApEeW4ysb2kbGRGQ" name="preenchidoDiario">
+        <ownedRule xmi:id="_iCmKwSApEeW4ysb2kbGRGQ" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_iCmKwiApEeW4ysb2kbGRGQ" value="if (state = DiarioState::nao_vazio) then hasPreenchidoDiario = true else hasPreenchidoDiario = false endif"/>
+        </ownedRule>
+        <ownedParameter xmi:id="_iCmKwyApEeW4ysb2kbGRGQ" name="listaPresencas">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_dMVB4JsBEd20fKiJK1xsTw" name="DiarioState">
+      <ownedLiteral xmi:id="_iYoHoJsBEd20fKiJK1xsTw" name="vazio"/>
+      <ownedLiteral xmi:id="_00YYAB8nEeW6ooM7jnMepg" name="sendo_preenchido"/>
+      <ownedLiteral xmi:id="_4PkFcB8nEeW6ooM7jnMepg" name="nao_vazio"/>
+      <ownedLiteral xmi:id="_7FX08B8nEeW6ooM7jnMepg" name="frequencia_turma"/>
+      <ownedLiteral xmi:id="_ilI5oJsBEd20fKiJK1xsTw" name="frequencia_aluno"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_hFgdoA3kEeWfg8LmfrVuEg" name="Professor">
+      <ownedAttribute xmi:id="_GNcugBAzEeWaCPRCPew3ZA" name="nome" isReadOnly="true" isDerivedUnion="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_METAMODELS/UML.metamodel.uml#String"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_GNcugRAzEeWaCPRCPew3ZA" name="" value="Joao"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_kKfRkA3kEeWfg8LmfrVuEg" name="Tick">
+      <ownedAttribute xmi:id="_R1QfIBAzEeWaCPRCPew3ZA" name="location" isReadOnly="true" isDerivedUnion="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_8CmWMA3kEeWfg8LmfrVuEg" name="Turma">
+      <ownedAttribute xmi:id="_yNyMABA7EeWaCPRCPew3ZA" name="codigo_turma" isReadOnly="true" isDerivedUnion="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_METAMODELS/UML.metamodel.uml#String"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_yNyMARA7EeWaCPRCPew3ZA" name="" value="A"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_zHW4UBA7EeWaCPRCPew3ZA" name="id_disciplina" isReadOnly="true" isDerivedUnion="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_zHW4URA7EeWaCPRCPew3ZA" name="" value="1234"/>
+      </ownedAttribute>
+    </packagedElement>
+  </packagedElement>
+</uml:Model>

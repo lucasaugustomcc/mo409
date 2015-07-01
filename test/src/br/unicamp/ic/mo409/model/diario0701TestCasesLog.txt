@@ -1,0 +1,29 @@
+### Test Case Generation Statistics
+### Test Goal Satisfaction
+ - defined 5 test goals
+ - satisfied 5 test goals (100.0 %)
+
+### unsatisfied test goals
+
+
+### satisfied test goals
+
+ - satisfied: (test goal #1 - traversed transition) 
+   from node Diario::sort::sendo_preenchido
+   to node Diario::sort::nao_vazio
+   triggered by getFrequenciaAlunoEvent
+ - satisfied: (test goal #2 - traversed transition) 
+   from node Diario::sort::sendo_preenchido
+   to node Diario::sort::nao_vazio
+   triggered by getFrequenciaTurmaEvent
+ - satisfied: (test goal #3 - traversed transition) 
+   from node Diario::sort::vazio
+   to node Diario::sort::frequencia_turma
+   triggered by default
+ - satisfied: (test goal #4 - traversed transition) 
+   from node Diario::sort::vazio
+   to node Diario::sort::sendo_preenchido
+   triggered by preencherDiarioEvent
+ - satisfied: (test goal #5 - traversed transition) 
+   from node Diario::sort::init
+   to node Diario::sort::vazio
