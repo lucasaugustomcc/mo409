@@ -3,22 +3,27 @@ package br.unicamp.ic.mo409.controller;
 import java.text.SimpleDateFormat;
 
 import javax.persistence.NoResultException;
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import br.unicamp.ic.mo409.dao.ChamadaDAO;
 import br.unicamp.ic.mo409.dao.PresencaDAO;
@@ -64,20 +69,19 @@ public class AlunoController
 	}
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/aluno/chamada", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "/aluno/chamada/turmas", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	@Secured({ "ROLE_ALUNO" })
 	@ResponseBody
 	public JSONObject alunoChamada(@ModelAttribute("usuario") Usuario usuario)
 	{
 		Aluno aluno = usuario.getAluno();
 		Chamada chamada;
-		try 
+		try
 		{
 			chamada = chamadaDAO.findChamadaAbertaAluno(aluno.getRaAluno());
-		}
-		catch (NoResultException e)
+		} catch (NoResultException e)
 		{
-			JSONObject obj = new JSONObject();			
+			JSONObject obj = new JSONObject();
 			return obj;
 		}
 
@@ -125,9 +129,10 @@ public class AlunoController
 		}
 		if (!chamada.getTurma().getAlunos().contains(aluno))
 		{
-			throw new NoResultException("Aluno não pertence a turma desta chamada!");
+			throw new NoResultException(
+					"Aluno não pertence a turma desta chamada!");
 		}
-		
+
 		Presenca presenca = presencaDAO.findPresencaChamadaAbertaAluno(
 				chamada.getIdChamada(), aluno.getRaAluno());
 		presenca.checkInPresenca();
@@ -172,29 +177,29 @@ public class AlunoController
 	{
 		Aluno aluno = usuario.getAluno();
 		presenca = presencaDAO.find(presenca.getIdPresenca());
-		if (presenca.getAluno().getRaAluno() 
-				!= aluno.getRaAluno())
+		if (presenca.getAluno().getRaAluno() != aluno.getRaAluno())
 		{
-			throw new AccessDeniedException("Você não é o aluno deste tick de presença.");
+			throw new AccessDeniedException(
+					"Você não é o aluno deste tick de presença.");
 		}
-		
+
 		// construir resposta JSON
 		SimpleDateFormat shf = new SimpleDateFormat("HH:mm");
-		SimpleDateFormat sdhf = new SimpleDateFormat("dd/MM/yyyy HH:mm");		
-		
+		SimpleDateFormat sdhf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
 		Tick tick = presenca.receberTick();
 		tickDAO.persist(tick);
-		
+
 		JSONObject obj = new JSONObject();
 		obj.put("idTick", tick.getIdTick());
 		obj.put("dataHora", sdhf.format(tick.getDataHora()));
-		
+
 		JSONObject objPresenca = new JSONObject();
 		objPresenca.put("idPresenca", presenca.getIdPresenca());
 		objPresenca.put("horaInicio", shf.format(presenca.getHoraInicio()));
 		objPresenca.put("numTicks", presenca.getNumTicks());
 		obj.put("presenca", objPresenca);
-		
+
 		return obj;
 	}
 
@@ -208,13 +213,13 @@ public class AlunoController
 	{
 		Aluno aluno = usuario.getAluno();
 		presenca = presencaDAO.find(presenca.getIdPresenca());
-		if (presenca.getAluno().getRaAluno() 
-				!= aluno.getRaAluno())
+		if (presenca.getAluno().getRaAluno() != aluno.getRaAluno())
 		{
-			throw new AccessDeniedException("Você não é o aluno deste tick de presença.");
+			throw new AccessDeniedException(
+					"Você não é o aluno deste tick de presença.");
 		}
 		presenca.checkOutPresenca();
-		
+
 		// construir resposta JSON
 		SimpleDateFormat shf = new SimpleDateFormat("HH:mm");
 		JSONObject obj = new JSONObject();
@@ -222,7 +227,17 @@ public class AlunoController
 		obj.put("horaInicio", shf.format(presenca.getHoraInicio()));
 		obj.put("horaFim", shf.format(presenca.getHoraFim()));
 		obj.put("numTicks", presenca.getNumTicks());
-		
+
+		return obj;
+	}
+
+	@ExceptionHandler(Exception.class)
+	@ResponseStatus(HttpStatus.CONFLICT)  // 409
+	public JSONObject handleError(HttpServletRequest req, Exception exception)
+	{
+		JSONObject obj = new JSONObject();
+		obj.put("error", "exception");
+		obj.put("message", exception.getMessage());
 		return obj;
 	}
 }

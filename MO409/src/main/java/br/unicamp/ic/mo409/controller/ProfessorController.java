@@ -1,27 +1,32 @@
 package br.unicamp.ic.mo409.controller;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.persistence.NoResultException;
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.unicamp.ic.mo409.dao.ChamadaDAO;
@@ -35,6 +40,8 @@ import br.unicamp.ic.mo409.model.Presenca;
 import br.unicamp.ic.mo409.model.Professor;
 import br.unicamp.ic.mo409.model.Turma;
 import br.unicamp.ic.mo409.model.Usuario;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Component
 @RestController
@@ -96,10 +103,10 @@ public class ProfessorController
 	@Secured({ "ROLE_PROFESSOR" })
 	@ResponseBody
 	public JSONArray abrirChamada(@ModelAttribute("usuario") Usuario usuario,
-			@RequestBody List<Turma> turmas) throws Exception
+			@RequestBody ProfessorAbrirChamadaWrapper input) throws Exception
 	{
 			
-		for (Turma turma : turmas)
+		for (Turma turma : input.getTurmas())
 		{
 			if (chamadaDAO.hasChamadaAbertaTurma(turma.getIdTurma()))
 			{
@@ -114,7 +121,7 @@ public class ProfessorController
 		SimpleDateFormat shf = new SimpleDateFormat("HH:mm");
 		JSONArray array = new JSONArray();
 		
-		for (Turma turma : turmas)
+		for (Turma turma : input.getTurmas())
 		{
 			turma = turmaDAO.find(turma.getIdTurma());
 			if (turma == null)
@@ -283,4 +290,58 @@ public class ProfessorController
 		}
 		return array;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@ExceptionHandler(Exception.class)
+	@ResponseStatus(HttpStatus.CONFLICT)  // 409
+	public JSONObject handleError(HttpServletRequest req, Exception exception)
+	{
+		JSONObject obj = new JSONObject();
+		obj.put("error", "exception");
+		obj.put("message", exception.getMessage());
+		return obj;
+	}
+}
+class ProfessorAbrirChamadaWrapper  implements Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2262553828925378441L;
+	
+	@JsonProperty( "latitude" )
+	String latitude;
+	
+	@JsonProperty( "longitude" )
+	String longitude;
+	
+	@JsonProperty("turmas")
+    List<Turma> turmas;
+    
+    public String getLatitude()
+	{
+		return latitude;
+	}
+	public void setLatitude(String latitude)
+	{
+		this.latitude = latitude;
+	}
+	public String getLongitude()
+	{
+		return longitude;
+	}
+	public void setLongitude(String longitude)
+	{
+		this.longitude = longitude;
+	}
+	public List<Turma> getTurmas()
+	{
+		return turmas;
+	}
+	public void setTurmas(List<Turma> turmas)
+	{
+		this.turmas = turmas;
+	}
+
+
+    
 }

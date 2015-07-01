@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.ws.rs.FormParam;
-import javax.ws.rs.WebApplicationException;
 
 import net.dontdrinkandroot.example.angularrestspringsecurity.rest.TokenUtils;
 import net.dontdrinkandroot.example.angularrestspringsecurity.transfer.TokenTransfer;
@@ -12,6 +11,7 @@ import net.dontdrinkandroot.example.angularrestspringsecurity.transfer.UserTrans
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -52,7 +52,7 @@ public class LoginController
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Object principal = authentication.getPrincipal();
 		if (principal instanceof String && ((String) principal).equals("anonymousUser")) {
-			throw new WebApplicationException(401);
+			throw new AccessDeniedException("Acesso negado");
 		}
 		UserDetails userDetails = (UserDetails) principal;
 

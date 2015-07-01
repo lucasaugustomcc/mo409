@@ -250,8 +250,8 @@ public class ProfessorControllerTest
 				.andExpect(content().json("[{idChamada:0},{idChamada:0}]"));
 	}
 
-	// @Test ()
-	@Test(expected = NestedServletException.class)
+	@Test ()
+	//@Test(expected = NestedServletException.class)
 	public void testAbrirChamadaProfessorIncorreto() throws Exception
 	{
 		// TODO: descobrir como tirar as NestedServletException
@@ -267,10 +267,10 @@ public class ProfessorControllerTest
 						post("/professor/chamada/abrir").content(
 								"[{ \"idTurma\":1}, {\"idTurma\":2 }]").header(
 								"content-type", "application/json"))
-				.andExpect(status().is(200))
+				.andExpect(status().is(409))
 				.andExpect(
 						content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
-				.andExpect(content().json("[{idChamada:0},{idChamada:0}]"));
+				.andExpect(content().json("{ \"error\": \"exception\", \"message\":\"Professor não associado a turma.\" }"));
 	}
 
 	@Test()
@@ -294,8 +294,8 @@ public class ProfessorControllerTest
 				.andExpect(content().json("[{idChamada:1},{idChamada:2}]"));
 	}
 
-	// @Test ()
-	@Test(expected = NestedServletException.class)
+	@Test ()
+	//@Test(expected = NestedServletException.class)
 	public void testEncerrarChamadaProfessorIncorreto() throws Exception
 	{
 		// TODO
@@ -311,10 +311,10 @@ public class ProfessorControllerTest
 						post("/professor/chamada/encerrar").content(
 								"[{ \"idChamada\":1}, {\"idChamada\":2 }]")
 								.header("content-type", "application/json"))
-				.andExpect(status().is(200))
+				.andExpect(status().is(409))
 				.andExpect(
 						content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
-				.andExpect(content().json("[{idChamada:1},{idChamada:2}]"));
+				.andExpect(content().json("{ \"error\": \"exception\", \"message\":\"Professor não associado a turma.\" }"));
 	}
 
 	@Test()
@@ -344,8 +344,8 @@ public class ProfessorControllerTest
 				;
 	}
 
-	// @Test ()
-	@Test(expected = NestedServletException.class)
+	@Test ()
+	//@Test(expected = NestedServletException.class)
 	public void testRelatorioChamadaProfessorIncorreto() throws Exception
 	{
 		// TODO
@@ -361,14 +361,12 @@ public class ProfessorControllerTest
 						post("/professor/chamada/relatorio").content(
 								"[{ \"idChamada\":1},{\"idChamada\":2}]")
 								.header("content-type", "application/json"))
-				.andExpect(status().is(200))
+				.andExpect(status().is(409))
 				.andExpect(
 						content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
 				.andExpect(
 						content()
-								.json("[{ \"idChamada\": 1, \"turma\": { \"codDisciplina\": \"MO409\", \"nomeDisciplina\": \"Engenharia de Software I\", \"idTurma\": 1, \"codTurma\": \"A\" }}, {\"idChamada\":2 }]"))
-				.andExpect(
-						content()
-								.string(containsString("\"alunos\":[{\"nomeAluno\":\"Daniela Marques\",\"raAluno\":10798}")));
+								.json("{ \"error\": \"exception\", \"message\":\"Chamada não encerrada ainda. Resultado da presença inexistente\" }"))
+				;
 	}
 }

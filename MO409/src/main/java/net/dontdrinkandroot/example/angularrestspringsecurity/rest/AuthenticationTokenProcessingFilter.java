@@ -8,6 +8,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -51,7 +52,7 @@ public class AuthenticationTokenProcessingFilter extends GenericFilterBean
 			}
 			else
 			{
-				throw new BadCredentialsException("token inválido");
+				throw new AccessDeniedException("token inválido");
 			}
 		}
 
