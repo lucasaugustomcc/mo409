@@ -3,10 +3,12 @@
     <button menu-toggle="left"class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   
-	<ion-content>
-		<ion-item item="item" ui-sref="professor.lista_alunos" ui-sref-opts="{reload: true}">
+	<ion-content >
+		<ion-item item="item" ui-sref="professor.lista_alunos" ui-sref-opts="{reload: true}" ng-repeat="turma in turmas">
 			<ion-list>
-				MO409 - Turma A - Engenharia de Software I
+				<!--MO409 - Turma A - Engenharia de Software I --> 
+				<h2>{{ turma.codDisciplina }}</h2>
+				<h3>TURMA {{ turma.codTurma }}</h3>
 			</ion-list>
 		</ion-item>
 		<ion-item item="item" ui-sref="professor.lista_alunos" ui-sref-opts="{reload: true}">

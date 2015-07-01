@@ -26,35 +26,39 @@
 		
 
 		<div class="card">
-			<div class="item item-text-wrap">
-				<div class="row responsive-sm">
-					<div class="col">
-							<h2>Engenharia de Software I{{ chamada.turma.codDisciplina }}</h2>
-							<h3>TURMA MO409{{ chamada.turma.codTurma }}</h3>
+			
+				<div class="item item-divider row responsive-sm">
+					<div class="col-10">
+							<h2>MO409</h2>
+							<h2>TURMA A</h2>
 					</div>
-					<div class="col">
-							<p>{{ chamada.turma.nomeDisciplina }}</p>
+					<div class="col-8">
+							<h3>Engenharia de Software I</h3>
 					</div>
+				
 				</div>
+				<div class="item">
+					<p> Terça-feira, 17 de junho de 2015. </p>
 
-				<p> Terça-feira, 17 de junho de 2015. </p>
-				
-				<!-- 				<script language=javascript type="text/javascript">
-					data();
-				</script> -->
-		
-				<p> <br/> <b> Duração da aula: </b>  <span id="hora">00h</span><span id="minuto">00m</span><span id="segundo">00s</span> </p><br/>
-				
-				<h4 class="title" align="center"> Parâmetros Validação de Presença</h4>
-					<p> Tempo de permanência em sala: </p>
+					<p> <b> Duração da aula: </b>  <span id="hora">00h</span><span id="minuto">00m</span><span id="segundo">00s</span> </p>
+				</div>
+				<div class="item">
+					<p class="title"> <b> Parâmetros Atuais para Validação de Presença </b> </p> 
+					<br/>
+					<p> Tempo de permanência em sala: 50 mins </p>
 					<p> Quantidade de ticks: 75% </p>
 				</div> 
 		</div>
 		
 
-		
+		<div class="row responsive-sm">
+			<div class="col"></div>
+			<div class="col">
 		<button  class="button button-block button-assertive icon-left ion-android-checkbox-outline" ng-click="confirmEncerrarChamada()">
 			Encerrar Chamada
 		</button>
+		</div>
+			<div class="col"></div>
+		</div>
   </ion-content>
 </ion-view>		
