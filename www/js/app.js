@@ -277,7 +277,11 @@ angular.module('exampleApp', [
       "idTurma": "3",
       "codTurma": "A",
       "codDisciplina": "MO409",
-      "nomeDisciplina": "Engenharia de Software I"
+      "nomeDisciplina": "Engenharia de Software I",
+	  "alunos": {
+		  "nome":"Luã Marcelo",
+		  "raAluno":"163144"
+	  }
     },
     {
       "idTurma": "5",
@@ -435,9 +439,9 @@ angular.module('exampleApp', [
     //   return [200, usuario];
     // });
 
-    // $httpBackend.whenGET('http://www.webulando.com.br/mo409/professor/chamada/turmas').respond(function (method, url, data, headers) {
-    //   return [200, turmas];
-    // });
+    //$httpBackend.whenGET('http://www.webulando.com.br/mo409/professor/chamada').respond(function (method, url, data, headers) {
+    //return [200, turmas];
+    //});
 
     // $httpBackend.whenPOST('http://www.webulando.com.br/mo409/professor/chamada/abrir').respond(function (method, url, data, headers) {
     //   return [200, chamadas];

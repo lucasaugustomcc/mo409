@@ -5,15 +5,30 @@
     </ion-side-menu-content>
 
   <ion-side-menu side="left">
-    <header class="bar bar-header bar-stable">
-      <h1 class="title">Professor</h1>
+    <header class="bar bar-header bar-stable" nav-clear menu-close ui-sref="professor.home" ui-sref-opts="{reload: true}">
+      <i class="title icon icon-left ion-home">Professor</i>
     </header>
     <ion-content class="has-header">
       <ion-list>
+	    <!--
         <ion-item class="item-icon-left" nav-clear menu-close ui-sref="professor.home" ui-sref-opts="{reload: true}">
           <i class="icon ion-home"></i>
 		  Home
         </ion-item>
+		-->
+		<ion-item class="item-icon-left" nav-clear menu-close ui-sref="professor.chamada-turmas" ui-sref-opts="{reload: true}">
+          <i class="icon ion-android-checkbox-outline"></i>
+		  Chamada
+        </ion-item>
+		<ion-item class="item-icon-left" nav-clear menu-close ui-sref="professor.disciplinas" ui-sref-opts="{reload: true}">
+          <i class="icon ion-ios-folder"></i>
+		  Disciplinas
+        </ion-item>
+		<ion-item class="item-icon-left" nav-clear menu-close ui-sref="professor.alunos" ui-sref-opts="{reload: true}">
+          <i class="icon ion-android-contacts"></i>
+		  Alunos
+        </ion-item>
+
         <ion-item class="item-icon-left"  nav-clear menu-close ui-sref="professor.parametros" ui-sref-opts="{reload: true}">
           <i class="icon ion-gear-b"></i>
 		  Alterar Parâmetros
@@ -27,6 +42,7 @@
 		 Sair
         </ion-item>
       </ion-list>
+
     </ion-content>
   </ion-side-menu>
 </ion-side-menus>

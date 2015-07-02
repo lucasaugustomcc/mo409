@@ -5,14 +5,24 @@
     </ion-side-menu-content>
 
   <ion-side-menu side="left">
-    <header class="bar bar-header bar-stable">
-      <h1 class="title">Menu</h1>
+    <header class="bar bar-header bar-stable" nav-clear menu-close ui-sref="aluno.home" ui-sref-opts="{reload: true}">
+      <i class="title icon ion-home">Aluno</i>
     </header>
     <ion-content class="has-header">
       <ion-list>
+	    <!--
         <ion-item class="item-icon-left" nav-clear menu-close ui-sref="aluno.home" ui-sref-opts="{reload: true}">
           <i class="icon ion-home"></i>
 		  Home
+        </ion-item>
+		-->
+		<ion-item class="item-icon-left" nav-clear menu-close ui-sref="aluno.chamada" ui-sref-opts="{reload: true}">
+          <i class="icon ion-android-checkbox-outline"></i>
+		  Chamada
+        </ion-item>
+		<ion-item class="item-icon-left" nav-clear menu-close ui-sref="aluno.disciplinas" ui-sref-opts="{reload: true}">
+          <i class="icon ion-android-done-all"></i>
+		  Frequência
         </ion-item>
 		<ion-item class="item-icon-left"  nav-clear menu-close ui-sref="aluno.about" ui-sref-opts="{reload: true}">
 		<i class="icon ion-information-circled"></i>
