@@ -1,8 +1,13 @@
+function resourceErrorHandler(e)
+{
+  alert(e.data.message);
+}
+
 var services = angular.module('exampleApp.services', ['ngResource']);
 
 services.factory('UserService', function($resource) {
   
-  return $resource('http://www.webulando.com.br/mo409/rest/user/:action', {},
+  return $resource(exampleAppConfig.host+'/rest/user/:action', {},
       {
         authenticate: {
           method: 'POST',
@@ -12,40 +17,53 @@ services.factory('UserService', function($resource) {
       }
     );
 });
-services.factory('MenuService', function() {
-
-  var menuItems = [
-      { text: '1 Page One', iconClass: 'icon ion-map', link: 'one'},
-      { text: '2 Page Two', iconClass: 'icon ion-gear-b', link: 'two'},
-      { text: '3 Page Three', iconClass: 'icon ion-star', link: 'three'}
-  ];
-
-  return {
-    all: function() {
-      return menuItems;
-    }
-  }
-});
 services.factory('ChamadaService', function($resource) {
   
-  return $resource('http://www.webulando.com.br/mo409/professor/chamada/:action', {},
+  return $resource(exampleAppConfig.host+'/professor/chamada/:action', {},
     {
         turmas: {
           method: 'GET',
           params: {'action' : 'turmas'},
-          isArray: true
+          isArray: true,
+          interceptor : {responseError : resourceErrorHandler}
         },
         abrir: {
           method: 'POST',
           params: {'action' : 'abrir'},
           isArray: true,
-          headers : {'Content-Type': 'application/json'}
+          headers : {'Content-Type': 'application/json'},
+          interceptor : {responseError : resourceErrorHandler}
         },
         encerrar: {
           method: 'POST',
           params: {'action' : 'encerrar'},
           isArray: true,
-          headers : {'Content-Type': 'application/json'}
+          headers : {'Content-Type': 'application/json'},
+          interceptor : {responseError : resourceErrorHandler}
+        },
+    } 
+  );
+});
+services.factory('AlunoService', function($resource) {
+  
+  return $resource(exampleAppConfig.host+'/aluno/chamada/:action', {},
+    {
+        chamada: {
+          method: 'GET',
+          params: {'action' : 'turmas'},
+          interceptor : {responseError : resourceErrorHandler}
+        },
+        checkin: {
+          method: 'POST',
+          params: {'action' : 'checkin'},
+          headers : {'Content-Type': 'application/json'},
+          interceptor : {responseError : resourceErrorHandler}
+        },
+        checkout: {
+          method: 'POST',
+          params: {'action' : 'checkout'},
+          headers : {'Content-Type': 'application/json'},
+          interceptor : {responseError : resourceErrorHandler}
         },
     } 
   );

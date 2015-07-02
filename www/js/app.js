@@ -49,7 +49,7 @@ angular.module('exampleApp', [
     }         
     })    
     .state('aluno.checkin', {
-      url: "/chamada",
+      url: "/chamada/checkin",
       views: {
         'menuContent' :{
             controller:  "AlunoCheckInCtrl",
@@ -58,7 +58,7 @@ angular.module('exampleApp', [
     }         
     })
     .state('aluno.checkout', {
-      url: "/chamada",
+      url: "/chamada/checkout",
       views: {
         'menuContent' :{
             controller:  "AlunoCheckOutCtrl",
@@ -126,25 +126,16 @@ angular.module('exampleApp', [
             controller:  "ChamadaAbertaCtrl",
             templateUrl: "templates/professor/encerrar_chamada_professor.html"             
         }
-    }         
+      }         
     })
-	.state('professor.parametros', {
-      url: "/chamada/parametros",
-      views: {
-        'menuContent' :{
-            controller:  "", //colocar controller
-            templateUrl: "templates/parametros.html"     
-        }
-    }         
-    })
-	.state('professor.frequencia_aluno', {
+   .state('professor.frequencia_aluno', {
       url: "/frequencia-aluno",
       views: {
         'menuContent' :{
             controller:  "", //colocar controller
             templateUrl: "templates/professor/frequencia_aluno.html"     
         }
-    }         
+      }         
     })
     .state('professor.chamada-presenca', {
       url: "/chamada/presenca",
@@ -204,11 +195,7 @@ angular.module('exampleApp', [
          }
       } 
     })
-	.state('tabs', { // para funcionar as abas na chamada do professor
-      url: "/tab",
-      abstract: true,
-      templateUrl: "templates/tabs.html"
-    });
+	;
   //$urlRouterProvider.otherwise("/app/home");
       
       $locationProvider.hashPrefix('!');

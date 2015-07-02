@@ -1,29 +1,91 @@
-<ion-view title="Chamada">
-  <ion-nav-buttons side="left">
-    <button menu-toggle="left"class="button button-icon icon ion-navicon"></button>
-  </ion-nav-buttons>
-  <ion-content padding="true">	 
-  <ul class="list">
-			<li class="item item-checkbox" ng-repeat="turma in turmas">
-				<div class="row responsive-sm">
-					<div class="col-10">
-							<h2>{{ turma.codDisciplina }}</h2>
-							<h3>TURMA {{ turma.codTurma }}</h3>
+	<ion-view title="Chamada">
+	<ion-nav-buttons side="left">
+	<button menu-toggle="left"class="button button-icon icon ion-navicon"></button>
+	</ion-nav-buttons>
+
+
+	<ion-tabs class="tabs-striped tabs-top tabs-background-light tabs-color-positive">
+	<!-- Abrir chamada -->
+		<ion-tab title="Realizar Chamada" href="#/professor/chamada_professor">
+			<ion-nav-view name="chamada_disciplinas"></ion-nav-view>
+			<ion-content>
+			<ul class="list">
+				<li class="item item-checkbox" ng-repeat="turma in turmas">
+					<div class="row responsive-sm">
+						<div class="col-10">
+								<h2>{{ turma.codDisciplina }}</h2>
+								<h3>TURMA {{ turma.codTurma }}</h3>
+						</div>
+						<div class="col-8">
+								<p>{{ turma.nomeDisciplina }}</p>
+						</div>
 					</div>
-					<div class="col-8">
-							<p>{{ turma.nomeDisciplina }}</p>
-					</div>
-				<div>
-				<label class="checkbox">
-					<input type="checkbox" name="turma" ng-model="formData.turma" ng-true-value="{{ turma.idTurma }}" ng-value="{{ turma.idTurma }}">
-				</label>				
-			</li>			
-		</ul>
-	
+					<label class="checkbox">
+						<input type="checkbox" ng-change="appendList(turma.idTurma)" ng-model="checkbox" ng-true-value="{{ turma.idTurma }}" 
+																								ng-value="{{ turma.idTurma }}">
+					</label>				
+				</li>			
+			</ul> 
+			
+			<div class="row responsive-sm">
+				<div class="col"></div>
+				<div class="col">
+					<button  class="button button-block button-balanced icon-left ion-android-checkbox-outline" ng-click="confirmChamada()">
+						Abrir Chamada
+					</button>
+				</div>
+			<div class="col"></div>
+			</div>
+			</ion-content>
+		</ion-tab>
 		
-	
-		<button  class="button button-block button-balanced icon-left ion-android-checkbox-outline" ng-click="confirmChamada()">
-				Abrir Chamada
-		</button>	
-  </ion-content>
-</ion-view>	
+		<!-- Parâmetros -->
+		<ion-tab title="Parâmetros" href="#/professor/parametros_presenca">
+			<ion-nav-view name="parametros_presenca"></ion-nav-view>
+			<ion-content padding="true">
+				<div class="card">
+					<h5 class="title item item-divider" align="center"> Parâmetros Atuais </h5>
+					<p> <b>Tempo de permanência em sala: </b> 50 mins</p>
+					<p> <b> Quantidade de ticks: </b>75% </p>
+				</div>
+				
+				<br/>
+				<div class="list">
+
+				<div class="card">
+				<h4 class="title item item-divider" align="center"> Alterar Parâmetros </h4> <br/>
+				
+				<div class="row">
+					<h5> <b>Tempo mínimo de permanência em sala</b> </h5>
+					<label class="item item-input item-input-wrapper" padding="true">
+						<input type="text">
+					</label>
+				</div>
+					<br/>
+					<div class="row">
+					<h5> <b> Porcentagem de ticks: </b> </h5>
+					<label class="item item-input item-input-wrapper" padding="true">
+						<input type="text">
+					</label>
+				</div> 
+
+		<div class="row responsive-sm">
+			<div class="col"></div>
+			<div class="col">
+				<button class="button button-positive button button-block icon-left ion-android-create" 
+																	ui-sref="professor.parametros" ui-sref-opts="{reload: true}">
+					Alterar Parâmetros
+				</button>
+			</div>
+			<div class="col"></div>
+		</div>
+		
+
+			</ion-content>
+		</ion-tab>				
+	</ion-tabs>
+	</ion-view>	
+
+	<script id="templates/parametros.html" type="text/ng-template">
+		<ion-content> teste </ion-content>
+	</script>

@@ -1,0 +1,22 @@
+<ion-view title="Disciplinas">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left"class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  
+	<ion-content >
+		<ion-item item="item" ui-sref="professor.lista_alunos" ui-sref-opts="{reload: true}" ng-repeat="turma in turmas">
+			<ion-list>
+				<!--MO409 - Turma A - Engenharia de Software I --> 
+				<h2>{{ turma.codDisciplina }}</h2>
+				<h3>TURMA {{ turma.codTurma }}</h3>
+			</ion-list>
+		</ion-item>
+		<ion-item item="item" ui-sref="professor.lista_alunos" ui-sref-opts="{reload: true}">
+			<ion-list>
+				MO611 - Turma B - Redes de Computadores
+			</ion-list>
+		</ion-item>
+	</ion-content>
+  
+  
+  </ion-view>

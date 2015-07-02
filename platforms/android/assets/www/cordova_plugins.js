@@ -57,7 +57,7 @@ module.exports.metadata =
     "cordova-plugin-splashscreen": "2.0.0",
     "cordova-plugin-whitelist": "1.0.0",
     "org.transistorsoft.cordova.background-geolocation": "0.3.6",
-    "cordova-plugin-geolocation": "1.0.0",
+    "cordova-plugin-geolocation": "1.0.1",
     "cordova-plugin-dialogs": "1.1.0"
 }
 // BOTTOM OF METADATA

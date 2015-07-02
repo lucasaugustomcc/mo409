@@ -56,6 +56,11 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
           $state.go("aluno.home");
         }
       });
+    }, 
+    function err() {  
+      localStorageService.remove('authToken');
+      delete $rootScope.authToken;
+      console.log('erro autenticacao');
     });
   };
 }) 
@@ -139,28 +144,67 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
 
                 
 })
-.controller('AlunoCheckInCtrl', function($scope, $state, $http, myService) {
-    $scope.formData = {};
+.controller('AlunoCheckInCtrl', function($scope, $state, $http, myService, AlunoService, localStorageService) {
+
+    
     $scope.tick = myService.get();
     console.dir($scope.tick);
 
-    $scope.confirmCheckOut = function() {
+    /**
+    * This callback will be executed every time a geolocation is recorded in the background.
+    */
+    var callbackFn = function(location) {
+        console.log('[js] BackgroundGeoLocation callback:  ' + location.latitude + ',' + location.longitude);
+        
 
-        $http.post(exampleAppConfig.host+'/aluno/chamada/checkout', 
-          { headers: { 'Content-Type': 'application/json' },
-            data: { "idChamada":1 }
-          })
-        .success(function (data, status, headers, config) {
+        // After you Ajax callback is complete, you MUST signal to the native code, which is running a background-thread, that you're done and it can gracefully kill that thread.
+        yourAjaxCallback.call(this);
+    };
+
+    var failureFn = function(error) {
+        console.log('BackgroundGeoLocation error');
+    };        
+    if (window.plugins != undefined)
+    {
+      var bgGeo = window.plugins.backgroundGeoLocation;
+
+      // BackgroundGeoLocation is highly configurable.
+      bgGeo.configure(callbackFn, failureFn, {
+          url: exampleAppConfig.host+'/aluno/chamada/tick', // <-- Android ONLY:  your server url to send locations to
+          params: {
+              idPresenca: $scope.tick.idPresenca
+          },
+          headers: {
+              "X-Auth-Token": localStorageService.get("authToken")
+          },
+          desiredAccuracy: 0,
+          stationaryRadius: 50,
+          distanceFilter: 50,
+          notificationTitle: 'Enviando Ticks', // <-- android only, customize the title of the notification
+          notificationText: 'Ativo', // <-- android only, customize the text of the notification
+          activityType: 'AutomotiveNavigation',
+          debug: true, // <-- enable this hear sounds for background-geolocation life-cycle.
+          stopOnTerminate: false // <-- enable this to clear background location settings when the app terminates
+      });
+          
+      bgGeo.start();
+    }
+
+    $scope.confirmCheckOut = function() {
+        if (window.plugins != undefined)
+        {
+          var bgGeo = window.plugins.backgroundGeoLocation;
+          bgGeo.stop();
+        }
+        AlunoService.checkout({},{ "idPresenca": $scope.tick.idPresenca }, 
+          function success(data) {
             myService.set(data);
-            console.dir(data);
             $state.go('aluno.checkout');
-        })
-        .error(function (data, status, headers, config) {
-            console.log("Error occurred.  Status:" + status);
-        });
+          }
+        );         
       }
 })
-.controller('AlunoCheckOutCtrl', function($scope, $state, $http, myService) {
+.controller('AlunoCheckOutCtrl', function($scope, $state, $http, myService) {      
     $scope.formData = {};
     $scope.tick = myService.get();
     console.dir($scope.tick);

@@ -1,13 +1,14 @@
-<ion-view title="Aluno: Home">
+<ion-view title="Aluno">
   <ion-nav-buttons side="left">
     <button menu-toggle="left"class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   <ion-content padding="true">
   
     <br/><br/><br/><br/>
-      <button class="button button-block button-positive icon-left ion-android-checkbox-outline" 
+      <button class="button button-block button-dark icon-left ion-android-checkbox-outline" 
 										ui-sref="aluno.chamada" ui-sref-opts="{reload: true}"> Chamada </button>
-	  <button class="button button-block button-positive icon-left ion-ios-folder"> Disciplinas </button>
+	  <button class="button button-block button-dark icon-left ion-ios-folder"
+										ui-sref="aluno.disciplinas" ui-sref-opts="{reload: true}"> Frequência </button>
 
   </ion-content>
 </ion-view>
