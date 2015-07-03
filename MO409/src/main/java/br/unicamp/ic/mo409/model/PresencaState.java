@@ -6,5 +6,6 @@ public enum PresencaState {
 	fora_de_aula,
 	calculando,
 	presente,
-	ausente
+	ausente,
+	visualizando_presenca
 }

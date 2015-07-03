@@ -26,14 +26,12 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.test.context.web.GenericXmlWebContextLoader;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import br.unicamp.ic.mo409.dao.TurmaDAO;
 import br.unicamp.ic.mo409.dao.UsuarioDAO;
-import br.unicamp.ic.mo409.model.Usuario;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -121,7 +119,7 @@ public class LoginControllerTest {
 						get("/rest/user")
 								.header("X-Auth-Token", token));		 
 		 
-		 MvcResult mvcResult = resultActions.andReturn();
+//		 MvcResult mvcResult = resultActions.andReturn();
 //		 String headerValue =
 //		 mvcResult.getResponse().getHeader("X-Auth-Token");
 //		 String content = mvcResult.getResponse().getContentAsString();

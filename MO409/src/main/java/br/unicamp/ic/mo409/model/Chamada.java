@@ -80,6 +80,10 @@ public class Chamada implements Serializable
 	@OneToMany(mappedBy = "chamada")
 	private List<Tick> ticks;
 
+	private String latitude;
+
+	private String longitude;
+
 	public Chamada()
 	{
 		state = ChamadaState.nao_aberta;
@@ -94,10 +98,11 @@ public class Chamada implements Serializable
 	@SuppressWarnings("deprecation")
 	public void handleEvent(Object... in_colObject)
 	{
+		
 		if (in_colObject.length > 0)
 		{
 			String sEventName = (String) in_colObject[0];
-			if ((state == ChamadaState.nao_aberta)
+			if ((state == ChamadaState.atribuindo_localizacao)
 					&& (sEventName.compareTo("abrirChamadaEvent") == 0))
 			{
 				Integer tempIDTurma = (Integer) in_colObject[1];
@@ -146,6 +151,72 @@ public class Chamada implements Serializable
 						Professor.class, raProfessor);
 				abrirChamada(turma, professor, dataChamada, horaInicio);
 			}
+			
+			if (sEventName.compareTo("visualizarParametrosEvent") == 0
+					&& state == ChamadaState.nao_aberta)
+			{				
+				visualizarParametros();
+			}
+			
+			if (sEventName.compareTo("atribuirParametrosEvent") == 0
+					&& state == ChamadaState.visualizando_parametros)
+			{			
+				Integer tempPorcentagem = (Integer) in_colObject[1];
+				Float porcentagem;
+				Integer tempDuracao = (Integer) in_colObject[2];
+				Integer duracao;
+				
+				if (tempPorcentagem > 0)
+				{
+					porcentagem = 71.544434234234f;
+				}
+				else
+				{
+					porcentagem = 50f;
+				}
+				
+				if (tempDuracao > 0)
+				{
+					duracao = 50;
+				}
+				else
+				{
+					duracao = 60;
+				}
+				
+				atribuirParametros(duracao, porcentagem);
+			}
+			
+			if (sEventName.compareTo("atribuirLocalizacaoProfessorEvent") == 0
+					&& (state == ChamadaState.nao_aberta 
+					|| state == ChamadaState.visualizando_parametros 
+					|| state == ChamadaState.atribuindo_parametros))
+			{				
+				Integer tempLatitude = (Integer) in_colObject[1];
+				String latitude;
+				Integer tempLongitude = (Integer) in_colObject[2];
+				String longitude;
+				
+				if (tempLatitude > 0)
+				{
+					latitude = "-20.100232232";					
+				}
+				else
+				{
+					latitude = "10.100232232";	
+				}
+				
+				if (tempLongitude > 0)
+				{
+					longitude = "-20.100232232";					
+				}
+				else
+				{
+					longitude = "10.100232232";	
+				}
+				
+				atribuirLocalizacao(latitude, longitude);
+			}
 
 			if (sEventName.compareTo("encerrarChamadaEvent") == 0
 					&& state == ChamadaState.aberta)
@@ -168,7 +239,6 @@ public class Chamada implements Serializable
 			{
 				Integer tempListaPresencas = (Integer) in_colObject[1];
 				List<Presenca> listaPresencas = new ArrayList<Presenca>();
-				;
 
 				if (tempListaPresencas > 0)
 				{
@@ -182,10 +252,39 @@ public class Chamada implements Serializable
 		}
 	}
 
+	private void atribuirParametros(Integer duracao, Float porcentagem)
+	{
+//		if (state != ChamadaState.visualizando_parametros)
+//		{
+//			throw new IllegalStateException(
+//					"Chamada não disponível para atribuir localização.");
+//		}
+//		state = ChamadaState.atribuindo_parametros;
+		
+	}
+
+	private void atribuirLocalizacao(String latitude, String longitude)
+	{
+		if (state == ChamadaState.aberta 
+				&& state == ChamadaState.encerrada)
+		{
+			throw new IllegalStateException(
+					"Chamada não disponível para atribuir localização.");
+		}
+		state = ChamadaState.atribuindo_localizacao;
+		this.setLatitude(latitude);
+		this.setLongitude(longitude);
+	}
+
+	private void visualizarParametros()
+	{
+		//state = ChamadaState.visualizando_parametros;
+	}
+
 	public List<Presenca> abrirChamada(Turma turma, Professor professor,
 			Date dataChamada, Time horaInicio)
 	{
-		if (state == ChamadaState.nao_aberta)
+		if (state == ChamadaState.atribuindo_localizacao)
 		{
 			this.setProfessor(professor);
 			this.setTurma(turma);
@@ -243,10 +342,7 @@ public class Chamada implements Serializable
 	}
 
 	/**
-	 * Calcula o resultado da presença para cada aluno da turma.
-	 * 
-	 * @param presencas
-	 *            : li
+	 * Invoca o método para calcular o resultado da presença para cada aluno da turma.
 	 */
 	public void calcularPresenca()
 	{
@@ -382,6 +478,26 @@ public class Chamada implements Serializable
 	public void setState(ChamadaState state)
 	{
 		this.state = state;
+	}
+
+	public String getLongitude()
+	{
+		return longitude;
+	}
+
+	public void setLongitude(String longitude)
+	{
+		this.longitude = longitude;
+	}
+
+	public String getLatitude()
+	{
+		return latitude;
+	}
+
+	public void setLatitude(String latitude)
+	{
+		this.latitude = latitude;
 	}
 
 }

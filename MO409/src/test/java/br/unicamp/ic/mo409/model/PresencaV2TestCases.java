@@ -4,10 +4,10 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 // JUnit 4.3
-public class PresencaMD0TestCases{
+public class PresencaV2TestCases{
 	
 	public static junit.framework.Test suite(){
-		return new junit.framework.JUnit4TestAdapter(PresencaMD0TestCases.class);
+		return new junit.framework.JUnit4TestAdapter(PresencaV2TestCases.class);
 	}
 	
 	@Test
