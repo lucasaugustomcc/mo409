@@ -179,6 +179,8 @@ public class AlunoControllerTest
 				.thenReturn(presenca2);
 		Mockito.when(this.presencaDAO.findPresencaChamadaAbertaAluno(1, 1))
 				.thenReturn(presenca1);		
+		Mockito.when(this.presencaDAO.findPresencaChamadasAluno(1))
+		.thenReturn(presenca1);		
 	}
 
 	@Test()
@@ -191,7 +193,7 @@ public class AlunoControllerTest
 		SecurityContextHolder.getContext().setAuthentication(
 				authenticationToken);
 
-		mockMvc.perform(get("/aluno/chamada"))
+		mockMvc.perform(get("/aluno/chamada/turmas"))
 				.andExpect(status().is(200))
 				.andExpect(
 						content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
@@ -199,6 +201,32 @@ public class AlunoControllerTest
 						content()
 								.json("{\"idChamada\": 1, \"horaInicio\": \"10:00\", \"dataChamada\": \"10/06/2015\", \"professorChamada\":\"Eliane Martins\", "
 										+ "\"turma\": { \"idTurma\": 1,\"codTurma\":A, \"codDisciplina\":\"MO409\", \"nomeDisciplina\":\"Engenharia de Software I\" } }"));
+	}
+	
+	@Test()
+	public void testAlunoPresencaChamadas() throws Exception
+	{
+
+		Usuario user = usuarioDAO.loadUsuarioByUsername("1");
+
+		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+				user, "", user.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(
+				authenticationToken);		
+
+		this.mockMvc
+				.perform(
+						get("/aluno/chamada/presenca")
+								.header("content-type","application/json"))
+				.andExpect(status().is(200))
+				.andExpect(
+						content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
+				.andExpect(
+						content()
+								.json("{ \"idPresenca\": 1, \"horaInicio\": \"10:00\", \"numTicks\": 0,"
+										+ "\"chamada\": { \"idChamada\": 1, \"dataChamada\": \"10/06/2015\", \"horaInicio\": \"10:00\", \"professorChamada\":\"Eliane Martins\" }, "
+										+ "\"turma\": { \"idTurma\": 1, \"codTurma\":A, \"codDisciplina\":\"MO409\", \"nomeDisciplina\":\"Engenharia de Software I\" } }"));
+
 	}
 
 	@Test()

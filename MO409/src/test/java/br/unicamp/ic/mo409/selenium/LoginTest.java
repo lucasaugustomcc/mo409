@@ -36,7 +36,7 @@ public class LoginTest {
     driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     driver.findElement(By.xpath("//span/button")).click();
     driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-    driver.findElement(By.linkText("Home")).click();
+    //driver.findElement(By.linkText("Home")).click();
   }
   
   @Test
@@ -54,7 +54,7 @@ public class LoginTest {
     driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     driver.findElement(By.xpath("//span/button")).click();
     driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-    driver.findElement(By.linkText("Home")).click();
+    //driver.findElement(By.linkText("Home")).click();
   }
 
   @After

@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import br.unicamp.ic.mo409.dao.ChamadaDAO;
 import br.unicamp.ic.mo409.dao.PresencaDAO;
@@ -106,6 +105,54 @@ public class AlunoController
 
 		obj.put("turma", objTurma);
 
+		return obj;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/aluno/chamada/presenca", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	@Secured({ "ROLE_ALUNO" })
+	@ResponseBody
+	public JSONObject alunoPresencaChamadas(
+			@ModelAttribute("usuario") Usuario usuario)
+	{
+		Aluno aluno = usuario.getAluno();		
+		JSONObject obj = new JSONObject();
+		
+		try{
+			Presenca presenca = presencaDAO.findPresencaChamadasAluno(aluno.getRaAluno());
+			Chamada chamada = presenca.getChamada();
+		
+
+			// construir resposta JSON
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			SimpleDateFormat shf = new SimpleDateFormat("HH:mm");
+	
+			
+			obj.put("idPresenca", presenca.getIdPresenca());
+			obj.put("horaInicio", shf.format(presenca.getHoraInicio()));
+			obj.put("numTicks", presenca.getNumTicks());
+	
+			JSONObject objChamada = new JSONObject();
+			objChamada.put("idChamada", chamada.getIdChamada());
+			objChamada.put("dataChamada", sdf.format(chamada.getDataChamada()));
+			objChamada.put("horaInicio", shf.format(chamada.getHoraInicio()));
+			objChamada.put("professorChamada", chamada.getProfessor().getUsuario()
+					.getNome());
+			obj.put("chamada", objChamada);
+	
+			Turma turma = chamada.getTurma();
+			JSONObject objTurma = new JSONObject();
+			objTurma.put("idTurma", turma.getIdTurma());
+			objTurma.put("codTurma", turma.getCodTurma());
+			objTurma.put("codDisciplina", turma.getDisciplina().getCodDisciplina());
+			objTurma.put("nomeDisciplina", turma.getDisciplina()
+					.getNomeDisciplina());
+			obj.put("turma", objTurma);
+		}
+		catch(NoResultException e)
+		{
+			
+		}
 		return obj;
 	}
 
@@ -231,6 +278,7 @@ public class AlunoController
 		return obj;
 	}
 
+	@SuppressWarnings("unchecked")
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.CONFLICT)  // 409
 	public JSONObject handleError(HttpServletRequest req, Exception exception)

@@ -5,12 +5,12 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
 import br.unicamp.ic.mo409.model.ChamadaState;
 import br.unicamp.ic.mo409.model.Presenca;
+import br.unicamp.ic.mo409.model.PresencaState;
 
 @Repository("PresencaDAO")
 public class PresencaDAO implements Serializable {
@@ -56,6 +56,14 @@ public class PresencaDAO implements Serializable {
 				.setParameter("raAluno", raAluno)
 				.setParameter("idChamada", idChamada)
 				.setParameter("chamadaState", ChamadaState.aberta)
+				.getSingleResult();
+	}
+	
+	public Presenca findPresencaChamadasAluno(Integer raAluno) 
+	{
+		return (Presenca) entityManager.createQuery("SELECT p FROM Presenca p left join p.aluno a WHERE a.raAluno = :raAluno AND p.state = :presencaState")
+				.setParameter("raAluno", raAluno)
+				.setParameter("presencaState", PresencaState.em_aula)
 				.getSingleResult();
 	}
 }

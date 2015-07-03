@@ -25,7 +25,7 @@ public class UtilTestes {
 	// System.out.println(headerValue);
 	// System.out.println(content);
 	// System.out.println(mvcResult.getResponse().toString());
-	// System.out.println(resultActions.andDo(print()));
+	// System.out.println(resultActions.andDo(MockMvcResultHandlers.print()));
 	//
 	// resultActions.andExpect(status().is(400))
 	// .andExpect(content().string(""))

@@ -97,6 +97,46 @@ public class ProfessorController
 		}
 		return array;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/professor/chamada/abertas", method = RequestMethod.GET)
+	@Secured({ "ROLE_PROFESSOR" })
+	@ResponseBody
+	public JSONArray chamadaAbertas(@ModelAttribute("usuario") Usuario usuario) throws Exception
+	{
+		Professor professor = usuario.getProfessor();	
+		List<Chamada> chamadas = chamadaDAO.listChamadasAbertasProfessor(professor.getRaProfessor());
+				
+		// construindo JSON de resposta
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat shf = new SimpleDateFormat("HH:mm");
+		JSONArray array = new JSONArray();
+		
+		for (Chamada chamada : chamadas)
+		{
+			Turma turma = chamada.getTurma();								
+
+			// construir resposta JSON
+			// dados da chamada
+			JSONObject obj = new JSONObject();
+			obj.put("idChamada", chamada.getIdChamada());
+			obj.put("dataChamada", sdf.format(chamada.getDataChamada()));
+			obj.put("horaInicio", shf.format(chamada.getHoraInicio()));
+			obj.put("professorChamada", chamada.getProfessor().getUsuario().getNome());
+
+			// dados da turma
+			JSONObject objTurma = new JSONObject();
+			objTurma.put("idTurma", turma.getIdTurma());
+			objTurma.put("codTurma", turma.getCodTurma());
+			objTurma.put("codDisciplina", turma.getDisciplina()
+					.getCodDisciplina());
+			objTurma.put("nomeDisciplina", turma.getDisciplina()
+					.getNomeDisciplina());
+			obj.put("turma", objTurma);
+			array.add(obj);
+		}
+		return array;
+	}
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/professor/chamada/abrir", method = RequestMethod.POST)

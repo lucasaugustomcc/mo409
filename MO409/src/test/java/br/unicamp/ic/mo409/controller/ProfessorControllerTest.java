@@ -1,6 +1,5 @@
 package br.unicamp.ic.mo409.controller;
 
-import static org.hamcrest.core.StringContains.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -35,7 +34,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.util.NestedServletException;
 
 import br.unicamp.ic.mo409.dao.ChamadaDAO;
 import br.unicamp.ic.mo409.dao.ProfessorDAO;
@@ -143,24 +141,24 @@ public class ProfessorControllerTest
 		turmas.add(turma2);
 
 		Chamada chamada1 = new ChamadaBuilder()
-				.withDataChamada(new Date(2015, 05, 20))
-				.withHoraInicio(new Time(20, 00, 00)).withProfessor(prof1)
+				.withDataChamada(new Date(115, 05, 10))
+				.withHoraInicio(new Time(10, 00, 00)).withProfessor(prof1)
 				.withTurma(turma1).build();
 
 		Chamada chamada2 = new ChamadaBuilder()
-				.withDataChamada(new Date(2015, 05, 20))
-				.withHoraInicio(new Time(20, 00, 00)).withProfessor(prof1)
+				.withDataChamada(new Date(115, 05, 10))
+				.withHoraInicio(new Time(10, 00, 00)).withProfessor(prof1)
 				.withTurma(turma2).withIdChamada(2).build();
 
 		Chamada chamada3 = new ChamadaBuilder()
-				.withDataChamada(new Date(2015, 05, 20))
-				.withHoraInicio(new Time(20, 00, 00)).withProfessor(prof1)
+				.withDataChamada(new Date(115, 05, 10))
+				.withHoraInicio(new Time(10, 00, 00)).withProfessor(prof1)
 				.withTurma(turma1).withChamadaState(ChamadaState.encerrada)
 				.withIdChamada(3).build();
 
 		Chamada chamada4 = new ChamadaBuilder()
-				.withDataChamada(new Date(2015, 05, 20))
-				.withHoraInicio(new Time(20, 00, 00)).withProfessor(prof1)
+				.withDataChamada(new Date(115, 05, 10))
+				.withHoraInicio(new Time(10, 00, 00)).withProfessor(prof1)
 				.withTurma(turma2).withChamadaState(ChamadaState.encerrada)
 				.withIdChamada(4).build();
 		
@@ -188,6 +186,10 @@ public class ProfessorControllerTest
 		chamada3.setPresencas(presencas1);
 		chamada4.setPresencas(presencas2);
 
+		List<Chamada> chamadas = new ArrayList<Chamada>();
+		chamadas.add(chamada1);
+		chamadas.add(chamada2);
+		
 		Mockito.when(this.turmaDAO.find(1)).thenReturn(turma1);
 		Mockito.when(this.turmaDAO.find(2)).thenReturn(turma1);
 		Mockito.when(this.usuarioDAO.loadUsuarioByUsername("35")).thenReturn(
@@ -204,6 +206,7 @@ public class ProfessorControllerTest
 		Mockito.when(this.chamadaDAO.find(3)).thenReturn(chamada3);
 		Mockito.when(this.chamadaDAO.find(4)).thenReturn(chamada4);
 		Mockito.when(this.turmaDAO.listarTurmasProfessor(1)).thenReturn(turmas);
+		Mockito.when(this.chamadaDAO.listChamadasAbertasProfessor(1)).thenReturn(chamadas);
 	}
 
 	@Test()
@@ -226,9 +229,32 @@ public class ProfessorControllerTest
 								.json("[{codDisciplina: \"MO409\", \"nomeDisciplina\": \"Engenharia de Software I\", \"codTurma\": \"A\", idTurma:1},"
 										+ "{idTurma:2, codDisciplina: \"MC626\", \"nomeDisciplina\": \"Análise e Projeto de Sistema de Informação\", \"codTurma\": \"A\" }]"));
 	}
+	
+	@Test()
+	public void testChamadasAbertas() throws Exception
+	{
+		Usuario user = usuarioDAO.loadUsuarioByUsername("35");
+
+		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+				user, "", user.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(
+				authenticationToken);
+
+		this.mockMvc
+				.perform(get("/professor/chamada/abertas"))
+				.andExpect(status().is(200))
+				.andExpect(
+						content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
+				.andExpect(
+						content()
+								.json("[{\"idChamada\": 1, \"horaInicio\": \"10:00\", \"dataChamada\": \"10/06/2015\", \"professorChamada\":\"Eliane Martins\", "
+										+ "\"turma\": { \"idTurma\": 1,\"codTurma\":A, \"codDisciplina\":\"MO409\", \"nomeDisciplina\":\"Engenharia de Software I\" } },"
+										+ "{\"idChamada\": 2 }]"));
+	}
+
 
 	@Test()
-	public void testAbrirChamadaProfessorCorreto() throws Exception
+	public void testAbrirChamadasProfessorCorreto() throws Exception
 	{
 		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(
 				this.professorController).build();
@@ -242,7 +268,7 @@ public class ProfessorControllerTest
 
 		mockMvc.perform(
 				post("/professor/chamada/abrir").content(
-						"[{ \"idTurma\":1}, {\"idTurma\":2 }]").header(
+						"{ \"latitude\":\"-10.000\", \"longitude\":\"-10.000\", \"turmas\": [{ \"idTurma\":1}, {\"idTurma\":2 }]}").header(
 						"content-type", "application/json"))
 				.andExpect(status().is(200))
 				.andExpect(
@@ -254,7 +280,6 @@ public class ProfessorControllerTest
 	//@Test(expected = NestedServletException.class)
 	public void testAbrirChamadaProfessorIncorreto() throws Exception
 	{
-		// TODO: descobrir como tirar as NestedServletException
 		Usuario user = usuarioDAO.loadUsuarioByUsername("2");
 
 		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
@@ -265,7 +290,7 @@ public class ProfessorControllerTest
 		this.mockMvc
 				.perform(
 						post("/professor/chamada/abrir").content(
-								"[{ \"idTurma\":1}, {\"idTurma\":2 }]").header(
+								"{ \"latitude\":\"-10.000\", \"latitude\":\"-10.000\", \"turmas\": [{ \"idTurma\":1}, {\"idTurma\":2 }]}").header(
 								"content-type", "application/json"))
 				.andExpect(status().is(409))
 				.andExpect(
@@ -298,7 +323,6 @@ public class ProfessorControllerTest
 	//@Test(expected = NestedServletException.class)
 	public void testEncerrarChamadaProfessorIncorreto() throws Exception
 	{
-		// TODO
 		Usuario user = usuarioDAO.loadUsuarioByUsername("2");
 
 		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
@@ -344,11 +368,9 @@ public class ProfessorControllerTest
 				;
 	}
 
-	@Test ()
-	//@Test(expected = NestedServletException.class)
+	@Test ()	
 	public void testRelatorioChamadaProfessorIncorreto() throws Exception
 	{
-		// TODO
 		Usuario user = usuarioDAO.loadUsuarioByUsername("2");
 
 		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(

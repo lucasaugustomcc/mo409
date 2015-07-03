@@ -9,7 +9,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import br.unicamp.ic.mo409.model.Aluno;
 import br.unicamp.ic.mo409.model.Chamada;
 import br.unicamp.ic.mo409.model.ChamadaState;
 
@@ -54,7 +53,6 @@ public class ChamadaDAO implements Serializable {
 	@SuppressWarnings("unchecked")
 	public boolean hasChamadaAbertaTurma(Integer idTurma) 
 	{
-		System.out.println("aberta: " + ChamadaState.aberta);
 		List<Chamada> resultado = entityManager.createQuery("SELECT c FROM Chamada c left join c.turma t WHERE t.id = :idTurma AND c.state = :chamadaState")
 				.setParameter("idTurma", idTurma)
 				.setParameter("chamadaState", ChamadaState.aberta)
@@ -68,5 +66,16 @@ public class ChamadaDAO implements Serializable {
 				.setParameter("raAluno", raAluno)
 				.setParameter("chamadaState", ChamadaState.aberta)
 				.getSingleResult();
+	}	
+
+	@SuppressWarnings("unchecked")
+	public List<Chamada> listChamadasAbertasProfessor(int raProfessor)
+	{
+		return entityManager.createQuery("SELECT c FROM Chamada c left join c.turma t left join t.professores p WHERE p.raProfessor = :raProfessor AND c.state = :chamadaState")
+				.setParameter("raProfessor", raProfessor)
+				.setParameter("chamadaState", ChamadaState.aberta)
+				.getResultList();
 	}
+	
+	
 }
