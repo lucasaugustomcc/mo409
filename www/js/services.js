@@ -27,6 +27,12 @@ services.factory('ChamadaService', function($resource) {
           isArray: true,
           interceptor : {responseError : resourceErrorHandler}
         },
+        abertas: {
+          method: 'GET',
+          params: {'action' : 'abertas'},
+          isArray: true,
+          interceptor : {responseError : resourceErrorHandler}
+        },
         abrir: {
           method: 'POST',
           params: {'action' : 'abrir'},
@@ -51,6 +57,12 @@ services.factory('AlunoService', function($resource) {
         chamada: {
           method: 'GET',
           params: {'action' : 'turmas'},
+          interceptor : {responseError : resourceErrorHandler}
+        },
+        presenca: {
+          method: 'GET',
+          params: {'action' : 'presenca'},
+          headers : {'Content-Type': 'application/json'},
           interceptor : {responseError : resourceErrorHandler}
         },
         checkin: {

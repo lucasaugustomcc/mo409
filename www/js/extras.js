@@ -1,7 +1,7 @@
 //Cronômetro
 var intervalo;
 
-function tempo(op) {
+function startTimer(op) {
     if (op == 1) {
 		document.getElementById('parar').style.display = "block";
 		document.getElementById('comeca').style.display = "none";
@@ -17,6 +17,11 @@ function tempo(op) {
 		if (m < 10) document.getElementById("minuto").innerHTML = "0" + m + "m"; else document.getElementById("minuto").innerHTML = m + "m";		
 		s++;
 	},1000);
+}
+
+function stopTimer()
+{
+	clearInterval(intervalo);
 }
 
 //Data

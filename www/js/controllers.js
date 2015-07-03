@@ -67,8 +67,25 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
 .controller('HomeCtrl', function($rootScope, $scope, $timeout) {
 })
 .controller('ChamadaTurmasCtrl', function($scope, $state, $http, myService, ChamadaService) {
-    $scope.turmas = ChamadaService.turmas(); 
 
+    // verificar se existe chamadas abertas
+    ChamadaService.abertas({},{},
+      function success(data) {
+          console.dir(data);
+            if (data.length > 0)
+            {
+              console.log("chamadas abertas");
+              myService.set(data);
+              $state.go('professor.chamada-aberta');
+              return;
+            }
+            else
+            {
+              $scope.turmas = ChamadaService.turmas();
+            }
+        }, function err() {  }
+    ); 
+    
     $scope.checkbox = [];
 
     $scope.appendList = function(id){
@@ -125,28 +142,47 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
     console.log("Presença");
     console.dir($scope.presencas);
 })
-.controller('AlunoChamadaCtrl', function($scope, $state, $http, myService, AlunoService) {
-    $scope.chamada = {};
+.controller('AlunoChamadaCtrl', function($scope, $state, $http, myService, AlunoService) {    
 
-    //$http.defaults.headers.get = {'X-Auth-Token':'okasd'};
-    AlunoService.chamada({},{},
-        function success(data) {
-            $scope.chamada = data;
-            $scope.confirmCheckIn = function() {
-                AlunoService.checkin({},{ "idChamada": $scope.chamada.idChamada }, 
-                  function success(data) {
-                    myService.set(data);
-                    $state.go('aluno.checkin');
-                  }
-                );      
-             }  
-        }); 
+    // checar se o aluno fez checkin
+    AlunoService.presenca({},{},
+      function success(data) {
+          console.dir(data);
+          if (data.length > 0)
+          {
+            myService.set(data);
+            $state.go('aluno.checkin');
+          }
+          else
+          {
+            // busca turmas do aluno com chamada aberta
+            AlunoService.chamada({},{},
+              function success(data) {
+                  $scope.chamada = data;
+
+                  // javascript function para o button
+                  $scope.confirmCheckIn = function() {
+                      AlunoService.checkin({},{ "idChamada": $scope.chamada.idChamada }, 
+                        function success(data) {
+                          myService.set(data);
+                          $state.go('aluno.checkin');
+                        }
+                      );      
+                   }  
+              }
+            ); 
+          }
+        }, function err() {  }
+    ); 
+    
+
+    
 
                 
 })
 .controller('AlunoCheckInCtrl', function($scope, $state, $http, myService, AlunoService, localStorageService) {
 
-    
+
     $scope.tick = myService.get();
     console.dir($scope.tick);
 

@@ -489,7 +489,7 @@ angular.module('exampleApp', [
     $state.go("app.login");
     var authToken = localStorageService.get('authToken');
     console.log('token:' + authToken);
-    if (authToken !== undefined) {
+    if (authToken !== undefined && authToken !== null) {
       $rootScope.authToken = authToken;
       UserService.get(function(user) {
         console.log("user: " + user);
@@ -504,6 +504,11 @@ angular.module('exampleApp', [
         {
           $state.go("aluno.home");
         }
+      }, 
+      function err() {  
+        localStorageService.remove('authToken');
+        delete $rootScope.authToken;
+        console.log('erro autenticacao');
       });
     }
     
