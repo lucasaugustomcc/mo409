@@ -79,11 +79,6 @@
               <specification xmi:type="uml:LiteralString" xmi:id="__floAAr8Ed2Pmahp7QLr3A" value="state  = PresencaState::ausente"/>
             </stateInvariant>
           </subvertex>
-          <subvertex xmi:type="uml:State" xmi:id="_8NNXAB84EeW0meGmwId2_g" name="visualizando_presenca">
-            <stateInvariant xmi:id="_8NNXAR84EeW0meGmwId2_g">
-              <specification xmi:type="uml:LiteralString" xmi:id="_8NNXAh84EeW0meGmwId2_g" value="state  = PresencaState::visualizando_presenca"/>
-            </stateInvariant>
-          </subvertex>
           <transition xmi:id="_KHZoYJeHEdyqN79LFuBS7A" name="init2em_branco" target="_eQ3dkBHbEeWx5e2dXReDlw" source="_ZMY7cJKuEdyUSNhMCOPPLg"/>
           <transition xmi:id="_KncaYJeHEdyqN79LFuBS7A" name="em_branco2em_aula" guard="_QLy7YBO_EeWqh7fhhZq2Rw" target="_y9ig8BHbEeWx5e2dXReDlw" source="_eQ3dkBHbEeWx5e2dXReDlw">
             <ownedRule xmi:id="_QLy7YBO_EeWqh7fhhZq2Rw">
@@ -134,14 +129,14 @@
               <specification xmi:type="uml:LiteralString" xmi:id="_q0O8Mh88EeWFfZ949XHazg" value="numTicks &lt; minTicks"/>
             </ownedRule>
           </transition>
-          <transition xmi:id="_w2bjUBIDEeWA7uJHonRzDQ" name="ausente2visualizando_presenca" guard="_nhs8wBO9EeWFL-id5q4VVg" target="_8NNXAB84EeW0meGmwId2_g" source="_7jj2YJeEEdyCyNzfMULFnw">
+          <transition xmi:id="_w2bjUBIDEeWA7uJHonRzDQ" name="ausente2ausente" guard="_nhs8wBO9EeWFL-id5q4VVg" target="_7jj2YJeEEdyCyNzfMULFnw" source="_7jj2YJeEEdyCyNzfMULFnw">
             <ownedRule xmi:id="_nhs8wBO9EeWFL-id5q4VVg">
               <specification xmi:type="uml:LiteralString" xmi:id="_nhs8wRO9EeWFL-id5q4VVg" value="chamada = true"/>
             </ownedRule>
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_goHRAB89EeWFfZ949XHazg" name="visualizarPresenca"/>
             <trigger xmi:id="_vDUWUB89EeWFfZ949XHazg" name="visualizarPresenca" event="_MiwzsB86EeW0meGmwId2_g"/>
           </transition>
-          <transition xmi:id="_09a6EB85EeW0meGmwId2_g" name="presente2visualizando_presenca" guard="_09a6ER85EeW0meGmwId2_g" target="_8NNXAB84EeW0meGmwId2_g" source="_7YFmMJeEEdyCyNzfMULFnw">
+          <transition xmi:id="_09a6EB85EeW0meGmwId2_g" name="presente2presente" guard="_09a6ER85EeW0meGmwId2_g" target="_7YFmMJeEEdyCyNzfMULFnw" source="_7YFmMJeEEdyCyNzfMULFnw">
             <ownedRule xmi:id="_09a6ER85EeW0meGmwId2_g">
               <specification xmi:type="uml:LiteralString" xmi:id="_09a6Eh85EeW0meGmwId2_g" value="chamada = true"/>
             </ownedRule>
@@ -201,7 +196,6 @@
       <ownedLiteral xmi:id="_iYoHoJsBEd20fKiJK1xsTw" name="calculando"/>
       <ownedLiteral xmi:id="_ilI5oJsBEd20fKiJK1xsTw" name="presente"/>
       <ownedLiteral xmi:id="_ixNmwJsBEd20fKiJK1xsTw" name="ausente"/>
-      <ownedLiteral xmi:id="_BzLhAB85EeW0meGmwId2_g" name="visualizando_presenca"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Enumeration" xmi:id="_3DmGQBQeEeWOt5z3R7GnrQ" name="ChamadaState">
       <ownedLiteral xmi:id="_3DmGRBQeEeWOt5z3R7GnrQ" name="nao_aberta"/>
