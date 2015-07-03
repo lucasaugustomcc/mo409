@@ -1,7 +1,7 @@
 ### Test Case Generation Statistics
 ### Test Goal Satisfaction
- - defined 8 test goals
- - satisfied 8 test goals (100.0 %)
+ - defined 9 test goals
+ - satisfied 9 test goals (100.0 %)
 
 ### unsatisfied test goals
 
@@ -17,25 +17,29 @@
    to node tmp2
    triggered by encerrarChamadaEvent
  - satisfied: (test goal #3 - traversed transition) 
-   from node Chamada::sort::visualizando_parametros
-   to node Chamada::sort::atribuindo_parametros
-   triggered by atribuirLocalizacaoProfessorEvent
- - satisfied: (test goal #4 - traversed transition) 
    from node Chamada::sort::atribuindo_localizacao
    to node tmp1
    triggered by abrirChamadaEvent
+ - satisfied: (test goal #4 - traversed transition) 
+   from node Chamada::sort::atribuindo_parametros
+   to node Chamada::sort::atribuindo_localizacao
+   triggered by atribuirLocalizacaoProfessorEvent
  - satisfied: (test goal #5 - traversed transition) 
    from node Chamada::sort::visualizando_parametros
-   to node Chamada::sort::atribuindo_parametros
-   triggered by visualizarParametrosEvent
+   to node Chamada::sort::atribuindo_localizacao
+   triggered by atribuirLocalizacaoProfessorEvent
  - satisfied: (test goal #6 - traversed transition) 
+   from node Chamada::sort::visualizando_parametros
+   to node Chamada::sort::atribuindo_parametros
+   triggered by atribuirParametrosEvent
+ - satisfied: (test goal #7 - traversed transition) 
    from node Chamada::sort::nao_aberta
    to node Chamada::sort::atribuindo_localizacao
    triggered by atribuirLocalizacaoProfessorEvent
- - satisfied: (test goal #7 - traversed transition) 
+ - satisfied: (test goal #8 - traversed transition) 
    from node Chamada::sort::nao_aberta
    to node Chamada::sort::visualizando_parametros
    triggered by visualizarParametrosEvent
- - satisfied: (test goal #8 - traversed transition) 
+ - satisfied: (test goal #9 - traversed transition) 
    from node Chamada::sort::init
    to node Chamada::sort::nao_aberta

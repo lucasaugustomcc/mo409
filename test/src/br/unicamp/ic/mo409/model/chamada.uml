@@ -100,11 +100,15 @@
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_sfyHwR8rEeW6ooM7jnMepg" name="atribuirLocalizacaoProfessor"/>
             <trigger xmi:id="_sfyHwh8rEeW6ooM7jnMepg" name="atribuirLocalizacaoProfessor" event="_MabfcB8sEeW6ooM7jnMepg"/>
           </transition>
-          <transition xmi:id="_2d3zcB8pEeW6ooM7jnMepg" name="visualizando_parametros2atribuindo_parametros" target="_D3o70B8oEeW6ooM7jnMepg" source="_ts6mEB8nEeW6ooM7jnMepg">
-            <effect xmi:type="uml:FunctionBehavior" xmi:id="_2d3zcR8pEeW6ooM7jnMepg" name="visualizarParametros"/>
-            <trigger xmi:id="_2d3zch8pEeW6ooM7jnMepg" name="visualizarParametros" event="__1OScB8rEeW6ooM7jnMepg"/>
+          <transition xmi:id="_2d3zcB8pEeW6ooM7jnMepg" name="visualizando_parametros2atribuindo_localizacao" target="_LxHZgB8oEeW6ooM7jnMepg" source="_ts6mEB8nEeW6ooM7jnMepg">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_2d3zcR8pEeW6ooM7jnMepg" name="atribuirLocalizacaoProfessor"/>
+            <trigger xmi:id="_2d3zch8pEeW6ooM7jnMepg" name="atribuirLocalizacao" event="_MabfcB8sEeW6ooM7jnMepg"/>
           </transition>
-          <transition xmi:id="_C_R6AB80EeWkgo0fqD1AkA" name="atribuindo_parametros2atribuindo_localizacao" target="_D3o70B8oEeW6ooM7jnMepg" source="_ts6mEB8nEeW6ooM7jnMepg">
+          <transition xmi:id="_cmkl0CG8EeW32IeWrh9H0g" name="visualizando_parametros2atribuindo_parametros" target="_D3o70B8oEeW6ooM7jnMepg" source="_ts6mEB8nEeW6ooM7jnMepg">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_cmkl0SG8EeW32IeWrh9H0g" name="atribuirParametros"/>
+            <trigger xmi:id="_cmkl0iG8EeW32IeWrh9H0g" name="atribuirParametros" event="_FzSMUB8sEeW6ooM7jnMepg"/>
+          </transition>
+          <transition xmi:id="_C_R6AB80EeWkgo0fqD1AkA" name="atribuindo_parametros2atribuindo_localizacao" target="_LxHZgB8oEeW6ooM7jnMepg" source="_D3o70B8oEeW6ooM7jnMepg">
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_C_ShEB80EeWkgo0fqD1AkA" name="atribuirLocalizacaoProfessor"/>
             <trigger xmi:id="_C_ShER80EeWkgo0fqD1AkA" name="atribuirLocalizacaoProfessor" event="_MabfcB8sEeW6ooM7jnMepg"/>
           </transition>
@@ -165,12 +169,6 @@
         <ownedRule xmi:id="_QIMxsR8sEeW6ooM7jnMepg" name="post">
           <specification xmi:type="uml:LiteralString" xmi:id="_QIMxsh8sEeW6ooM7jnMepg" value="if (state = ChamadaState::nao_aberta) then recebendo_tick = true else recebendo_tick = false endif"/>
         </ownedRule>
-        <ownedParameter xmi:id="_K1Sw0B8wEeW6ooM7jnMepg" name="duracao">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        </ownedParameter>
-        <ownedParameter xmi:id="_K1Sw0R8wEeW6ooM7jnMepg" name="porcentagem">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="_RCSbYB8sEeW6ooM7jnMepg" name="atribuirParametros">
         <ownedRule xmi:id="_RCSbYR8sEeW6ooM7jnMepg" name="post">

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/2.1.0/UML" xmi:id="_soD9MOjJEdu6LJeVabImNg">
+  <packagedElement xmi:type="uml:Package" xmi:id="_wPxqwOjJEdu6LJeVabImNg" name="br.unicamp.ic.mo409.model">
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_FzSMUB8sEeW6ooM7jnMepg" name="getUsernameEvent" operation="_HQGfwOzQEduqQpSKns4XGA"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_ZUa5sCApEeW4ysb2kbGRGQ" name="getPasswordEvent" operation="_wegX8JG6EdydJaDhzZfmUQ"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_MaE9UOjKEdu6LJeVabImNg" name="getRoleEvent" operation="_Rmy5cAZ8EeW1-OgwpVc0Kw"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_CbgIUOzQEduqQpSKns4XGA" name="Usuario" classifierBehavior="_2Y0fgJ0ZEdyNrffIHb491A">
+      <ownedAttribute xmi:id="_GTqyoJ0aEdyNrffIHb491A" name="state" type="_dMVB4JsBEd20fKiJK1xsTw"/>
+      <ownedAttribute xmi:id="_mxMhQCDAEeWR54AN2dqOfg" name="username">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_mxMhQSDAEeWR54AN2dqOfg" name="username" value="null"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_rXbskCDAEeWR54AN2dqOfg" name="password">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_rXbskSDAEeWR54AN2dqOfg" name="password" value="null"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_zyvsACDAEeWR54AN2dqOfg" name="role">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_zyvsASDAEeWR54AN2dqOfg" name="role" value="0"/>
+      </ownedAttribute>
+      <ownedBehavior xmi:type="uml:FunctionBehavior" xmi:id="_2Y0fgJ0ZEdyNrffIHb491A" name="setState" postcondition="_KTh6cJ0aEdyNrffIHb491A">
+        <ownedRule xmi:id="_KTh6cJ0aEdyNrffIHb491A">
+          <specification xmi:type="uml:LiteralString" xmi:id="_K_yjgJ0aEdyNrffIHb491A" value="state = x"/>
+        </ownedRule>
+        <ownedParameter xmi:id="_BzKb4J0aEdyNrffIHb491A" name="x"/>
+      </ownedBehavior>
+      <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_yqv4YOjJEdu6LJeVabImNg" name="Usuario">
+        <region xmi:id="_VIx8EJKuEdyUSNhMCOPPLg" name="sort">
+          <subvertex xmi:type="uml:Pseudostate" xmi:id="_ZMY7cJKuEdyUSNhMCOPPLg" name="init"/>
+          <subvertex xmi:type="uml:State" xmi:id="_6TZPAJeEEdyCyNzfMULFnw" name="nao_autenticado">
+            <stateInvariant xmi:id="_3qwZwAr8Ed2Pmahp7QLr3A">
+              <specification xmi:type="uml:LiteralString" xmi:id="_4TlUUAr8Ed2Pmahp7QLr3A" value="state  = LoginState::nao_autenticado"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_ts6mEB8nEeW6ooM7jnMepg" name="autenticado">
+            <stateInvariant xmi:id="_ts7NIB8nEeW6ooM7jnMepg">
+              <specification xmi:type="uml:LiteralString" xmi:id="_ts7NIR8nEeW6ooM7jnMepg" value="state  = LoginState::autenticado"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_D3o70B8oEeW6ooM7jnMepg" name="professor">
+            <stateInvariant xmi:id="_D3pi4B8oEeW6ooM7jnMepg">
+              <specification xmi:type="uml:LiteralString" xmi:id="_D3pi4R8oEeW6ooM7jnMepg" value="state  = LoginState::professor"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_LxHZgB8oEeW6ooM7jnMepg" name="aluno">
+            <stateInvariant xmi:id="_LxHZgR8oEeW6ooM7jnMepg">
+              <specification xmi:type="uml:LiteralString" xmi:id="_LxHZgh8oEeW6ooM7jnMepg" value="state  = LoginState::aluno"/>
+            </stateInvariant>
+          </subvertex>
+          <transition xmi:id="_KHZoYJeHEdyqN79LFuBS7A" name="init2nao_autenticado" target="_6TZPAJeEEdyCyNzfMULFnw" source="_ZMY7cJKuEdyUSNhMCOPPLg"/>
+          <transition xmi:id="_rAtzoB8pEeW6ooM7jnMepg" name="nao_autenticado2autenticado" target="_ts6mEB8nEeW6ooM7jnMepg" source="_6TZPAJeEEdyCyNzfMULFnw">
+            <trigger xmi:id="_rAuasR8pEeW6ooM7jnMepg" name="getUsername" event="_FzSMUB8sEeW6ooM7jnMepg"/>
+          </transition>
+          <transition xmi:id="_sfyHwB8rEeW6ooM7jnMepg" name="autenticado2professor" target="_D3o70B8oEeW6ooM7jnMepg" source="_ts6mEB8nEeW6ooM7jnMepg">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_sfyHwR8rEeW6ooM7jnMepg" name="getRole"/>
+            <trigger xmi:id="_sfyHwh8rEeW6ooM7jnMepg" name="getRoleEvent" event="_MaE9UOjKEdu6LJeVabImNg"/>
+          </transition>
+          <transition xmi:id="_2d3zcB8pEeW6ooM7jnMepg" name="autenticado2aluno" target="_LxHZgB8oEeW6ooM7jnMepg" source="_ts6mEB8nEeW6ooM7jnMepg">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_2d3zcR8pEeW6ooM7jnMepg" name="getRole"/>
+            <trigger xmi:id="_2d3zch8pEeW6ooM7jnMepg" name="getRoleEvent" event="_MaE9UOjKEdu6LJeVabImNg"/>
+          </transition>
+          <transition xmi:id="_C_R6AB80EeWkgo0fqD1AkA" name="professor2nao_autenticado" target="_6TZPAJeEEdyCyNzfMULFnw" source="_D3o70B8oEeW6ooM7jnMepg">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_C_ShEB80EeWkgo0fqD1AkA" name="getFrequenciaAluno"/>
+            <trigger xmi:id="_C_ShER80EeWkgo0fqD1AkA" name="getFrequenciaAluno"/>
+          </transition>
+          <transition xmi:id="_M_pEMCC_EeWR54AN2dqOfg" name="aluno2nao_autenticado" target="_6TZPAJeEEdyCyNzfMULFnw" source="_LxHZgB8oEeW6ooM7jnMepg">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_M_pEMSC_EeWR54AN2dqOfg" name="getFrequenciaAluno"/>
+            <trigger xmi:id="_M_pEMiC_EeWR54AN2dqOfg" name="getFrequenciaAluno"/>
+          </transition>
+        </region>
+      </ownedBehavior>
+      <ownedOperation xmi:id="_HQGfwOzQEduqQpSKns4XGA" name="getUsername" postcondition="_QxNNEAkgEeWyXqZbehidIA">
+        <ownedRule xmi:id="_QxNNEAkgEeWyXqZbehidIA" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_SZmHMAkgEeWyXqZbehidIA" value="if (state = LoginState::nao_autenticado) then endif"/>
+        </ownedRule>
+        <ownedParameter xmi:id="_xSG1wA6tEeWOgpCl8lrPTA" name="username">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_wegX8JG6EdydJaDhzZfmUQ" name="getPassword">
+        <ownedRule xmi:id="_FD7-YA3mEeWfg8LmfrVuEg" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_FD7-YQ3mEeWfg8LmfrVuEg" value="if (state = LoginState::nao_vazio) then  endif"/>
+        </ownedRule>
+        <ownedParameter xmi:id="_Zw9tcA3uEeW9P_WLFKNCiw" name="password">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_Rmy5cAZ8EeW1-OgwpVc0Kw" name="getRole">
+        <ownedRule xmi:id="_FTA8MA3mEeWfg8LmfrVuEg" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_FTA8MQ3mEeWfg8LmfrVuEg" value="if ((state = LoginState::autenticado) and role=1 ) then  = true else  = false endif"/>
+        </ownedRule>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_dMVB4JsBEd20fKiJK1xsTw" name="LoginState">
+      <ownedLiteral xmi:id="_iYoHoJsBEd20fKiJK1xsTw" name="nao_autenticado"/>
+      <ownedLiteral xmi:id="_00YYAB8nEeW6ooM7jnMepg" name="autenticado"/>
+      <ownedLiteral xmi:id="_4PkFcB8nEeW6ooM7jnMepg" name="professor"/>
+      <ownedLiteral xmi:id="_7FX08B8nEeW6ooM7jnMepg" name="aluno"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_hFgdoA3kEeWfg8LmfrVuEg" name="Professor">
+      <ownedAttribute xmi:id="_GNcugBAzEeWaCPRCPew3ZA" name="nome" isReadOnly="true" isDerivedUnion="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_METAMODELS/UML.metamodel.uml#String"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_GNcugRAzEeWaCPRCPew3ZA" name="" value="Joao"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_kKfRkA3kEeWfg8LmfrVuEg" name="Tick">
+      <ownedAttribute xmi:id="_R1QfIBAzEeWaCPRCPew3ZA" name="location" isReadOnly="true" isDerivedUnion="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_8CmWMA3kEeWfg8LmfrVuEg" name="Turma">
+      <ownedAttribute xmi:id="_yNyMABA7EeWaCPRCPew3ZA" name="codigo_turma" isReadOnly="true" isDerivedUnion="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_METAMODELS/UML.metamodel.uml#String"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_yNyMARA7EeWaCPRCPew3ZA" name="" value="A"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_zHW4UBA7EeWaCPRCPew3ZA" name="id_disciplina" isReadOnly="true" isDerivedUnion="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_zHW4URA7EeWaCPRCPew3ZA" name="" value="1234"/>
+      </ownedAttribute>
+    </packagedElement>
+  </packagedElement>
+</uml:Model>
