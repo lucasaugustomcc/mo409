@@ -234,7 +234,7 @@ public class AlunoController
 		SimpleDateFormat shf = new SimpleDateFormat("HH:mm");
 		SimpleDateFormat sdhf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-		Tick tick = presenca.receberTick();
+		Tick tick = presenca.receberTick(1f,1f);
 		tickDAO.persist(tick);
 
 		JSONObject obj = new JSONObject();

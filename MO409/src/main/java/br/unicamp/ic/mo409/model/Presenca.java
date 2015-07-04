@@ -37,7 +37,7 @@ public class Presenca implements Serializable
 	private boolean isPresente;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name="state", nullable=false, length=30)
+	@Column(name = "state", nullable = false, length = 30)
 	PresencaState state;
 
 	@Column(name = "num_ticks", nullable = false)
@@ -144,19 +144,6 @@ public class Presenca implements Serializable
 		this.state = state;
 	}
 
-	public void calcularPresenca(Integer numTicksMinino)
-	{
-		state = PresencaState.calculando;
-
-		if (numTicks >= numTicksMinino)
-		{
-			state = PresencaState.presente;
-		} else
-		{
-			state = PresencaState.ausente;
-		}
-	}
-
 	public void handleEvent(Object... in_colObject)
 	{
 		if (in_colObject.length > 0)
@@ -164,7 +151,7 @@ public class Presenca implements Serializable
 			Chamada chamada = new Chamada();
 			setChamada(chamada);
 			chamada.setState(ChamadaState.aberta);
-			
+
 			String sEventName = (String) in_colObject[0];
 			if ((state == PresencaState.em_branco && chamada.state == ChamadaState.aberta)
 					&& (sEventName.compareTo("checkInPresencaEvent") == 0))
@@ -175,18 +162,29 @@ public class Presenca implements Serializable
 			if ((state == PresencaState.em_aula && chamada.state == ChamadaState.aberta)
 					&& (sEventName.compareTo("receberTickEvent") == 0))
 			{
-				Integer tempNumTicks = (Integer) in_colObject[1];
-				Integer numMinTicks;
-
-				if (tempNumTicks > 0)
+				Integer tempLatitude = (Integer) in_colObject[1];
+				float latitude;
+				Integer tempLongitude = (Integer) in_colObject[2];
+				float longitude;
+				
+				if (tempLatitude > 0)
 				{
-					numMinTicks = 1;
-				} else
-				{
-					numMinTicks = 2;
+					latitude = -20.100232232f;					
 				}
-				setNumTicks(5);
-				receberTick();
+				else
+				{
+					latitude = 10.100232232f;	
+				}
+				
+				if (tempLongitude > 0)
+				{
+					longitude = -20.100232232f;					
+				}
+				else
+				{
+					longitude = 10.100232232f;	
+				}
+				receberTick(latitude, longitude);
 			}
 
 			if ((state == PresencaState.em_aula && chamada.state == ChamadaState.aberta)
@@ -196,7 +194,8 @@ public class Presenca implements Serializable
 			}
 
 			chamada.setState(ChamadaState.encerrada);
-			if ((state == PresencaState.em_branco && chamada.state == ChamadaState.encerrada)
+			if (state == PresencaState.em_branco 
+					&& chamada.state == ChamadaState.encerrada
 					&& sEventName.compareTo("calcularPresencaEvent") == 0)
 			{
 				Integer tempNumTicks = (Integer) in_colObject[1];
@@ -209,12 +208,12 @@ public class Presenca implements Serializable
 				{
 					numMinTicks = 2;
 				}
-				setNumTicks(tempNumTicks);
 				calcularPresenca(numMinTicks);
 			}
 
-			if ((state == PresencaState.em_aula && chamada.state == ChamadaState.encerrada)
-					&& (sEventName.compareTo("calcularPresencaEvent") == 0))
+			if ((state == PresencaState.em_aula || state == PresencaState.fora_de_aula)
+					&& chamada.state == ChamadaState.encerrada
+					&& sEventName.compareTo("calcularPresencaEvent") == 0)
 			{
 				Integer tempNumTicks = (Integer) in_colObject[1];
 				Integer numMinTicks;
@@ -226,11 +225,9 @@ public class Presenca implements Serializable
 				{
 					numMinTicks = 2;
 				}
-				setNumTicks(5);
 				calcularPresenca(numMinTicks);
 			}
-			
-			
+
 			if ((state == PresencaState.fora_de_aula && chamada.state == ChamadaState.encerrada)
 					&& (sEventName.compareTo("calcularPresencaEvent") == 0))
 			{
@@ -244,40 +241,93 @@ public class Presenca implements Serializable
 				{
 					numTicks = 2;
 				}
-				setNumTicks(5);
 				calcularPresenca(numTicks);
 			}
-
-			if ((state == PresencaState.calculando && chamada.state == ChamadaState.encerrada)
-					&& (sEventName.compareTo("calcularPresencaEvent") == 0))
+			
+			if ((state == PresencaState.ausente || state == PresencaState.presente)
+					&& chamada.state == ChamadaState.encerrada
+					&& sEventName.compareTo("visualizarPresencaEvent") == 0)
 			{
-				Integer tempNumTicks = (Integer) in_colObject[1];
-				Integer numTicks;
+				visualizarPresenca();
+			}	
+		}
+	}
 
-				if (tempNumTicks > 0)
-				{
-					numTicks = 1;
-				} else
-				{
-					numTicks = 2;
-				}
-				setNumTicks(5);
-				calcularPresenca(numTicks);
+	private PresencaState visualizarPresenca()
+	{
+		if (chamada.getState() == ChamadaState.encerrada && 
+				(state == PresencaState.presente || state == PresencaState.ausente))
+		{
+			return state;
+		}
+		else
+		{
+			throw new IllegalStateException("Estado não permite solicitar o cálculo da presença.");
+		}
+		
+	}
+	
+	public void calcularPresenca(Integer numTicksMinino)
+	{
+		if (chamada.getState() == ChamadaState.encerrada && 
+				(state == PresencaState.em_branco || state == PresencaState.em_aula || state == PresencaState.fora_de_aula))
+		{
+			state = PresencaState.calculando;
+	
+			if (numTicks >= numTicksMinino)
+			{
+				state = PresencaState.presente;
+			} else
+			{
+				state = PresencaState.ausente;
 			}
 		}
+		else
+		{
+			throw new IllegalStateException("Estado não permite solicitar o cálculo da presença.");
+		}
+	}
+	
+	private float calcularDistancia(float latitudeAluno, float longitudeAluno)
+	{
+		double d2r = (180 / Math.PI);
+		float distance = 0;
+
+		try{
+		    double dlong = (Float.valueOf(chamada.getLongitude()) - longitudeAluno) * d2r;
+		    double dlat = (Float.valueOf(chamada.getLatitude()) - latitudeAluno) * d2r;
+		    double a =
+		        Math.pow(Math.sin(dlat / 2.0), 2)
+		            + Math.cos(Float.valueOf(chamada.getLatitude()) * d2r)
+		            * Math.cos(latitudeAluno * d2r)
+		            * Math.pow(Math.sin(dlong / 2.0), 2);
+		    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+		    distance = (float) (6367 * c);
+
+		    return distance;
+
+		} catch(Exception e){
+		    e.printStackTrace();
+		}
+		return distance;
 	}
 
 	/**
 	 * Recebe um tick do aluno
+	 * @param longitude 
+	 * @param latitude 
+	 * 
 	 * @return objeto tick populado
 	 */
-	public Tick receberTick() throws IllegalStateException
+	public Tick receberTick(float latitude, float longitude) throws IllegalStateException
 	{
 		if (state == PresencaState.em_aula
 				&& chamada.getState() == ChamadaState.aberta)
 		{
+			float distancia = calcularDistancia(latitude, longitude);
 			Tick tick = new Tick();
 			tick.setAluno(this.getAluno());
+			tick.setDistancia(Math.round(distancia));
 			tick.setChamada(chamada);
 			tick.setDataHora(new Date(System.currentTimeMillis()));
 			setNumTicks(getNumTicks() + 1);
@@ -294,10 +344,16 @@ public class Presenca implements Serializable
 	 */
 	public void checkOutPresenca()
 	{
-		if (state == PresencaState.em_aula)
+		if (state == PresencaState.em_aula
+				&& chamada.getState() == ChamadaState.aberta)
 		{
 			setHoraFim(new Time(System.currentTimeMillis()));
 			state = PresencaState.fora_de_aula;
+		}
+		else
+		{
+			throw new IllegalStateException(
+					"Você não está na aula ou aula já encerrada.");
 		}
 	}
 
@@ -306,13 +362,14 @@ public class Presenca implements Serializable
 	 */
 	public void checkInPresenca()
 	{
-		if (chamada.state == ChamadaState.aberta)
+		if (state == PresencaState.em_branco 
+				&& chamada.getState() == ChamadaState.aberta)
 		{
 			setHoraInicio(new Time(System.currentTimeMillis()));
 			state = PresencaState.em_aula;
 		} else
 		{
-			throw new IllegalStateException("Chamada não aberta!");
+			throw new IllegalStateException("Chamada não aberta ou aluno já fez checkin!");
 		}
 	}
 

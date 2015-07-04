@@ -98,12 +98,24 @@ public class LoginControllerTest {
 	}
 	
 	@Test ()
-	public void testUsuarioIncorreto() throws Exception {
+	public void testUsuarioSenhaIncorreta() throws Exception {
 		this.mockMvc
 				.perform(
 						post("/rest/user/authenticate")
 								.contentType(MediaType.APPLICATION_FORM_URLENCODED)
 								.param("username", "17")
+								.param("password", "senhaincorreta"))
+				.andExpect(content().json("{\"error\":\"exception\", \"message\":\"Bad credentials\"}"))
+				.andExpect(status().isUnauthorized());
+	}
+	
+	@Test ()
+	public void testUsuarioInvalido() throws Exception {
+		this.mockMvc
+				.perform(
+						post("/rest/user/authenticate")
+								.contentType(MediaType.APPLICATION_FORM_URLENCODED)
+								.param("username", "177")
 								.param("password", "senhaincorreta"))
 				.andExpect(content().json("{\"error\":\"exception\", \"message\":\"Bad credentials\"}"))
 				.andExpect(status().isUnauthorized());
