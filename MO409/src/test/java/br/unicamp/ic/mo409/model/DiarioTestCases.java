@@ -5,10 +5,10 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 // JUnit 4.3
-public class DiarioV1TestCases{
+public class DiarioTestCases{
 	
 	public static junit.framework.Test suite(){
-		return new junit.framework.JUnit4TestAdapter(DiarioV1TestCases.class);
+		return new junit.framework.JUnit4TestAdapter(DiarioTestCases.class);
 	}
 	
 	@Test

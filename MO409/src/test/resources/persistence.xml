@@ -10,9 +10,18 @@
 		<class>br.unicamp.ic.mo409.model.Disciplina</class>
 		<class>br.unicamp.ic.mo409.model.Presenca</class>
 		<class>br.unicamp.ic.mo409.model.Professor</class>
+		<class>br.unicamp.ic.mo409.model.Parametro</class>
 		<class>br.unicamp.ic.mo409.model.Tick</class>
 		<class>br.unicamp.ic.mo409.model.Turma</class>
 		<class>br.unicamp.ic.mo409.model.User</class>
-		<class>br.unicamp.ic.mo409.model.Usuario</class>		
+		<class>br.unicamp.ic.mo409.model.Usuario</class>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="transaction.factory_class"
+				value="org.hibernate.transaction.JDBCTransactionFactory" />
+		</properties>
 	</persistence-unit>
 </persistence>

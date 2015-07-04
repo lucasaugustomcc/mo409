@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -67,6 +68,10 @@ public class Turma implements Serializable {
 			}
 		)
 	private List<Aluno> alunos;
+	
+	@OneToOne(optional=true, fetch = FetchType.EAGER)
+	@JoinColumn(name="tb_parametro_id_parametro")
+	private Parametro parametro;
 
 	public Turma() {
 	}
@@ -147,6 +152,16 @@ public class Turma implements Serializable {
 
 	public void setAlunos(List<Aluno> alunos) {
 		this.alunos = alunos;
+	}
+
+	public Parametro getParametro()
+	{
+		return parametro;
+	}
+
+	public void setParametro(Parametro parametro)
+	{
+		this.parametro = parametro;
 	}
 
 }

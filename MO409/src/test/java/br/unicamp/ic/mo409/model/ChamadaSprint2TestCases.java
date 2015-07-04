@@ -17,13 +17,13 @@ import static org.junit.Assert.*;
 @ContextConfiguration (locations = {"file:src/test/resources/applicationContext.xml"}) 
 @TransactionConfiguration(transactionManager="transactionManager", defaultRollback=false) 
 @Transactional 
-public class ChamadaV3MD01TestCases{
+public class ChamadaSprint2TestCases{
 	
 	@PersistenceContext(unitName = "persistenceUnit")
 	protected EntityManager entityManager;
 	
 	public static junit.framework.Test suite(){
-		return new junit.framework.JUnit4TestAdapter(ChamadaV3MD01TestCases.class);
+		return new junit.framework.JUnit4TestAdapter(ChamadaSprint2TestCases.class);
 	}
 	
 	@Test
@@ -88,7 +88,7 @@ public class ChamadaV3MD01TestCases{
 	
 	@Test
 	public void test3()
-	{
+	{				
 		Chamada oTestObject = new Chamada(entityManager);
 		Integer duracao2 = -404;
 		Integer porcentagem2 = 185;

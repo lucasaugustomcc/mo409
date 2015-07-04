@@ -7,6 +7,7 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>br.unicamp.ic.mo409.model.Aluno</class>
 		<class>br.unicamp.ic.mo409.model.Chamada</class>
+		<class>br.unicamp.ic.mo409.model.Parametro</class>
 		<class>br.unicamp.ic.mo409.model.Disciplina</class>
 		<class>br.unicamp.ic.mo409.model.Presenca</class>
 		<class>br.unicamp.ic.mo409.model.Professor</class>

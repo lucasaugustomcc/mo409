@@ -19,6 +19,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,12 +38,6 @@ public class Chamada implements Serializable
 	@Enumerated(EnumType.STRING)
 	@Column(name="state", nullable=false, length=30)
 	ChamadaState state;
-
-	@Transient
-	private static final Integer numTicksMinino = 20;
-
-	@Transient
-	private static final Integer tempoTicks = 5;
 
 	@Transient
 	private EntityManager entityManager;
@@ -79,32 +74,59 @@ public class Chamada implements Serializable
 	// bi-directional many-to-one association to Tick
 	@OneToMany(mappedBy = "chamada")
 	private List<Tick> ticks;
+	
+	@OneToOne(optional=true, fetch = FetchType.EAGER)
+	@JoinColumn(name="tb_parametro_id_parametro")
+	private Parametro parametro;
 
 	private String latitude;
 
 	private String longitude;
-
+	
 	public Chamada()
 	{
+		
+	}
+
+	public Chamada(Turma turma, Professor professor)
+	{
 		state = ChamadaState.nao_aberta;
+		configurar(turma,professor);
+		Parametro parametroTurma = turma.getParametro();
+		Parametro parametroChamada = new Parametro();
+		parametroChamada.setDuracao(parametroTurma.getDuracao());
+		parametroChamada.setPorcentagem(parametroTurma.getPorcentagem());
+		setParametro(parametroChamada);
+	}	
+
+	private void configurar(Turma turma, Professor professor)
+	{
+		this.setTurma(turma);
+		this.setProfessor(professor);		
 	}
 
 	public Chamada(EntityManager em)
 	{
-		state = ChamadaState.nao_aberta;
 		this.entityManager = em;
+		state = ChamadaState.nao_aberta;
+		setParametro(new Parametro());
 	}
 
 	@SuppressWarnings("deprecation")
 	public void handleEvent(Object... in_colObject)
-	{
+	{		
+		Turma turma = entityManager.getReference(Turma.class, 1);
+		Professor professor = entityManager.getReference(
+				Professor.class, 1);
+		
+		configurar(turma, professor);
 		
 		if (in_colObject.length > 0)
 		{
 			String sEventName = (String) in_colObject[0];
 			if ((state == ChamadaState.atribuindo_localizacao)
 					&& (sEventName.compareTo("abrirChamadaEvent") == 0))
-			{
+			{				
 				Integer tempIDTurma = (Integer) in_colObject[1];
 				Integer idTurma;
 				Integer tempRAProfessor = (Integer) in_colObject[2];
@@ -146,10 +168,7 @@ public class Chamada implements Serializable
 				{
 					raProfessor = 2;
 				}
-				Turma turma = entityManager.getReference(Turma.class, idTurma);
-				Professor professor = entityManager.getReference(
-						Professor.class, raProfessor);
-				abrirChamada(turma, professor, dataChamada, horaInicio);
+				abrirChamada(dataChamada, horaInicio);
 			}
 			
 			if (sEventName.compareTo("visualizarParametrosEvent") == 0
@@ -193,26 +212,26 @@ public class Chamada implements Serializable
 					|| state == ChamadaState.atribuindo_parametros))
 			{				
 				Integer tempLatitude = (Integer) in_colObject[1];
-				String latitude;
+				float latitude;
 				Integer tempLongitude = (Integer) in_colObject[2];
-				String longitude;
+				float longitude;
 				
 				if (tempLatitude > 0)
 				{
-					latitude = "-20.100232232";					
+					latitude = -20.100232232f;					
 				}
 				else
 				{
-					latitude = "10.100232232";	
+					latitude = 10.100232232f;	
 				}
 				
 				if (tempLongitude > 0)
 				{
-					longitude = "-20.100232232";					
+					longitude = -20.100232232f;					
 				}
 				else
 				{
-					longitude = "10.100232232";	
+					longitude = 10.100232232f;	
 				}
 				
 				atribuirLocalizacao(latitude, longitude);
@@ -252,18 +271,32 @@ public class Chamada implements Serializable
 		}
 	}
 
-	private void atribuirParametros(Integer duracao, Float porcentagem)
+	public void atribuirParametros(Integer duracao, Float porcentagem)
 	{
-//		if (state != ChamadaState.visualizando_parametros)
-//		{
-//			throw new IllegalStateException(
-//					"Chamada não disponível para atribuir localização.");
-//		}
-//		state = ChamadaState.atribuindo_parametros;
+		if (state != ChamadaState.visualizando_parametros)
+		{
+			throw new IllegalStateException(
+					"Chamada não disponível para atribuir parâmetros.");
+		}
+		if (duracao < 1 || duracao > 240)
+		{
+			throw new IllegalArgumentException("Valor de duração incompatível para aula");
+		}
+		if (porcentagem < 1 || porcentagem > 100)
+		{
+			throw new IllegalArgumentException("Valor de porcentagem incompatível para aula");
+		}
+		state = ChamadaState.atribuindo_parametros;
+		Parametro parametroChamada = this.getParametro();
+		parametroChamada.setPorcentagem(porcentagem);
+		parametroChamada.setDuracao(duracao);
 		
+		Parametro parametroTurma = this.getTurma().getParametro();
+		parametroTurma.setPorcentagem(porcentagem);
+		parametroTurma.setDuracao(duracao);
 	}
 
-	private void atribuirLocalizacao(String latitude, String longitude)
+	public void atribuirLocalizacao(float latitude, float longitude)
 	{
 		if (state == ChamadaState.aberta 
 				&& state == ChamadaState.encerrada)
@@ -271,23 +304,42 @@ public class Chamada implements Serializable
 			throw new IllegalStateException(
 					"Chamada não disponível para atribuir localização.");
 		}
+		
+		if (-90 > latitude || latitude > 90)
+		{
+			throw new IllegalArgumentException("Valor de latitude inválido.");
+		}
+		
+		if (-180 > longitude || longitude > 180)
+		{
+			throw new IllegalArgumentException("Valor de longitude inválido.");
+		}
+		
 		state = ChamadaState.atribuindo_localizacao;
-		this.setLatitude(latitude);
-		this.setLongitude(longitude);
+		this.setLatitude(String.valueOf(latitude));
+		this.setLongitude(String.valueOf(longitude));
 	}
 
-	private void visualizarParametros()
+	public Parametro visualizarParametros()
 	{
-		//state = ChamadaState.visualizando_parametros;
+		if (state != ChamadaState.nao_aberta )
+		{
+			throw new IllegalStateException(
+					"Chamada não disponível para visualizar parâmetros.");
+		}
+		state = ChamadaState.visualizando_parametros;		
+		return this.getParametro();
 	}
+	
+	/**
+	 * Abrir a chamada e altera o estado da chamada, criando os objetos presença
+	 * associadas a esta chamada e aos alunos.	
+	 */
 
-	public List<Presenca> abrirChamada(Turma turma, Professor professor,
-			Date dataChamada, Time horaInicio)
+	public void abrirChamada(Date dataChamada, Time horaInicio)
 	{
 		if (state == ChamadaState.atribuindo_localizacao)
 		{
-			this.setProfessor(professor);
-			this.setTurma(turma);
 			this.setDataChamada(dataChamada);
 			this.setHoraInicio(horaInicio);
 			state = ChamadaState.aberta;
@@ -302,7 +354,6 @@ public class Chamada implements Serializable
 				presencas.add(presenca);				
 			}
 			this.setPresencas(presencas);
-			return presencas;
 		} else
 		{
 			throw new IllegalStateException(
@@ -337,7 +388,7 @@ public class Chamada implements Serializable
 			}
 		} else
 		{
-			throw new IllegalStateException("Chamada já encerrada");
+			throw new IllegalStateException("Chamada não está aberta!");
 		}
 	}
 
@@ -348,6 +399,7 @@ public class Chamada implements Serializable
 	{
 		if (state == ChamadaState.encerrada)
 		{
+			Integer numTicksMinino = calcularNumMinTicks();
 			for (Presenca presenca : getPresencas())
 			{
 				presenca.calcularPresenca(numTicksMinino);
@@ -356,6 +408,26 @@ public class Chamada implements Serializable
 		{
 			throw new IllegalStateException("Chamada ainda aberta.");
 		}
+	}
+	
+	/**
+	 * Calcula a quantidade de ticks necessários com base na duração da aula e na porcentagem
+	 * @return quantidade mínimo de ticks para uma presença
+	 */
+	public Integer calcularNumMinTicks()
+	{
+		Parametro parametros = getParametro();
+		int duracao = (int) ((getHoraFim().getTime() - getHoraInicio().getTime())/(1000 * 60));
+		if (duracao > parametros.getDuracao())
+		{
+			duracao = parametros.getDuracao();
+		}		
+		
+		float quantidadeMinimaMinutos = duracao * (parametros.getPorcentagem()/100);
+		
+		// ticks a cada 5 minutos
+		int numTicksMinino = Math.round(quantidadeMinimaMinutos/5);
+		return numTicksMinino;
 	}
 
 	public int getIdChamada()
@@ -498,6 +570,16 @@ public class Chamada implements Serializable
 	public void setLatitude(String latitude)
 	{
 		this.latitude = latitude;
+	}
+
+	public Parametro getParametro()
+	{
+		return parametro;
+	}
+
+	public void setParametro(Parametro parametro)
+	{
+		this.parametro = parametro;
 	}
 
 }

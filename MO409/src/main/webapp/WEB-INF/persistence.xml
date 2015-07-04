@@ -10,6 +10,7 @@
 		<class>br.unicamp.ic.mo409.model.Disciplina</class>
 		<class>br.unicamp.ic.mo409.model.Presenca</class>
 		<class>br.unicamp.ic.mo409.model.Professor</class>
+		<class>br.unicamp.ic.mo409.model.Parametro</class>
 		<class>br.unicamp.ic.mo409.model.Tick</class>
 		<class>br.unicamp.ic.mo409.model.Turma</class>
 		<class>br.unicamp.ic.mo409.model.User</class>

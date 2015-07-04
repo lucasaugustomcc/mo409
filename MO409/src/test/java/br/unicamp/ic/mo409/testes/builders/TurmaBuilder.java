@@ -5,6 +5,7 @@ import java.util.List;
 
 import br.unicamp.ic.mo409.model.Aluno;
 import br.unicamp.ic.mo409.model.Disciplina;
+import br.unicamp.ic.mo409.model.Parametro;
 import br.unicamp.ic.mo409.model.Professor;
 import br.unicamp.ic.mo409.model.Turma;
 import br.unicamp.ic.mo409.model.Usuario;
@@ -18,11 +19,22 @@ public class TurmaBuilder implements Builder<Turma>{
 	private int idTurma = 1;
 	private List<Aluno> alunos = new ArrayList<Aluno>();
 	private Disciplina disciplina;
+	private Parametro parametro = new Parametro(50, 50);
 
     public TurmaBuilder() {}
 
     public TurmaBuilder withIdTurma(Integer idTurma) {
         this.idTurma = idTurma;
+        return this;
+    }
+    
+    public TurmaBuilder withParametro(Parametro parametro) {
+        this.parametro = parametro;
+        return this;
+    }
+    
+    public TurmaBuilder withParametro(Integer duracao, float porcentagem) {
+        this.parametro = new Parametro();
         return this;
     }
 
@@ -101,6 +113,7 @@ public class TurmaBuilder implements Builder<Turma>{
         Turma turma = new Turma();
         turma.setDisciplina(disciplina);
         turma.setAno(ano);
+        turma.setParametro(parametro);
         turma.setCodTurma(codTurma);
         turma.setPeriodo(periodo);
         turma.setProfessores(professores);

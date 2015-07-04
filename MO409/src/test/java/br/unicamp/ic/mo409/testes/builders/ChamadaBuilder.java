@@ -5,6 +5,7 @@ import java.util.Date;
 
 import br.unicamp.ic.mo409.model.Chamada;
 import br.unicamp.ic.mo409.model.ChamadaState;
+import br.unicamp.ic.mo409.model.Parametro;
 import br.unicamp.ic.mo409.model.Professor;
 import br.unicamp.ic.mo409.model.Turma;
 
@@ -18,6 +19,7 @@ public class ChamadaBuilder implements Builder<Chamada>{
 	private int idChamada = 1;
 	private Time horaInicio = new Time(10,0,0);
 	private ChamadaState chamadaState = ChamadaState.nao_aberta;
+	private Parametro parametro = new Parametro(50, 50);
 
 	public ChamadaBuilder() {}
 
@@ -28,6 +30,16 @@ public class ChamadaBuilder implements Builder<Chamada>{
     
     public ChamadaBuilder withDataChamada(Date dataChamada) {
         this.dataChamada = dataChamada;
+        return this;
+    }
+    
+    public ChamadaBuilder withParametro(Parametro parametro) {
+        this.parametro = parametro;
+        return this;
+    }
+    
+    public ChamadaBuilder withParametro(Integer duracao, float porcentagem) {
+        this.parametro = new Parametro();
         return this;
     }
     
@@ -57,11 +69,10 @@ public class ChamadaBuilder implements Builder<Chamada>{
 	}
 
     public Chamada build() {
-    	Chamada chamada = new Chamada();    	    
+    	Chamada chamada = new Chamada(turma, professor);    	    
     	chamada.setDataChamada(dataChamada);
     	chamada.setHoraFim(horaFim);
-    	chamada.setProfessor(professor);
-    	chamada.setTurma(turma);
+    	chamada.setParametro(parametro);
     	chamada.setIdChamada(idChamada);
     	chamada.setHoraInicio(horaInicio);
     	chamada.setState(chamadaState );

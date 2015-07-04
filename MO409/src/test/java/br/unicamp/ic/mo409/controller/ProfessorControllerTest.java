@@ -140,16 +140,20 @@ public class ProfessorControllerTest
 		turmas.add(turma1);
 		turmas.add(turma2);
 
+		// abrir chamada
 		Chamada chamada1 = new ChamadaBuilder()
 				.withDataChamada(new Date(115, 05, 10))
 				.withHoraInicio(new Time(10, 00, 00)).withProfessor(prof1)
+				.withChamadaState(ChamadaState.atribuindo_localizacao)
 				.withTurma(turma1).build();
 
 		Chamada chamada2 = new ChamadaBuilder()
 				.withDataChamada(new Date(115, 05, 10))
 				.withHoraInicio(new Time(10, 00, 00)).withProfessor(prof1)
+				.withChamadaState(ChamadaState.atribuindo_localizacao)
 				.withTurma(turma2).withIdChamada(2).build();
 
+		// ver relatório
 		Chamada chamada3 = new ChamadaBuilder()
 				.withDataChamada(new Date(115, 05, 10))
 				.withHoraInicio(new Time(10, 00, 00)).withProfessor(prof1)
@@ -161,6 +165,32 @@ public class ProfessorControllerTest
 				.withHoraInicio(new Time(10, 00, 00)).withProfessor(prof1)
 				.withTurma(turma2).withChamadaState(ChamadaState.encerrada)
 				.withIdChamada(4).build();
+		
+		// atribuir parâmetros
+		Chamada chamada5 = new ChamadaBuilder()
+			.withDataChamada(new Date(115, 05, 10))
+			.withHoraInicio(new Time(10, 00, 00)).withProfessor(prof1)
+			.withTurma(turma1).withChamadaState(ChamadaState.visualizando_parametros)
+			.withIdChamada(5).build();
+		
+		Chamada chamada6 = new ChamadaBuilder()
+			.withDataChamada(new Date(115, 05, 10))
+			.withHoraInicio(new Time(10, 00, 00)).withProfessor(prof1)
+			.withTurma(turma2).withChamadaState(ChamadaState.visualizando_parametros)
+			.withIdChamada(6).build();
+		
+		// encerrar chamada
+		Chamada chamada7 = new ChamadaBuilder()
+			.withDataChamada(new Date(115, 05, 10))
+			.withHoraInicio(new Time(10, 00, 00)).withProfessor(prof1)
+			.withTurma(turma1).withChamadaState(ChamadaState.aberta)
+			.withIdChamada(7).build();
+	
+		Chamada chamada8 = new ChamadaBuilder()
+			.withDataChamada(new Date(115, 05, 10))
+			.withHoraInicio(new Time(10, 00, 00)).withProfessor(prof1)
+			.withTurma(turma2).withChamadaState(ChamadaState.aberta)
+			.withIdChamada(8).build();
 		
 		Aluno aluno1 = new AlunoBuilder()
 			.withNome("Daniela Marques")
@@ -185,6 +215,8 @@ public class ProfessorControllerTest
 		
 		chamada3.setPresencas(presencas1);
 		chamada4.setPresencas(presencas2);
+		chamada7.setPresencas(presencas1);
+		chamada8.setPresencas(presencas2);
 
 		List<Chamada> chamadas = new ArrayList<Chamada>();
 		chamadas.add(chamada1);
@@ -205,6 +237,10 @@ public class ProfessorControllerTest
 		Mockito.when(this.chamadaDAO.find(2)).thenReturn(chamada2);
 		Mockito.when(this.chamadaDAO.find(3)).thenReturn(chamada3);
 		Mockito.when(this.chamadaDAO.find(4)).thenReturn(chamada4);
+		Mockito.when(this.chamadaDAO.find(5)).thenReturn(chamada5);
+		Mockito.when(this.chamadaDAO.find(6)).thenReturn(chamada6);
+		Mockito.when(this.chamadaDAO.find(7)).thenReturn(chamada7);
+		Mockito.when(this.chamadaDAO.find(8)).thenReturn(chamada8);
 		Mockito.when(this.turmaDAO.listarTurmasProfessor(1)).thenReturn(turmas);
 		Mockito.when(this.chamadaDAO.listChamadasAbertasProfessor(1)).thenReturn(chamadas);
 	}
@@ -252,7 +288,81 @@ public class ProfessorControllerTest
 										+ "{\"idChamada\": 2 }]"));
 	}
 
+	@Test()
+	public void testCriarChamadasProfessorCorreto() throws Exception
+	{
+		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(
+				this.professorController).build();
 
+		Usuario user = usuarioDAO.loadUsuarioByUsername("35");
+
+		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+				user, "", user.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(
+				authenticationToken);
+
+		mockMvc.perform(
+				post("/professor/chamada/criar").content(
+						"[{ \"idTurma\":1}, {\"idTurma\":2 }]").header(
+						"content-type", "application/json"))
+				.andExpect(status().is(200))
+				.andExpect(
+						content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
+				.andExpect(content().json("[{idChamada:0, "
+										+ "\"turma\": { \"idTurma\": 1,\"codTurma\":A, \"codDisciplina\":\"MO409\", \"nomeDisciplina\":\"Engenharia de Software I\" } },"
+										+ "{idChamada:0}]"));
+	}
+	
+	@Test()
+	public void testChamadaParametroProfessorCorreto() throws Exception
+	{
+		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(
+				this.professorController).build();
+
+		Usuario user = usuarioDAO.loadUsuarioByUsername("35");
+
+		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+				user, "", user.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(
+				authenticationToken);
+
+		mockMvc.perform(
+				post("/professor/chamada/parametros").content(
+						"{ \"duracao\":\"50\", \"porcentagem\":\"75\", \"chamadas\": [{ \"idChamada\":5}, {\"idChamada\":6 }] }").header(
+						"content-type", "application/json"))
+				.andExpect(status().is(200))
+				.andExpect(
+						content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
+				.andExpect(content().json("[{idChamada:5, \"duracao\":50, \"porcentagem\":75,"
+						+ "\"turma\": { \"idTurma\": 1,\"codTurma\":A, \"codDisciplina\":\"MO409\", \"nomeDisciplina\":\"Engenharia de Software I\"}},"
+						+ "{idChamada:6}]"));
+	}
+	
+	@Test()
+	public void testChamadaLocalizacaoProfessorCorreto() throws Exception
+	{
+		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(
+				this.professorController).build();
+
+		Usuario user = usuarioDAO.loadUsuarioByUsername("35");
+
+		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+				user, "", user.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(
+				authenticationToken);
+
+		mockMvc.perform(
+				post("/professor/chamada/localizacao").content(
+						"{ \"latitude\":\"-10.000\", \"longitude\":\"-10.000\", \"chamadas\": [{ \"idChamada\":1}, {\"idChamada\":2 }] }").header(
+						"content-type", "application/json"))
+				.andExpect(status().is(200))
+				.andExpect(
+						content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
+				.andExpect(content().json("[{idChamada:1, \"latitude\":\"-10.000\", \"longitude\":\"-10.000\","
+						+ "\"turma\": { \"idTurma\": 1,\"codTurma\":A, \"codDisciplina\":\"MO409\", \"nomeDisciplina\":\"Engenharia de Software I\"}},"
+						+ "{idChamada:2}]"));
+	}
+	
 	@Test()
 	public void testAbrirChamadasProfessorCorreto() throws Exception
 	{
@@ -268,12 +378,14 @@ public class ProfessorControllerTest
 
 		mockMvc.perform(
 				post("/professor/chamada/abrir").content(
-						"{ \"latitude\":\"-10.000\", \"longitude\":\"-10.000\", \"turmas\": [{ \"idTurma\":1}, {\"idTurma\":2 }]}").header(
+						"[{ \"idChamada\":1}, {\"idChamada\":2 }]").header(
 						"content-type", "application/json"))
 				.andExpect(status().is(200))
 				.andExpect(
 						content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
-				.andExpect(content().json("[{idChamada:0},{idChamada:0}]"));
+				.andExpect(content().json("[{idChamada:1,"
+						+ "\"turma\": { \"idTurma\": 1,\"codTurma\":A, \"codDisciplina\":\"MO409\", \"nomeDisciplina\":\"Engenharia de Software I\"}},"
+						+ "{idChamada:2}]"));
 	}
 
 	@Test ()
@@ -290,7 +402,7 @@ public class ProfessorControllerTest
 		this.mockMvc
 				.perform(
 						post("/professor/chamada/abrir").content(
-								"{ \"latitude\":\"-10.000\", \"latitude\":\"-10.000\", \"turmas\": [{ \"idTurma\":1}, {\"idTurma\":2 }]}").header(
+								"[{ \"idChamada\":1}, {\"idChamada\":2 }]").header(
 								"content-type", "application/json"))
 				.andExpect(status().is(409))
 				.andExpect(
@@ -311,12 +423,12 @@ public class ProfessorControllerTest
 		this.mockMvc
 				.perform(
 						post("/professor/chamada/encerrar").content(
-								"[{ \"idChamada\":1}, {\"idChamada\":2 }]")
+								"[{ \"idChamada\":7}, {\"idChamada\":8 }]")
 								.header("content-type", "application/json"))
 				.andExpect(status().is(200))
 				.andExpect(
 						content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
-				.andExpect(content().json("[{idChamada:1},{idChamada:2}]"));
+				.andExpect(content().json("[{idChamada:7},{idChamada:8}]"));
 	}
 
 	@Test ()
@@ -333,7 +445,7 @@ public class ProfessorControllerTest
 		this.mockMvc
 				.perform(
 						post("/professor/chamada/encerrar").content(
-								"[{ \"idChamada\":1}, {\"idChamada\":2 }]")
+								"[{ \"idChamada\":7}, {\"idChamada\":8 }]")
 								.header("content-type", "application/json"))
 				.andExpect(status().is(409))
 				.andExpect(
@@ -361,17 +473,17 @@ public class ProfessorControllerTest
 						content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
 				.andExpect(
 						content()
-								.json("[{ \"idChamada\": 3, "
-										+ "\"alunos\":[{\"nomeAluno\":\"Daniela Marques\",\"raAluno\":10798}], \"turma\": "
+								.json("[{ \"idChamada\": 3, \"numMinTicks\": 5,\"duracao\": 50,\"porcentagem\": 50,"
+										+ "\"alunos\":[{\"nomeAluno\":\"Daniela Marques\",\"raAluno\":10798,\"presente\":false}], \"turma\": "
 										+ "{ \"codDisciplina\": \"MO409\", \"nomeDisciplina\": \"Engenharia de Software I\", \"idTurma\": 1, \"codTurma\": \"A\" }}, "
 									+ "{\"idChamada\":4 }]"))
 				;
 	}
 
 	@Test ()	
-	public void testRelatorioChamadaProfessorIncorreto() throws Exception
+	public void testRelatorioChamadaNaoEncerrada() throws Exception
 	{
-		Usuario user = usuarioDAO.loadUsuarioByUsername("2");
+		Usuario user = usuarioDAO.loadUsuarioByUsername("35");
 
 		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
 				user, "", user.getAuthorities());

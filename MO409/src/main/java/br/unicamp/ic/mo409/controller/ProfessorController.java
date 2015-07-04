@@ -137,16 +137,16 @@ public class ProfessorController
 		}
 		return array;
 	}
-
+	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/professor/chamada/abrir", method = RequestMethod.POST)
+	@RequestMapping(value = "/professor/chamada/criar", method = RequestMethod.POST)
 	@Secured({ "ROLE_PROFESSOR" })
 	@ResponseBody
-	public JSONArray abrirChamada(@ModelAttribute("usuario") Usuario usuario,
-			@RequestBody ProfessorAbrirChamadaWrapper input) throws Exception
+	public JSONArray criarChamada(@ModelAttribute("usuario") Usuario usuario,
+			@RequestBody List<Turma> turmas) throws Exception
 	{
 			
-		for (Turma turma : input.getTurmas())
+		for (Turma turma : turmas)
 		{
 			if (chamadaDAO.hasChamadaAbertaTurma(turma.getIdTurma()))
 			{
@@ -157,11 +157,9 @@ public class ProfessorController
 		Professor professor = usuario.getProfessor();
 
 		// construindo JSON de resposta
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		SimpleDateFormat shf = new SimpleDateFormat("HH:mm");
 		JSONArray array = new JSONArray();
 		
-		for (Turma turma : input.getTurmas())
+		for (Turma turma : turmas)
 		{
 			turma = turmaDAO.find(turma.getIdTurma());
 			if (turma == null)
@@ -175,14 +173,160 @@ public class ProfessorController
 			}
 
 			// abrir chamada
-			Chamada chamada = new Chamada();
-			List<Presenca> presencas = chamada.abrirChamada(turma, professor,
+			Chamada chamada = new Chamada(turma, professor);
+			chamadaDAO.persist(chamada);			
+
+			// construir resposta JSON
+			// dados da chamada
+			JSONObject obj = new JSONObject();
+			obj.put("idChamada", chamada.getIdChamada());
+
+			// dados da turma
+			JSONObject objTurma = new JSONObject();
+			objTurma.put("idTurma", turma.getIdTurma());
+			objTurma.put("codTurma", turma.getCodTurma());
+			objTurma.put("codDisciplina", turma.getDisciplina()
+					.getCodDisciplina());
+			objTurma.put("nomeDisciplina", turma.getDisciplina()
+					.getNomeDisciplina());
+			obj.put("turma", objTurma);
+			array.add(obj);
+		}
+		return array;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/professor/chamada/localizacao", method = RequestMethod.POST)
+	@Secured({ "ROLE_PROFESSOR" })
+	@ResponseBody
+	public JSONArray localizacaoChamadas(@ModelAttribute("usuario") Usuario usuario,
+			@RequestBody ProfessorLocalizacaoWrapper localizacao) throws Exception
+	{			
+		Professor professor = usuario.getProfessor();
+
+		// construindo JSON de resposta
+		JSONArray array = new JSONArray();
+		
+		List<Chamada> chamadas = localizacao.getChamadas();
+		
+		for (Chamada chamada : chamadas)
+		{
+			chamada = chamadaDAO.find(chamada.getIdChamada());
+			
+			if (!chamada.getTurma().getProfessores().contains(professor))
+			{
+				throw new AccessDeniedException(
+						"Professor não associado a turma.");
+			}
+			
+			chamada.setLatitude(localizacao.getLatitude());
+			chamada.setLongitude(localizacao.getLongitude());
+			
+			Turma turma = chamada.getTurma();
+			// construir resposta JSON
+			// dados da chamada
+			JSONObject obj = new JSONObject();
+			obj.put("idChamada", chamada.getIdChamada());
+			obj.put("latitude", chamada.getLatitude());
+			obj.put("longitude", chamada.getLongitude());
+
+			// dados da turma
+			JSONObject objTurma = new JSONObject();
+			objTurma.put("idTurma", turma.getIdTurma());
+			objTurma.put("codTurma", turma.getCodTurma());
+			objTurma.put("codDisciplina", turma.getDisciplina()
+					.getCodDisciplina());
+			objTurma.put("nomeDisciplina", turma.getDisciplina()
+					.getNomeDisciplina());
+			obj.put("turma", objTurma);
+			array.add(obj);
+		}
+		return array;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/professor/chamada/parametros", method = RequestMethod.POST)
+	@Secured({ "ROLE_PROFESSOR" })
+	@ResponseBody
+	public JSONArray parametrosChamadas(@ModelAttribute("usuario") Usuario usuario,
+			@RequestBody ProfessorParametrosWrapper parametros) throws Exception
+	{			
+		Professor professor = usuario.getProfessor();
+
+		// construindo JSON de resposta
+		JSONArray array = new JSONArray();
+		
+		List<Chamada> chamadas = parametros.getChamadas();
+		
+		for (Chamada chamada : chamadas)
+		{
+			
+			chamada = chamadaDAO.find(chamada.getIdChamada());
+			
+			if (!chamada.getTurma().getProfessores().contains(professor))
+			{
+				throw new AccessDeniedException(
+						"Professor não associado a turma.");
+			}
+			
+			chamada.atribuirParametros(parametros.getDuracao(),parametros.getPorcentagem());			
+			
+			Turma turma = chamada.getTurma();
+			// construir resposta JSON
+			// dados da chamada
+			JSONObject obj = new JSONObject();
+			obj.put("idChamada", chamada.getIdChamada());
+			obj.put("duracao", chamada.getParametro().getDuracao());
+			obj.put("porcentagem", chamada.getParametro().getPorcentagem());
+
+			// dados da turma
+			JSONObject objTurma = new JSONObject();
+			objTurma.put("idTurma", turma.getIdTurma());
+			objTurma.put("codTurma", turma.getCodTurma());
+			objTurma.put("codDisciplina", turma.getDisciplina()
+					.getCodDisciplina());
+			objTurma.put("nomeDisciplina", turma.getDisciplina()
+					.getNomeDisciplina());
+			obj.put("turma", objTurma);
+			array.add(obj);
+		}
+		return array;
+	}
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/professor/chamada/abrir", method = RequestMethod.POST)
+	@Secured({ "ROLE_PROFESSOR" })
+	@ResponseBody
+	public JSONArray abrirChamada(@ModelAttribute("usuario") Usuario usuario,
+			@RequestBody List<Chamada> chamadas) throws Exception
+	{			
+		Professor professor = usuario.getProfessor();
+
+		// construindo JSON de resposta
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat shf = new SimpleDateFormat("HH:mm");
+		JSONArray array = new JSONArray();
+		
+		for (Chamada chamada : chamadas)
+		{
+			chamada = chamadaDAO.find(chamada.getIdChamada());
+			if (chamada == null)
+			{
+				throw new NoResultException("Turma não existente");
+			}
+			if (!chamada.getTurma().getProfessores().contains(professor))
+			{
+				throw new AccessDeniedException(
+						"Professor não associado a turma.");
+			}
+
+			// abrir chamada			
+			chamada.abrirChamada(
 					new Date(System.currentTimeMillis()),
 					new Time(System.currentTimeMillis()));
-			chamadaDAO.persist(chamada);
-			chamada.setPresencas(presencas);
 			
-
+			
+			Turma turma = chamada.getTurma();
 			// construir resposta JSON
 			// dados da chamada
 			JSONObject obj = new JSONObject();
@@ -222,14 +366,9 @@ public class ProfessorController
 		for (Chamada chamada : chamadas)
 		{
 			chamada = chamadaDAO.find(chamada.getIdChamada());
-			try
-			{
-				chamada.encerrarChamada(new Time(System.currentTimeMillis()));
-			}
-			catch(IllegalStateException e)
-			{
-				// TODO: mensagem para usuário em JSON
-			}
+
+			chamada.encerrarChamada(new Time(System.currentTimeMillis()));
+			
 			// dados da chamada
 			JSONObject obj = new JSONObject();
 			obj.put("idChamada", chamada.getIdChamada());
@@ -291,6 +430,9 @@ public class ProfessorController
 
 			JSONObject obj = new JSONObject();
 			obj.put("idChamada", chamada.getIdChamada());
+			obj.put("numMinTicks", chamada.calcularNumMinTicks());
+			obj.put("duracao", chamada.getParametro().getDuracao());
+			obj.put("porcentagem", chamada.getParametro().getPorcentagem());
 			obj.put("dataChamada", sdf.format(chamada.getDataChamada()));
 			obj.put("horaInicio", shf.format(chamada.getHoraInicio()));
 			obj.put("horaFim", shf.format(chamada.getHoraFim()));
@@ -321,7 +463,7 @@ public class ProfessorController
 				JSONObject objPresenca = new JSONObject();
 				objPresenca.put("raAluno", aluno.getRaAluno());
 				objPresenca.put("nomeAluno", aluno.getUsuario().getNome());
-				objPresenca.put("statusPresenca", presenca.getIsPresente());
+				objPresenca.put("presente", presenca.getIsPresente());
 				arrayPresencas.add(objPresenca);
 			}
 			obj.put("alunos", arrayPresencas);
@@ -339,6 +481,7 @@ public class ProfessorController
 		JSONObject obj = new JSONObject();
 		obj.put("error", "exception");
 		obj.put("message", exception.getMessage());
+		System.out.println(exception.getMessage());
 		return obj;
 	}
 }
@@ -354,8 +497,8 @@ class ProfessorAbrirChamadaWrapper  implements Serializable {
 	@JsonProperty( "longitude" )
 	String longitude;
 	
-	@JsonProperty("turmas")
-    List<Turma> turmas;
+	@JsonProperty("chamadas")
+    List<Chamada> chamadas;
     
     public String getLatitude()
 	{
@@ -373,15 +516,96 @@ class ProfessorAbrirChamadaWrapper  implements Serializable {
 	{
 		this.longitude = longitude;
 	}
-	public List<Turma> getTurmas()
+	public List<Chamada> getChamadas()
 	{
-		return turmas;
+		return chamadas;
 	}
-	public void setTurmas(List<Turma> turmas)
+	public void setChamadas(List<Chamada> chamadas)
 	{
-		this.turmas = turmas;
+		this.chamadas = chamadas;
 	}
+}
 
-
+class ProfessorLocalizacaoWrapper  implements Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2262553828925378441L;
+	
+	@JsonProperty("chamadas")
+    List<Chamada> chamadas;
+	
+	@JsonProperty( "latitude" )
+	String latitude;
+	
+	@JsonProperty( "longitude" )
+	String longitude;
     
+    public String getLatitude()
+	{
+		return latitude;
+	}
+	public void setLatitude(String latitude)
+	{
+		this.latitude = latitude;
+	}
+	public String getLongitude()
+	{
+		return longitude;
+	}
+	public void setLongitude(String longitude)
+	{
+		this.longitude = longitude;
+	}
+	public List<Chamada> getChamadas()
+	{
+		return chamadas;
+	}
+	public void setChamadas(List<Chamada> chamadas)
+	{
+		this.chamadas = chamadas;
+	}
+}
+class ProfessorParametrosWrapper  implements Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2262553828925378441L;
+	
+	@JsonProperty("chamadas")
+    List<Chamada> chamadas;
+	
+	@JsonProperty( "duracao" )
+	private
+	Integer duracao;
+	
+	@JsonProperty( "porcentagem" )
+	private
+	Float porcentagem;
+    
+    
+	public List<Chamada> getChamadas()
+	{
+		return chamadas;
+	}
+	public void setChamadas(List<Chamada> chamadas)
+	{
+		this.chamadas = chamadas;
+	}
+	public Integer getDuracao()
+	{
+		return duracao;
+	}
+	public void setDuracao(Integer duracao)
+	{
+		this.duracao = duracao;
+	}
+	public Float getPorcentagem()
+	{
+		return porcentagem;
+	}
+	public void setPorcentagem(Float porcentagem)
+	{
+		this.porcentagem = porcentagem;
+	}
 }
