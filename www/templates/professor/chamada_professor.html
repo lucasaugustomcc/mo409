@@ -45,8 +45,8 @@
 			<ion-content padding="true">
 				<div class="card">
 					<h5 class="title item item-divider" align="center"> Parâmetros Atuais </h5>
-					<p> <b>Tempo de permanência em sala: </b> 50 mins</p>
-					<p> <b> Quantidade de ticks: </b>75% </p>
+					<p> <b>Tempo de permanência em sala: </b> {{ parametros.duracao }} mins</p>
+					<p> <b> Quantidade de ticks: </b>{{ parametros.porcentagem }}% </p>
 				</div>
 				
 				<br/>
@@ -58,14 +58,14 @@
 				<div class="row">
 					<h5> <b>Tempo mínimo de permanência em sala</b> </h5>
 					<label class="item item-input item-input-wrapper" padding="true">
-						<input type="text">
+						<input type="text" ng-model="formData.duracao">
 					</label>
 				</div>
 					<br/>
 					<div class="row">
 					<h5> <b> Porcentagem de ticks: </b> </h5>
 					<label class="item item-input item-input-wrapper" padding="true">
-						<input type="text">
+						<input type="text" ng-model="formData.porcentagem">
 					</label>
 				</div> 
 
@@ -73,7 +73,7 @@
 			<div class="col"></div>
 			<div class="col">
 				<button class="button button-positive button button-block icon-left ion-android-create" 
-																	ui-sref="professor.parametros" ui-sref-opts="{reload: true}">
+																	ng-click="confirmParametros()" ui-sref-opts="{reload: true}">
 					Alterar Parâmetros
 				</button>
 			</div>

@@ -66,6 +66,7 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
 }) 
 .controller('HomeCtrl', function($rootScope, $scope, $timeout) {
 })
+/*
 .controller('ChamadaTurmasCtrl', function($scope, $state, $http, myService, ChamadaService) {
 
     // verificar se existe chamadas abertas
@@ -119,7 +120,56 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
         navigator.geolocation.getCurrentPosition($scope.getPosition, $scope.getPositionErr, {maximumAge: 0, timeout: 6000, enableHighAccuracy:false});        
       }           
     }
+}) */
+
+.controller('ChamadaTurmasCtrl', function($scope, $state, $http, myService, ChamadaService) {
+    $scope.turmas = ChamadaService.turmas(); 
+    $scope.formData = {};
+    $scope.checkbox = [];
+    $scope.parametros = ChamadaService.parametros();  
+
+    $scope.appendList = function(id){
+      var index = getIndexIfObjWithAttr($scope.checkbox, "idTurma", id);
+      if (index == -1) {
+          $scope.checkbox.push({ "idTurma": id });
+      } else {
+          $scope.checkbox.splice(index, 1);
+      }
+    }
+
+    $scope.confirmChamada = function() {
+      if ($scope.checkbox.length > 0)
+      {
+        // Your app must execute AT LEAST ONE call for the current position via standard Cordova geolocation,
+        //  in order to prompt the user for Location permission.
+        $scope.getPosition = function(position){
+            $scope.coords = position.coords;
+            $scope.$apply();
+            ChamadaService.abrir({},{ 'latitude': $scope.coords.latitude.toString(), 'longitude': $scope.coords.longitude.toString(), "turmas":$scope.checkbox }, 
+                function success(data) {
+                    myService.set(data);
+                    $state.go('professor.chamada-aberta');
+                }, function err() {  }
+            );  
+        };
+        $scope.getPositionErr = function(error){
+            alert('code: '    + error.code    + '\n' +
+                      'message: ' + error.message + '\n');
+        };
+        navigator.geolocation.getCurrentPosition($scope.getPosition, $scope.getPositionErr, {maximumAge: 0, timeout: 6000, enableHighAccuracy:false});        
+      }           
+    }
+
+    $scope.confirmParametros = function() {
+         ChamadaService.alterarparametros({},$scope.formData, 
+            function success(data) {
+                $scope.parametros = data;
+            }, function err() {  }
+        );                    
+    }
+
 })
+
 .controller('ChamadaAbertaCtrl', function($scope, $state, $http, myService, ChamadaService) {
     $scope.chamadas = myService.get();
     $scope.checkbox = [];
@@ -142,6 +192,25 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
     console.log("Presença");
     console.dir($scope.presencas);
 })
+
+.controller('disciplinasCtrl', function($scope, $state, $http, myService, ChamadaService) {
+  $scope.disciplinas = ChamadaService.disciplinas();
+  console.log("Disciplina");
+  console.dir($scope.disciplinas);
+})
+
+.controller('alunosMatriculadosCtrl', function($scope, $state, $http, myService, ChamadaService) {
+  $scope.alunos_matriculados = ChamadaService.alunos_matriculados();
+  console.log("alunos_matriculados");
+  console.dir($scope.alunos_matriculados);
+})
+
+.controller('frequenciaAluno_professorCtrl', function($scope, $state, $http, myService, ChamadaService) {
+  $scope.frequencia_aluno = ChamadaService.frequencia_aluno();
+  console.log("Frequência");
+  console.dir($scope.frequencia_aluno);
+})
+
 .controller('AlunoChamadaCtrl', function($scope, $state, $http, myService, AlunoService) {    
 
     // checar se o aluno fez checkin
@@ -173,12 +242,7 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
             ); 
           }
         }, function err() {  }
-    ); 
-    
-
-    
-
-                
+    );         
 })
 .controller('AlunoCheckInCtrl', function($scope, $state, $http, myService, AlunoService, localStorageService) {
 

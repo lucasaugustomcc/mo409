@@ -47,6 +47,34 @@ services.factory('ChamadaService', function($resource) {
           headers : {'Content-Type': 'application/json'},
           interceptor : {responseError : resourceErrorHandler}
         },
+        parametros: {
+          method: 'GET',
+          params: {'action' : 'parametros'},
+          interceptor : {responseError : resourceErrorHandler}
+        },
+        alterarparametros: {
+          method: 'POST',
+          params: {'action' : 'parametros'},
+          interceptor : {responseError : resourceErrorHandler}
+        },
+        disciplinas: {
+          method: 'GET',
+          params: {'action' : 'disciplinas'},
+          isArray: true,
+          interceptor : {responseError : resourceErrorHandler}
+        },
+        alunos_matriculados: {
+          method: 'POST',
+          params: {'action' : 'alunos_matriculados'},
+          headers : {'Content-Type': 'application/json'},
+          interceptor : {responseError : resourceErrorHandler}
+        },
+         frequencia_aluno: {
+          method: 'GET',
+          params: {'action' : 'frequencia_aluno'},
+         // isArray: true,
+          interceptor : {responseError : resourceErrorHandler}
+        },
     } 
   );
 });

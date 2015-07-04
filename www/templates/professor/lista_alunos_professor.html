@@ -8,33 +8,26 @@
 		<div class="list card">
 			<div class="item item-divider row responsive-sm">
 					<div class="col-10">
-							<h2>MO409</h2>
-							<h2>TURMA A</h2>
+							<h2> {{alunos_matriculados.turma.codDisciplina}} </h2>
+							<h2>TURMA {{alunos_matriculados.turma.codTurma}}</h2>
 					</div>
 					<div class="col-8">
-							<h3>Engenharia de Software I</h3>
+							<h3>{{alunos_matriculados.turma.nomeDisciplina}}</h3>
 					</div>
 			</div>
-			<p class="item responsive-sm"> <b>Quantidade de alunos matriculados:</b> 38 <br/>
-							 <b>Número de aulas dadas:</b> 15 <br/>
+			<p class="item responsive-sm"> <b>Quantidade de alunos matriculados:</b> {{alunos_matriculados.turma.numAlunos}} <br/>
+							 <b>Número de aulas dadas:</b> {{alunos_matriculados.turma.numChamadas}} <br/>
 							 <br/>
-							 <b>Presenças:</b> 75%  <br/>
-							 <b>Faltas:</b> 25%
+							 <b>Presenças:</b> {{alunos_matriculados.turma.porcPresencas}}%  <br/>
+							 <b>Faltas:</b> {{alunos_matriculados.turma.porcFaltas}}%
 			</p>
 		</div>
-		
-		<ion-item item="item" ui-sref="professor.frequencia_aluno" ui-sref-opts="{reload: true}">
+	
+		<ion-item item="item" ui-sref="professor.frequencia_aluno" ui-sref-opts="{reload: true}" ng-repeat="aluno in alunos_matriculados.alunos">
 			<ion-list>
-				<p> <b> Nome do Aluno <br/> </b>RA123456 </p>
-				<p> <b>  Presenças:</b>  10 (66%) | <b> Faltas: </b> 5 (34%) </p>
+				<p> <b> {{aluno.nome}} <br/> </b> RA{{aluno.raAluno}} </p>
+				<p> <b>  Presenças:</b>  {{aluno.numPresencas}} ({{aluno.porcPresencas}}%) | <b> Faltas: </b> {{aluno.numFaltas}} ({{aluno.porcFaltas}}%)  </p>
 			</ion-list>
 		</ion-item>
-		<ion-item item="item" ui-sref="professor.frequencia_aluno" ui-sref-opts="{reload: true}">
-			<ion-list>
-				<p> <b> Nome do Aluno 2 <br/> </b> RA234567 </p>
-				<p> <b>  Presenças:</b>  10 (66%) | <b> Faltas: </b> 5 (34%) </p>
-			</ion-list>
-		</ion-item>
-
   </ion-content>
 </ion-view>

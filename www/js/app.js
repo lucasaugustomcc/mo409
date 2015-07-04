@@ -129,10 +129,10 @@ angular.module('exampleApp', [
       }         
     })
    .state('professor.frequencia_aluno', {
-      url: "/frequencia-aluno",
+      url: "/chamada/frequencia_aluno",
       views: {
         'menuContent' :{
-            controller:  "", //colocar controller
+            controller:  "frequenciaAluno_professorCtrl", //colocar controller
             templateUrl: "templates/professor/frequencia_aluno.html"     
         }
       }         
@@ -147,6 +147,27 @@ angular.module('exampleApp', [
         }
     }         
     })
+    .state('professor.parametros', {
+      url: "/chamada/parametros",
+      views: {
+        'menuContent' :{
+            controller:  "", //colocar controller
+            templateUrl: "templates/parametros.html"     
+        }
+    }         
+    })
+
+/*
+    .state('professor.alunos_matriculados', {
+      url: "/chamada/alunos_matriculados",
+      views: {
+        'menuContent' :{
+            controller:  "alunosMatriculadosCtrl", //colocar controller
+            templateUrl: "templates/lista_alunos_professor.html"     
+        }
+    }         
+    })*/
+
 	.state('professor.alunos', {
       url: "/alunos_matriculados",
       cache: false,
@@ -157,26 +178,30 @@ angular.module('exampleApp', [
         }
     }         
     })
-	.state('professor.disciplinas', {
-      url: "/disciplinas",
+
+  .state('professor.disciplinas', {
+     url: "/chamada/disciplinas",
       cache: false,
       views: {
         'menuContent' :{
-            controller:  "", //colocar controller
+            controller:  "disciplinasCtrl", //colocar controller
             templateUrl: "templates/professor/disciplinas_professor.html"             
         }
     }         
     })
+
+  
 	.state('professor.lista_alunos', {
-      url: "/lista_alunos",
+      url: "/chamada/alunos_matriculados",
       cache: false,
       views: {
         'menuContent' :{
-            controller:  "", //colocar controller
+            controller:  "alunosMatriculadosCtrl", //colocar controller
             templateUrl: "templates/professor/lista_alunos_professor.html"             
         }
     }         
     })
+
     .state('app.logout', {
       url: "/logout",
       views: {
@@ -419,19 +444,111 @@ angular.module('exampleApp', [
         }]
     }
     ];
+
+    var parametros_get = { "duracao": 50, "porcentagem": 75 };
+    var parametros_post = { "duracao": 60, "porcentagem": 80 };
+
+
+    var disciplinas = [
+    { 
+        "codTurma":"A",
+        "codDisciplina":"MO409",
+        "nomeDisciplina":"Engenharia de Software I",
+        "numAlunos":35
+        //"professores": [ { "nome": "Eliane Martins" } ]
+     },
+     {
+      "codTurma":"B",
+      "codDisciplina":"MO410",
+      "nomeDisciplina":"Engenharia de Software II",
+      "numAlunos":25
+        //"professores": [ { "nome": "Eliane Martins" } ]
+     }
+     ];
+
+
+    var alunos_matriculados = {
+
+      "turma" : {
+          "idTurma": "1",
+          "codTurma":"A",
+          "codDisciplina":"MC302",
+          "nomeDisciplina":"Programação Orientada a Objetos",
+          "numAlunos": 35,
+          "numChamadas": 15,
+          "porcPresencas":75,
+          "porcFaltas":25
+      },
+      "alunos" : [
+        {
+          "raAluno": "161255",
+          "nome":"Lucas Augusto Carvalho",
+          "numPresencas":10,
+          "porcPresencas":66,
+          "numFaltas":5,
+          "porcFaltas":34
+        },
+        {
+          "raAluno": "121551",
+          "nome":"João Ninguém",
+          "numPresencas":10,
+          "porcPresencas":66,
+          "numFaltas":5,
+          "porcFaltas":34
+   }]
+};
+   var frequencia_aluno = {
+
+      "turma" : {
+          "idTurma": "1",
+          "codTurma":"A",
+          "codDisciplina":"MC302",
+          "nomeDisciplina":"Programação Orientada a Objetos",
+          "numAlunos": 38,
+          "numChamadas": 15
+      },
+      "alunos" : 
+        {
+          "raAluno": "161255",
+          "nome":"Lucas Augusto Carvalho",
+          "numPresencas":10,
+          "porcPresencas":66,
+          "numFaltas":5,
+          "porcFaltas":34
+        },
+      "presencas": [
+        {
+            "data": "02/05/2015",
+            "presente":true
+        },
+        {
+            "data": "04/05/2015",
+            "presente":false
+        }]
+    };
     
+
+
     // returns the current list of customers or a 401 depending on authorization flag
     
     // $httpBackend.whenGET('http://www.webulando.com.br/mo409/rest/user').respond(function (method, url, data, headers) {
     //   return [200, usuario];
     // });
 
-    //$httpBackend.whenGET('http://www.webulando.com.br/mo409/professor/chamada').respond(function (method, url, data, headers) {
-    //return [200, turmas];
-    //});
+    $httpBackend.whenGET('http://www.webulando.com.br/mo409/professor/chamada').respond(function (method, url, data, headers) {
+    return [200, turmas];
+    });
 
     // $httpBackend.whenPOST('http://www.webulando.com.br/mo409/professor/chamada/abrir').respond(function (method, url, data, headers) {
     //   return [200, chamadas];
+
+    $httpBackend.whenGET('http://www.webulando.com.br/mo409/professor/chamada/parametros').respond(function(method, url, data) {
+       return [200, parametros_get];
+     });
+
+    $httpBackend.whenPOST('http://www.webulando.com.br/mo409/professor/chamada/parametros').respond(function(method, url, data) {
+       return [200, parametros_post];
+     });
     // });
 
     // $httpBackend.whenPOST('http://www.webulando.com.br/mo409/professor/chamada/encerrar').respond(function (method, url, data, headers) {
@@ -441,6 +558,18 @@ angular.module('exampleApp', [
     // $httpBackend.whenGET('http://www.webulando.com.br/mo409/aluno/chamada').respond(function (method, url, data, headers) {
     //   return [200, alunoChamada];
     // });
+
+ $httpBackend.whenGET('http://www.webulando.com.br/mo409/professor/chamada/disciplinas').respond(function (method, url, data) {
+    return [200, disciplinas];
+    });
+
+ $httpBackend.whenPOST('http://www.webulando.com.br/mo409/professor/chamada/alunos_matriculados').respond(function (method, url, data) {
+    return [200, alunos_matriculados];
+    });
+
+ $httpBackend.whenGET('http://www.webulando.com.br/mo409/professor/chamada/frequencia_aluno').respond(function (method, url, data) {
+    return [200, frequencia_aluno];
+    });
 
     // $httpBackend.whenPOST('http://www.webulando.com.br/mo409/aluno/chamada/checkin').respond(function (method, url, data, headers) {
     //   return [200, chamadaTick];
