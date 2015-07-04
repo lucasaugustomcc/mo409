@@ -13,13 +13,13 @@
    to node Presenca::sort::presente
    triggered by visualizarPresencaEvent
    with condition truth: true
-((chamada = null))
+((isChamadaAberta = null))
  - satisfied: (test goal #2 - traversed transition) 
    from node Presenca::sort::ausente
    to node Presenca::sort::ausente
    triggered by visualizarPresencaEvent
    with condition truth: true
-((chamada = null))
+((isChamadaAberta = null))
  - satisfied: (test goal #3 - traversed transition) 
    from node Presenca::sort::calculando
    to node Presenca::sort::presente
@@ -37,35 +37,35 @@
    to node tmp5
    triggered by calcularPresencaEvent
    with condition truth: true
-((chamada = null))
+((isChamadaAberta = null))
  - satisfied: (test goal #6 - traversed transition) 
+   from node Presenca::sort::em_aula
+   to node tmp3
+   triggered by checkOutPresencaEvent
+ - satisfied: (test goal #7 - traversed transition) 
    from node Presenca::sort::em_aula
    to node Presenca::sort::em_aula
    triggered by receberTickEvent
    with condition truth: true
-((chamada = null))
- - satisfied: (test goal #7 - traversed transition) 
+((isChamadaAberta = null))
+ - satisfied: (test goal #8 - traversed transition) 
    from node Presenca::sort::em_aula
    to node tmp4
    triggered by calcularPresencaEvent
    with condition truth: true
-((chamada = null))
- - satisfied: (test goal #8 - traversed transition) 
-   from node Presenca::sort::em_aula
-   to node tmp3
-   triggered by checkOutPresencaEvent
+((isChamadaAberta = null))
  - satisfied: (test goal #9 - traversed transition) 
    from node Presenca::sort::em_branco
    to node tmp2
    triggered by calcularPresencaEvent
    with condition truth: true
-((chamada = null))
+((isChamadaAberta = null))
  - satisfied: (test goal #10 - traversed transition) 
    from node Presenca::sort::em_branco
    to node tmp1
    triggered by checkInPresencaEvent
    with condition truth: true
-((chamada = null))
+((isChamadaAberta = null))
  - satisfied: (test goal #11 - traversed transition) 
    from node Presenca::sort::init
    to node Presenca::sort::em_branco

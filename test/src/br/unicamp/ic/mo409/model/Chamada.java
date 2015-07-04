@@ -138,4 +138,14 @@ public class Chamada {
 	public Date getHoraFim() {
 		return hora_fim;
 	}
+
+	public void setState(ChamadaState aberta) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public ChamadaState getState() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

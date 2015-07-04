@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/2.1.0/UML" xmi:id="_soD9MOjJEdu6LJeVabImNg">
+  <packagedElement xmi:type="uml:Package" xmi:id="_wPxqwOjJEdu6LJeVabImNg" name="br.unicamp.ic.mo409.model">
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_FzSMUB8sEeW6ooM7jnMepg" name="abrirDiarioEvent" operation="_Rmy5cAZ8EeW1-OgwpVc0Kw"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_ZUa5sCApEeW4ysb2kbGRGQ" name="encerrarDiarioEvent" operation="_iCmKwCApEeW4ysb2kbGRGQ"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_MaE9UOjKEdu6LJeVabImNg" name="getFrequenciaTurmaEvent" operation="_HQGfwOzQEduqQpSKns4XGA"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="__1OScB8rEeW6ooM7jnMepg" name="getFrequenciaAlunoEvent" operation="_Rmy5cAZ8EeW1-OgwpVc0Kw"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_CbgIUOzQEduqQpSKns4XGA" name="Diario" classifierBehavior="_2Y0fgJ0ZEdyNrffIHb491A">
+      <ownedAttribute xmi:id="_GTqyoJ0aEdyNrffIHb491A" name="state" type="_dMVB4JsBEd20fKiJK1xsTw"/>
+      <ownedAttribute xmi:id="_PSCUoA3nEeWfg8LmfrVuEg" name="turma" type="_8CmWMA3kEeWfg8LmfrVuEg">
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_3CBmAA3pEeWMKsVXT7gRww" name="" value="null"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_UeZEwA3nEeWfg8LmfrVuEg" name="professor" type="_hFgdoA3kEeWfg8LmfrVuEg">
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_39iMAA3pEeWMKsVXT7gRww" name="" value="null"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_SDlD4AhwEeWo2qsvHoqUxQ" name="diarioAberto">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_1SaCgA3pEeWMKsVXT7gRww" name="" value="false"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_K8cVQCAuEeW4ysb2kbGRGQ" name="diarioEncerrado">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_K8cVQSAuEeW4ysb2kbGRGQ" name="" value="false"/>
+      </ownedAttribute>
+      <ownedBehavior xmi:type="uml:FunctionBehavior" xmi:id="_2Y0fgJ0ZEdyNrffIHb491A" name="setState" postcondition="_KTh6cJ0aEdyNrffIHb491A">
+        <ownedRule xmi:id="_KTh6cJ0aEdyNrffIHb491A">
+          <specification xmi:type="uml:LiteralString" xmi:id="_K_yjgJ0aEdyNrffIHb491A" value="state = x"/>
+        </ownedRule>
+        <ownedParameter xmi:id="_BzKb4J0aEdyNrffIHb491A" name="x"/>
+      </ownedBehavior>
+      <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_yqv4YOjJEdu6LJeVabImNg" name="Diario">
+        <region xmi:id="_VIx8EJKuEdyUSNhMCOPPLg" name="sort">
+          <subvertex xmi:type="uml:Pseudostate" xmi:id="_ZMY7cJKuEdyUSNhMCOPPLg" name="init"/>
+          <subvertex xmi:type="uml:State" xmi:id="_6TZPAJeEEdyCyNzfMULFnw" name="nao_aberto">
+            <stateInvariant xmi:id="_3qwZwAr8Ed2Pmahp7QLr3A">
+              <specification xmi:type="uml:LiteralString" xmi:id="_4TlUUAr8Ed2Pmahp7QLr3A" value="state  = DiarioState::nao_aberto"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_ts6mEB8nEeW6ooM7jnMepg" name="aberto">
+            <stateInvariant xmi:id="_ts7NIB8nEeW6ooM7jnMepg">
+              <specification xmi:type="uml:LiteralString" xmi:id="_ts7NIR8nEeW6ooM7jnMepg" value="state  = DiarioState::aberto"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_D3o70B8oEeW6ooM7jnMepg" name="encerrado">
+            <stateInvariant xmi:id="_D3pi4B8oEeW6ooM7jnMepg">
+              <specification xmi:type="uml:LiteralString" xmi:id="_D3pi4R8oEeW6ooM7jnMepg" value="state  = DiarioState::encerrado"/>
+            </stateInvariant>
+          </subvertex>
+          <transition xmi:id="_KHZoYJeHEdyqN79LFuBS7A" name="init2nao_aberto" target="_6TZPAJeEEdyCyNzfMULFnw" source="_ZMY7cJKuEdyUSNhMCOPPLg"/>
+          <transition xmi:id="_rAtzoB8pEeW6ooM7jnMepg" name="nao_aberto2aberto" target="_ts6mEB8nEeW6ooM7jnMepg" source="_6TZPAJeEEdyCyNzfMULFnw">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_rAuasB8pEeW6ooM7jnMepg" name="abrirDiario"/>
+            <trigger xmi:id="_rAuasR8pEeW6ooM7jnMepg" name="abrirDiario" event="_FzSMUB8sEeW6ooM7jnMepg"/>
+          </transition>
+          <transition xmi:id="_sfyHwB8rEeW6ooM7jnMepg" name="aberto2encerrado" target="_D3o70B8oEeW6ooM7jnMepg" source="_ts6mEB8nEeW6ooM7jnMepg">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_sfyHwR8rEeW6ooM7jnMepg" name="encerrarDiario"/>
+            <trigger xmi:id="_sfyHwh8rEeW6ooM7jnMepg" name="encerrarDiario"/>
+          </transition>
+          <transition xmi:id="_2d3zcB8pEeW6ooM7jnMepg" name="aberto2aberto_consultar_frequencia" target="_ts6mEB8nEeW6ooM7jnMepg" source="_ts6mEB8nEeW6ooM7jnMepg">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_2d3zcR8pEeW6ooM7jnMepg" name="getFrequenciaTurma"/>
+            <trigger xmi:id="_2d3zch8pEeW6ooM7jnMepg" name="getFrequenciaTurma" event="_MaE9UOjKEdu6LJeVabImNg"/>
+          </transition>
+          <transition xmi:id="_C_R6AB80EeWkgo0fqD1AkA" name="aberto2aberto_abrir_chamada" target="_ts6mEB8nEeW6ooM7jnMepg" source="_ts6mEB8nEeW6ooM7jnMepg">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_C_ShEB80EeWkgo0fqD1AkA" name="getFrequenciaAluno"/>
+            <trigger xmi:id="_C_ShER80EeWkgo0fqD1AkA" name="getFrequenciaAluno" event="__1OScB8rEeW6ooM7jnMepg"/>
+          </transition>
+        </region>
+      </ownedBehavior>
+      <ownedOperation xmi:id="_HQGfwOzQEduqQpSKns4XGA" name="getFrequenciaTurma" postcondition="_QxNNEAkgEeWyXqZbehidIA">
+        <ownedRule xmi:id="_QxNNEAkgEeWyXqZbehidIA" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_SZmHMAkgEeWyXqZbehidIA" value="if (state = DiarioState::aberto) then hasFrequenciaTurma = true else hasFrequenciaTurma = false endif"/>
+        </ownedRule>
+        <ownedParameter xmi:id="_xSG1wA6tEeWOgpCl8lrPTA" name="idTurma">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_wegX8JG6EdydJaDhzZfmUQ" name="getFrequenciaAluno" postcondition="_FD7-YA3mEeWfg8LmfrVuEg">
+        <ownedRule xmi:id="_FD7-YA3mEeWfg8LmfrVuEg" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_FD7-YQ3mEeWfg8LmfrVuEg" value="if (state = DiarioState::aberto) then hasFrequenciaAluno = true else hasFrequenciaAluno = false endif"/>
+        </ownedRule>
+        <ownedParameter xmi:id="_Zw9tcA3uEeW9P_WLFKNCiw" name="idAluno">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_LgCPsCAcEeW4ysb2kbGRGQ" name="idTurma">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_Rmy5cAZ8EeW1-OgwpVc0Kw" name="abrirDiario">
+        <ownedRule xmi:id="_FTA8MA3mEeWfg8LmfrVuEg" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_FTA8MQ3mEeWfg8LmfrVuEg" value="if (state = DiarioState::aberto) then diarioAberto = true else diarioAberto = false endif"/>
+        </ownedRule>
+        <ownedParameter xmi:id="_aJXmYA3uEeW9P_WLFKNCiw" name="listaPresencas">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_iCmKwCApEeW4ysb2kbGRGQ" name="encerrarDiario">
+        <ownedRule xmi:id="_iCmKwSApEeW4ysb2kbGRGQ" name="post">
+          <specification xmi:type="uml:LiteralString" xmi:id="_iCmKwiApEeW4ysb2kbGRGQ" value="if (state = DiarioState::encerrado) then diarioEncerrado = true else diarioEncerrado = false endif"/>
+        </ownedRule>
+        <ownedParameter xmi:id="_iCmKwyApEeW4ysb2kbGRGQ" name="listaPresencas">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_dMVB4JsBEd20fKiJK1xsTw" name="DiarioState">
+      <ownedLiteral xmi:id="_iYoHoJsBEd20fKiJK1xsTw" name="nao_aberto"/>
+      <ownedLiteral xmi:id="_00YYAB8nEeW6ooM7jnMepg" name="aberto"/>
+      <ownedLiteral xmi:id="_4PkFcB8nEeW6ooM7jnMepg" name="encerrado"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_hFgdoA3kEeWfg8LmfrVuEg" name="Professor">
+      <ownedAttribute xmi:id="_GNcugBAzEeWaCPRCPew3ZA" name="nome" isReadOnly="true" isDerivedUnion="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_METAMODELS/UML.metamodel.uml#String"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_GNcugRAzEeWaCPRCPew3ZA" name="" value="Joao"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_kKfRkA3kEeWfg8LmfrVuEg" name="Tick">
+      <ownedAttribute xmi:id="_R1QfIBAzEeWaCPRCPew3ZA" name="location" isReadOnly="true" isDerivedUnion="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_8CmWMA3kEeWfg8LmfrVuEg" name="Turma">
+      <ownedAttribute xmi:id="_yNyMABA7EeWaCPRCPew3ZA" name="codigo_turma" isReadOnly="true" isDerivedUnion="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_METAMODELS/UML.metamodel.uml#String"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_yNyMARA7EeWaCPRCPew3ZA" name="" value="A"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_zHW4UBA7EeWaCPRCPew3ZA" name="id_disciplina" isReadOnly="true" isDerivedUnion="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_zHW4URA7EeWaCPRCPew3ZA" name="" value="1234"/>
+      </ownedAttribute>
+    </packagedElement>
+  </packagedElement>
+</uml:Model>

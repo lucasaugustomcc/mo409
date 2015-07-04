@@ -82,39 +82,42 @@
           <transition xmi:id="_KHZoYJeHEdyqN79LFuBS7A" name="init2em_branco" target="_eQ3dkBHbEeWx5e2dXReDlw" source="_ZMY7cJKuEdyUSNhMCOPPLg"/>
           <transition xmi:id="_KncaYJeHEdyqN79LFuBS7A" name="em_branco2em_aula" guard="_QLy7YBO_EeWqh7fhhZq2Rw" target="_y9ig8BHbEeWx5e2dXReDlw" source="_eQ3dkBHbEeWx5e2dXReDlw">
             <ownedRule xmi:id="_QLy7YBO_EeWqh7fhhZq2Rw">
-              <specification xmi:type="uml:LiteralString" xmi:id="_QLy7YRO_EeWqh7fhhZq2Rw" value="chamada = true"/>
+              <specification xmi:type="uml:LiteralString" xmi:id="_QLy7YRO_EeWqh7fhhZq2Rw" value="isChamadaAberta = true"/>
             </ownedRule>
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_wOwkgJeIEdyqN79LFuBS7A" name="checkInPresenca" specification="_DBZYkBH8EeWA7uJHonRzDQ"/>
             <trigger xmi:id="_uATI4JeIEdyqN79LFuBS7A" name="checkInPresenca" event="_3s26UBHcEeWx5e2dXReDlw"/>
           </transition>
-          <transition xmi:id="_3Qb84BIEEeWA7uJHonRzDQ" name="em_branco2calculando" guard="_-IRhABO9EeWFL-id5q4VVg" target="_6TZPAJeEEdyCyNzfMULFnw" source="_eQ3dkBHbEeWx5e2dXReDlw">
+          <transition xmi:id="_3Qb84BIEEeWA7uJHonRzDQ" name="em_branco2ausente" guard="_-IRhABO9EeWFL-id5q4VVg" target="_7jj2YJeEEdyCyNzfMULFnw" source="_eQ3dkBHbEeWx5e2dXReDlw">
             <ownedRule xmi:id="_-IRhABO9EeWFL-id5q4VVg">
-              <specification xmi:type="uml:LiteralString" xmi:id="_-IRhARO9EeWFL-id5q4VVg" value="chamada = true"/>
+              <specification xmi:type="uml:LiteralString" xmi:id="_-IRhARO9EeWFL-id5q4VVg" value="isChamadaAberta = false"/>
             </ownedRule>
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_3Qb84RIEEeWA7uJHonRzDQ" name="calcularPresenca" specification="_HQGfwOzQEduqQpSKns4XGA"/>
             <trigger xmi:id="_3Qlt4BIEEeWA7uJHonRzDQ" name="calcularPresenca" event="_MaE9UOjKEdu6LJeVabImNg"/>
           </transition>
           <transition xmi:id="_PVAcMBLhEeW8wLTPs8FuLw" name="em_aula2em_aula" guard="_-7M9UBO-EeWqh7fhhZq2Rw" target="_y9ig8BHbEeWx5e2dXReDlw" source="_y9ig8BHbEeWx5e2dXReDlw">
             <ownedRule xmi:id="_-7M9UBO-EeWqh7fhhZq2Rw">
-              <specification xmi:type="uml:LiteralString" xmi:id="_-7M9URO-EeWqh7fhhZq2Rw" value="chamada = true"/>
+              <specification xmi:type="uml:LiteralString" xmi:id="_-7M9URO-EeWqh7fhhZq2Rw" value="isChamadaAberta = true"/>
             </ownedRule>
-            <effect xmi:type="uml:FunctionBehavior" xmi:id="_PVAcMRLhEeW8wLTPs8FuLw" name="receberTick"/>
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_PVAcMRLhEeW8wLTPs8FuLw" name="receberTick" specification="_jdc7sBLiEeW8wLTPs8FuLw"/>
             <trigger xmi:id="_PVAcMhLhEeW8wLTPs8FuLw" name="receberTick" event="_fdj-sBLiEeW8wLTPs8FuLw"/>
           </transition>
-          <transition xmi:id="_LbJvQJeHEdyqN79LFuBS7A" name="em_aula2fora_de_aula" target="_gK128BHbEeWx5e2dXReDlw" source="_y9ig8BHbEeWx5e2dXReDlw">
+          <transition xmi:id="_LbJvQJeHEdyqN79LFuBS7A" name="em_aula2fora_de_aula" guard="_oohY4CJ5EeWTaaN688RShQ" target="_gK128BHbEeWx5e2dXReDlw" source="_y9ig8BHbEeWx5e2dXReDlw">
+            <ownedRule xmi:id="_oohY4CJ5EeWTaaN688RShQ">
+              <specification xmi:type="uml:LiteralString" xmi:id="_qzpzsCJ5EeWTaaN688RShQ" value="isChamadaAberta = true"/>
+            </ownedRule>
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_ZYnI8Ak6EeW4Zd_Lzs5Nzg" name="checkOutPresenca" specification="_DobjYBH8EeWA7uJHonRzDQ"/>
             <trigger xmi:id="_YWpVoAk6EeW4Zd_Lzs5Nzg" name="checkOutPresenca" event="_ufpUEAZ8EeW1-OgwpVc0Kw"/>
           </transition>
           <transition xmi:id="_DD6yABIFEeWA7uJHonRzDQ" name="em_aula2calculando" guard="_BU0gEBO_EeWqh7fhhZq2Rw" target="_6TZPAJeEEdyCyNzfMULFnw" source="_y9ig8BHbEeWx5e2dXReDlw">
             <ownedRule xmi:id="_BU0gEBO_EeWqh7fhhZq2Rw">
-              <specification xmi:type="uml:LiteralString" xmi:id="_BU0gERO_EeWqh7fhhZq2Rw" value="chamada = true"/>
+              <specification xmi:type="uml:LiteralString" xmi:id="_BU0gERO_EeWqh7fhhZq2Rw" value="isChamadaAberta = false"/>
             </ownedRule>
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_DD6yARIFEeWA7uJHonRzDQ" name="calcularPresenca" specification="_HQGfwOzQEduqQpSKns4XGA"/>
             <trigger xmi:id="_DD6yAhIFEeWA7uJHonRzDQ" name="calcularPresenca" event="_MaE9UOjKEdu6LJeVabImNg"/>
           </transition>
           <transition xmi:id="_Z0hRcBIEEeWA7uJHonRzDQ" name="fora_de_aula2calculando" guard="_E80hgBO_EeWqh7fhhZq2Rw" target="_6TZPAJeEEdyCyNzfMULFnw" source="_gK128BHbEeWx5e2dXReDlw">
             <ownedRule xmi:id="_E80hgBO_EeWqh7fhhZq2Rw">
-              <specification xmi:type="uml:LiteralString" xmi:id="_E80hgRO_EeWqh7fhhZq2Rw" value="chamada = true"/>
+              <specification xmi:type="uml:LiteralString" xmi:id="_E80hgRO_EeWqh7fhhZq2Rw" value="isChamadaAberta = false"/>
             </ownedRule>
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_Z0hRcRIEEeWA7uJHonRzDQ" name="calcularPresenca" specification="_HQGfwOzQEduqQpSKns4XGA"/>
             <trigger xmi:id="_Z0hRchIEEeWA7uJHonRzDQ" name="calcularPresenca" event="_MaE9UOjKEdu6LJeVabImNg"/>
@@ -131,14 +134,14 @@
           </transition>
           <transition xmi:id="_w2bjUBIDEeWA7uJHonRzDQ" name="ausente2ausente" guard="_nhs8wBO9EeWFL-id5q4VVg" target="_7jj2YJeEEdyCyNzfMULFnw" source="_7jj2YJeEEdyCyNzfMULFnw">
             <ownedRule xmi:id="_nhs8wBO9EeWFL-id5q4VVg">
-              <specification xmi:type="uml:LiteralString" xmi:id="_nhs8wRO9EeWFL-id5q4VVg" value="chamada = true"/>
+              <specification xmi:type="uml:LiteralString" xmi:id="_nhs8wRO9EeWFL-id5q4VVg" value="isChamadaAberta = false"/>
             </ownedRule>
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_goHRAB89EeWFfZ949XHazg" name="visualizarPresenca"/>
             <trigger xmi:id="_vDUWUB89EeWFfZ949XHazg" name="visualizarPresenca" event="_MiwzsB86EeW0meGmwId2_g"/>
           </transition>
           <transition xmi:id="_09a6EB85EeW0meGmwId2_g" name="presente2presente" guard="_09a6ER85EeW0meGmwId2_g" target="_7YFmMJeEEdyCyNzfMULFnw" source="_7YFmMJeEEdyCyNzfMULFnw">
             <ownedRule xmi:id="_09a6ER85EeW0meGmwId2_g">
-              <specification xmi:type="uml:LiteralString" xmi:id="_09a6Eh85EeW0meGmwId2_g" value="chamada = true"/>
+              <specification xmi:type="uml:LiteralString" xmi:id="_09a6Eh85EeW0meGmwId2_g" value="isChamadaAberta = false"/>
             </ownedRule>
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_hekX4B89EeWFfZ949XHazg" name="visualizarPresenca"/>
             <trigger xmi:id="_vcN-gB89EeWFfZ949XHazg" name="visualizarPresenca" event="_MiwzsB86EeW0meGmwId2_g"/>
@@ -149,7 +152,7 @@
         <ownedRule xmi:id="_DBZYkRH8EeWA7uJHonRzDQ" name="post">
           <specification xmi:type="uml:LiteralString" xmi:id="_DBZYkhH8EeWA7uJHonRzDQ" value="if ((state = PresencaState::em_branco) and (checkIn = true)) then  state=PresencaState::em_aula else state=PresencaState::em_branco endif"/>
         </ownedRule>
-        <ownedParameter xmi:id="_VmoJoBWyEeWZItx5QxPe_Q" name="chamada">
+        <ownedParameter xmi:id="_VmoJoBWyEeWZItx5QxPe_Q" name="isChamadaAberta">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
         </ownedParameter>
       </ownedOperation>
@@ -157,7 +160,7 @@
         <ownedRule xmi:id="_DobjYRH8EeWA7uJHonRzDQ" name="post">
           <specification xmi:type="uml:LiteralString" xmi:id="_DobjYhH8EeWA7uJHonRzDQ" value="if ((state = PresencaState::em_aula) and (checkOut = true)) then  state=PresencaState::fora_de_aula else state=PresencaState::em_aula endif"/>
         </ownedRule>
-        <ownedParameter xmi:id="_SZdqEBWyEeWZItx5QxPe_Q" name="chamada">
+        <ownedParameter xmi:id="_SZdqEBWyEeWZItx5QxPe_Q" name="isChamadaAberta">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
         </ownedParameter>
       </ownedOperation>
@@ -168,23 +171,17 @@
         <ownedParameter xmi:id="_byVUsBHSEeWx5e2dXReDlw" name="numTicks">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
         </ownedParameter>
-        <ownedParameter xmi:id="_9UYGsBWxEeWZItx5QxPe_Q" name="chamada">
+        <ownedParameter xmi:id="_9UYGsBWxEeWZItx5QxPe_Q" name="isChamadaAberta">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
         </ownedParameter>
       </ownedOperation>
-      <ownedOperation xmi:id="_jdc7sBLiEeW8wLTPs8FuLw" name="receberTick" postcondition="_jdc7sRLiEeW8wLTPs8FuLw">
-        <ownedRule xmi:id="_jdc7sRLiEeW8wLTPs8FuLw" name="post">
-          <specification xmi:type="uml:LiteralString" xmi:id="_jdc7shLiEeW8wLTPs8FuLw" value="if ((state = PresencaState::em_aula) and (isChamadaAberta = true)) then  state=PresencaState::em_aula endif"/>
-        </ownedRule>
-        <ownedParameter xmi:id="_EwvxoBWyEeWZItx5QxPe_Q" name="chamada">
+      <ownedOperation xmi:id="_jdc7sBLiEeW8wLTPs8FuLw" name="receberTick" method="_PVAcMRLhEeW8wLTPs8FuLw">
+        <ownedParameter xmi:id="_EwvxoBWyEeWZItx5QxPe_Q" name="isChamadaAberta">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
         </ownedParameter>
       </ownedOperation>
-      <ownedOperation xmi:id="_RUqccB86EeW0meGmwId2_g" name="visualizarPresenca" postcondition="_RUqccR86EeW0meGmwId2_g">
-        <ownedRule xmi:id="_RUqccR86EeW0meGmwId2_g" name="post">
-          <specification xmi:type="uml:LiteralString" xmi:id="_RUqcch86EeW0meGmwId2_g" value="if (((state = PresencaState::presente) or state = PresencaState::ausente) and (verificarPresenca = true)) then  state=PresencaState::visualizando_presenca endif"/>
-        </ownedRule>
-        <ownedParameter xmi:id="_RUqccx86EeW0meGmwId2_g" name="chamada">
+      <ownedOperation xmi:id="_RUqccB86EeW0meGmwId2_g" name="visualizarPresenca">
+        <ownedParameter xmi:id="_RUqccx86EeW0meGmwId2_g" name="isChamadaAberta">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
         </ownedParameter>
       </ownedOperation>
