@@ -3,7 +3,7 @@
   <packagedElement xmi:type="uml:Package" xmi:id="_wPxqwOjJEdu6LJeVabImNg" name="br.unicamp.ic.mo409.model">
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_3s26UBHcEeWx5e2dXReDlw" name="checkInPresencaEvent" operation="_DBZYkBH8EeWA7uJHonRzDQ"/>
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_ufpUEAZ8EeW1-OgwpVc0Kw" name="checkOutPresencaEvent" operation="_DobjYBH8EeWA7uJHonRzDQ"/>
-    <packagedElement xmi:type="uml:CallEvent" xmi:id="_fdj-sBLiEeW8wLTPs8FuLw" name="receberTickEvent" operation="_HQGfwOzQEduqQpSKns4XGA"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_fdj-sBLiEeW8wLTPs8FuLw" name="receberTickEvent" operation="_jdc7sBLiEeW8wLTPs8FuLw"/>
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_MaE9UOjKEdu6LJeVabImNg" name="calcularPresencaEvent" operation="_HQGfwOzQEduqQpSKns4XGA"/>
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_MiwzsB86EeW0meGmwId2_g" name="visualizarPresencaEvent" operation="_RUqccB86EeW0meGmwId2_g"/>
     <packagedElement xmi:type="uml:Class" xmi:id="_CbgIUOzQEduqQpSKns4XGA" name="Presenca" classifierBehavior="_2Y0fgJ0ZEdyNrffIHb491A">
@@ -39,6 +39,14 @@
       <ownedAttribute xmi:id="__AkzsBW6EeW4D8UXrPIBCw" name="isChamadaAberta">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
         <upperValue xmi:type="uml:LiteralString" xmi:id="__AkzsRW6EeW4D8UXrPIBCw" name="" value="false"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_OtQYoCKYEeW-ftBkqd3eZQ" name="latitude">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_OtQYoSKYEeW-ftBkqd3eZQ" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_RVyhICKYEeW-ftBkqd3eZQ" name="longitude">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_RVyhISKYEeW-ftBkqd3eZQ" name="" value="1"/>
       </ownedAttribute>
       <ownedBehavior xmi:type="uml:FunctionBehavior" xmi:id="_2Y0fgJ0ZEdyNrffIHb491A" name="setState" postcondition="_KTh6cJ0aEdyNrffIHb491A">
         <ownedRule xmi:id="_KTh6cJ0aEdyNrffIHb491A">
@@ -176,7 +184,13 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="_jdc7sBLiEeW8wLTPs8FuLw" name="receberTick" method="_PVAcMRLhEeW8wLTPs8FuLw">
-        <ownedParameter xmi:id="_EwvxoBWyEeWZItx5QxPe_Q" name="isChamadaAberta">
+        <ownedParameter xmi:id="_i1qYsCKVEeW-ftBkqd3eZQ" name="latitude">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_o9ZzACKVEeW-ftBkqd3eZQ" name="longitude">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_LFH-4CKZEeW-ftBkqd3eZQ" name="isChamadaAberta">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
         </ownedParameter>
       </ownedOperation>
