@@ -1,11 +1,14 @@
 package br.unicamp.ic.mo409.controller;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,14 +30,18 @@ import org.springframework.web.bind.annotation.RestController;
 import br.unicamp.ic.mo409.dao.ChamadaDAO;
 import br.unicamp.ic.mo409.dao.PresencaDAO;
 import br.unicamp.ic.mo409.dao.TickDAO;
+import br.unicamp.ic.mo409.dao.TurmaDAO;
 import br.unicamp.ic.mo409.dao.UsuarioDAO;
 import br.unicamp.ic.mo409.model.Aluno;
 import br.unicamp.ic.mo409.model.Chamada;
 import br.unicamp.ic.mo409.model.ChamadaState;
 import br.unicamp.ic.mo409.model.Presenca;
+import br.unicamp.ic.mo409.model.PresencaState;
 import br.unicamp.ic.mo409.model.Tick;
 import br.unicamp.ic.mo409.model.Turma;
 import br.unicamp.ic.mo409.model.Usuario;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Component
 @RestController
@@ -53,6 +60,9 @@ public class AlunoController
 
 	@Autowired
 	private TickDAO tickDAO;
+	
+	@Autowired
+	private TurmaDAO turmaDAO;
 
 	@ModelAttribute("usuario")
 	public Usuario getUsuario()
@@ -94,6 +104,8 @@ public class AlunoController
 		obj.put("horaInicio", shf.format(chamada.getHoraInicio()));
 		obj.put("professorChamada", chamada.getProfessor().getUsuario()
 				.getNome());
+		obj.put("duracao", chamada.getParametro().getDuracao());
+		obj.put("porcentagem", chamada.getParametro().getPorcentagem());
 
 		Turma turma = chamada.getTurma();
 		JSONObject objTurma = new JSONObject();
@@ -138,6 +150,8 @@ public class AlunoController
 			objChamada.put("horaInicio", shf.format(chamada.getHoraInicio()));
 			objChamada.put("professorChamada", chamada.getProfessor().getUsuario()
 					.getNome());
+			objChamada.put("duracao", chamada.getParametro().getDuracao());
+			objChamada.put("porcentagem", chamada.getParametro().getPorcentagem());
 			obj.put("chamada", objChamada);
 	
 			Turma turma = chamada.getTurma();
@@ -198,6 +212,8 @@ public class AlunoController
 		objChamada.put("idChamada", chamada.getIdChamada());
 		objChamada.put("dataChamada", sdf.format(chamada.getDataChamada()));
 		objChamada.put("horaInicio", shf.format(chamada.getHoraInicio()));
+		objChamada.put("duracao", chamada.getParametro().getDuracao());
+		objChamada.put("porcentagem", chamada.getParametro().getPorcentagem());
 		objChamada.put("professorChamada", chamada.getProfessor().getUsuario()
 				.getNome());
 		obj.put("chamada", objChamada);
@@ -220,10 +236,11 @@ public class AlunoController
 	@ResponseBody
 	public JSONObject alunoReceberTick(
 			@ModelAttribute("usuario") Usuario usuario,
-			@RequestBody Presenca presenca)
+			@RequestBody AlunoLocalizacaoWrapper localizacao)
 	{
 		Aluno aluno = usuario.getAluno();
-		presenca = presencaDAO.find(presenca.getIdPresenca());
+		Presenca presenca = presencaDAO.find(
+				localizacao.getIdPresenca());
 		if (presenca.getAluno().getRaAluno() != aluno.getRaAluno())
 		{
 			throw new AccessDeniedException(
@@ -234,12 +251,13 @@ public class AlunoController
 		SimpleDateFormat shf = new SimpleDateFormat("HH:mm");
 		SimpleDateFormat sdhf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-		Tick tick = presenca.receberTick(1f,1f);
+		Tick tick = presenca.receberTick(localizacao.getLatitude(),localizacao.getLongitude());
 		tickDAO.persist(tick);
 
 		JSONObject obj = new JSONObject();
 		obj.put("idTick", tick.getIdTick());
 		obj.put("dataHora", sdhf.format(tick.getDataHora()));
+		obj.put("distancia", tick.getDistancia());
 
 		JSONObject objPresenca = new JSONObject();
 		objPresenca.put("idPresenca", presenca.getIdPresenca());
@@ -269,23 +287,213 @@ public class AlunoController
 
 		// construir resposta JSON
 		SimpleDateFormat shf = new SimpleDateFormat("HH:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		
 		JSONObject obj = new JSONObject();
 		obj.put("idPresenca", presenca.getIdPresenca());
 		obj.put("horaInicio", shf.format(presenca.getHoraInicio()));
 		obj.put("horaFim", shf.format(presenca.getHoraFim()));
 		obj.put("numTicks", presenca.getNumTicks());
+		
+		Chamada chamada = presenca.getChamada();
+		Turma turma = chamada.getTurma();
+		// construir resposta JSON
+		// dados da chamada
+		JSONObject objChamada = new JSONObject();
+		objChamada.put("idChamada", chamada.getIdChamada());
+		objChamada.put("dataChamada", sdf.format(chamada.getDataChamada()));
+		objChamada.put("horaInicio", shf.format(chamada.getHoraInicio()));
+		objChamada.put("duracao", chamada.getParametro().getDuracao());
+		objChamada.put("porcentagem", chamada.getParametro().getPorcentagem());
+		objChamada.put("professorChamada", chamada.getProfessor().getUsuario().getNome());
+		obj.put("chamada", objChamada);
+		
+		// dados da turma
+		JSONObject objTurma = new JSONObject();
+		objTurma.put("idTurma", turma.getIdTurma());
+		objTurma.put("codTurma", turma.getCodTurma());
+		objTurma.put("codDisciplina", turma.getDisciplina()
+				.getCodDisciplina());
+		objTurma.put("nomeDisciplina", turma.getDisciplina()
+				.getNomeDisciplina());
+		obj.put("turma", objTurma);
 
 		return obj;
 	}
-
+	
 	@SuppressWarnings("unchecked")
-	@ExceptionHandler(Exception.class)
-	@ResponseStatus(HttpStatus.CONFLICT)  // 409
-	public JSONObject handleError(HttpServletRequest req, Exception exception)
+	@RequestMapping(value = "/aluno/chamada/resultado", method = RequestMethod.POST, consumes = "application/json", produces = "application/json;charset=UTF-8")
+	@Secured({ "ROLE_ALUNO" })
+	@ResponseBody
+	public JSONObject alunoResultadoChamada(
+			@ModelAttribute("usuario") Usuario usuario,
+			@RequestBody Presenca presenca)
 	{
+		Aluno aluno = usuario.getAluno();
+		presenca = presencaDAO.find(presenca.getIdPresenca());
+		if (presenca.getAluno().getRaAluno() != aluno.getRaAluno())
+		{
+			throw new AccessDeniedException(
+					"Você não é o aluno deste tick de presença.");
+		}
+		PresencaState resultado = presenca.visualizarPresenca();
+
+		// construir resposta JSON
+		SimpleDateFormat shf = new SimpleDateFormat("HH:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		
 		JSONObject obj = new JSONObject();
-		obj.put("error", "exception");
-		obj.put("message", exception.getMessage());
+		obj.put("idPresenca", presenca.getIdPresenca());
+		obj.put("horaInicio", shf.format(presenca.getHoraInicio()));
+		obj.put("horaFim", shf.format(presenca.getHoraFim()));
+		obj.put("numTicks", presenca.getNumTicks());
+		obj.put("resultado", resultado);
+		
+		Chamada chamada = presenca.getChamada();
+		Turma turma = chamada.getTurma();
+		// construir resposta JSON
+		// dados da chamada
+		JSONObject objChamada = new JSONObject();
+		objChamada.put("idChamada", chamada.getIdChamada());
+		objChamada.put("dataChamada", sdf.format(chamada.getDataChamada()));
+		objChamada.put("horaInicio", shf.format(chamada.getHoraInicio()));
+		objChamada.put("duracao", chamada.getParametro().getDuracao());
+		objChamada.put("porcentagem", chamada.getParametro().getPorcentagem());
+		objChamada.put("professorChamada", chamada.getProfessor().getUsuario().getNome());
+		obj.put("chamada", objChamada);
+		
+		// dados da turma
+		JSONObject objTurma = new JSONObject();
+		objTurma.put("idTurma", turma.getIdTurma());
+		objTurma.put("codTurma", turma.getCodTurma());
+		objTurma.put("codDisciplina", turma.getDisciplina()
+				.getCodDisciplina());
+		objTurma.put("nomeDisciplina", turma.getDisciplina()
+				.getNomeDisciplina());
+		obj.put("turma", objTurma);
+
 		return obj;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/aluno/turma/presenca", method = RequestMethod.POST, consumes = "application/json", produces = "application/json;charset=UTF-8")
+	@Secured({ "ROLE_ALUNO" })
+	@ResponseBody
+	public JSONObject alunoConsultarPresenca(
+			@ModelAttribute("usuario") Usuario usuario,
+			@RequestBody Turma turma)
+	{
+		Aluno aluno = usuario.getAluno();
+		turma = turmaDAO.find(turma.getIdTurma());
+		if (!turma.getAlunos().contains(aluno))
+		{
+			throw new NoResultException(
+					"Aluno não pertence a turma desta chamada!");
+		}
+
+		// construir resposta JSON
+		SimpleDateFormat shf = new SimpleDateFormat("HH:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		
+		List<Presenca> presencas = aluno.getPresencas();
+		
+		JSONObject obj = new JSONObject();
+		obj.put("numPresencas", 0);
+		obj.put("numFaltas", 1);
+		obj.put("numChamadas", presencas.size());	
+		
+		// dados da turma
+		JSONObject objTurma = new JSONObject();
+		objTurma.put("idTurma", turma.getIdTurma());
+		objTurma.put("codTurma", turma.getCodTurma());
+		objTurma.put("codDisciplina", turma.getDisciplina()
+				.getCodDisciplina());
+		objTurma.put("nomeDisciplina", turma.getDisciplina()
+				.getNomeDisciplina());
+		obj.put("turma", objTurma);
+		
+		JSONArray array = new JSONArray();
+		for (Presenca presenca : presencas)
+		{			
+			JSONObject objFrequencia = new JSONObject();
+			
+			JSONObject objPresenca = new JSONObject();
+			objPresenca.put("idPresenca", presenca.getIdPresenca());
+			objPresenca.put("horaInicio", shf.format(presenca.getHoraInicio()));
+			objPresenca.put("horaFim", shf.format(presenca.getHoraFim()));
+			objPresenca.put("numTicks", presenca.getNumTicks());
+			objPresenca.put("resultado", presenca.visualizarPresenca());
+			objFrequencia.put("presenca", objPresenca);
+			
+			Chamada chamada = presenca.getChamada();
+			
+			// construir resposta JSON
+			// dados da chamada
+			JSONObject objChamada = new JSONObject();
+			objChamada.put("idChamada", chamada.getIdChamada());
+			objChamada.put("dataChamada", sdf.format(chamada.getDataChamada()));
+			objChamada.put("horaInicio", shf.format(chamada.getHoraInicio()));
+			objChamada.put("horaFim", shf.format(chamada.getHoraFim()));
+			objChamada.put("duracao", chamada.getParametro().getDuracao());
+			objChamada.put("porcentagem", chamada.getParametro().getPorcentagem());
+			objChamada.put("professorChamada", chamada.getProfessor().getUsuario().getNome());
+			objFrequencia.put("chamada", objChamada);
+			array.add(objFrequencia);
+		}
+		obj.put("frequencia", array);
+		return obj;
+	}
+
+//	@SuppressWarnings("unchecked")
+//	@ExceptionHandler(Exception.class)
+//	@ResponseStatus(HttpStatus.CONFLICT)  // 409
+//	public JSONObject handleError(HttpServletRequest req, Exception exception)
+//	{
+//		JSONObject obj = new JSONObject();
+//		obj.put("error", "exception");
+//		obj.put("message", exception.getMessage());
+//		return obj;
+//	}
+}
+
+class AlunoLocalizacaoWrapper  implements Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2262553828925378441L;
+	
+	private Integer idPresenca;
+	
+	@JsonProperty( "latitude" )
+	Float latitude;
+	
+	@JsonProperty( "longitude" )
+	Float longitude;
+    
+    public Float getLatitude()
+	{
+		return latitude;
+	}
+	public void setLatitude(Float latitude)
+	{
+		this.latitude = latitude;
+	}
+	
+	public Float getLongitude()
+	{
+		return longitude;
+	}
+	public void setLongitude(Float longitude)
+	{
+		this.longitude = longitude;
+	}
+	
+	public Integer getIdPresenca()
+	{
+		return idPresenca;
+	}
+	public void setIdPresenca(Integer idPresenca)
+	{
+		this.idPresenca = idPresenca;
 	}
 }

@@ -7,5 +7,4 @@ public enum PresencaState {
 	calculando,
 	presente,
 	ausente,
-	visualizando_presenca
 }

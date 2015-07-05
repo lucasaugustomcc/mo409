@@ -8,6 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.sql.Date;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -149,13 +151,47 @@ public class AlunoControllerTest
 					.withAluno(23060, "Amaury Bosso André")
 					.withAluno(aluno)
 				.build();
+		
+		Turma turma2 = new TurmaBuilder()
+				.withDisciplina("Engenharia de Software I", "MO409")
+				.withProfessor(prof1).withAluno(10798, "Daniela Marques")
+				.withAluno(23060, "Amaury Bosso André")
+				.withIdTurma(2)
+				.withAluno(aluno)
+			.build();
 
 		Chamada chamada1 = new ChamadaBuilder()
 					.withDataChamada(new Date(115, 5, 10))
 					.withHoraInicio(new Time(10, 0, 0))
-					.withHoraFim(new Time(12, 0, 0)).withProfessor(prof1)
-					.withChamadaState(ChamadaState.aberta).withTurma(turma1)
+					.withHoraFim(new Time(12, 0, 0))
+					.withProfessor(prof1)
+					.withChamadaState(ChamadaState.aberta)
+					.withTurma(turma1)
+					.withLatitude(-22.8137f)
+					.withLongitude(-47.064f)
 				.build();
+		
+		Chamada chamada2 = new ChamadaBuilder()
+				.withDataChamada(new Date(115, 5, 10))
+				.withHoraInicio(new Time(10, 0, 0))
+				.withHoraFim(new Time(12, 0, 0))
+				.withProfessor(prof1)
+				.withChamadaState(ChamadaState.encerrada)
+				.withTurma(turma1)
+				.withLatitude(-22.8137f)
+				.withLongitude(-47.064f)
+			.build();
+		
+		Chamada chamada3 = new ChamadaBuilder()
+				.withDataChamada(new Date(115, 5, 10))
+				.withHoraInicio(new Time(10, 0, 0))
+				.withHoraFim(new Time(12, 0, 0))
+				.withProfessor(prof1)
+				.withChamadaState(ChamadaState.encerrada)
+				.withTurma(turma2)
+				.withLatitude(-22.8137f)
+				.withLongitude(-47.064f)
+			.build();
 
 		Presenca presenca1 = new PresencaBuilder()
 					.withChamada(chamada1)
@@ -166,9 +202,29 @@ public class AlunoControllerTest
 			.withChamada(chamada1)
 			.withAluno(aluno)
 			.withPresencaState(PresencaState.em_aula)
-		.build();					
+		.build();
+		
+		Presenca presenca3 = new PresencaBuilder()
+			.withChamada(chamada2)
+			.withAluno(aluno)
+			.withIdPresenca(3)
+			.withPresencaState(PresencaState.ausente)
+		.build();
+		
+		Presenca presenca4 = new PresencaBuilder()
+			.withChamada(chamada3)
+			.withAluno(aluno)
+			.withIdPresenca(4)
+			.withPresencaState(PresencaState.ausente)
+		.build();
+		
+		List<Presenca> presencas = new ArrayList<Presenca>();
+		presencas.add(presenca4);
+		
+		aluno.setPresencas(presencas);
 
 		Mockito.when(this.turmaDAO.find(1)).thenReturn(turma1);
+		Mockito.when(this.turmaDAO.find(2)).thenReturn(turma2);
 		Mockito.when(this.usuarioDAO.loadUsuarioByUsername("1")).thenReturn(
 				aluno.getUsuario());
 		Mockito.when(this.professorDAO.find(1)).thenReturn(prof1);
@@ -177,6 +233,11 @@ public class AlunoControllerTest
 				chamada1);
 		Mockito.when(this.presencaDAO.find(1))
 				.thenReturn(presenca2);
+		Mockito.when(this.presencaDAO.find(3))
+		.thenReturn(presenca3);
+		Mockito.when(this.presencaDAO.find(4))
+				.thenReturn(presenca4);
+		
 		Mockito.when(this.presencaDAO.findPresencaChamadaAbertaAluno(1, 1))
 				.thenReturn(presenca1);		
 		Mockito.when(this.presencaDAO.findPresencaChamadasAluno(1))
@@ -199,7 +260,7 @@ public class AlunoControllerTest
 						content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
 				.andExpect(
 						content()
-								.json("{\"idChamada\": 1, \"horaInicio\": \"10:00\", \"dataChamada\": \"10/06/2015\", \"professorChamada\":\"Eliane Martins\", "
+								.json("{\"idChamada\": 1, \"horaInicio\": \"10:00\", \"dataChamada\": \"10/06/2015\", \"professorChamada\":\"Eliane Martins\", \"duracao\":50, \"porcentagem\":50, "
 										+ "\"turma\": { \"idTurma\": 1,\"codTurma\":A, \"codDisciplina\":\"MO409\", \"nomeDisciplina\":\"Engenharia de Software I\" } }"));
 	}
 	
@@ -224,7 +285,7 @@ public class AlunoControllerTest
 				.andExpect(
 						content()
 								.json("{ \"idPresenca\": 1, \"horaInicio\": \"10:00\", \"numTicks\": 0,"
-										+ "\"chamada\": { \"idChamada\": 1, \"dataChamada\": \"10/06/2015\", \"horaInicio\": \"10:00\", \"professorChamada\":\"Eliane Martins\" }, "
+										+ "\"chamada\": { \"idChamada\": 1, \"dataChamada\": \"10/06/2015\", \"horaInicio\": \"10:00\", \"professorChamada\":\"Eliane Martins\", \"duracao\":50, \"porcentagem\":50 }, "
 										+ "\"turma\": { \"idTurma\": 1, \"codTurma\":A, \"codDisciplina\":\"MO409\", \"nomeDisciplina\":\"Engenharia de Software I\" } }"));
 
 	}
@@ -254,7 +315,7 @@ public class AlunoControllerTest
 				.andExpect(
 						content()
 								.json("{ \"idPresenca\": 1, \"horaInicio\": \""+shf.format(horaInicio)+"\", \"numTicks\": 0,"
-										+ "\"chamada\": { \"idChamada\": 1, \"dataChamada\": \"10/06/2015\", \"horaInicio\": \"10:00\", \"professorChamada\":\"Eliane Martins\" }, "
+										+ "\"chamada\": { \"idChamada\": 1, \"dataChamada\": \"10/06/2015\", \"horaInicio\": \"10:00\", \"professorChamada\":\"Eliane Martins\", \"duracao\":50, \"porcentagem\":50 }, "
 										+ "\"turma\": { \"idTurma\": 1, \"codTurma\":A, \"codDisciplina\":\"MO409\", \"nomeDisciplina\":\"Engenharia de Software I\" } }"));
 
 	}
@@ -276,13 +337,13 @@ public class AlunoControllerTest
 				.perform(
 						post("/aluno/chamada/tick")
 								.header("content-type", "application/json")
-								.content("{\"idPresenca\":1}"))
+								.content("{\"idPresenca\":1, \"latitude\":\"-22.8135\", \"longitude\":\"-47.064\"}"))
 				.andExpect(status().is(200))
 				.andExpect(
 						content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
 				.andExpect(
 						content()
-								.json("{ \"idTick\": 0, \"dataHora\": \""+sdhf.format(dataHora)+"\", "
+								.json("{ \"idTick\": 0, \"dataHora\": \""+sdhf.format(dataHora)+"\", \"distancia\":22,"
 										+ "\"presenca\": { \"idPresenca\": 1, \"horaInicio\": \"10:00\", \"numTicks\": 1} }"));
 	}
 
@@ -309,7 +370,62 @@ public class AlunoControllerTest
 						content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
 				.andExpect(
 						content()
-								.json("{ \"idPresenca\": 1, \"horaInicio\": \"10:00\", \"horaFim\": \""+shf.format(horaFim)+"\" }"));
+								.json("{ \"idPresenca\": 1, \"horaInicio\": \"10:00\", \"horaFim\": \""+shf.format(horaFim)+"\", \"numTicks\": 0,"
+										+ "\"chamada\": { \"idChamada\": 1, \"dataChamada\": \"10/06/2015\", \"horaInicio\": \"10:00\", \"professorChamada\":\"Eliane Martins\", \"duracao\":50, \"porcentagem\":50 }, "
+										+ "\"turma\": { \"idTurma\": 1, \"codTurma\":A, \"codDisciplina\":\"MO409\", \"nomeDisciplina\":\"Engenharia de Software I\" } }"));
+
+	}
+	
+	@Test()
+	public void testAlunoResultadoChamada() throws Exception
+	{
+		Usuario user = usuarioDAO.loadUsuarioByUsername("1");
+
+		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+				user, "", user.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(
+				authenticationToken);
+		
+		this.mockMvc
+				.perform(
+						post("/aluno/chamada/resultado")
+								.content("{\"idPresenca\":3}")
+								.header("content-type", "application/json"))
+				.andExpect(status().is(200))
+				.andExpect(
+						content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
+				.andExpect(
+						content()
+								.json("{ \"idPresenca\": 3, \"horaInicio\": \"10:00\", \"horaFim\": \"12:00\", \"numTicks\": 0,\"resultado\":\"ausente\","
+										+ "\"chamada\": { \"idChamada\": 1, \"dataChamada\": \"10/06/2015\", \"horaInicio\": \"10:00\", \"professorChamada\":\"Eliane Martins\", \"duracao\":50, \"porcentagem\":50 }, "
+										+ "\"turma\": { \"idTurma\": 1, \"codTurma\":A, \"codDisciplina\":\"MO409\", \"nomeDisciplina\":\"Engenharia de Software I\" } }"));
+
+	}
+	
+	@Test()
+	public void testAlunoConsultarPresenca() throws Exception
+	{
+		Usuario user = usuarioDAO.loadUsuarioByUsername("1");
+
+		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+				user, "", user.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(
+				authenticationToken);
+		
+		this.mockMvc
+				.perform(
+						post("/aluno/turma/presenca")
+								.content("{\"idTurma\":2}")
+								.header("content-type", "application/json"))
+				.andExpect(status().is(200))
+				.andExpect(
+						content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
+				.andExpect(
+						content()
+								.json("{ \"numChamadas\": 1, \"numPresencas\": 0, \"numFaltas\": 1,"
+										+ "\"frequencia\":[{\"chamada\": { \"idChamada\": 1, \"dataChamada\": \"10/06/2015\", \"horaFim\": \"12:00\", \"horaInicio\": \"10:00\", \"professorChamada\":\"Eliane Martins\", \"duracao\":50, \"porcentagem\":50 },"
+															+ "\"presenca\": { \"idPresenca\": 4, \"horaInicio\": \"10:00\", \"horaFim\": \"12:00\", \"numTicks\": 0,\"resultado\":\"ausente\"}}], "
+										+ "\"turma\": { \"idTurma\": 2, \"codTurma\":A, \"codDisciplina\":\"MO409\", \"nomeDisciplina\":\"Engenharia de Software I\" } }"));
 
 	}
 

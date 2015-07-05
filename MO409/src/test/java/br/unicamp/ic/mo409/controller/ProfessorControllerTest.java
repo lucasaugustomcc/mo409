@@ -129,12 +129,15 @@ public class ProfessorControllerTest
 
 		Turma turma1 = new TurmaBuilder()
 				.withDisciplina("Engenharia de Software I", "MO409")
-				.withProfessor(prof1).withAluno(10798, "Daniela Marques")
+				.withProfessor(prof1)
+				.withAluno(10798, "Daniela Marques")
 				.withAluno(23060, "Amaury Bosso André").build();
 
 		Turma turma2 = new TurmaBuilder()
-				.withDisciplina("Análise e Projeto de Sistema de Informação",
-						"MC626").withProfessor(prof1).withIdTurma(2).build();
+				.withDisciplina("Análise e Projeto de Sistema de Informação","MC626")
+				.withProfessor(prof1)
+				.withIdTurma(2)
+				.build();
 
 		List<Turma> turmas = new ArrayList<Turma>();
 		turmas.add(turma1);
@@ -192,6 +195,19 @@ public class ProfessorControllerTest
 			.withTurma(turma2).withChamadaState(ChamadaState.aberta)
 			.withIdChamada(8).build();
 		
+		// visualizar parametros
+		Chamada chamada9 = new ChamadaBuilder()
+			.withDataChamada(new Date(115, 05, 10))
+			.withHoraInicio(new Time(10, 00, 00)).withProfessor(prof1)
+			.withTurma(turma1).withChamadaState(ChamadaState.nao_aberta)
+			.withIdChamada(9).build();
+	
+		Chamada chamada10 = new ChamadaBuilder()
+			.withDataChamada(new Date(115, 05, 10))
+			.withHoraInicio(new Time(10, 00, 00)).withProfessor(prof1)
+			.withTurma(turma2).withChamadaState(ChamadaState.nao_aberta)
+			.withIdChamada(10).build();
+		
 		Aluno aluno1 = new AlunoBuilder()
 			.withNome("Daniela Marques")
 			.withRaAluno(10798)
@@ -200,12 +216,17 @@ public class ProfessorControllerTest
 			.withNome("José Viana")
 			.build();
 
-		Presenca presenca1 = new PresencaBuilder().withChamada(chamada1)
+		Presenca presenca1 = new PresencaBuilder().withChamada(chamada3)
+				.withPresencaState(PresencaState.ausente)
 				.withAluno(aluno1).build();
 
 		Presenca presenca2 = new PresencaBuilder().withChamada(chamada1)
 				.withAluno(aluno2).withPresencaState(PresencaState.em_aula)
 				.build();
+		
+		Presenca presenca3 = new PresencaBuilder().withChamada(chamada4)
+				.withPresencaState(PresencaState.presente)
+				.withAluno(aluno2).build();
 		
 		List<Presenca> presencas1 = new ArrayList<Presenca>();
 		presencas1.add(presenca1);
@@ -213,8 +234,11 @@ public class ProfessorControllerTest
 		List<Presenca> presencas2 = new ArrayList<Presenca>();
 		presencas2.add(presenca2);
 		
+		List<Presenca> presencas3 = new ArrayList<Presenca>();
+		presencas2.add(presenca3);
+		
 		chamada3.setPresencas(presencas1);
-		chamada4.setPresencas(presencas2);
+		chamada4.setPresencas(presencas3);
 		chamada7.setPresencas(presencas1);
 		chamada8.setPresencas(presencas2);
 
@@ -241,6 +265,8 @@ public class ProfessorControllerTest
 		Mockito.when(this.chamadaDAO.find(6)).thenReturn(chamada6);
 		Mockito.when(this.chamadaDAO.find(7)).thenReturn(chamada7);
 		Mockito.when(this.chamadaDAO.find(8)).thenReturn(chamada8);
+		Mockito.when(this.chamadaDAO.find(9)).thenReturn(chamada9);
+		Mockito.when(this.chamadaDAO.find(10)).thenReturn(chamada10);
 		Mockito.when(this.turmaDAO.listarTurmasProfessor(1)).thenReturn(turmas);
 		Mockito.when(this.chamadaDAO.listChamadasAbertasProfessor(1)).thenReturn(chamadas);
 	}
@@ -314,6 +340,30 @@ public class ProfessorControllerTest
 	}
 	
 	@Test()
+	public void testVisualizarChamadaParametroProfessorCorreto() throws Exception
+	{
+		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(
+				this.professorController).build();
+
+		Usuario user = usuarioDAO.loadUsuarioByUsername("35");
+
+		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+				user, "", user.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(
+				authenticationToken);
+
+		mockMvc.perform(
+				post("/professor/chamada/visualizar-parametros").content(
+						"[{ \"idChamada\":9}, {\"idChamada\":10 }]").header(
+						"content-type", "application/json"))
+				.andExpect(status().is(200))
+				.andExpect(
+						content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
+				.andExpect(content().json("[{idChamada:9, \"duracao\":50, \"porcentagem\":50},"
+						+ "{idChamada:10}]"));
+	}
+	
+	@Test()
 	public void testChamadaParametroProfessorCorreto() throws Exception
 	{
 		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(
@@ -327,7 +377,7 @@ public class ProfessorControllerTest
 				authenticationToken);
 
 		mockMvc.perform(
-				post("/professor/chamada/parametros").content(
+				post("/professor/chamada/alterar-parametros").content(
 						"{ \"duracao\":\"50\", \"porcentagem\":\"75\", \"chamadas\": [{ \"idChamada\":5}, {\"idChamada\":6 }] }").header(
 						"content-type", "application/json"))
 				.andExpect(status().is(200))
@@ -474,7 +524,7 @@ public class ProfessorControllerTest
 				.andExpect(
 						content()
 								.json("[{ \"idChamada\": 3, \"numMinTicks\": 5,\"duracao\": 50,\"porcentagem\": 50,"
-										+ "\"alunos\":[{\"nomeAluno\":\"Daniela Marques\",\"raAluno\":10798,\"presente\":false}], \"turma\": "
+										+ "\"alunos\":[{\"nomeAluno\":\"Daniela Marques\",\"raAluno\":10798,\"resultado\":\"ausente\"}], \"turma\": "
 										+ "{ \"codDisciplina\": \"MO409\", \"nomeDisciplina\": \"Engenharia de Software I\", \"idTurma\": 1, \"codTurma\": \"A\" }}, "
 									+ "{\"idChamada\":4 }]"))
 				;
@@ -501,6 +551,31 @@ public class ProfessorControllerTest
 				.andExpect(
 						content()
 								.json("{ \"error\": \"exception\", \"message\":\"Chamada não encerrada ainda. Resultado da presença inexistente\" }"))
+				;
+	}
+	
+	@Test()
+	public void testAlunosTurmaProfessorCorreto() throws Exception
+	{
+		Usuario user = usuarioDAO.loadUsuarioByUsername("35");
+
+		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+				user, "", user.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(
+				authenticationToken);
+
+		this.mockMvc
+				.perform(
+						post("/professor/turma/alunos").content(
+								"{ \"idTurma\":1}")
+								.header("content-type", "application/json"))
+				.andExpect(status().is(200))
+				.andExpect(
+						content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
+				.andExpect(
+						content()
+								.json("{\"codDisciplina\": \"MO409\", \"nomeDisciplina\": \"Engenharia de Software I\", \"idTurma\": 1, \"codTurma\": \"A\","
+										+ "\"alunos\":[{\"nomeAluno\":\"Daniela Marques\",\"raAluno\":10798},{\"nomeAluno\":\"Amaury Bosso André\",\"raAluno\":23060}]}"))
 				;
 	}
 }

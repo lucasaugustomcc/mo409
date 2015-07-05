@@ -36,6 +36,7 @@ import br.unicamp.ic.mo409.dao.UsuarioDAO;
 import br.unicamp.ic.mo409.model.Aluno;
 import br.unicamp.ic.mo409.model.Chamada;
 import br.unicamp.ic.mo409.model.ChamadaState;
+import br.unicamp.ic.mo409.model.Parametro;
 import br.unicamp.ic.mo409.model.Presenca;
 import br.unicamp.ic.mo409.model.Professor;
 import br.unicamp.ic.mo409.model.Turma;
@@ -245,7 +246,7 @@ public class ProfessorController
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/professor/chamada/parametros", method = RequestMethod.POST)
+	@RequestMapping(value = "/professor/chamada/alterar-parametros", method = RequestMethod.POST)
 	@Secured({ "ROLE_PROFESSOR" })
 	@ResponseBody
 	public JSONArray parametrosChamadas(@ModelAttribute("usuario") Usuario usuario,
@@ -288,6 +289,43 @@ public class ProfessorController
 			objTurma.put("nomeDisciplina", turma.getDisciplina()
 					.getNomeDisciplina());
 			obj.put("turma", objTurma);
+			array.add(obj);
+		}
+		return array;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/professor/chamada/visualizar-parametros", method = RequestMethod.POST)
+	@Secured({ "ROLE_PROFESSOR" })
+	@ResponseBody
+	public JSONArray visualizarParametrosChamadas(@ModelAttribute("usuario") Usuario usuario,
+			@RequestBody List<Chamada> chamadas) throws Exception
+	{			
+		Professor professor = usuario.getProfessor();
+
+		// construindo JSON de resposta
+		JSONArray array = new JSONArray();
+				
+		for (Chamada chamada : chamadas)
+		{
+			
+			chamada = chamadaDAO.find(chamada.getIdChamada());
+			
+			if (!chamada.getTurma().getProfessores().contains(professor))
+			{
+				throw new AccessDeniedException(
+						"Professor não associado a turma.");
+			}
+			
+			Parametro parametros = chamada.visualizarParametros();			
+			
+			// construir resposta JSON
+			// dados da chamada
+			JSONObject obj = new JSONObject();
+			obj.put("idChamada", chamada.getIdChamada());
+			obj.put("duracao", parametros.getDuracao());
+			obj.put("porcentagem", parametros.getPorcentagem());
+			
 			array.add(obj);
 		}
 		return array;
@@ -419,12 +457,10 @@ public class ProfessorController
 			chamada = chamadaDAO.find(chamada.getIdChamada());
 			if (null == chamada)
 			{
-				// TODO: mensagem de erro no JSON
 				throw new NoResultException("Chamada inexistente");
 			}	
 			if (ChamadaState.encerrada != chamada.getState())
 			{
-				// TODO: mensagem de erro no JSON
 				throw new Exception("Chamada não encerrada ainda. Resultado da presença inexistente");
 			}	
 
@@ -463,7 +499,7 @@ public class ProfessorController
 				JSONObject objPresenca = new JSONObject();
 				objPresenca.put("raAluno", aluno.getRaAluno());
 				objPresenca.put("nomeAluno", aluno.getUsuario().getNome());
-				objPresenca.put("presente", presenca.getIsPresente());
+				objPresenca.put("resultado", presenca.visualizarPresenca());
 				arrayPresencas.add(objPresenca);
 			}
 			obj.put("alunos", arrayPresencas);
@@ -474,6 +510,48 @@ public class ProfessorController
 	}
 	
 	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/professor/turma/alunos", method = RequestMethod.POST)
+	@Secured({ "ROLE_PROFESSOR" })
+	@ResponseBody
+	public JSONObject alunosTurma(@ModelAttribute("usuario") Usuario usuario,
+			@RequestBody Turma turma) throws Exception
+	{						
+		Professor professor = usuario.getProfessor();
+
+		turma = turmaDAO.find(turma.getIdTurma());
+		if (turma == null)
+		{
+			throw new NoResultException("Turma não existente");
+		}
+		if (!turma.getProfessores().contains(professor))
+		{
+			throw new AccessDeniedException(
+					"Professor não associado a turma.");
+		}
+		// construindo JSON de resposta		
+		// dados da turma
+		JSONObject obj = new JSONObject();
+		obj.put("idTurma", turma.getIdTurma());
+		obj.put("codTurma", turma.getCodTurma());
+		obj.put("codDisciplina", turma.getDisciplina()
+				.getCodDisciplina());
+		obj.put("nomeDisciplina", turma.getDisciplina()
+				.getNomeDisciplina());
+
+		JSONArray array = new JSONArray();
+		
+		for (Aluno aluno : turma.getAlunos())
+		{
+			JSONObject objAluno = new JSONObject();
+			objAluno.put("raAluno", aluno.getRaAluno());
+			objAluno.put("nomeAluno", aluno.getUsuario().getNome());
+			array.add(objAluno);			
+		}
+		obj.put("alunos", array);
+		return obj;
+	}
+	
+	@SuppressWarnings("unchecked")
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.CONFLICT)  // 409
 	public JSONObject handleError(HttpServletRequest req, Exception exception)
@@ -481,7 +559,6 @@ public class ProfessorController
 		JSONObject obj = new JSONObject();
 		obj.put("error", "exception");
 		obj.put("message", exception.getMessage());
-		System.out.println(exception.getMessage());
 		return obj;
 	}
 }
