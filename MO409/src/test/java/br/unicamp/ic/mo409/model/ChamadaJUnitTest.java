@@ -27,7 +27,7 @@ public class ChamadaJUnitTest
 {
 	public static junit.framework.Test suite()
 	{
-		return new junit.framework.JUnit4TestAdapter(ChamadaTest.class);
+		return new junit.framework.JUnit4TestAdapter(ChamadaJUnitTest.class);
 	}
 
 	@SuppressWarnings("deprecation")
@@ -97,6 +97,8 @@ public class ChamadaJUnitTest
 			.withChamadaState(ChamadaState.visualizando_parametros)
 			.build();
 		chamada.atribuirLocalizacao(90, 180);
+		chamada.atribuirLocalizacao(-90, -180);
+		chamada.atribuirLocalizacao(0, 0);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)

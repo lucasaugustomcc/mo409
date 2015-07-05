@@ -15,11 +15,13 @@ public class ChamadaBuilder implements Builder<Chamada>{
 	private Date dataChamada = new Date(115,6,5);
 	private Time horaFim = new Time(12,0,0);
 	private Professor professor;
-	private Turma turma;
+	private Turma turma = new TurmaBuilder().build();
 	private int idChamada = 1;
 	private Time horaInicio = new Time(10,0,0);
 	private ChamadaState chamadaState = ChamadaState.nao_aberta;
 	private Parametro parametro = new Parametro(50, 50);
+	private String latitude = "0";
+	private String longitude = "0";
 
 	public ChamadaBuilder() {}
 
@@ -35,6 +37,16 @@ public class ChamadaBuilder implements Builder<Chamada>{
     
     public ChamadaBuilder withParametro(Parametro parametro) {
         this.parametro = parametro;
+        return this;
+    }
+    
+    public ChamadaBuilder withLatitude(float latitude) {
+        this.latitude = String.valueOf(latitude);
+        return this;
+    }
+    
+    public ChamadaBuilder withLongitude(float longitude) {
+        this.longitude = String.valueOf(longitude);
         return this;
     }
     
@@ -75,7 +87,9 @@ public class ChamadaBuilder implements Builder<Chamada>{
     	chamada.setParametro(parametro);
     	chamada.setIdChamada(idChamada);
     	chamada.setHoraInicio(horaInicio);
-    	chamada.setState(chamadaState );
+    	chamada.setState(chamadaState);
+    	chamada.setLatitude(latitude);
+    	chamada.setLongitude(longitude);
         return chamada;
     }
 

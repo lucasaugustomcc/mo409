@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.sql.Time;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -253,7 +252,7 @@ public class Presenca implements Serializable
 		}
 	}
 
-	private PresencaState visualizarPresenca()
+	public PresencaState visualizarPresenca()
 	{
 		if (chamada.getState() == ChamadaState.encerrada && 
 				(state == PresencaState.presente || state == PresencaState.ausente))
@@ -286,11 +285,20 @@ public class Presenca implements Serializable
 		{
 			throw new IllegalStateException("Estado não permite solicitar o cálculo da presença.");
 		}
-	}
+	}	
 	
-	private float calcularDistancia(float latitudeAluno, float longitudeAluno)
+	/**
+	 * exemplo
+	 * latitude: "-22.8561695"
+	 * longitude: "-47.0475231"
+	 * referência: http://www.movable-type.co.uk/scripts/latlong.html
+	 * @param latitudeAluno
+	 * @param longitudeAluno
+	 * @return
+	 */
+	public float calcularDistancia(float latitudeAluno, float longitudeAluno)
 	{
-		double d2r = (180 / Math.PI);
+		double d2r = (Math.PI / 180);
 		float distance = 0;
 
 		try{
@@ -303,8 +311,12 @@ public class Presenca implements Serializable
 		            * Math.pow(Math.sin(dlong / 2.0), 2);
 		    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 		    distance = (float) (6367 * c);
-
-		    return distance;
+//		    System.out.println("Chamada: "+Float.valueOf(chamada.getLatitude())+","+Float.valueOf(chamada.getLongitude()));
+//		    System.out.println("Tick: "+latitudeAluno+","+longitudeAluno);
+//		    System.out.println("Distancia: "+distance * 1000);
+//		    System.out.println("");
+		    // km para metros
+		    return distance * 1000;
 
 		} catch(Exception e){
 		    e.printStackTrace();
@@ -324,6 +336,16 @@ public class Presenca implements Serializable
 		if (state == PresencaState.em_aula
 				&& chamada.getState() == ChamadaState.aberta)
 		{
+			if (-90 > latitude || latitude > 90)
+			{
+				throw new IllegalArgumentException("Valor de latitude inválido.");
+			}
+			
+			if (-180 > longitude || longitude > 180)
+			{
+				throw new IllegalArgumentException("Valor de longitude inválido.");
+			}
+			
 			float distancia = calcularDistancia(latitude, longitude);
 			Tick tick = new Tick();
 			tick.setAluno(this.getAluno());

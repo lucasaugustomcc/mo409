@@ -4,8 +4,10 @@ import java.sql.Time;
 
 import br.unicamp.ic.mo409.model.Aluno;
 import br.unicamp.ic.mo409.model.Chamada;
+import br.unicamp.ic.mo409.model.ChamadaState;
 import br.unicamp.ic.mo409.model.Presenca;
 import br.unicamp.ic.mo409.model.PresencaState;
+import br.unicamp.ic.mo409.model.Turma;
 
 @SuppressWarnings("deprecation")
 public class PresencaBuilder implements Builder<Presenca>{
@@ -13,7 +15,12 @@ public class PresencaBuilder implements Builder<Presenca>{
 	private Time horaFim = new Time(12,0,0);
 	private int idPresenca = 1;
 	private Time horaInicio = new Time(10,0,0);
-	private Chamada chamada;
+	private Chamada chamada = new ChamadaBuilder()
+									.withChamadaState(ChamadaState.aberta)
+									.withTurma(
+											new TurmaBuilder().build()
+									)
+									.build();
 	private boolean isPresente = false;
 	private int numTicks = 0;
 	private PresencaState presencaState = PresencaState.em_branco;
