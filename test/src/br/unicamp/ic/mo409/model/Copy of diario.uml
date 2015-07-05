@@ -4,7 +4,7 @@
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_FzSMUB8sEeW6ooM7jnMepg" name="abrirDiarioEvent" operation="_Rmy5cAZ8EeW1-OgwpVc0Kw"/>
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_ZUa5sCApEeW4ysb2kbGRGQ" name="encerrarDiarioEvent" operation="_iCmKwCApEeW4ysb2kbGRGQ"/>
     <packagedElement xmi:type="uml:CallEvent" xmi:id="_MaE9UOjKEdu6LJeVabImNg" name="getFrequenciaTurmaEvent" operation="_HQGfwOzQEduqQpSKns4XGA"/>
-    <packagedElement xmi:type="uml:CallEvent" xmi:id="__1OScB8rEeW6ooM7jnMepg" name="getFrequenciaAlunoEvent" operation="_Rmy5cAZ8EeW1-OgwpVc0Kw"/>
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="__1OScB8rEeW6ooM7jnMepg" name="getFrequenciaAlunoEvent" operation="_wegX8JG6EdydJaDhzZfmUQ"/>
     <packagedElement xmi:type="uml:Class" xmi:id="_CbgIUOzQEduqQpSKns4XGA" name="Diario" classifierBehavior="_2Y0fgJ0ZEdyNrffIHb491A">
       <ownedAttribute xmi:id="_GTqyoJ0aEdyNrffIHb491A" name="state" type="_dMVB4JsBEd20fKiJK1xsTw"/>
       <ownedAttribute xmi:id="_PSCUoA3nEeWfg8LmfrVuEg" name="turma" type="_8CmWMA3kEeWfg8LmfrVuEg">
@@ -52,7 +52,7 @@
           </transition>
           <transition xmi:id="_sfyHwB8rEeW6ooM7jnMepg" name="aberto2encerrado" target="_D3o70B8oEeW6ooM7jnMepg" source="_ts6mEB8nEeW6ooM7jnMepg">
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_sfyHwR8rEeW6ooM7jnMepg" name="encerrarDiario"/>
-            <trigger xmi:id="_sfyHwh8rEeW6ooM7jnMepg" name="encerrarDiario"/>
+            <trigger xmi:id="_sfyHwh8rEeW6ooM7jnMepg" name="encerrarDiario" event="_ZUa5sCApEeW4ysb2kbGRGQ"/>
           </transition>
           <transition xmi:id="_2d3zcB8pEeW6ooM7jnMepg" name="aberto2aberto_consultar_frequencia" target="_ts6mEB8nEeW6ooM7jnMepg" source="_ts6mEB8nEeW6ooM7jnMepg">
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_2d3zcR8pEeW6ooM7jnMepg" name="getFrequenciaTurma"/>
@@ -64,18 +64,12 @@
           </transition>
         </region>
       </ownedBehavior>
-      <ownedOperation xmi:id="_HQGfwOzQEduqQpSKns4XGA" name="getFrequenciaTurma" postcondition="_QxNNEAkgEeWyXqZbehidIA">
-        <ownedRule xmi:id="_QxNNEAkgEeWyXqZbehidIA" name="post">
-          <specification xmi:type="uml:LiteralString" xmi:id="_SZmHMAkgEeWyXqZbehidIA" value="if (state = DiarioState::aberto) then hasFrequenciaTurma = true else hasFrequenciaTurma = false endif"/>
-        </ownedRule>
+      <ownedOperation xmi:id="_HQGfwOzQEduqQpSKns4XGA" name="getFrequenciaTurma">
         <ownedParameter xmi:id="_xSG1wA6tEeWOgpCl8lrPTA" name="idTurma">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
         </ownedParameter>
       </ownedOperation>
-      <ownedOperation xmi:id="_wegX8JG6EdydJaDhzZfmUQ" name="getFrequenciaAluno" postcondition="_FD7-YA3mEeWfg8LmfrVuEg">
-        <ownedRule xmi:id="_FD7-YA3mEeWfg8LmfrVuEg" name="post">
-          <specification xmi:type="uml:LiteralString" xmi:id="_FD7-YQ3mEeWfg8LmfrVuEg" value="if (state = DiarioState::aberto) then hasFrequenciaAluno = true else hasFrequenciaAluno = false endif"/>
-        </ownedRule>
+      <ownedOperation xmi:id="_wegX8JG6EdydJaDhzZfmUQ" name="getFrequenciaAluno">
         <ownedParameter xmi:id="_Zw9tcA3uEeW9P_WLFKNCiw" name="idAluno">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
         </ownedParameter>
@@ -84,17 +78,11 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="_Rmy5cAZ8EeW1-OgwpVc0Kw" name="abrirDiario">
-        <ownedRule xmi:id="_FTA8MA3mEeWfg8LmfrVuEg" name="post">
-          <specification xmi:type="uml:LiteralString" xmi:id="_FTA8MQ3mEeWfg8LmfrVuEg" value="if (state = DiarioState::aberto) then diarioAberto = true else diarioAberto = false endif"/>
-        </ownedRule>
         <ownedParameter xmi:id="_aJXmYA3uEeW9P_WLFKNCiw" name="listaPresencas">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="_iCmKwCApEeW4ysb2kbGRGQ" name="encerrarDiario">
-        <ownedRule xmi:id="_iCmKwSApEeW4ysb2kbGRGQ" name="post">
-          <specification xmi:type="uml:LiteralString" xmi:id="_iCmKwiApEeW4ysb2kbGRGQ" value="if (state = DiarioState::encerrado) then diarioEncerrado = true else diarioEncerrado = false endif"/>
-        </ownedRule>
         <ownedParameter xmi:id="_iCmKwyApEeW4ysb2kbGRGQ" name="listaPresencas">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
         </ownedParameter>
