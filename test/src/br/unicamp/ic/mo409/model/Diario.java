@@ -8,36 +8,37 @@ public class Diario {
 	public Boolean hasPreenchidoDiario;
 	public Boolean hasFrequenciaTurma;
 	public Boolean hasFrequenciaAluno;
+	public Integer idTurma;
 	public Integer idAluno;
-	
+
 
 	public Diario()
 	{
-		state = DiarioState.vazio;
+		state = DiarioState.nao_aberto;   // ou inicia direto em "aberto"??? 
 	}
 
-	public void preencherDiario(Integer listaPresencas) {
-		state = DiarioState.sendo_preenchido;
+	public void abrirDiario(Integer listaPresencas) {
+		state = DiarioState.aberto;
 	}
 
-	public void preenchidoDiario(Integer listaPresencas) {
-		state = DiarioState.nao_vazio;
+	public void encerrarDiario(Integer listaPresencas) {
+		state = DiarioState.encerrado;
 	}
 
-	public void getFrequenciaTurma(Integer idTurma) {
-		state = DiarioState.nao_vazio;
+	public void consultaFrequenciaTurma(Integer idTurma) {
+		state = DiarioState.aberto;   // Este metodo tambem e' chamado no estado "encerrado" 
 	}
 
-	public void getFrequenciaAluno(Integer idAluno, Integer idTurma) {
-		state = DiarioState.nao_vazio;
+	public void consultaFrequenciaAluno(Integer idAluno, Integer idTurma) {
+		state = DiarioState.aberto;   // Este metodo tambem e' chamado no estado "encerrado" 
 	}
 
 	public void handleEvent(Object... in_colObject) {
 		if (in_colObject.length > 0) 
 		{
 			String sEventName = (String) in_colObject[0];
-			if ((state == DiarioState.vazio) 
-					&& (sEventName.compareTo("preencherDiarioEvent") == 0)) 
+			if ((state == DiarioState.nao_aberto) 
+				&& (sEventName.compareTo("abrirDiarioEvent") == 0)) 
 			{
 				Integer tempIDTurma     = (Integer) in_colObject[1];
 				Integer idTurma;
@@ -50,11 +51,11 @@ public class Diario {
 				{
 					idTurma = 2;
 				}
-				preencherDiario(idTurma);
+				abrirDiario(idTurma);
 			}
 
-			if ((state == DiarioState.nao_vazio) 
-					&& (sEventName.compareTo("preenchidoDiarioEvent") == 0)) 
+			if ((state == DiarioState.aberto) 
+				&& (sEventName.compareTo("encerrarDiarioEvent") == 0)) 
 			{
 				Integer tempIDTurma     = (Integer) in_colObject[1];
 				Integer idTurma;
@@ -67,11 +68,11 @@ public class Diario {
 				{
 					idTurma = 2;
 				}
-				preenchidoDiario(idTurma);
+				encerrarDiario(idTurma);
 			}
 
-			if ((state == DiarioState.frequencia_turma) 
-					&& (sEventName.compareTo("getFrequenciaTurmaEvent") == 0)) 
+			if (((state == DiarioState.aberto) || (state == DiarioState.encerrado))
+				&& (sEventName.compareTo("consultaFrequenciaTurmaEvent") == 0)) 
 			{
 				Integer tempIDTurma     = (Integer) in_colObject[1];
 				Integer idTurma;
@@ -84,11 +85,11 @@ public class Diario {
 				{
 					idTurma = 2;
 				}
-				getFrequenciaTurma(idTurma);
+				consultaFrequenciaTurma(idTurma);
 			}
 
-			if ((state == DiarioState.frequencia_aluno) 
-					&& (sEventName.compareTo("getFrequenciaAlunoEvent") == 0)) 
+			if (((state == DiarioState.aberto) || (state == DiarioState.encerrado))
+				&& (sEventName.compareTo("consultaFrequenciaAlunoEvent") == 0)) 
 			{
 				Integer tempIDTurma     = (Integer) in_colObject[1];
 				Integer idTurma;
@@ -111,7 +112,7 @@ public class Diario {
 				{
 					idAluno = 2;
 				}
-				getFrequenciaAluno(idAluno, idTurma);
+				consultaFrequenciaAluno(idAluno, idTurma);
 			}
 		}
 	}
