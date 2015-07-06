@@ -46,9 +46,7 @@
             </stateInvariant>
           </subvertex>
           <transition xmi:id="_KHZoYJeHEdyqN79LFuBS7A" name="init2nao_aberto" target="_GQdisCNtEeWK6d4uHePG3A" source="_ZMY7cJKuEdyUSNhMCOPPLg"/>
-          <transition xmi:id="_CRXP4CNtEeWK6d4uHePG3A" name="nao_aberto2aberto" target="_ts6mEB8nEeW6ooM7jnMepg" source="_GQdisCNtEeWK6d4uHePG3A">
-            <effect xmi:type="uml:FunctionBehavior" xmi:id="_WOfssCNtEeWK6d4uHePG3A" name="abrirDiario"/>
-          </transition>
+          <transition xmi:id="_CRXP4CNtEeWK6d4uHePG3A" name="nao_aberto2aberto" target="_ts6mEB8nEeW6ooM7jnMepg" source="_GQdisCNtEeWK6d4uHePG3A"/>
           <transition xmi:id="_sfyHwB8rEeW6ooM7jnMepg" name="aberto2encerrado" target="_D3o70B8oEeW6ooM7jnMepg" source="_ts6mEB8nEeW6ooM7jnMepg">
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_sfyHwR8rEeW6ooM7jnMepg" name="encerrarDiario"/>
             <trigger xmi:id="_sfyHwh8rEeW6ooM7jnMepg" name="encerrarDiario" event="_ZUa5sCApEeW4ysb2kbGRGQ"/>
