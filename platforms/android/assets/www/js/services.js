@@ -1,8 +1,3 @@
-function resourceErrorHandler(e)
-{
-  alert(e.data.message);
-}
-
 var services = angular.module('exampleApp.services', ['ngResource']);
 
 services.factory('UserService', function($resource) {
@@ -12,7 +7,8 @@ services.factory('UserService', function($resource) {
         authenticate: {
           method: 'POST',
           params: {'action' : 'authenticate'},
-          headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+          headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+          interceptor : {responseError : resourceErrorHandler}
         },
       }
     );
@@ -25,6 +21,25 @@ services.factory('ChamadaService', function($resource) {
           method: 'GET',
           params: {'action' : 'turmas'},
           isArray: true,
+          interceptor : {responseError : resourceErrorHandler}
+        },
+        abertas: {
+          method: 'GET',
+          params: {'action' : 'abertas'},
+          isArray: true,
+          interceptor : {responseError : resourceErrorHandler}
+        },
+        criadas: {
+          method: 'GET',
+          params: {'action' : 'criadas'},
+          isArray: true,
+          interceptor : {responseError : resourceErrorHandler}
+        },
+        criar: {
+          method: 'POST',
+          params: {'action' : 'criar'},
+          isArray: true,
+          headers : {'Content-Type': 'application/json'},
           interceptor : {responseError : resourceErrorHandler}
         },
         abrir: {
@@ -41,6 +56,50 @@ services.factory('ChamadaService', function($resource) {
           headers : {'Content-Type': 'application/json'},
           interceptor : {responseError : resourceErrorHandler}
         },
+        parametros: {
+          method: 'POST',
+          params: {'action' : 'visualizar-parametros'},
+          isArray: true,
+          interceptor : {responseError : resourceErrorHandler}
+        },
+        alterarparametros: {
+          method: 'POST',
+          params: {'action' : 'alterar-parametros'},
+          isArray: true,
+          interceptor : {responseError : resourceErrorHandler}
+        },
+        localizacao: {
+          method: 'POST',
+          params: {'action' : 'localizacao'},
+          isArray: true,
+          headers : {'Content-Type': 'application/json'},
+          interceptor : {responseError : resourceErrorHandler}
+        },
+        disciplinas: {
+          method: 'GET',
+          params: {'action' : 'disciplinas'},
+          isArray: true,
+          interceptor : {responseError : resourceErrorHandler}
+        },
+        alunos_matriculados: {
+          method: 'POST',
+          params: {'action' : 'alunos_matriculados'},
+          headers : {'Content-Type': 'application/json'},
+          interceptor : {responseError : resourceErrorHandler}
+        },
+         frequencia_aluno: {
+          method: 'GET',
+          params: {'action' : 'frequencia_aluno'},
+         // isArray: true,
+          interceptor : {responseError : resourceErrorHandler}
+        },
+        presenca: {
+          method: 'POST',
+          params: {'action' : 'presenca'},
+          isArray: true,
+          headers : {'Content-Type': 'application/json'},
+          interceptor : {responseError : resourceErrorHandler}
+        },
     } 
   );
 });
@@ -50,7 +109,13 @@ services.factory('AlunoService', function($resource) {
     {
         chamada: {
           method: 'GET',
-          params: {'action' : 'turmas'},
+          params: {'action' : 'turma'},
+          interceptor : {responseError : resourceErrorHandler}
+        },
+        presenca: {
+          method: 'GET',
+          params: {'action' : 'presenca'},
+          headers : {'Content-Type': 'application/json'},
           interceptor : {responseError : resourceErrorHandler}
         },
         checkin: {
@@ -65,20 +130,33 @@ services.factory('AlunoService', function($resource) {
           headers : {'Content-Type': 'application/json'},
           interceptor : {responseError : resourceErrorHandler}
         },
+        disciplinas_aluno: {
+          method: 'GET',
+          params: {'action' : 'disciplinas_aluno'},
+          isArray: true,
+          interceptor : {responseError : resourceErrorHandler}
+        },
+          frequencia: {
+          method: 'POST',
+          params: {'action' : 'frequencia'},
+         // isArray: true,
+          headers : {'Content-Type': 'application/json'},
+          interceptor : {responseError : resourceErrorHandler}
+        },
     } 
   );
 });
 services.factory('myService', function() {
- var savedData = {}
- function set(data) {
-   savedData = data;
- }
- function get() {
-  return savedData;
- }
+   var savedData = {}
+   function set(data) {
+      savedData = data;
+   }
+   function get() {
+      return savedData;
+   }
 
- return {
-  set: set,
-  get: get
- }
+   return {
+      set: set,
+      get: get
+   }
 })

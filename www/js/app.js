@@ -118,30 +118,26 @@ angular.module('exampleApp', [
         }
     }         
     })
-    
-    .state('professor.chamada-aberta', {
+    .state('professor.chamadas-criadas', {
       url: "/chamada/aberta",
       cache: false,
       views: {
         'menuContent' :{
-            controller:  "ChamadaAbertaCtrl",
+            controller:  "ChamadasCriadasCtrl",
+            templateUrl: "templates/professor/chamada_criadas_professor.html"             
+        }
+      }         
+    })
+    .state('professor.chamadas-abertas', {
+      url: "/chamada/aberta",
+      cache: false,
+      views: {
+        'menuContent' :{
+            controller:  "ChamadasAbertasCtrl",
             templateUrl: "templates/professor/encerrar_chamada_professor.html"             
         }
       }         
     })
-
-    /*
-    .state('professor.chamada-aberta', {
-      url: "/chamada/aberta",
-      cache: false,
-      views: {
-        'menuContent' :{
-            controller:  "ChamadaAberta_professorCtrl",
-            templateUrl: "templates/professor/encerrar_chamada_professor.html"             
-        }
-      }         
-    })*/
-
    .state('professor.frequencia_aluno', {
       url: "/chamada/frequencia_aluno",
       views: {
@@ -161,16 +157,6 @@ angular.module('exampleApp', [
         }
     }         
     })
-    .state('professor.parametros', {
-      url: "/chamada/parametros",
-      views: {
-        'menuContent' :{
-            controller:  "", //colocar controller
-            templateUrl: "templates/parametros.html"     
-        }
-    }         
-    })
-
 /*
     .state('professor.alunos_matriculados', {
       url: "/chamada/alunos_matriculados",
@@ -625,64 +611,64 @@ angular.module('exampleApp', [
     //   return [200, usuario];
     // });
 
-    $httpBackend.whenGET('http://www.webulando.com.br/mo409/professor/chamada').respond(function (method, url, data, headers) {
-    return [200, turmas];
-    });
+    // $httpBackend.whenGET('http://www.webulando.com.br/mo409/professor/chamada').respond(function (method, url, data, headers) {
+    // return [200, turmas];
+    // });
 
     // exibir a tela com os dados de uma chamada aberta
-     $httpBackend.whenPOST('http://www.webulando.com.br/mo409/professor/chamada/abrir').respond(function (method, url, data, headers) {
-       return [200, chamadas];
-     });
+    //  $httpBackend.whenPOST('http://www.webulando.com.br/mo409/professor/chamada/abrir').respond(function (method, url, data, headers) {
+    //    return [200, chamadas];
+    //  });
 
-    $httpBackend.whenGET('http://www.webulando.com.br/mo409/professor/chamada/parametros').respond(function(method, url, data) {
-       return [200, parametros_get];
-     });
+    // $httpBackend.whenGET('http://www.webulando.com.br/mo409/professor/chamada/parametros').respond(function(method, url, data) {
+    //    return [200, parametros_get];
+    //  });
 
-    $httpBackend.whenPOST('http://www.webulando.com.br/mo409/professor/chamada/parametros').respond(function(method, url, data) {
-       return [200, parametros_post];
-     });
+    // $httpBackend.whenPOST('http://www.webulando.com.br/mo409/professor/chamada/parametros').respond(function(method, url, data) {
+    //    return [200, parametros_post];
+    //  });
  /*
     $httpBackend.whenPOST('http://www.webulando.com.br/mo409/professor/chamada/encerrar').respond(function (method, url, data, headers) {
       return [200, chamadaPresenca];
     }); */
 
-    $httpBackend.whenPOST('http://www.webulando.com.br/mo409/professor/chamada/presenca').respond(function (method, url, data, headers) {
-      return [200, chamadaPresenca];
-    });
+    // $httpBackend.whenPOST('http://www.webulando.com.br/mo409/professor/chamada/presenca').respond(function (method, url, data, headers) {
+    //   return [200, chamadaPresenca];
+    // });
 
 
     // $httpBackend.whenGET('http://www.webulando.com.br/mo409/aluno/chamada').respond(function (method, url, data, headers) {
     //   return [200, alunoChamada];
     // });
 
- $httpBackend.whenGET('http://www.webulando.com.br/mo409/professor/chamada/disciplinas').respond(function (method, url, data) {
-    return [200, disciplinas];
-    });
+ // $httpBackend.whenGET('http://www.webulando.com.br/mo409/professor/chamada/disciplinas').respond(function (method, url, data) {
+ //    return [200, disciplinas];
+ //    });
 
- $httpBackend.whenPOST('http://www.webulando.com.br/mo409/professor/chamada/alunos_matriculados').respond(function (method, url, data) {
-    return [200, alunos_matriculados];
-    });
+ // $httpBackend.whenPOST('http://www.webulando.com.br/mo409/professor/chamada/alunos_matriculados').respond(function (method, url, data) {
+ //    return [200, alunos_matriculados];
+ //    });
 
- $httpBackend.whenGET('http://www.webulando.com.br/mo409/professor/chamada/frequencia_aluno').respond(function (method, url, data) {
-    return [200, frequencia_aluno];
-    });
+ // $httpBackend.whenGET('http://www.webulando.com.br/mo409/professor/chamada/frequencia_aluno').respond(function (method, url, data) {
+ //    return [200, frequencia_aluno];
+ //    });
 
-    $httpBackend.whenGET('http://www.webulando.com.br/mo409/aluno/chamada/turma').respond(function (method, url, data) {
-    return [200, alunoChamada];
-    });
+ //    $httpBackend.whenGET('http://www.webulando.com.br/mo409/aluno/chamada/turma').respond(function (method, url, data) {
+ //    return [200, alunoChamada];
+ //    });
 
 
     // $httpBackend.whenPOST('http://www.webulando.com.br/mo409/aluno/chamada/checkin').respond(function (method, url, data, headers) {
     //   return [200, chamadaTick];
     // });
 
-    $httpBackend.whenGET('http://www.webulando.com.br/mo409/aluno/chamada/disciplinas_aluno').respond(function (method, url, data) {
-    return [200, disciplinas_aluno];
-    });
+    // $httpBackend.whenGET('http://www.webulando.com.br/mo409/aluno/chamada/disciplinas_aluno').respond(function (method, url, data) {
+    // return [200, disciplinas_aluno];
+    // });
 
-    $httpBackend.whenPOST('http://www.webulando.com.br/mo409/aluno/chamada/frequencia').respond(function (method, url, data) {
-    return [200, frequencia];
-    });
+    // $httpBackend.whenPOST('http://www.webulando.com.br/mo409/aluno/chamada/frequencia').respond(function (method, url, data) {
+    // return [200, frequencia];
+    // });
 
     // $httpBackend.whenPOST('http://www.webulando.com.br/mo409/aluno/chamada/checkout').respond(function (method, url, data, headers) {
     //   return [200, chamadaTick];

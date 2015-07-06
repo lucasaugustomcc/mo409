@@ -2,20 +2,23 @@
   <ion-nav-buttons side="left">
     <button menu-toggle="left"class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
-  <ion-content padding="true">	
+  <ion-content padding="true">
+  		<script type="text/javascript">
+			stopTimer();
+		</script>	
 		<ul class="list bar-positive">
-			<li class="item">
+			<li class="item item-divider">
 				<div class="row responsive-sm">
 					<div class="col col-33">
-							Data da Aula: {{ presencas.dataChamada }}
+							<b> Data da Aula: </b> {{ presencas[0].dataChamada }}
 							<br/>
-							Hora Início: {{ presencas.horaInicio }}
+							<b>Hora Início: </b>{{ presencas[0].horaInicio }}
 							<br/>
-							Hora Fim: {{ presencas.horaFim }}
+							<b>Hora Fim: </b> {{ presencas[0].horaFim }}
 					</div>
 				
 					<div class="col col-33">
-							<p class="title">Disciplina</p>
+							<p class="title"> <b>Disciplina </b></p>
 							<p ng-repeat="presenca in presencas">
 								{{ presenca.turma.codDisciplina }} - TURMA {{ presenca.turma.codTurma }}
 							</p>

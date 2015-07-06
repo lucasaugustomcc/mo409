@@ -1,8 +1,3 @@
-function resourceErrorHandler(e)
-{
-  alert(e.data.message);
-}
-
 var services = angular.module('exampleApp.services', ['ngResource']);
 
 services.factory('UserService', function($resource) {
@@ -12,7 +7,8 @@ services.factory('UserService', function($resource) {
         authenticate: {
           method: 'POST',
           params: {'action' : 'authenticate'},
-          headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+          headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+          interceptor : {responseError : resourceErrorHandler}
         },
       }
     );
@@ -27,13 +23,25 @@ services.factory('ChamadaService', function($resource) {
           isArray: true,
           interceptor : {responseError : resourceErrorHandler}
         },
-        aberta: {
+        abertas: {
           method: 'GET',
-          params: {'action' : 'aberta'},
+          params: {'action' : 'abertas'},
           isArray: true,
           interceptor : {responseError : resourceErrorHandler}
         },
-        
+        criadas: {
+          method: 'GET',
+          params: {'action' : 'criadas'},
+          isArray: true,
+          interceptor : {responseError : resourceErrorHandler}
+        },
+        criar: {
+          method: 'POST',
+          params: {'action' : 'criar'},
+          isArray: true,
+          headers : {'Content-Type': 'application/json'},
+          interceptor : {responseError : resourceErrorHandler}
+        },
         abrir: {
           method: 'POST',
           params: {'action' : 'abrir'},
@@ -49,13 +57,22 @@ services.factory('ChamadaService', function($resource) {
           interceptor : {responseError : resourceErrorHandler}
         },
         parametros: {
-          method: 'GET',
-          params: {'action' : 'parametros'},
+          method: 'POST',
+          params: {'action' : 'visualizar-parametros'},
+          isArray: true,
           interceptor : {responseError : resourceErrorHandler}
         },
         alterarparametros: {
           method: 'POST',
-          params: {'action' : 'parametros'},
+          params: {'action' : 'alterar-parametros'},
+          isArray: true,
+          interceptor : {responseError : resourceErrorHandler}
+        },
+        localizacao: {
+          method: 'POST',
+          params: {'action' : 'localizacao'},
+          isArray: true,
+          headers : {'Content-Type': 'application/json'},
           interceptor : {responseError : resourceErrorHandler}
         },
         disciplinas: {
@@ -130,16 +147,16 @@ services.factory('AlunoService', function($resource) {
   );
 });
 services.factory('myService', function() {
- var savedData = {}
- function set(data) {
-   savedData = data;
- }
- function get() {
-  return savedData;
- }
+   var savedData = {}
+   function set(data) {
+      savedData = data;
+   }
+   function get() {
+      return savedData;
+   }
 
- return {
-  set: set,
-  get: get
- }
+   return {
+      set: set,
+      get: get
+   }
 })

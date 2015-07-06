@@ -2,57 +2,39 @@
   <ion-nav-buttons side="left">
     <button menu-toggle="left"class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
-  <ion-content padding="true">		
-  
-  <!--
-		<ul class="list">
-			<li class="item item-checkbox" ng-repeat="chamada in chamadas">
-				<div class="row responsive-sm">
-					<div class="col-10">
-							<h2>{{ chamada.turma.codDisciplina }}</h2>
-							<h3>TURMA {{ chamada.turma.codTurma }}</h3>
-					</div>
-					<div class="col-8">
-							<p>{{ chamada.turma.nomeDisciplina }}</p>
-					</div>
-				<div>
-				<label class="checkbox">
-					<input type="checkbox" name="turma" ng-model="formData.turma" ng-true-value="{{ chamada.turma.idTurma }}" ng-value="{{ chamada.turma.idTurma }}">
-				</label>				
-			</li>			
-		</ul>	
-		
-		-->
+  <ion-content padding="true">		    
 		<script type="text/javascript">
 			startTimer();
+			data();
 		</script>
-
-		<div class="card">
-			
-				<div class="item item-divider row responsive-sm">
-					<div class="col-10">
-							<h2>{{chamadas.turma.codDisciplina}}</h2>
-							<h2>TURMA {{chamadas.turma.codTurma}}</h2>
-					</div>
-					<div class="col-8">
-							<h3>{{chamadas.turma.nomeDisciplina}}</h3>
-					</div>
-				
-				</div>
+		<div class="card">						
 				<div class="item">
-					<p> Terça-feira, 17 de junho de 2015. </p>
+					<p> 
+						<span id="data"></span>
+					</p>
 
 					<p> <b> Duração da aula: </b>  <span id="hora">00h</span><span id="minuto">00m</span><span id="segundo">00s</span> </p>
 				</div>
 				<div class="item">
 					<p class="title"> <b> Parâmetros Atuais para Validação de Presença </b> </p> 
 					<br/>
-					<p> Tempo de permanência em sala: 50 mins </p>
-					<p> Quantidade de ticks: 75% </p>
+					<p> Tempo da aula: {{chamadas[0].duracao}} mins </p>
+					<p> Porcentagem para presença: {{chamadas[0].porcentagem}}% </p>
+					<p> Quantidade mínima de ticks: {{chamadas[0].numMinTicks}} </p>
 				</div> 
 		</div>
-		
-
+		<div class="card" ng-repeat="chamada in chamadas">
+			
+				<div class="item item-divider row responsive-sm">
+					<div class="col-10">
+							<h2>{{chamada.turma.codDisciplina}}</h2>
+							<h2>TURMA {{chamada.turma.codTurma}}</h2>
+					</div>
+					<div class="col-8">
+							<h3>{{chamada.turma.nomeDisciplina}}</h3>
+					</div>				
+				</div>				
+		</div>		
 		<div class="row responsive-sm">
 			<div class="col"></div>
 			<div class="col">

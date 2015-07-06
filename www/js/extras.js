@@ -59,8 +59,37 @@ function data(){
  Mes_Atual[10] = "Novembro"
  Mes_Atual[11] = "Dezembro"
  
- document.write(Dia_Atual[Dia] +", "+ Data + " de " + Mes_Atual[Mes] + " de " + Ano);
+ document.getElementById("data").innerHTML = Dia_Atual[Dia] +", "+ Data + " de " + Mes_Atual[Mes] + " de " + Ano;
 }
 
+function resourceErrorHandler(e)
+{
+  alert(e.data.message);
+}
 
+var getIndexIfObjWithAttr = function(array, attr, value) {
+    for(var i = 0; i < array.length; i++) {
+        if(array[i][attr] === value) {
+            return i;
+        }
+    }
+    return -1;
+}
+var onSuccess = function(position) {
+    alert('Latitude: '          + position.coords.latitude          + '\n' +
+          'Longitude: '         + position.coords.longitude         + '\n' +
+          'Altitude: '          + position.coords.altitude          + '\n' +
+          'Accuracy: '          + position.coords.accuracy          + '\n' +
+          'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+          'Heading: '           + position.coords.heading           + '\n' +
+          'Speed: '             + position.coords.speed             + '\n' +
+          'Timestamp: '         + position.timestamp                + '\n');
+};
+
+// onError Callback receives a PositionError object
+//
+function onError(error) {
+    alert('code: '    + error.code    + '\n' +
+          'message: ' + error.message + '\n');
+}
 

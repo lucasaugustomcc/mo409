@@ -1,29 +1,3 @@
-var getIndexIfObjWithAttr = function(array, attr, value) {
-    for(var i = 0; i < array.length; i++) {
-        if(array[i][attr] === value) {
-            return i;
-        }
-    }
-    return -1;
-}
-var onSuccess = function(position) {
-    alert('Latitude: '          + position.coords.latitude          + '\n' +
-          'Longitude: '         + position.coords.longitude         + '\n' +
-          'Altitude: '          + position.coords.altitude          + '\n' +
-          'Accuracy: '          + position.coords.accuracy          + '\n' +
-          'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-          'Heading: '           + position.coords.heading           + '\n' +
-          'Speed: '             + position.coords.speed             + '\n' +
-          'Timestamp: '         + position.timestamp                + '\n');
-};
-
-// onError Callback receives a PositionError object
-//
-function onError(error) {
-    alert('code: '    + error.code    + '\n' +
-          'message: ' + error.message + '\n');
-}
-
 angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.services'])
 .controller('LogoutController', function($scope, $rootScope, $location, localStorageService, $state) {
  
@@ -66,26 +40,39 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
 }) 
 .controller('HomeCtrl', function($rootScope, $scope, $timeout) {
 })
-/*
 .controller('ChamadaTurmasCtrl', function($scope, $state, $http, myService, ChamadaService) {
-
     // verificar se existe chamadas abertas
     ChamadaService.abertas({},{},
       function success(data) {
-          console.dir(data);
-            if (data.length > 0)
-            {
-              console.log("chamadas abertas");
-              myService.set(data);
-              $state.go('professor.chamada-aberta');
-              return;
-            }
-            else
-            {
-              $scope.turmas = ChamadaService.turmas();
-            }
+          if (data.length > 0)
+          {
+            console.log("chamadas abertas em listar turmas");
+            myService.set(data);
+            $state.go('professor.chamadas-abertas');
+            return;
+          }
+          else
+          {
+            $scope.turmas = ChamadaService.turmas();
+          }
         }, function err() {  }
     ); 
+
+    ChamadaService.criadas({},{},
+      function success(data) {
+          if (data.length > 0)
+          {
+            myService.set(data);
+            $state.go('professor.chamadas-criadas');
+            return;
+          }
+          else
+          {
+            $state.go("professor.chamada-turmas");
+            return;
+          }
+        }, function err() {  }
+    );
     
     $scope.checkbox = [];
 
@@ -98,79 +85,128 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
       }
     }
 
-    $scope.confirmChamada = function() {
+    $scope.confirmCriarChamadas = function() {
       if ($scope.checkbox.length > 0)
-      {
-        // Your app must execute AT LEAST ONE call for the current position via standard Cordova geolocation,
-        //  in order to prompt the user for Location permission.
-        $scope.getPosition = function(position){
-            $scope.coords = position.coords;
-            $scope.$apply();
-            ChamadaService.abrir({},{ 'latitude': $scope.coords.latitude.toString(), 'longitude': $scope.coords.longitude.toString(), "turmas":$scope.checkbox }, 
+      {        
+            ChamadaService.criar({},$scope.checkbox, 
                 function success(data) {
                     myService.set(data);
-                    $state.go('professor.chamada-aberta');
+                    $state.go('professor.chamadas-criadas');
                 }, function err() {  }
             );  
-        };
-        $scope.getPositionErr = function(error){
-            alert('code: '    + error.code    + '\n' +
-                      'message: ' + error.message + '\n');
-        };
-        navigator.geolocation.getCurrentPosition($scope.getPosition, $scope.getPositionErr, {maximumAge: 0, timeout: 6000, enableHighAccuracy:false});        
-      }           
-    }
-}) */
-
-.controller('ChamadaTurmasCtrl', function($scope, $state, $http, myService, ChamadaService) {
-    $scope.turmas = ChamadaService.turmas(); 
+      }            
+    }    
+})
+.controller('ChamadasCriadasCtrl', function($scope, $state, $http, myService, ChamadaService) {
     $scope.formData = {};
+    $scope.chamadas = myService.get();
     $scope.checkbox = [];
-    $scope.parametros = ChamadaService.parametros();  
 
-    $scope.appendList = function(id){
-      var index = getIndexIfObjWithAttr($scope.checkbox, "idTurma", id);
-      if (index == -1) {
-          $scope.checkbox.push({ "idTurma": id });
-      } else {
-          $scope.checkbox.splice(index, 1);
-      }
+    if ($scope.chamadas == undefined)
+    {
+      ChamadaService.criadas({},{},
+      function success(data) {
+          if (data.length > 0)
+          {
+            $scope.chamadas = data;
+          }
+          else
+          {
+            $state.go("professor.chamada");
+            return;
+          }
+        }, function err() {  }
+      ); 
+
+      // verificar se existe chamadas abertas
+      ChamadaService.abertas({},{},
+        function success(data) {
+            if (data.length > 0)
+            {
+              console.dir(data);
+              console.log("chamadas abertas em criadas");
+              myService.set(data);
+              $state.go('professor.chamadas-abertas');
+            }
+          }, function err() {  }
+      );  
     }
-
-    $scope.confirmChamada = function() {
-      if ($scope.checkbox.length > 0)
-      {
+    for (var i = 0; i < $scope.chamadas.length; i++)
+    {      
+      $scope.checkbox.push({ "idChamada": $scope.chamadas[i]["idChamada"] });
+    }
+    
+    $scope.visualizarParametros = function() {
+      $scope.parametros = ChamadaService.parametros({},$scope.chamadas);         
+    }
+    $scope.confirmAbrirChamadas = function() {      
         // Your app must execute AT LEAST ONE call for the current position via standard Cordova geolocation,
         //  in order to prompt the user for Location permission.
         $scope.getPosition = function(position){
             $scope.coords = position.coords;
             $scope.$apply();
-            ChamadaService.abrir({},{ 'latitude': $scope.coords.latitude.toString(), 'longitude': $scope.coords.longitude.toString(), "turmas":$scope.checkbox }, 
+            ChamadaService.localizacao({},{ 'latitude': $scope.coords.latitude.toString(), 'longitude': $scope.coords.longitude.toString(), "chamadas":$scope.checkbox }, 
                 function success(data) {
                     myService.set(data);
-                    $state.go('professor.chamada-aberta');
+                    ChamadaService.abrir({},$scope.checkbox, 
+                        function success(data) {
+                            myService.set(data);
+                            $state.go('professor.chamadas-abertas');
+                        }, function err() {  }
+                    );  
                 }, function err() {  }
             );  
+            
         };
         $scope.getPositionErr = function(error){
             alert('code: '    + error.code    + '\n' +
                       'message: ' + error.message + '\n');
         };
-        navigator.geolocation.getCurrentPosition($scope.getPosition, $scope.getPositionErr, {maximumAge: 0, timeout: 6000, enableHighAccuracy:false});        
-      }           
+        navigator.geolocation.getCurrentPosition($scope.getPosition, $scope.getPositionErr, {maximumAge: 0, timeout: 6000, enableHighAccuracy:false});                 
     }
 
-    $scope.confirmParametros = function() {
-         ChamadaService.alterarparametros({},$scope.formData, 
+    $scope.confirmAlterarParametros = function() {
+         ChamadaService.alterarparametros({},{'chamadas':$scope.checkbox, 'duracao':$scope.formData.duracao, 'porcentagem':$scope.formData.porcentagem}, 
             function success(data) {
                 $scope.parametros = data;
             }, function err() {  }
         );                    
     }
-
 })
+.controller('ChamadasParametrosCtrl', function($scope, $state, $http, myService, ChamadaService) {
+    $scope.formData = {};
+    $scope.checkbox = [];
+    $scope.chamadas = myService.get();
+    $scope.parametros = {}
 
-.controller('ChamadaAbertaCtrl', function($scope, $state, $http, myService, ChamadaService) {
+    ChamadaService.criadas({},{},
+      function success(data) {
+          if (data.length > 0)
+          {
+            $scope.chamadas = data;
+            for (var i = 0; i < $scope.chamadas.length; i++)
+            {      
+              $scope.checkbox.push({ "idChamada": $scope.chamadas[i]["idChamada"] });
+            }
+            $scope.parametros = ChamadaService.parametros({},$scope.checkbox);
+          }
+          else
+          {
+            $state.go("professor.chamada-turmas");
+            return;
+          }
+        }, function err() {  }
+      );     
+
+    $scope.confirmAlterarParametros = function() {
+         ChamadaService.alterarparametros({},{'chamadas':$scope.checkbox, 'duracao':$scope.formData.duracao, 'porcentagem':$scope.formData.porcentagem}, 
+            function success(data) {
+                $scope.parametros = data;
+            }, function err() {  }
+        );                    
+    }
+})
+.controller('ChamadasAbertasCtrl', function($scope, $state, $http, myService, ChamadaService) {
     $scope.chamadas = myService.get();
     $scope.checkbox = [];
     for (var i = 0; i < $scope.chamadas.length; i++)
@@ -262,12 +298,18 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
     console.dir($scope.tick);
 
     /**
+    * This would be your own callback for Ajax-requests after POSTing background geolocation to your server.
+    */
+    var yourAjaxCallback = function(response) {
+        bgGeo.finish();
+    };
+
+    /**
     * This callback will be executed every time a geolocation is recorded in the background.
     */
     var callbackFn = function(location) {
         console.log('[js] BackgroundGeoLocation callback:  ' + location.latitude + ',' + location.longitude);
         
-
         // After you Ajax callback is complete, you MUST signal to the native code, which is running a background-thread, that you're done and it can gracefully kill that thread.
         yourAjaxCallback.call(this);
     };
