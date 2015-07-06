@@ -15,7 +15,7 @@
       </ownedAttribute>
       <ownedAttribute xmi:id="_SDlD4AhwEeWo2qsvHoqUxQ" name="diarioAberto">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-        <upperValue xmi:type="uml:LiteralString" xmi:id="_1SaCgA3pEeWMKsVXT7gRww" name="" value="false"/>
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_1SaCgA3pEeWMKsVXT7gRww" name="" value="true"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_K8cVQCAuEeW4ysb2kbGRGQ" name="diarioEncerrado">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
@@ -30,6 +30,11 @@
       <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_yqv4YOjJEdu6LJeVabImNg" name="Diario">
         <region xmi:id="_VIx8EJKuEdyUSNhMCOPPLg" name="sort">
           <subvertex xmi:type="uml:Pseudostate" xmi:id="_ZMY7cJKuEdyUSNhMCOPPLg" name="init"/>
+          <subvertex xmi:type="uml:State" xmi:id="_GQdisCNtEeWK6d4uHePG3A" name="nao_aberto">
+            <stateInvariant xmi:id="_GQdisSNtEeWK6d4uHePG3A">
+              <specification xmi:type="uml:LiteralString" xmi:id="_GQdisiNtEeWK6d4uHePG3A" value="state  = DiarioState::nao_aberto"/>
+            </stateInvariant>
+          </subvertex>
           <subvertex xmi:type="uml:State" xmi:id="_ts6mEB8nEeW6ooM7jnMepg" name="aberto">
             <stateInvariant xmi:id="_ts7NIB8nEeW6ooM7jnMepg">
               <specification xmi:type="uml:LiteralString" xmi:id="_ts7NIR8nEeW6ooM7jnMepg" value="state  = DiarioState::aberto"/>
@@ -40,7 +45,10 @@
               <specification xmi:type="uml:LiteralString" xmi:id="_D3pi4R8oEeW6ooM7jnMepg" value="state  = DiarioState::encerrado"/>
             </stateInvariant>
           </subvertex>
-          <transition xmi:id="_KHZoYJeHEdyqN79LFuBS7A" name="init2aberto" target="_ts6mEB8nEeW6ooM7jnMepg" source="_ZMY7cJKuEdyUSNhMCOPPLg"/>
+          <transition xmi:id="_KHZoYJeHEdyqN79LFuBS7A" name="init2nao_aberto" target="_GQdisCNtEeWK6d4uHePG3A" source="_ZMY7cJKuEdyUSNhMCOPPLg"/>
+          <transition xmi:id="_CRXP4CNtEeWK6d4uHePG3A" name="nao_aberto2aberto" target="_ts6mEB8nEeW6ooM7jnMepg" source="_GQdisCNtEeWK6d4uHePG3A">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_WOfssCNtEeWK6d4uHePG3A" name="abrirDiario"/>
+          </transition>
           <transition xmi:id="_sfyHwB8rEeW6ooM7jnMepg" name="aberto2encerrado" target="_D3o70B8oEeW6ooM7jnMepg" source="_ts6mEB8nEeW6ooM7jnMepg">
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_sfyHwR8rEeW6ooM7jnMepg" name="encerrarDiario"/>
             <trigger xmi:id="_sfyHwh8rEeW6ooM7jnMepg" name="encerrarDiario" event="_ZUa5sCApEeW4ysb2kbGRGQ"/>
@@ -80,6 +88,7 @@
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Enumeration" xmi:id="_dMVB4JsBEd20fKiJK1xsTw" name="DiarioState">
+      <ownedLiteral xmi:id="_-GzT8CNsEeWK6d4uHePG3A" name="nao_aberto"/>
       <ownedLiteral xmi:id="_00YYAB8nEeW6ooM7jnMepg" name="aberto"/>
       <ownedLiteral xmi:id="_4PkFcB8nEeW6ooM7jnMepg" name="encerrado"/>
     </packagedElement>
