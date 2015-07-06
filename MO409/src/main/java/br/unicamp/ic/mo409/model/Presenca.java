@@ -271,18 +271,19 @@ public class Presenca implements Serializable
 		if (chamada.getState() == ChamadaState.encerrada && 
 				(state == PresencaState.em_branco || state == PresencaState.em_aula || state == PresencaState.fora_de_aula))
 		{
-			state = PresencaState.calculando;
+			this.setState(PresencaState.calculando);
 	
 			if (numTicks >= numTicksMinino)
 			{
-				state = PresencaState.presente;
+				this.setState(PresencaState.presente);
 			} else
 			{
-				state = PresencaState.ausente;
+				this.setState(PresencaState.ausente);
 			}
 		}
 		else
 		{
+			System.out.println(chamada.getState() + "/" + getState());
 			throw new IllegalStateException("Estado não permite solicitar o cálculo da presença.");
 		}
 	}	
@@ -394,5 +395,17 @@ public class Presenca implements Serializable
 			throw new IllegalStateException("Chamada não aberta ou aluno já fez checkin!");
 		}
 	}
+	
+	@Override
+	public boolean equals(Object object)
+	{
+		boolean sameSame = false;
 
+		if (object != null && object instanceof Presenca)
+		{
+			sameSame = this.idPresenca == ((Presenca) object).getIdPresenca();
+		}
+
+		return sameSame;
+	}
 }

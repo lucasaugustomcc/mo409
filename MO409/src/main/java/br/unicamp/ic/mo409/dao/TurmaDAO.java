@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
+import br.unicamp.ic.mo409.model.Aluno;
 import br.unicamp.ic.mo409.model.Turma;
 
 @Repository("TurmaDAO")
@@ -48,7 +49,26 @@ public class TurmaDAO implements Serializable {
 
 	@SuppressWarnings("unchecked")
 	public List<Turma> findAll() {		
-		return entityManager.createQuery("SELECT c FROM Turma c")
+		return entityManager.createQuery("SELECT c FROM Turma c").getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Turma> listarTurmasAlunosProfessor(Integer raAluno,
+			int raProfessor)
+	{
+		return (List<Turma>) entityManager.createQuery("SELECT t FROM Turma t left join t.professores p left join t.alunos a "
+				+ "WHERE p.raProfessor = :raProfessor AND a.raAluno = :raAluno")
+				.setParameter("raAluno", raAluno)
+				.setParameter("raProfessor", raProfessor)
+				.getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Turma> listarTurmasAluno(int raAluno)
+	{
+		return (List<Turma>) entityManager.createQuery("SELECT t FROM Turma t left join t.alunos a "
+				+ "WHERE a.raAluno = :raAluno")
+				.setParameter("raAluno", raAluno)
 				.getResultList();
 	}
 }

@@ -2,6 +2,7 @@ package br.unicamp.ic.mo409.dao;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -65,5 +66,28 @@ public class PresencaDAO implements Serializable {
 				.setParameter("raAluno", raAluno)
 				.setParameter("presencaState", PresencaState.em_aula)
 				.getSingleResult();
+	}
+	
+	public Long quantidadePresencasAlunoTurma(Integer raAluno, Integer idTurma, PresencaState state) 
+	{
+		return (Long) entityManager.createQuery("SELECT COUNT(p.id) as quantidade FROM Presenca p left join p.aluno a left join p.chamada c left join c.turma t "
+				+ "WHERE t.id = :idTurma AND a.raAluno = :raAluno AND p.state = :presencaState")
+				.setParameter("raAluno", raAluno)
+				.setParameter("idTurma", idTurma)
+				.setParameter("presencaState", state)
+				.getSingleResult();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Presenca> presencasAlunoChamadasEncerradas(Integer raAluno, Integer idTurma)
+	{
+		return (List<Presenca>) entityManager.createQuery("SELECT p FROM Presenca p left join p.aluno a left join p.chamada c left join c.turma t "
+				+ "WHERE t.id = :idTurma AND a.raAluno = :raAluno AND c.state = :chamadaState AND (p.state = :presencaStatePresente OR p.state = :presencaStateAusente)")
+				.setParameter("raAluno", raAluno)
+				.setParameter("idTurma", idTurma)
+				.setParameter("chamadaState", ChamadaState.encerrada)
+				.setParameter("presencaStatePresente", PresencaState.presente)
+				.setParameter("presencaStateAusente", PresencaState.ausente)
+				.getResultList();
 	}
 }

@@ -85,4 +85,12 @@ public class ChamadaDAO implements Serializable {
 				.setParameter("chamadaState", ChamadaState.nao_aberta)
 				.getResultList();
 	}
+
+	public Long quantidadeChamadasEncerradasTurma(int idTurma)
+	{
+		return (Long) entityManager.createQuery("SELECT count(c.id) FROM Chamada c left join c.turma t  WHERE t.id = :idTurma AND c.state = :chamadaState")
+				.setParameter("idTurma", idTurma)
+				.setParameter("chamadaState", ChamadaState.encerrada)
+				.getSingleResult();
+	}
 }

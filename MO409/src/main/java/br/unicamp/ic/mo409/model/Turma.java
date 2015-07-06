@@ -45,7 +45,7 @@ public class Turma implements Serializable {
 
 	//bi-directional many-to-one association to Aula
 	@OneToMany(mappedBy="turma")
-	private List<Chamada> aulas;
+	private List<Chamada> chamadas;
 
 	//bi-directional many-to-many association to Professor
 	@ManyToMany(mappedBy="turmas", fetch = FetchType.EAGER)
@@ -108,23 +108,23 @@ public class Turma implements Serializable {
 		this.periodo = periodo;
 	}
 
-	public List<Chamada> getAulas() {
-		return this.aulas;
+	public List<Chamada> getChamadas() {
+		return this.chamadas;
 	}
 
-	public void setAulas(List<Chamada> aulas) {
-		this.aulas = aulas;
+	public void setChamadas(List<Chamada> chamadas) {
+		this.chamadas = chamadas;
 	}
 
-	public Chamada addAula(Chamada aula) {
-		getAulas().add(aula);
+	public Chamada addChamada(Chamada aula) {
+		getChamadas().add(aula);
 		aula.setTurma(this);
 
 		return aula;
 	}
 
 	public Chamada removeAula(Chamada aula) {
-		getAulas().remove(aula);
+		getChamadas().remove(aula);
 		aula.setTurma(null);
 
 		return aula;

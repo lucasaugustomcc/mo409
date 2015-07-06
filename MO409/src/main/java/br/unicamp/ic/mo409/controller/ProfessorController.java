@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.unicamp.ic.mo409.dao.AlunoDAO;
 import br.unicamp.ic.mo409.dao.ChamadaDAO;
 import br.unicamp.ic.mo409.dao.ParametroDAO;
+import br.unicamp.ic.mo409.dao.PresencaDAO;
 import br.unicamp.ic.mo409.dao.ProfessorDAO;
 import br.unicamp.ic.mo409.dao.TurmaDAO;
 import br.unicamp.ic.mo409.dao.UsuarioDAO;
@@ -40,6 +42,7 @@ import br.unicamp.ic.mo409.model.Chamada;
 import br.unicamp.ic.mo409.model.ChamadaState;
 import br.unicamp.ic.mo409.model.Parametro;
 import br.unicamp.ic.mo409.model.Presenca;
+import br.unicamp.ic.mo409.model.PresencaState;
 import br.unicamp.ic.mo409.model.Professor;
 import br.unicamp.ic.mo409.model.Turma;
 import br.unicamp.ic.mo409.model.Usuario;
@@ -69,6 +72,9 @@ public class ProfessorController
 
 	@Autowired
 	private ParametroDAO parametroDAO;
+
+	@Autowired
+	private PresencaDAO presencaDAO;
 
 	@ModelAttribute("usuario")
 	public Usuario getUsuario()
@@ -102,6 +108,7 @@ public class ProfessorController
 			obj.put("codTurma", turma.getCodTurma());
 			obj.put("codDisciplina", turma.getDisciplina().getCodDisciplina());
 			obj.put("nomeDisciplina", turma.getDisciplina().getNomeDisciplina());
+			obj.put("numAlunos", turma.getAlunos().size());
 			array.add(obj);
 		}
 		return array;
@@ -455,9 +462,9 @@ public class ProfessorController
 		for (Chamada chamada : chamadas)
 		{
 			chamada = chamadaDAO.find(chamada.getIdChamada());
-
 			chamada.encerrarChamada(new Time(System.currentTimeMillis()));
-			
+			chamada.calcularPresenca();
+
 			// dados da chamada
 			JSONObject obj = new JSONObject();
 			obj.put("idChamada", chamada.getIdChamada());
@@ -485,7 +492,7 @@ public class ProfessorController
 		return array;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	@RequestMapping(value = "/professor/chamada/presenca", method = RequestMethod.POST)
 	@Secured({ "ROLE_PROFESSOR" })
 	@ResponseBody
@@ -514,7 +521,7 @@ public class ProfessorController
 			{
 				throw new Exception("Chamada não encerrada ainda. Resultado da presença inexistente");
 			}	
-
+			
 			JSONObject obj = new JSONObject();
 			obj.put("idChamada", chamada.getIdChamada());
 			obj.put("numMinTicks", chamada.calcularNumMinTicks());
@@ -543,7 +550,7 @@ public class ProfessorController
 			JSONArray arrayPresencas = new JSONArray();
 
 			// obtendo relatorio de presença dos alunos de cada chamada
-			List<Presenca> presencas = chamada.getPresencas();
+			Set<Presenca> presencas = chamada.getPresencas();
 			for (Presenca presenca : presencas)
 			{
 				Aluno aluno = presenca.getAluno();
@@ -551,12 +558,60 @@ public class ProfessorController
 				objPresenca.put("raAluno", aluno.getRaAluno());
 				objPresenca.put("nomeAluno", aluno.getUsuario().getNome());
 				objPresenca.put("resultado", presenca.visualizarPresenca());
+				objPresenca.put("horaInicio", shf.format(presenca.getHoraInicio() != null ? presenca.getHoraInicio() : new Time(0,0,0)));
+				objPresenca.put("horaFim", shf.format(presenca.getHoraFim() != null ? presenca.getHoraFim() : new Time(0,0,0)));
+				objPresenca.put("numTicks", presenca.getNumTicks());
 				arrayPresencas.add(objPresenca);
 			}
 			obj.put("alunos", arrayPresencas);
 
 			array.add(obj);
 		}
+		return array;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/professor/turma/consultar-alunos", method = RequestMethod.POST)
+	@Secured({ "ROLE_PROFESSOR" })
+	@ResponseBody
+	public JSONArray consultarAlunos(@ModelAttribute("usuario") Usuario usuario,
+			@RequestBody ConsultarAlunoWrapper alunoConsulta) throws Exception
+	{						
+		Professor professor = usuario.getProfessor();
+		
+		
+		List<Aluno> alunos = alunoDAO.consultarAlunosTurmasProfessor(
+				alunoConsulta.getRaAluno(),
+				alunoConsulta.getNomeAluno(), 
+				professor.getRaProfessor());
+		
+		JSONArray array = new JSONArray();
+		for (Aluno aluno : alunos)
+		{
+			JSONObject objAluno = new JSONObject();
+			objAluno.put("raAluno", aluno.getRaAluno());
+			objAluno.put("nomeAluno", aluno.getUsuario().getNome());
+			
+			JSONArray arrayTurmas = new JSONArray();
+			List<Turma> turmas = turmaDAO.listarTurmasAlunosProfessor(aluno.getRaAluno(),professor.getRaProfessor());
+			
+			for (Turma turma : turmas)
+			{
+				// construindo JSON de resposta		
+				// dados da turma
+				JSONObject obj = new JSONObject();
+				obj.put("idTurma", turma.getIdTurma());
+				obj.put("codTurma", turma.getCodTurma());
+				obj.put("codDisciplina", turma.getDisciplina()
+						.getCodDisciplina());
+				obj.put("nomeDisciplina", turma.getDisciplina()
+						.getNomeDisciplina());
+				arrayTurmas.add(obj);
+			}
+			objAluno.put("turmas", arrayTurmas);
+			array.add(objAluno);
+		}
+				
 		return array;
 	}
 	
@@ -579,6 +634,9 @@ public class ProfessorController
 			throw new AccessDeniedException(
 					"Professor não associado a turma.");
 		}
+		
+		Long numChamadas = chamadaDAO.quantidadeChamadasEncerradasTurma(turma.getIdTurma());
+		
 		// construindo JSON de resposta		
 		// dados da turma
 		JSONObject obj = new JSONObject();
@@ -588,23 +646,36 @@ public class ProfessorController
 				.getCodDisciplina());
 		obj.put("nomeDisciplina", turma.getDisciplina()
 				.getNomeDisciplina());
+		obj.put("numChamadas", numChamadas);
+		obj.put("numAlunos", turma.getAlunos().size());
+		
 
 		JSONArray array = new JSONArray();
 		
 		for (Aluno aluno : turma.getAlunos())
 		{
+			Long numFaltas = presencaDAO.quantidadePresencasAlunoTurma(aluno.getRaAluno(), turma.getIdTurma(), PresencaState.ausente);
+			Long numPresencas = presencaDAO.quantidadePresencasAlunoTurma(aluno.getRaAluno(), turma.getIdTurma(), PresencaState.presente);
+
+			Integer porcentagemPresencas = (int) (numPresencas.intValue() * 100 / numChamadas);
+			Integer porcentagemFaltas = (int) (numFaltas.intValue() * 100 / numChamadas);
+			
 			JSONObject objAluno = new JSONObject();
 			objAluno.put("raAluno", aluno.getRaAluno());
 			objAluno.put("nomeAluno", aluno.getUsuario().getNome());
+			objAluno.put("numPresencas", numPresencas);
+			objAluno.put("porcentagemPresencas", porcentagemPresencas);
+			objAluno.put("numFaltas", numFaltas);
+			objAluno.put("porcentagemFaltas", porcentagemFaltas);
 			array.add(objAluno);			
 		}
 		obj.put("alunos", array);
 		return obj;
 	}
 	
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/professor/turma/aluno/presenca", method = RequestMethod.POST, consumes = "application/json", produces = "application/json;charset=UTF-8")
-	@Secured({ "ROLE_ALUNO" })
+	@SuppressWarnings({ "unchecked", "deprecation" })
+	@RequestMapping(value = "/professor/turma/aluno-frequencia", method = RequestMethod.POST, consumes = "application/json", produces = "application/json;charset=UTF-8")
+	@Secured({ "ROLE_PROFESSOR" })
 	@ResponseBody
 	public JSONObject consultarPresencaAluno(
 			@ModelAttribute("usuario") Usuario usuario,
@@ -627,13 +698,29 @@ public class ProfessorController
 		// construir resposta JSON
 		SimpleDateFormat shf = new SimpleDateFormat("HH:mm");
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+				
 		
-		List<Presenca> presencas = aluno.getPresencas();
+		List<Presenca> presencas = presencaDAO.presencasAlunoChamadasEncerradas(presencaAluno.getRaAluno(), presencaAluno.getIdTurma());
+		Long numFaltas = presencaDAO.quantidadePresencasAlunoTurma(presencaAluno.getRaAluno(), presencaAluno.getIdTurma(), PresencaState.ausente);
+		Long numPresencas = presencaDAO.quantidadePresencasAlunoTurma(presencaAluno.getRaAluno(), presencaAluno.getIdTurma(), PresencaState.presente);
+		
+		Integer porcentagemPresencas = (int) (numPresencas.intValue()* 100 / presencas.size());
+		Integer porcentagemFaltas = (int) (numFaltas.intValue()* 100 / presencas.size());
 		
 		JSONObject obj = new JSONObject();
-		obj.put("numPresencas", 0);
-		obj.put("numFaltas", 1);
-		obj.put("numChamadas", presencas.size());	
+		obj.put("numChamadas", presencas.size());
+		obj.put("numPresencas", numPresencas);
+		obj.put("numFaltas", numFaltas);
+		obj.put("numPresencas", numPresencas);
+		obj.put("porcentagemPresencas", porcentagemPresencas);
+		obj.put("numFaltas", numFaltas);
+		obj.put("porcentagemFaltas", porcentagemFaltas);
+		
+		// dados do aluno
+		JSONObject objAluno = new JSONObject();
+		objAluno.put("raAluno", aluno.getRaAluno());
+		objAluno.put("nomeAluno", aluno.getUsuario().getNome());
+		obj.put("aluno", objAluno);
 		
 		// dados da turma
 		JSONObject objTurma = new JSONObject();
@@ -648,30 +735,33 @@ public class ProfessorController
 		JSONArray array = new JSONArray();
 		for (Presenca presenca : presencas)
 		{			
-			JSONObject objFrequencia = new JSONObject();
-			
-			JSONObject objPresenca = new JSONObject();
-			objPresenca.put("idPresenca", presenca.getIdPresenca());
-			objPresenca.put("horaInicio", shf.format(presenca.getHoraInicio()));
-			objPresenca.put("horaFim", shf.format(presenca.getHoraFim()));
-			objPresenca.put("numTicks", presenca.getNumTicks());
-			objPresenca.put("resultado", presenca.visualizarPresenca());
-			objFrequencia.put("presenca", objPresenca);
-			
-			Chamada chamada = presenca.getChamada();
-			
-			// construir resposta JSON
-			// dados da chamada
-			JSONObject objChamada = new JSONObject();
-			objChamada.put("idChamada", chamada.getIdChamada());
-			objChamada.put("dataChamada", sdf.format(chamada.getDataChamada()));
-			objChamada.put("horaInicio", shf.format(chamada.getHoraInicio()));
-			objChamada.put("horaFim", shf.format(chamada.getHoraFim()));
-			objChamada.put("duracao", chamada.getParametro().getDuracao());
-			objChamada.put("porcentagem", chamada.getParametro().getPorcentagem());
-			objChamada.put("professorChamada", chamada.getProfessor().getUsuario().getNome());
-			objFrequencia.put("chamada", objChamada);
-			array.add(objFrequencia);
+			if (presenca.getState() == PresencaState.presente || presenca.getState() == PresencaState.ausente)
+			{
+				JSONObject objFrequencia = new JSONObject();
+				
+				JSONObject objPresenca = new JSONObject();
+				objPresenca.put("idPresenca", presenca.getIdPresenca());
+				objPresenca.put("horaInicio", shf.format(presenca.getHoraInicio() != null ? presenca.getHoraInicio() : new Time(0,0,0)));
+				objPresenca.put("horaFim", shf.format(presenca.getHoraFim() != null ? presenca.getHoraFim() : new Time(0,0,0)));
+				objPresenca.put("numTicks", presenca.getNumTicks());
+				objPresenca.put("resultado", presenca.visualizarPresenca());
+				objFrequencia.put("presenca", objPresenca);
+				
+				Chamada chamada = presenca.getChamada();
+				
+				// construir resposta JSON
+				// dados da chamada
+				JSONObject objChamada = new JSONObject();
+				objChamada.put("idChamada", chamada.getIdChamada());
+				objChamada.put("dataChamada", sdf.format(chamada.getDataChamada()));
+				objChamada.put("horaInicio", shf.format(chamada.getHoraInicio()));
+				objChamada.put("horaFim", shf.format(chamada.getHoraFim()));
+				objChamada.put("duracao", chamada.getParametro().getDuracao());
+				objChamada.put("porcentagem", chamada.getParametro().getPorcentagem());
+				objChamada.put("professorChamada", chamada.getProfessor().getUsuario().getNome());
+				objFrequencia.put("chamada", objChamada);
+				array.add(objFrequencia);
+			}
 		}
 		obj.put("frequencia", array);
 		return obj;
@@ -843,8 +933,41 @@ class PresencaAlunoWrapper  implements Serializable {
 	public void setIdTurma(Integer idTurma)
 	{
 		this.idTurma = idTurma;
+	}      
+}
+
+class ConsultarAlunoWrapper  implements Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2262553828925378441L;
+	
+	@JsonProperty("raAluno")
+    Integer raAluno=0;
+	
+	@JsonProperty( "nomeAluno" )
+	private
+	String nomeAluno;
+	
+	public Integer getRaAluno()
+	{
+		return raAluno;
 	}
 
-	
-        
+	public void setRaAluno(Integer raAluno)
+	{
+		this.raAluno = raAluno;
+	}
+
+	public String getNomeAluno()
+	{
+		return nomeAluno;
+	}
+
+	public void setNomeAluno(String nomeAluno)
+	{
+		this.nomeAluno = nomeAluno;
+	}
+
+    
 }

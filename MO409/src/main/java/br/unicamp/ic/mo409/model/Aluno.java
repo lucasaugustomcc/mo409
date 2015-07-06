@@ -2,9 +2,11 @@ package br.unicamp.ic.mo409.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,8 +39,8 @@ public class Aluno implements Serializable
 	private Usuario usuario;
 
 	// bi-directional many-to-one association to Presenca
-	@OneToMany(mappedBy = "aluno")
-	private List<Presenca> presencas;
+	@OneToMany(mappedBy = "aluno", fetch = FetchType.EAGER)
+	private Set<Presenca> presencas;
 
 	// bi-directional many-to-one association to Tick
 	@OneToMany(mappedBy = "aluno")
@@ -72,12 +74,12 @@ public class Aluno implements Serializable
 		this.usuario = usuario;
 	}
 
-	public List<Presenca> getPresencas()
+	public Set<Presenca> getPresencas()
 	{
 		return this.presencas;
 	}
 
-	public void setPresencas(List<Presenca> presencas)
+	public void setPresencas(Set<Presenca> presencas)
 	{
 		this.presencas = presencas;
 	}

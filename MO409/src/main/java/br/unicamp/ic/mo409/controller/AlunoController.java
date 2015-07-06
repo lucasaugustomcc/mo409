@@ -1,8 +1,10 @@
 package br.unicamp.ic.mo409.controller;
 
 import java.io.Serializable;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
@@ -376,7 +378,33 @@ public class AlunoController
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/aluno/turma/presenca", method = RequestMethod.POST, consumes = "application/json", produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "/aluno/chamada/disciplinas", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	@Secured({ "ROLE_ALUNO" })
+	@ResponseBody
+	public JSONArray alunoDisciplinas(@ModelAttribute("usuario") Usuario usuario)
+	{
+		Aluno aluno = usuario.getAluno();		
+
+		// construir resposta JSON	
+		List<Turma> turmas = turmaDAO.listarTurmasAluno(aluno.getRaAluno());
+		JSONArray array = new JSONArray();
+		
+		for (Turma turma : turmas)
+		{				
+			JSONObject objTurma = new JSONObject();
+			objTurma.put("idTurma", turma.getIdTurma());
+			objTurma.put("codTurma", turma.getCodTurma());
+			objTurma.put("codDisciplina", turma.getDisciplina().getCodDisciplina());
+			objTurma.put("nomeDisciplina", turma.getDisciplina()
+					.getNomeDisciplina());
+	
+			array.add(objTurma);
+		}
+		return array;
+	}
+	
+	@SuppressWarnings({ "unchecked", "deprecation" })
+	@RequestMapping(value = "/aluno/chamada/frequencia", method = RequestMethod.POST, consumes = "application/json", produces = "application/json;charset=UTF-8")
 	@Secured({ "ROLE_ALUNO" })
 	@ResponseBody
 	public JSONObject alunoConsultarPresenca(
@@ -385,6 +413,7 @@ public class AlunoController
 	{
 		Aluno aluno = usuario.getAluno();
 		turma = turmaDAO.find(turma.getIdTurma());
+		
 		if (!turma.getAlunos().contains(aluno))
 		{
 			throw new NoResultException(
@@ -395,12 +424,31 @@ public class AlunoController
 		SimpleDateFormat shf = new SimpleDateFormat("HH:mm");
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
-		List<Presenca> presencas = aluno.getPresencas();
+		List<Presenca> presencas = presencaDAO.presencasAlunoChamadasEncerradas(aluno.getRaAluno(), turma.getIdTurma());
+		Long numFaltas = presencaDAO.quantidadePresencasAlunoTurma(aluno.getRaAluno(), turma.getIdTurma(), PresencaState.ausente);
+		Long numPresencas = presencaDAO.quantidadePresencasAlunoTurma(aluno.getRaAluno(), turma.getIdTurma(), PresencaState.presente);
 		
+		Integer porcentagemPresencas = 0;
+		Integer porcentagemFaltas = 0;
+		if (presencas.size() > 0)
+		{
+			porcentagemPresencas = (int) (numPresencas.intValue()* 100 / presencas.size());
+			porcentagemFaltas = (int) (numFaltas.intValue()* 100 / presencas.size());
+		}
 		JSONObject obj = new JSONObject();
-		obj.put("numPresencas", 0);
-		obj.put("numFaltas", 1);
-		obj.put("numChamadas", presencas.size());	
+		obj.put("numChamadas", presencas.size());
+		obj.put("numPresencas", numPresencas);
+		obj.put("numFaltas", numFaltas);
+		obj.put("numPresencas", numPresencas);
+		obj.put("porcentagemPresencas", porcentagemPresencas);
+		obj.put("numFaltas", numFaltas);
+		obj.put("porcentagemFaltas", porcentagemFaltas);
+		
+		// dados do aluno
+		JSONObject objAluno = new JSONObject();
+		objAluno.put("raAluno", aluno.getRaAluno());
+		objAluno.put("nomeAluno", aluno.getUsuario().getNome());
+		obj.put("aluno", objAluno);
 		
 		// dados da turma
 		JSONObject objTurma = new JSONObject();
@@ -419,8 +467,8 @@ public class AlunoController
 			
 			JSONObject objPresenca = new JSONObject();
 			objPresenca.put("idPresenca", presenca.getIdPresenca());
-			objPresenca.put("horaInicio", shf.format(presenca.getHoraInicio()));
-			objPresenca.put("horaFim", shf.format(presenca.getHoraFim()));
+			objPresenca.put("horaInicio", shf.format(presenca.getHoraInicio() != null ? presenca.getHoraInicio() : new Time(0,0,0)));
+			objPresenca.put("horaFim", shf.format(presenca.getHoraFim() != null ? presenca.getHoraFim() : new Time(0,0,0)));
 			objPresenca.put("numTicks", presenca.getNumTicks());
 			objPresenca.put("resultado", presenca.visualizarPresenca());
 			objFrequencia.put("presenca", objPresenca);
@@ -444,6 +492,7 @@ public class AlunoController
 		return obj;
 	}
 
+	
 //	@SuppressWarnings("unchecked")
 //	@ExceptionHandler(Exception.class)
 //	@ResponseStatus(HttpStatus.CONFLICT)  // 409

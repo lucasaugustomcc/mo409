@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,6 +26,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.transaction.Transactional;
 
 /**
  * The persistent class for the tb_chamada database table.
@@ -69,7 +72,7 @@ public class Chamada implements Serializable
 
 	// bi-directional many-to-one association to Presenca
 	@OneToMany(mappedBy = "chamada", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-	private List<Presenca> presencas;
+	private Set<Presenca> presencas;
 
 	// bi-directional many-to-one association to Tick
 	@OneToMany(mappedBy = "chamada")
@@ -345,7 +348,7 @@ public class Chamada implements Serializable
 			state = ChamadaState.aberta;
 
 			List<Aluno> alunos = getTurma().getAlunos();
-			List<Presenca> presencas = new ArrayList<Presenca>();
+			Set<Presenca> presencas = new LinkedHashSet<Presenca>();
 			for (Aluno aluno : alunos)
 			{
 				Presenca presenca = new Presenca();
@@ -368,28 +371,28 @@ public class Chamada implements Serializable
 	 * @param horaFim
 	 *            : horário do fim da chamada
 	 */
-
+	@Transactional
 	public void encerrarChamada(Time horaFim)
 	{
 		if (state == ChamadaState.aberta)
 		{
 			this.setHoraFim(horaFim);
 			this.setState(ChamadaState.encerrada);
-
+			
 			// marcar alunos como fora da aula
-			List<Presenca> presencas = getPresencas();
+			Set<Presenca> presencas = getPresencas();
 			for (Presenca presenca : presencas)
 			{
 				presenca.setState(PresencaState.fora_de_aula);
-				if (presenca.getHoraFim() == null)
+				if (presenca.getHoraInicio() != null && presenca.getHoraFim() == null)
 				{
 					presenca.setHoraFim(horaFim);
-				}
+				}	
 			}
 		} else
 		{
 			throw new IllegalStateException("Chamada não está aberta!");
-		}
+		}		
 	}
 
 	/**
@@ -498,12 +501,12 @@ public class Chamada implements Serializable
 		this.turma = turma;
 	}
 
-	public List<Presenca> getPresencas()
+	public Set<Presenca> getPresencas()
 	{
 		return this.presencas;
 	}
 
-	public void setPresencas(List<Presenca> presencas)
+	public void setPresencas(Set<Presenca> presencas)
 	{
 		this.presencas = presencas;
 	}

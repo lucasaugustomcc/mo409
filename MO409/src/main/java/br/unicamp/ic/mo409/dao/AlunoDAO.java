@@ -9,6 +9,8 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 import br.unicamp.ic.mo409.model.Aluno;
+import br.unicamp.ic.mo409.model.ChamadaState;
+import br.unicamp.ic.mo409.model.Presenca;
 
 @Repository("AlunoDAO")
 public class AlunoDAO implements Serializable {
@@ -34,6 +36,18 @@ public class AlunoDAO implements Serializable {
 	@SuppressWarnings("unchecked")
 	public List<Aluno> findAll() {		
 		return entityManager.createQuery("SELECT c FROM Aluno c")
+				.getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Aluno> consultarAlunosTurmasProfessor(int raAluno, String nomeAluno,
+			int raProfessor)
+	{
+		return (List<Aluno>) entityManager.createQuery("SELECT a FROM Aluno a left join a.usuario u left join a.turmas t left join t.professores p "
+				+ "WHERE p.raProfessor = :raProfessor AND (a.raAluno = :raAluno OR u.nome LIKE :nomeAluno)")
+				.setParameter("raAluno", raAluno)
+				.setParameter("nomeAluno", "%"+nomeAluno+"%")
+				.setParameter("raProfessor", raProfessor)
 				.getResultList();
 	}
 }
