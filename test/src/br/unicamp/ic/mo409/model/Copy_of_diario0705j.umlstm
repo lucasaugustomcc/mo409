@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.1/notation" xmlns:uml="http://www.eclipse.org/uml2/2.1.0/UML" xmi:id="_6f-j8CN8EeWu-8T7D8ze6g" type="UMLStateMachine" measurementUnit="Pixel">
+  <children xmi:type="notation:Node" xmi:id="_7dCCECN8EeWu-8T7D8ze6g" type="2004">
+    <children xmi:type="notation:Node" xmi:id="_7dackCN8EeWu-8T7D8ze6g" type="5005"/>
+    <children xmi:type="notation:Node" xmi:id="_7deuACN8EeWu-8T7D8ze6g" type="3013">
+      <children xmi:type="notation:Node" xmi:id="_7dgjMCN8EeWu-8T7D8ze6g" type="7004">
+        <children xmi:type="notation:Node" xmi:id="_7dptICN8EeWu-8T7D8ze6g" type="3004">
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_7dptISN8EeWu-8T7D8ze6g" fontName="Segoe UI"/>
+          <element xmi:type="uml:Pseudostate" href="Copy%20of%20diario.uml#_ZMY7cJKuEdyUSNhMCOPPLg"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7dptIiN8EeWu-8T7D8ze6g" x="166" y="10"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_7dq7QCN8EeWu-8T7D8ze6g" type="3001">
+          <children xmi:type="notation:Node" xmi:id="_7d3IgCN8EeWu-8T7D8ze6g" type="5001"/>
+          <children xmi:type="notation:Node" xmi:id="_7d3IgSN8EeWu-8T7D8ze6g" type="7005">
+            <styles xmi:type="notation:SortingStyle" xmi:id="_7d3IgiN8EeWu-8T7D8ze6g"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_7d3IgyN8EeWu-8T7D8ze6g"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_7dq7QSN8EeWu-8T7D8ze6g" fontName="Segoe UI"/>
+          <element xmi:type="uml:State" href="Copy%20of%20diario.uml#_GQdisCNtEeWK6d4uHePG3A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7dq7QiN8EeWu-8T7D8ze6g" x="226" y="50"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_7d3vkCN8EeWu-8T7D8ze6g" type="3001">
+          <children xmi:type="notation:Node" xmi:id="_7d4WoCN8EeWu-8T7D8ze6g" type="5001"/>
+          <children xmi:type="notation:Node" xmi:id="_7d49sCN8EeWu-8T7D8ze6g" type="7005">
+            <styles xmi:type="notation:SortingStyle" xmi:id="_7d49sSN8EeWu-8T7D8ze6g"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_7d49siN8EeWu-8T7D8ze6g"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_7d3vkSN8EeWu-8T7D8ze6g" fontName="Segoe UI"/>
+          <element xmi:type="uml:State" href="Copy%20of%20diario.uml#_ts6mEB8nEeW6ooM7jnMepg"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7d3vkiN8EeWu-8T7D8ze6g" x="241" y="165"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_7d5kwCN8EeWu-8T7D8ze6g" type="3001">
+          <children xmi:type="notation:Node" xmi:id="_7d6L0CN8EeWu-8T7D8ze6g" type="5001"/>
+          <children xmi:type="notation:Node" xmi:id="_7d6L0SN8EeWu-8T7D8ze6g" type="7005">
+            <styles xmi:type="notation:SortingStyle" xmi:id="_7d6y4CN8EeWu-8T7D8ze6g"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_7d6y4SN8EeWu-8T7D8ze6g"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_7d5kwSN8EeWu-8T7D8ze6g" fontName="Segoe UI"/>
+          <element xmi:type="uml:State" href="Copy%20of%20diario.uml#_D3o70B8oEeW6ooM7jnMepg"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7d5kwiN8EeWu-8T7D8ze6g" x="231" y="395"/>
+        </children>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_7dgjMSN8EeWu-8T7D8ze6g"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_7dgjMiN8EeWu-8T7D8ze6g"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_7deuASN8EeWu-8T7D8ze6g" fontName="Segoe UI"/>
+      <element xmi:type="uml:Region" href="Copy%20of%20diario.uml#_VIx8EJKuEdyUSNhMCOPPLg"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7deuAiN8EeWu-8T7D8ze6g"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_7dCCESN8EeWu-8T7D8ze6g" fontName="Segoe UI"/>
+    <element xmi:type="uml:StateMachine" href="Copy%20of%20diario.uml#_yqv4YOjJEdu6LJeVabImNg"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7dCCEiN8EeWu-8T7D8ze6g"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_6f-j8SN8EeWu-8T7D8ze6g"/>
+  <element xmi:type="uml:StateMachine" href="Copy%20of%20diario.uml#_yqv4YOjJEdu6LJeVabImNg"/>
+  <edges xmi:type="notation:Edge" xmi:id="_7eGZECN8EeWu-8T7D8ze6g" type="4001" source="_7dptICN8EeWu-8T7D8ze6g" target="_7dq7QCN8EeWu-8T7D8ze6g">
+    <children xmi:type="notation:Node" xmi:id="_7eHAICN8EeWu-8T7D8ze6g" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_7eHAISN8EeWu-8T7D8ze6g" y="40"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_7eGZESN8EeWu-8T7D8ze6g"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_7eGZEiN8EeWu-8T7D8ze6g" fontName="Segoe UI"/>
+    <element xmi:type="uml:Transition" href="Copy%20of%20diario.uml#_KHZoYJeHEdyqN79LFuBS7A"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_7eGZEyN8EeWu-8T7D8ze6g" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_7eKqgCN8EeWu-8T7D8ze6g" type="4001" source="_7dq7QCN8EeWu-8T7D8ze6g" target="_7d3vkCN8EeWu-8T7D8ze6g">
+    <children xmi:type="notation:Node" xmi:id="_7eLRkCN8EeWu-8T7D8ze6g" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_7eLRkSN8EeWu-8T7D8ze6g" y="40"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_7eKqgSN8EeWu-8T7D8ze6g"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_7eKqgiN8EeWu-8T7D8ze6g" fontName="Segoe UI"/>
+    <element xmi:type="uml:Transition" href="Copy%20of%20diario.uml#_CRXP4CNtEeWK6d4uHePG3A"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_7eKqgyN8EeWu-8T7D8ze6g" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_7eOU4CN8EeWu-8T7D8ze6g" type="4001" source="_7d3vkCN8EeWu-8T7D8ze6g" target="_7d5kwCN8EeWu-8T7D8ze6g">
+    <children xmi:type="notation:Node" xmi:id="_7eO78CN8EeWu-8T7D8ze6g" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_7eO78SN8EeWu-8T7D8ze6g" x="-3" y="-100"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_7eOU4SN8EeWu-8T7D8ze6g"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_7eOU4iN8EeWu-8T7D8ze6g" fontName="Segoe UI"/>
+    <element xmi:type="uml:Transition" href="Copy%20of%20diario.uml#_sfyHwB8rEeW6ooM7jnMepg"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_7eOU4yN8EeWu-8T7D8ze6g" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_7eSmUCN8EeWu-8T7D8ze6g" type="4001" source="_7d3vkCN8EeWu-8T7D8ze6g" target="_7d3vkCN8EeWu-8T7D8ze6g">
+    <children xmi:type="notation:Node" xmi:id="_7eTNYyN8EeWu-8T7D8ze6g" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_7eTNZCN8EeWu-8T7D8ze6g" x="24" y="25"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_7eTNYCN8EeWu-8T7D8ze6g"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_7eTNYSN8EeWu-8T7D8ze6g" fontName="Segoe UI"/>
+    <element xmi:type="uml:Transition" href="Copy%20of%20diario.uml#_2d3zcB8pEeW6ooM7jnMepg"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_7eTNYiN8EeWu-8T7D8ze6g" points="[21, 0, 21, 0]$[144, 0, 144, 0]$[144, -35, 144, -35]$[54, -35, 54, -35]$[21, -14, 21, -14]"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_7eW3wCN8EeWu-8T7D8ze6g" type="4001" source="_7d3vkCN8EeWu-8T7D8ze6g" target="_7d3vkCN8EeWu-8T7D8ze6g">
+    <children xmi:type="notation:Node" xmi:id="_7eW3xCN8EeWu-8T7D8ze6g" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_7eW3xSN8EeWu-8T7D8ze6g" x="-27" y="27"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_7eW3wSN8EeWu-8T7D8ze6g"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_7eW3wiN8EeWu-8T7D8ze6g" fontName="Segoe UI"/>
+    <element xmi:type="uml:Transition" href="Copy%20of%20diario.uml#_C_R6AB80EeWkgo0fqD1AkA"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_7eW3wyN8EeWu-8T7D8ze6g" points="[-21, 18, -21, 18]$[-41, 35, -41, 35]$[-136, 35, -136, 35]$[-136, 0, -136, 0]$[-21, 0, -21, 0]$[-21, 0, -21, 0]"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_7eaiICN8EeWu-8T7D8ze6g" type="4001" source="_7d5kwCN8EeWu-8T7D8ze6g" target="_7d5kwCN8EeWu-8T7D8ze6g">
+    <children xmi:type="notation:Node" xmi:id="_7ebJMCN8EeWu-8T7D8ze6g" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_7ebJMSN8EeWu-8T7D8ze6g" x="-27" y="-25"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_7eaiISN8EeWu-8T7D8ze6g"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_7eaiIiN8EeWu-8T7D8ze6g" fontName="Segoe UI"/>
+    <element xmi:type="uml:Transition" href="Copy%20of%20diario.uml#_udRR8CN6EeWCX7yrg5UHWg"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_7eaiIyN8EeWu-8T7D8ze6g" points="[28, -20, 28, -20]$[55, -40, 55, -40]$[145, -40, 145, -40]$[145, 0, 145, 0]$[31, 0, 31, 0]"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_7eeMgCN8EeWu-8T7D8ze6g" type="4001" source="_7d5kwCN8EeWu-8T7D8ze6g" target="_7d5kwCN8EeWu-8T7D8ze6g">
+    <children xmi:type="notation:Node" xmi:id="_7eezkCN8EeWu-8T7D8ze6g" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_7eezkSN8EeWu-8T7D8ze6g" x="-27" y="27"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_7eeMgSN8EeWu-8T7D8ze6g"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_7eeMgiN8EeWu-8T7D8ze6g" fontName="Segoe UI"/>
+    <element xmi:type="uml:Transition" href="Copy%20of%20diario.uml#_4uBJACN6EeWCX7yrg5UHWg"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_7eeMgyN8EeWu-8T7D8ze6g" points="[-30, 19, -30, 19]$[-55, 35, -55, 35]$[-135, 35, -135, 35]$[-135, 0, -135, 0]$[-30, 0, -30, 0]"/>
+  </edges>
+</notation:Diagram>

@@ -51,13 +51,21 @@
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_sfyHwR8rEeW6ooM7jnMepg" name="encerrarDiario"/>
             <trigger xmi:id="_sfyHwh8rEeW6ooM7jnMepg" name="encerrarDiario" event="_ZUa5sCApEeW4ysb2kbGRGQ"/>
           </transition>
-          <transition xmi:id="_2d3zcB8pEeW6ooM7jnMepg" name="aberto2aberto_consultar_frequencia" target="_ts6mEB8nEeW6ooM7jnMepg" source="_ts6mEB8nEeW6ooM7jnMepg">
+          <transition xmi:id="_2d3zcB8pEeW6ooM7jnMepg" name="aberto2aberto_consultar_freq_turma" target="_ts6mEB8nEeW6ooM7jnMepg" source="_ts6mEB8nEeW6ooM7jnMepg">
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_2d3zcR8pEeW6ooM7jnMepg" name="consultaFrequenciaTurma"/>
             <trigger xmi:id="_2d3zch8pEeW6ooM7jnMepg" name="consultaFrequenciaTurma" event="_MaE9UOjKEdu6LJeVabImNg"/>
           </transition>
-          <transition xmi:id="_C_R6AB80EeWkgo0fqD1AkA" name="aberto2aberto_abrir_chamada" target="_ts6mEB8nEeW6ooM7jnMepg" source="_ts6mEB8nEeW6ooM7jnMepg">
+          <transition xmi:id="_C_R6AB80EeWkgo0fqD1AkA" name="aberto2aberto_consultar_freq_aluno" target="_ts6mEB8nEeW6ooM7jnMepg" source="_ts6mEB8nEeW6ooM7jnMepg">
             <effect xmi:type="uml:FunctionBehavior" xmi:id="_C_ShEB80EeWkgo0fqD1AkA" name="consultaFrequenciaAluno"/>
             <trigger xmi:id="_C_ShER80EeWkgo0fqD1AkA" name="consultaFrequenciaAluno" event="__1OScB8rEeW6ooM7jnMepg"/>
+          </transition>
+          <transition xmi:id="_udRR8CN6EeWCX7yrg5UHWg" name="encerrado2encerrado_consultar_freq_turma" target="_D3o70B8oEeW6ooM7jnMepg" source="_D3o70B8oEeW6ooM7jnMepg">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_udRR8SN6EeWCX7yrg5UHWg" name="consultaFrequenciaTurma"/>
+            <trigger xmi:id="_udR5ACN6EeWCX7yrg5UHWg" name="consultaFrequenciaTurma" event="_MaE9UOjKEdu6LJeVabImNg"/>
+          </transition>
+          <transition xmi:id="_4uBJACN6EeWCX7yrg5UHWg" name="encerrado2encerrado_consultar_freq_aluno" target="_D3o70B8oEeW6ooM7jnMepg" source="_D3o70B8oEeW6ooM7jnMepg">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_4uEMUCN6EeWCX7yrg5UHWg" name="consultaFrequenciaAluno"/>
+            <trigger xmi:id="_4uEMUSN6EeWCX7yrg5UHWg" name="consultaFrequenciaAluno" event="__1OScB8rEeW6ooM7jnMepg"/>
           </transition>
         </region>
       </ownedBehavior>
