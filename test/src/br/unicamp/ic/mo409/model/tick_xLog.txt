@@ -1,0 +1,29 @@
+### Test Case Generation Statistics
+### Test Goal Satisfaction
+ - defined 4 test goals
+ - satisfied 2 test goals (50.0 %)
+
+### unsatisfied test goals
+
+ - not satisfied: (test goal #1 - traversed transition) 
+   from node Presenca::sort::calculando
+   to node Presenca::sort::valido
+   triggered by default
+   with condition truth: true
+((distanciaMaxima >= distancia))
+ - not satisfied: (test goal #2 - traversed transition) 
+   from node Presenca::sort::calculando
+   to node Presenca::sort::invalido
+   triggered by default
+   with condition truth: true
+((distanciaMaxima < distancia))
+
+### satisfied test goals
+
+ - satisfied: (test goal #3 - traversed transition) 
+   from node Presenca::sort::indefinido
+   to node tmp1
+   triggered by registraTickEvent
+ - satisfied: (test goal #4 - traversed transition) 
+   from node Presenca::sort::init
+   to node Presenca::sort::indefinido

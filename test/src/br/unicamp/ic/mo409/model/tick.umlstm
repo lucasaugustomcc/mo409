@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.1/notation" xmlns:uml="http://www.eclipse.org/uml2/2.1.0/UML" xmi:id="_AqvvkCPqEeWIIqXpV1gVzA" type="UMLStateMachine" measurementUnit="Pixel">
+  <children xmi:type="notation:Node" xmi:id="_UffscCPqEeWfTMRo4wVkLQ" type="2004">
+    <children xmi:type="notation:Node" xmi:id="_UffscyPqEeWfTMRo4wVkLQ" type="5005"/>
+    <children xmi:type="notation:Node" xmi:id="_UieH8CPqEeWfTMRo4wVkLQ" type="3013">
+      <children xmi:type="notation:Node" xmi:id="_UieH8yPqEeWfTMRo4wVkLQ" type="7004">
+        <children xmi:type="notation:Node" xmi:id="_Ul5PYCPqEeWfTMRo4wVkLQ" type="3004">
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_Ul5PYSPqEeWfTMRo4wVkLQ" fontName="Segoe UI"/>
+          <element xmi:type="uml:Pseudostate" href="tick.uml#_ZMY7cJKuEdyUSNhMCOPPLg"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Ul5PYiPqEeWfTMRo4wVkLQ" x="206" y="50"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_Ul5PYyPqEeWfTMRo4wVkLQ" type="3001">
+          <children xmi:type="notation:Node" xmi:id="_Ul5PZiPqEeWfTMRo4wVkLQ" type="5001"/>
+          <children xmi:type="notation:Node" xmi:id="_Ul5PZyPqEeWfTMRo4wVkLQ" type="7005">
+            <styles xmi:type="notation:SortingStyle" xmi:id="_Ul5PaCPqEeWfTMRo4wVkLQ"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_Ul5PaSPqEeWfTMRo4wVkLQ"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_Ul5PZCPqEeWfTMRo4wVkLQ" fontName="Segoe UI"/>
+          <element xmi:type="uml:State" href="tick.uml#_GQdisCNtEeWK6d4uHePG3A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Ul5PZSPqEeWfTMRo4wVkLQ" x="271" y="125"/>
+        </children>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_UieH9CPqEeWfTMRo4wVkLQ"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_UieH9SPqEeWfTMRo4wVkLQ"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_UieH8SPqEeWfTMRo4wVkLQ" fontName="Segoe UI"/>
+      <element xmi:type="uml:Region" href="tick.uml#_VIx8EJKuEdyUSNhMCOPPLg"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_UieH8iPqEeWfTMRo4wVkLQ"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_UffscSPqEeWfTMRo4wVkLQ" fontName="Segoe UI"/>
+    <element xmi:type="uml:StateMachine" href="tick.uml#_yqv4YOjJEdu6LJeVabImNg"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_UffsciPqEeWfTMRo4wVkLQ"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_AqvvkSPqEeWIIqXpV1gVzA"/>
+  <element xmi:type="uml:StateMachine" href="tick.uml#_yqv4YOjJEdu6LJeVabImNg"/>
+</notation:Diagram>

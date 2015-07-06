@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/2.1.0/UML" xmi:id="_soD9MOjJEdu6LJeVabImNg">
+  <packagedElement xmi:type="uml:Package" xmi:id="_wPxqwOjJEdu6LJeVabImNg" name="br.unicamp.ic.mo409.model">
+    <packagedElement xmi:type="uml:CallEvent" xmi:id="_fdj-sBLiEeW8wLTPs8FuLw" name="registraTickEvent" operation="_jdc7sBLiEeW8wLTPs8FuLw"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_CbgIUOzQEduqQpSKns4XGA" name="Tick" classifierBehavior="_2Y0fgJ0ZEdyNrffIHb491A">
+      <ownedAttribute xmi:id="_GTqyoJ0aEdyNrffIHb491A" name="state" type="_dMVB4JsBEd20fKiJK1xsTw"/>
+      <ownedAttribute xmi:id="_Cckq8BPCEeW3muLp4bgboA" name="distancia">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_CclSABPCEeW3muLp4bgboA" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_SDlD4AhwEeWo2qsvHoqUxQ" name="distanciaMaxima">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_1SaCgA3pEeWMKsVXT7gRww" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_PSCUoA3nEeWfg8LmfrVuEg" name="timestamp">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_3CBmAA3pEeWMKsVXT7gRww" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_OtQYoCKYEeW-ftBkqd3eZQ" name="latitude">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_OtQYoSKYEeW-ftBkqd3eZQ" name="" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_RVyhICKYEeW-ftBkqd3eZQ" name="longitude">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <upperValue xmi:type="uml:LiteralString" xmi:id="_RVyhISKYEeW-ftBkqd3eZQ" name="" value="1"/>
+      </ownedAttribute>
+      <ownedBehavior xmi:type="uml:FunctionBehavior" xmi:id="_2Y0fgJ0ZEdyNrffIHb491A" name="setState" postcondition="_KTh6cJ0aEdyNrffIHb491A">
+        <ownedRule xmi:id="_KTh6cJ0aEdyNrffIHb491A">
+          <specification xmi:type="uml:LiteralString" xmi:id="_K_yjgJ0aEdyNrffIHb491A" value="state = x"/>
+        </ownedRule>
+        <ownedParameter xmi:id="_BzKb4J0aEdyNrffIHb491A" name="x"/>
+      </ownedBehavior>
+      <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_5-QZYBHVEeWx5e2dXReDlw" name="Presenca">
+        <region xmi:id="_VIx8EJKuEdyUSNhMCOPPLg" name="sort">
+          <subvertex xmi:type="uml:Pseudostate" xmi:id="_ZMY7cJKuEdyUSNhMCOPPLg" name="init"/>
+          <subvertex xmi:type="uml:State" xmi:id="_eQ3dkBHbEeWx5e2dXReDlw" name="indefinido">
+            <stateInvariant xmi:id="_eQ3dkRHbEeWx5e2dXReDlw" name="">
+              <specification xmi:type="uml:LiteralString" xmi:id="_eQ3dkhHbEeWx5e2dXReDlw" value="state  = TickState::indefinido"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_6TZPAJeEEdyCyNzfMULFnw" name="calculando">
+            <stateInvariant xmi:id="_3qwZwAr8Ed2Pmahp7QLr3A">
+              <specification xmi:type="uml:LiteralString" xmi:id="_4TlUUAr8Ed2Pmahp7QLr3A" value="state  = TickState::indefinido"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_7YFmMJeEEdyCyNzfMULFnw" name="valido">
+            <stateInvariant xmi:id="_7cJnwAr8Ed2Pmahp7QLr3A">
+              <specification xmi:type="uml:LiteralString" xmi:id="_88RWsAr8Ed2Pmahp7QLr3A" value="state  = TickState::valido"/>
+            </stateInvariant>
+          </subvertex>
+          <subvertex xmi:type="uml:State" xmi:id="_7jj2YJeEEdyCyNzfMULFnw" name="invalido">
+            <stateInvariant xmi:id="_-zCEAAr8Ed2Pmahp7QLr3A">
+              <specification xmi:type="uml:LiteralString" xmi:id="__floAAr8Ed2Pmahp7QLr3A" value="state  = TickState::invalido"/>
+            </stateInvariant>
+          </subvertex>
+          <transition xmi:id="_KHZoYJeHEdyqN79LFuBS7A" name="init2indefinido" target="_eQ3dkBHbEeWx5e2dXReDlw" source="_ZMY7cJKuEdyUSNhMCOPPLg"/>
+          <transition xmi:id="_PVAcMBLhEeW8wLTPs8FuLw" name="indefinido2calculando" target="_6TZPAJeEEdyCyNzfMULFnw" source="_eQ3dkBHbEeWx5e2dXReDlw">
+            <effect xmi:type="uml:FunctionBehavior" xmi:id="_PVAcMRLhEeW8wLTPs8FuLw" name="registraTick" specification="_jdc7sBLiEeW8wLTPs8FuLw"/>
+            <trigger xmi:id="_PVAcMhLhEeW8wLTPs8FuLw" name="registraTick" event="_fdj-sBLiEeW8wLTPs8FuLw"/>
+          </transition>
+          <transition xmi:id="_v9md4BIDEeWA7uJHonRzDQ" name="calculando2valido" guard="_jKKUwBO9EeWFL-id5q4VVg" target="_7YFmMJeEEdyCyNzfMULFnw" source="_6TZPAJeEEdyCyNzfMULFnw">
+            <ownedRule xmi:id="_jKKUwBO9EeWFL-id5q4VVg">
+              <specification xmi:type="uml:LiteralString" xmi:id="_jKKUwRO9EeWFL-id5q4VVg" value="distanciaMaxima >= distancia"/>
+            </ownedRule>
+          </transition>
+          <transition xmi:id="_q0O8MB88EeWFfZ949XHazg" name="calculando2invalido" guard="_q0O8MR88EeWFfZ949XHazg" target="_7jj2YJeEEdyCyNzfMULFnw" source="_6TZPAJeEEdyCyNzfMULFnw">
+            <ownedRule xmi:id="_q0O8MR88EeWFfZ949XHazg">
+              <specification xmi:type="uml:LiteralString" xmi:id="_q0O8Mh88EeWFfZ949XHazg" value="distanciaMaxima &lt; distancia"/>
+            </ownedRule>
+          </transition>
+        </region>
+      </ownedBehavior>
+      <ownedOperation xmi:id="_jdc7sBLiEeW8wLTPs8FuLw" name="registraTick" method="_PVAcMRLhEeW8wLTPs8FuLw">
+        <ownedParameter xmi:id="_i1qYsCKVEeW-ftBkqd3eZQ" name="latitude">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_o9ZzACKVEeW-ftBkqd3eZQ" name="longitude">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_LFH-4CKZEeW-ftBkqd3eZQ" name="timestamp">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_dMVB4JsBEd20fKiJK1xsTw" name="TickState">
+      <ownedLiteral xmi:id="_lHPfgBHbEeWx5e2dXReDlw" name="indefinido"/>
+      <ownedLiteral xmi:id="_nYctIBHbEeWx5e2dXReDlw" name="calculando"/>
+      <ownedLiteral xmi:id="_ilI5oJsBEd20fKiJK1xsTw" name="valido"/>
+      <ownedLiteral xmi:id="_ixNmwJsBEd20fKiJK1xsTw" name="invalido"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_hFgdoA3kEeWfg8LmfrVuEg" name="Professor">
+      <ownedAttribute xmi:id="_GNcugBAzEeWaCPRCPew3ZA" name="nome" isReadOnly="true" isDerivedUnion="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_METAMODELS/UML.metamodel.uml#String"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_GNcugRAzEeWaCPRCPew3ZA" name="" value="Joao"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_kKfRkA3kEeWfg8LmfrVuEg" name="Tick">
+      <ownedAttribute xmi:id="_R1QfIBAzEeWaCPRCPew3ZA" name="location" isReadOnly="true" isDerivedUnion="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_8CmWMA3kEeWfg8LmfrVuEg" name="Turma">
+      <ownedAttribute xmi:id="_yNyMABA7EeWaCPRCPew3ZA" name="codigo_turma" isReadOnly="true" isDerivedUnion="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_METAMODELS/UML.metamodel.uml#String"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_yNyMARA7EeWaCPRCPew3ZA" name="" value="A"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_zHW4UBA7EeWaCPRCPew3ZA" name="id_disciplina" isReadOnly="true" isDerivedUnion="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_zHW4URA7EeWaCPRCPew3ZA" name="" value="1234"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_1GdEIBQeEeWOt5z3R7GnrQ" name="Chamada">
+      <ownedAttribute xmi:id="_1GdEIRQeEeWOt5z3R7GnrQ" name="hora_inicio" isReadOnly="true" isDerivedUnion="true">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#TimeExpression"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_1GdEIhQeEeWOt5z3R7GnrQ" name="" value="10:00"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_4Y0XUBQfEeWOt5z3R7GnrQ" name="hora_fim" isReadOnly="true" isDerivedUnion="true">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#TimeExpression"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_4Y0XURQfEeWOt5z3R7GnrQ" name="" value="12:00"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="__IkM0BQfEeWOt5z3R7GnrQ" name="state"/>
+      <ownedAttribute xmi:id="_MSnzUBQgEeWOt5z3R7GnrQ" name="recebendo_tick" isReadOnly="true" isDerivedUnion="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_MSnzURQgEeWOt5z3R7GnrQ" name="" value="false"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_ZoIb4BQgEeWOt5z3R7GnrQ" name="turma" type="_8CmWMA3kEeWfg8LmfrVuEg" isReadOnly="true" isDerivedUnion="true">
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_ZoIb4RQgEeWOt5z3R7GnrQ" name="" value="null"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_9wH9wBQgEeWOt5z3R7GnrQ" name="recebendo_tick" isReadOnly="true" isDerivedUnion="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_9wH9wRQgEeWOt5z3R7GnrQ" name="" value="false"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_yALk0BQgEeWOt5z3R7GnrQ" name="professor" type="_hFgdoA3kEeWfg8LmfrVuEg" isReadOnly="true" isDerivedUnion="true">
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_yALk0RQgEeWOt5z3R7GnrQ" name="" value="null"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_39dbkBQgEeWOt5z3R7GnrQ" name="data_aula" isReadOnly="true" isDerivedUnion="true">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#TimeExpression"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_39dbkRQgEeWOt5z3R7GnrQ" name="" value="2015-03-10 10:00:00"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="__H_IkBQgEeWOt5z3R7GnrQ" name="m_location">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="__H_IkRQgEeWOt5z3R7GnrQ" name="" value="0"/>
+      </ownedAttribute>
+    </packagedElement>
+  </packagedElement>
+</uml:Model>
