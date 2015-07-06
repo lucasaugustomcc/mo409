@@ -76,6 +76,13 @@ public class ChamadaDAO implements Serializable {
 				.setParameter("chamadaState", ChamadaState.aberta)
 				.getResultList();
 	}
-	
-	
+
+	@SuppressWarnings("unchecked")
+	public List<Chamada> listChamadasCriadasProfessor(int raProfessor)
+	{
+		return entityManager.createQuery("SELECT c FROM Chamada c left join c.turma t left join t.professores p WHERE p.raProfessor = :raProfessor AND c.state = :chamadaState")
+				.setParameter("raProfessor", raProfessor)
+				.setParameter("chamadaState", ChamadaState.nao_aberta)
+				.getResultList();
+	}
 }

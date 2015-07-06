@@ -37,6 +37,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import br.unicamp.ic.mo409.dao.AlunoDAO;
 import br.unicamp.ic.mo409.dao.ChamadaDAO;
+import br.unicamp.ic.mo409.dao.ParametroDAO;
 import br.unicamp.ic.mo409.dao.ProfessorDAO;
 import br.unicamp.ic.mo409.dao.TurmaDAO;
 import br.unicamp.ic.mo409.dao.UsuarioDAO;
@@ -86,6 +87,12 @@ public class ProfessorControllerTest
 		{
 			return Mockito.mock(UsuarioDAO.class);
 		}
+		
+		@Bean
+		public ParametroDAO ParametroDAO()
+		{
+			return Mockito.mock(ParametroDAO.class);
+		}
 
 		@Bean
 		public ChamadaDAO ChamadaDAO()
@@ -108,6 +115,9 @@ public class ProfessorControllerTest
 
 	@Mock
 	private ChamadaDAO chamadaDAO;
+	
+	@Mock
+	private ParametroDAO parametroDAO;
 
 	@InjectMocks
 	private ProfessorController professorController;
@@ -287,6 +297,7 @@ public class ProfessorControllerTest
 		Mockito.when(this.chamadaDAO.find(10)).thenReturn(chamada10);
 		Mockito.when(this.turmaDAO.listarTurmasProfessor(1)).thenReturn(turmas);
 		Mockito.when(this.chamadaDAO.listChamadasAbertasProfessor(1)).thenReturn(chamadas);
+		Mockito.when(this.chamadaDAO.listChamadasCriadasProfessor(1)).thenReturn(chamadas);
 	}
 
 	@Test()
@@ -328,6 +339,28 @@ public class ProfessorControllerTest
 				.andExpect(
 						content()
 								.json("[{\"idChamada\": 1, \"horaInicio\": \"10:00\", \"dataChamada\": \"10/06/2015\", \"professorChamada\":\"Eliane Martins\", "
+										+ "\"turma\": { \"idTurma\": 1,\"codTurma\":A, \"codDisciplina\":\"MO409\", \"nomeDisciplina\":\"Engenharia de Software I\" } },"
+										+ "{\"idChamada\": 2 }]"));
+	}
+	
+	@Test()
+	public void testChamadasCriadas() throws Exception
+	{
+		Usuario user = usuarioDAO.loadUsuarioByUsername("35");
+
+		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+				user, "", user.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(
+				authenticationToken);
+
+		this.mockMvc
+				.perform(get("/professor/chamada/criadas"))
+				.andExpect(status().is(200))
+				.andExpect(
+						content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
+				.andExpect(
+						content()
+								.json("[{\"idChamada\": 1, \"professorChamada\":\"Eliane Martins\", "
 										+ "\"turma\": { \"idTurma\": 1,\"codTurma\":A, \"codDisciplina\":\"MO409\", \"nomeDisciplina\":\"Engenharia de Software I\" } },"
 										+ "{\"idChamada\": 2 }]"));
 	}
@@ -426,7 +459,7 @@ public class ProfessorControllerTest
 				.andExpect(status().is(200))
 				.andExpect(
 						content().contentType(UtilTestes.APPLICATION_JSON_UTF8))
-				.andExpect(content().json("[{idChamada:1, \"latitude\":\"-10.000\", \"longitude\":\"-10.000\","
+				.andExpect(content().json("[{idChamada:1, \"latitude\":\"-10.0\", \"longitude\":\"-10.0\","
 						+ "\"turma\": { \"idTurma\": 1,\"codTurma\":A, \"codDisciplina\":\"MO409\", \"nomeDisciplina\":\"Engenharia de Software I\"}},"
 						+ "{idChamada:2}]"));
 	}

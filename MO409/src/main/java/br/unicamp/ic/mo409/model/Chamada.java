@@ -315,7 +315,7 @@ public class Chamada implements Serializable
 			throw new IllegalArgumentException("Valor de longitude inválido.");
 		}
 		
-		state = ChamadaState.atribuindo_localizacao;
+		this.setState(ChamadaState.atribuindo_localizacao);
 		this.setLatitude(String.valueOf(latitude));
 		this.setLongitude(String.valueOf(longitude));
 	}
@@ -416,12 +416,20 @@ public class Chamada implements Serializable
 	 */
 	public Integer calcularNumMinTicks()
 	{
+		int duracao;
 		Parametro parametros = getParametro();
-		int duracao = (int) ((getHoraFim().getTime() - getHoraInicio().getTime())/(1000 * 60));
-		if (duracao > parametros.getDuracao())
+		if (getHoraFim() != null)
+		{
+			duracao = (int) ((getHoraFim().getTime() - getHoraInicio().getTime())/(1000 * 60));
+			if (duracao > parametros.getDuracao())
+			{
+				duracao = parametros.getDuracao();
+			}	
+		}
+		else
 		{
 			duracao = parametros.getDuracao();
-		}		
+		}
 		
 		float quantidadeMinimaMinutos = duracao * (parametros.getPorcentagem()/100);
 		

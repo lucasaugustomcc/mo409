@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.unicamp.ic.mo409.dao.AlunoDAO;
 import br.unicamp.ic.mo409.dao.ChamadaDAO;
+import br.unicamp.ic.mo409.dao.ParametroDAO;
 import br.unicamp.ic.mo409.dao.ProfessorDAO;
 import br.unicamp.ic.mo409.dao.TurmaDAO;
 import br.unicamp.ic.mo409.dao.UsuarioDAO;
@@ -65,6 +66,9 @@ public class ProfessorController
 	
 	@Autowired
 	AlunoDAO alunoDAO;
+
+	@Autowired
+	private ParametroDAO parametroDAO;
 
 	@ModelAttribute("usuario")
 	public Usuario getUsuario()
@@ -128,6 +132,45 @@ public class ProfessorController
 			obj.put("dataChamada", sdf.format(chamada.getDataChamada()));
 			obj.put("horaInicio", shf.format(chamada.getHoraInicio()));
 			obj.put("professorChamada", chamada.getProfessor().getUsuario().getNome());
+			obj.put("duracao", chamada.getParametro().getDuracao());
+			obj.put("porcentagem", chamada.getParametro().getPorcentagem());
+			obj.put("numMinTicks", chamada.calcularNumMinTicks());
+			
+			// dados da turma
+			JSONObject objTurma = new JSONObject();
+			objTurma.put("idTurma", turma.getIdTurma());
+			objTurma.put("codTurma", turma.getCodTurma());
+			objTurma.put("codDisciplina", turma.getDisciplina()
+					.getCodDisciplina());
+			objTurma.put("nomeDisciplina", turma.getDisciplina()
+					.getNomeDisciplina());
+			obj.put("turma", objTurma);
+			array.add(obj);
+		}
+		return array;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/professor/chamada/criadas", method = RequestMethod.GET)
+	@Secured({ "ROLE_PROFESSOR" })
+	@ResponseBody
+	public JSONArray chamadasCriadas(@ModelAttribute("usuario") Usuario usuario) throws Exception
+	{
+		Professor professor = usuario.getProfessor();	
+		List<Chamada> chamadas = chamadaDAO.listChamadasCriadasProfessor(professor.getRaProfessor());
+				
+		// construindo JSON de resposta
+		JSONArray array = new JSONArray();
+		
+		for (Chamada chamada : chamadas)
+		{
+			Turma turma = chamada.getTurma();								
+
+			// construir resposta JSON
+			// dados da chamada
+			JSONObject obj = new JSONObject();
+			obj.put("idChamada", chamada.getIdChamada());
+			obj.put("professorChamada", chamada.getProfessor().getUsuario().getNome());
 
 			// dados da turma
 			JSONObject objTurma = new JSONObject();
@@ -179,6 +222,8 @@ public class ProfessorController
 
 			// abrir chamada
 			Chamada chamada = new Chamada(turma, professor);
+			Parametro parametro = chamada.getParametro();
+			parametroDAO.persist(parametro);
 			chamadaDAO.persist(chamada);			
 
 			// construir resposta JSON
@@ -224,8 +269,7 @@ public class ProfessorController
 						"Professor não associado a turma.");
 			}
 			
-			chamada.setLatitude(localizacao.getLatitude());
-			chamada.setLongitude(localizacao.getLongitude());
+			chamada.atribuirLocalizacao(Float.valueOf(localizacao.getLatitude()),Float.valueOf(localizacao.getLongitude()));
 			
 			Turma turma = chamada.getTurma();
 			// construir resposta JSON
@@ -375,6 +419,9 @@ public class ProfessorController
 			obj.put("idChamada", chamada.getIdChamada());
 			obj.put("dataChamada", sdf.format(chamada.getDataChamada()));
 			obj.put("horaInicio", shf.format(chamada.getHoraInicio()));
+			obj.put("duracao", chamada.getParametro().getDuracao());
+			obj.put("porcentagem", chamada.getParametro().getPorcentagem());
+			obj.put("numMinTicks", chamada.calcularNumMinTicks());
 
 			// dados da turma
 			JSONObject objTurma = new JSONObject();
@@ -439,7 +486,7 @@ public class ProfessorController
 	}
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/professor/chamada/relatorio", method = RequestMethod.POST)
+	@RequestMapping(value = "/professor/chamada/presenca", method = RequestMethod.POST)
 	@Secured({ "ROLE_PROFESSOR" })
 	@ResponseBody
 	public JSONArray relatorioChamada(
