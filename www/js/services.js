@@ -27,12 +27,13 @@ services.factory('ChamadaService', function($resource) {
           isArray: true,
           interceptor : {responseError : resourceErrorHandler}
         },
-        abertas: {
+        aberta: {
           method: 'GET',
-          params: {'action' : 'abertas'},
+          params: {'action' : 'aberta'},
           isArray: true,
           interceptor : {responseError : resourceErrorHandler}
         },
+        
         abrir: {
           method: 'POST',
           params: {'action' : 'abrir'},
@@ -75,6 +76,13 @@ services.factory('ChamadaService', function($resource) {
          // isArray: true,
           interceptor : {responseError : resourceErrorHandler}
         },
+        presenca: {
+          method: 'POST',
+          params: {'action' : 'presenca'},
+          isArray: true,
+          headers : {'Content-Type': 'application/json'},
+          interceptor : {responseError : resourceErrorHandler}
+        },
     } 
   );
 });
@@ -84,7 +92,7 @@ services.factory('AlunoService', function($resource) {
     {
         chamada: {
           method: 'GET',
-          params: {'action' : 'turmas'},
+          params: {'action' : 'turma'},
           interceptor : {responseError : resourceErrorHandler}
         },
         presenca: {
@@ -102,6 +110,19 @@ services.factory('AlunoService', function($resource) {
         checkout: {
           method: 'POST',
           params: {'action' : 'checkout'},
+          headers : {'Content-Type': 'application/json'},
+          interceptor : {responseError : resourceErrorHandler}
+        },
+        disciplinas_aluno: {
+          method: 'GET',
+          params: {'action' : 'disciplinas_aluno'},
+          isArray: true,
+          interceptor : {responseError : resourceErrorHandler}
+        },
+          frequencia: {
+          method: 'POST',
+          params: {'action' : 'frequencia'},
+         // isArray: true,
           headers : {'Content-Type': 'application/json'},
           interceptor : {responseError : resourceErrorHandler}
         },

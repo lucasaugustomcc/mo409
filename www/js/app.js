@@ -40,7 +40,7 @@ angular.module('exampleApp', [
     }         
     })
     .state('aluno.chamada', {
-      url: "/chamada",
+      url: "/chamada/turma",
       views: {
         'menuContent' :{
             controller:  "AlunoChamadaCtrl",
@@ -67,19 +67,19 @@ angular.module('exampleApp', [
     }         
     })
 	.state('aluno.disciplinas', {
-      url: "/disciplinas",
+      url: "/chamada/disciplinas_aluno",
       views: {
         'menuContent' :{
-            controller:  "", //colocar ontroller
+            controller:  "disciplinasAlunoCtrl", //colocar ontroller
             templateUrl: "templates/aluno/disciplinas_aluno.html"              
         }
     }         
     })
 	.state('aluno.frequencia', {
-      url: "/frequencia",
+      url: "chamada/frequencia",
       views: {
         'menuContent' :{
-            controller:  "", //colocar ontroller
+            controller:  "frequenciaAlunoCtrl", //colocar ontroller
             templateUrl: "templates/aluno/frequencia.html"              
         }
     }         
@@ -118,6 +118,7 @@ angular.module('exampleApp', [
         }
     }         
     })
+    
     .state('professor.chamada-aberta', {
       url: "/chamada/aberta",
       cache: false,
@@ -128,6 +129,19 @@ angular.module('exampleApp', [
         }
       }         
     })
+
+    /*
+    .state('professor.chamada-aberta', {
+      url: "/chamada/aberta",
+      cache: false,
+      views: {
+        'menuContent' :{
+            controller:  "ChamadaAberta_professorCtrl",
+            templateUrl: "templates/professor/encerrar_chamada_professor.html"             
+        }
+      }         
+    })*/
+
    .state('professor.frequencia_aluno', {
       url: "/chamada/frequencia_aluno",
       views: {
@@ -168,6 +182,7 @@ angular.module('exampleApp', [
     }         
     })*/
 
+  // para fazer a pesquisa de um aluno pelo RA ou nome
 	.state('professor.alunos', {
       url: "/alunos_matriculados",
       cache: false,
@@ -354,7 +369,11 @@ angular.module('exampleApp', [
         "idTurma": 1,
         "codTurma": "A"
       },
-      "horaInicio": "09:35"
+      "horaInicio": "09:35",
+      "parametros": {
+          "tempo": 50,
+          "porcTicks": 75
+      },
     },
     {
       "dataChamada": "06-15-2015",
@@ -365,7 +384,11 @@ angular.module('exampleApp', [
         "idTurma": 2,
         "codTurma": "A"
       },
-      "horaInicio": "09:35"
+      "horaInicio": "09:35",
+      "parametros": {
+          "tempo": 50,
+          "porcTicks": 75
+      },
     }
     ];
 
@@ -445,10 +468,13 @@ angular.module('exampleApp', [
     }
     ];
 
+
+    
+
     var parametros_get = { "duracao": 50, "porcentagem": 75 };
     var parametros_post = { "duracao": 60, "porcentagem": 80 };
 
-
+    //disciplinas do professor para verificar frequência aluno
     var disciplinas = [
     { 
         "codTurma":"A",
@@ -466,6 +492,23 @@ angular.module('exampleApp', [
      }
      ];
 
+  var chamadaAberta_professor = 
+    {
+        
+        "idChamada": 1,
+        "horaInicio": "10:00",
+        "horaFim": "12:00",
+        "dataChamada": "10/06/2015",
+        "numPresentes": "30/50",
+        "turma":
+        {
+          "idTurma": 1,
+          "codTurma":"A",
+          "codDisciplina":"MC806",
+          "nomeDisciplina":"Tópicos em Engenharia de Software",
+          "nomeProfessor":"Eliane Martins"
+        }
+      };
 
     var alunos_matriculados = {
 
@@ -497,6 +540,7 @@ angular.module('exampleApp', [
           "porcFaltas":34
    }]
 };
+  //professor visualiza a frequência do aluno
    var frequencia_aluno = {
 
       "turma" : {
@@ -526,6 +570,52 @@ angular.module('exampleApp', [
             "presente":false
         }]
     };
+
+    //disciplinas para aluno visulizar frequência
+    var disciplinas_aluno = [
+    { 
+        "codTurma":"A",
+        "codDisciplina":"MO409",
+        "nomeDisciplina":"Engenharia de Software I",
+        "numAlunos":35
+        //"professores": [ { "nome": "Eliane Martins" } ]
+     },
+     {
+      "codTurma":"B",
+      "codDisciplina":"MO410",
+      "nomeDisciplina":"Engenharia de Software II",
+      "numAlunos":25
+        //"professores": [ { "nome": "Eliane Martins" } ]
+     }
+     ];
+
+  //aluno visualiza suas frequências
+  var frequencia = {
+
+      "turma" : {
+          "idTurma": "1",
+          "codTurma":"A",
+          "codDisciplina":"MC302",
+          "nomeDisciplina":"Programação Orientada a Objetos",
+          "numChamadas": 15
+      },
+      "frequencia" : 
+        {
+          "numPresencas":10,
+          "porcPresencas":66,
+          "numFaltas":5,
+          "porcFaltas":34
+        },
+      "presencas": [
+        {
+            "data": "02/05/2015",
+            "presente":true
+        },
+        {
+            "data": "04/05/2015",
+            "presente":false
+        }]
+    };
     
 
 
@@ -539,8 +629,10 @@ angular.module('exampleApp', [
     return [200, turmas];
     });
 
-    // $httpBackend.whenPOST('http://www.webulando.com.br/mo409/professor/chamada/abrir').respond(function (method, url, data, headers) {
-    //   return [200, chamadas];
+    // exibir a tela com os dados de uma chamada aberta
+     $httpBackend.whenPOST('http://www.webulando.com.br/mo409/professor/chamada/abrir').respond(function (method, url, data, headers) {
+       return [200, chamadas];
+     });
 
     $httpBackend.whenGET('http://www.webulando.com.br/mo409/professor/chamada/parametros').respond(function(method, url, data) {
        return [200, parametros_get];
@@ -549,11 +641,15 @@ angular.module('exampleApp', [
     $httpBackend.whenPOST('http://www.webulando.com.br/mo409/professor/chamada/parametros').respond(function(method, url, data) {
        return [200, parametros_post];
      });
-    // });
+ /*
+    $httpBackend.whenPOST('http://www.webulando.com.br/mo409/professor/chamada/encerrar').respond(function (method, url, data, headers) {
+      return [200, chamadaPresenca];
+    }); */
 
-    // $httpBackend.whenPOST('http://www.webulando.com.br/mo409/professor/chamada/encerrar').respond(function (method, url, data, headers) {
-    //   return [200, chamadaPresenca];
-    // });
+    $httpBackend.whenPOST('http://www.webulando.com.br/mo409/professor/chamada/presenca').respond(function (method, url, data, headers) {
+      return [200, chamadaPresenca];
+    });
+
 
     // $httpBackend.whenGET('http://www.webulando.com.br/mo409/aluno/chamada').respond(function (method, url, data, headers) {
     //   return [200, alunoChamada];
@@ -571,9 +667,22 @@ angular.module('exampleApp', [
     return [200, frequencia_aluno];
     });
 
+    $httpBackend.whenGET('http://www.webulando.com.br/mo409/aluno/chamada/turma').respond(function (method, url, data) {
+    return [200, alunoChamada];
+    });
+
+
     // $httpBackend.whenPOST('http://www.webulando.com.br/mo409/aluno/chamada/checkin').respond(function (method, url, data, headers) {
     //   return [200, chamadaTick];
     // });
+
+    $httpBackend.whenGET('http://www.webulando.com.br/mo409/aluno/chamada/disciplinas_aluno').respond(function (method, url, data) {
+    return [200, disciplinas_aluno];
+    });
+
+    $httpBackend.whenPOST('http://www.webulando.com.br/mo409/aluno/chamada/frequencia').respond(function (method, url, data) {
+    return [200, frequencia];
+    });
 
     // $httpBackend.whenPOST('http://www.webulando.com.br/mo409/aluno/chamada/checkout').respond(function (method, url, data, headers) {
     //   return [200, chamadaTick];

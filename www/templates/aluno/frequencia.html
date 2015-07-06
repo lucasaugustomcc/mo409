@@ -7,27 +7,22 @@
 	<div class="list card">
 			<div class="item item-divider row responsive-sm">
 					<div class="col-10">
-							<h2>MO409</h2>
-							<h2>TURMA A</h2>
+							<h3>{{frequenciaAluno.turma.codDisciplina}}</h3>
+							<h3>TURMA {{frequenciaAluno.turma.codTurma}}</h3>
 					</div>
 					<div class="col-8">
-							<h4>Engenharia de Software I</h4>
+							<h3>{{frequenciaAluno.turma.nomeDisciplina}}</h3>
 					</div>
 			</div>
 			<p class="item responsive-sm"> 
-				<b> Aulas dadas: </b> 15 <br/>
-				<b>  Presenças:</b>  10 (66%) | <b> Faltas: </b> 5 (34%)
+				<b> Aulas dadas: </b> {{frequenciaAluno.turma.numChamadas}} <br/>
+				<b>  Presenças:</b>  {{frequenciaAluno.frequencia.numPresencas}} ({{frequenciaAluno.frequencia.porcPresencas}}%) | <b> Faltas: </b> {{frequenciaAluno.frequencia.numFaltas}} ({{frequenciaAluno.frequencia.porcFaltas}}%)
 			</p>
 	</div>
 	
-		<ion-item item="item">
+		<ion-item item="item" ng-repeat="frequencia in frequenciaAluno.presencas">
 			<ion-list>
-				<b> 02/05/2015 </b> - Presente 
-			</ion-list>
-		</ion-item>
-		<ion-item item="item">
-			<ion-list>
-					<b> 04/05/2015 </b> - Ausente
+				<b> {{frequencia.data}}</b> - {{frequencia.presente}}
 			</ion-list>
 		</ion-item>
 

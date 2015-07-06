@@ -186,12 +186,23 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
         });       
     }
 })
-.controller('ChamadaPresencaCtrl', function($scope, $state, $http, myService) {
+
+.controller('ChamadaPresencaCtrl', function($scope, $state, $http, myService, ChamadaService) {
     $scope.formData = {};
-    $scope.presencas = myService.get();
+    //$scope.presencas = myService.get();
+    $scope.presencas = ChamadaService.presenca();
     console.log("Presença");
     console.dir($scope.presencas);
 })
+
+// controller para exibir dados da chamada que está recenbendo ticks
+/*
+.controller('chamadaAberta_professorCtrl', function($scope, $state, $http, myService, ChamadaService) {
+  $scope.chamadaAberta_professor = ChamadaService.aberta();
+  console.log("chamadaAberta_professor");
+  console.dir($scope.chamadaAberta_professor);
+})
+*/
 
 .controller('disciplinasCtrl', function($scope, $state, $http, myService, ChamadaService) {
   $scope.disciplinas = ChamadaService.disciplinas();
@@ -308,4 +319,20 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
     $scope.formData = {};
     $scope.tick = myService.get();
     console.dir($scope.tick);
+})
+
+.controller('disciplinasAlunoCtrl', function($scope, $state, $http, myService, AlunoService) {
+  $scope.disciplinasAluno = AlunoService.disciplinas_aluno();
+  console.log("Disciplinas");
+  console.dir($scope.disciplinasAluno);
+})
+
+.controller('frequenciaAlunoCtrl', function($scope, $state, $http, myService, AlunoService) {
+  $scope.frequenciaAluno = AlunoService.frequencia();
+  console.log("Frequencia");
+  console.dir($scope.frequenciaAluno);
 });
+
+
+
+
