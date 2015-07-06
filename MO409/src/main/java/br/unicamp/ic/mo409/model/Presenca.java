@@ -261,7 +261,7 @@ public class Presenca implements Serializable
 		}
 		else
 		{
-			throw new IllegalStateException("Estado não permite solicitar o cálculo da presença.");
+			throw new IllegalStateException("Estado não permite solicitar visualizar resultado da presença.");
 		}
 		
 	}

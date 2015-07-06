@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.unicamp.ic.mo409.dao.AlunoDAO;
 import br.unicamp.ic.mo409.dao.ChamadaDAO;
 import br.unicamp.ic.mo409.dao.ProfessorDAO;
 import br.unicamp.ic.mo409.dao.TurmaDAO;
@@ -61,6 +62,9 @@ public class ProfessorController
 
 	@Autowired
 	TurmaDAO turmaDAO;
+	
+	@Autowired
+	AlunoDAO alunoDAO;
 
 	@ModelAttribute("usuario")
 	public Usuario getUsuario()
@@ -552,6 +556,81 @@ public class ProfessorController
 	}
 	
 	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/professor/turma/aluno/presenca", method = RequestMethod.POST, consumes = "application/json", produces = "application/json;charset=UTF-8")
+	@Secured({ "ROLE_ALUNO" })
+	@ResponseBody
+	public JSONObject consultarPresencaAluno(
+			@ModelAttribute("usuario") Usuario usuario,
+			@RequestBody PresencaAlunoWrapper presencaAluno)
+	{
+		Aluno aluno = alunoDAO.find(presencaAluno.getRaAluno());
+		Professor professor = usuario.getProfessor();
+		Turma turma = turmaDAO.find(presencaAluno.getIdTurma());
+
+		if (!turma.getAlunos().contains(aluno))
+		{
+			throw new NoResultException(
+					"Aluno não está matriculado na turma!");
+		}
+		if (!turma.getProfessores().contains(professor))
+		{
+			throw new AccessDeniedException(
+					"Professor não associado a turma.");
+		}
+		// construir resposta JSON
+		SimpleDateFormat shf = new SimpleDateFormat("HH:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		
+		List<Presenca> presencas = aluno.getPresencas();
+		
+		JSONObject obj = new JSONObject();
+		obj.put("numPresencas", 0);
+		obj.put("numFaltas", 1);
+		obj.put("numChamadas", presencas.size());	
+		
+		// dados da turma
+		JSONObject objTurma = new JSONObject();
+		objTurma.put("idTurma", turma.getIdTurma());
+		objTurma.put("codTurma", turma.getCodTurma());
+		objTurma.put("codDisciplina", turma.getDisciplina()
+				.getCodDisciplina());
+		objTurma.put("nomeDisciplina", turma.getDisciplina()
+				.getNomeDisciplina());
+		obj.put("turma", objTurma);
+		
+		JSONArray array = new JSONArray();
+		for (Presenca presenca : presencas)
+		{			
+			JSONObject objFrequencia = new JSONObject();
+			
+			JSONObject objPresenca = new JSONObject();
+			objPresenca.put("idPresenca", presenca.getIdPresenca());
+			objPresenca.put("horaInicio", shf.format(presenca.getHoraInicio()));
+			objPresenca.put("horaFim", shf.format(presenca.getHoraFim()));
+			objPresenca.put("numTicks", presenca.getNumTicks());
+			objPresenca.put("resultado", presenca.visualizarPresenca());
+			objFrequencia.put("presenca", objPresenca);
+			
+			Chamada chamada = presenca.getChamada();
+			
+			// construir resposta JSON
+			// dados da chamada
+			JSONObject objChamada = new JSONObject();
+			objChamada.put("idChamada", chamada.getIdChamada());
+			objChamada.put("dataChamada", sdf.format(chamada.getDataChamada()));
+			objChamada.put("horaInicio", shf.format(chamada.getHoraInicio()));
+			objChamada.put("horaFim", shf.format(chamada.getHoraFim()));
+			objChamada.put("duracao", chamada.getParametro().getDuracao());
+			objChamada.put("porcentagem", chamada.getParametro().getPorcentagem());
+			objChamada.put("professorChamada", chamada.getProfessor().getUsuario().getNome());
+			objFrequencia.put("chamada", objChamada);
+			array.add(objFrequencia);
+		}
+		obj.put("frequencia", array);
+		return obj;
+	}
+	
+	@SuppressWarnings("unchecked")
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.CONFLICT)  // 409
 	public JSONObject handleError(HttpServletRequest req, Exception exception)
@@ -685,4 +764,40 @@ class ProfessorParametrosWrapper  implements Serializable {
 	{
 		this.porcentagem = porcentagem;
 	}
+}
+class PresencaAlunoWrapper  implements Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2262553828925378441L;
+	
+	@JsonProperty("raAluno")
+    Integer raAluno;
+	
+	@JsonProperty( "idTurma" )
+	private
+	Integer idTurma;
+	
+	public Integer getRaAluno()
+	{
+		return raAluno;
+	}
+
+	public void setRaAluno(Integer raAluno)
+	{
+		this.raAluno = raAluno;
+	}
+
+	public Integer getIdTurma()
+	{
+		return idTurma;
+	}
+
+	public void setIdTurma(Integer idTurma)
+	{
+		this.idTurma = idTurma;
+	}
+
+	
+        
 }
