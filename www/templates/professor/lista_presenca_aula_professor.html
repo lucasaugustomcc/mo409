@@ -28,15 +28,16 @@
 		</ul>
 		<div class="item" ng-repeat="presenca in presencas">
 			<ul class="list">
-				<li class="item" ng-repeat="aluno in presenca.frequencia">
+				<li class="item" ng-repeat="aluno in presenca.alunos">
 					<div class="row responsive-sm">
 						<div class="col col-20">
-								<h2> {{ aluno.nome }} <br/> RA{{aluno.raAluno }}</h2>
+								<h2> {{ aluno.nomeAluno }} <br/> RA{{aluno.raAluno }}</h2>
 						</div>
 						<div class="col">
-
-								<p style="color:green; !important">{{aluno.status}}</p>
-
+								<p>{{aluno.numTicks}} ticks {{aluno.horaInicio != '00:00' ? ': ' + aluno.horaInicio + ' às ' + aluno.horaFim : ''}}</p>					
+								<p style="color:{{aluno.resultado == 'presente' ? 'green' : 'red'}}; !important">
+									{{aluno.resultado}}
+								</p>
 						</div>
 					</div>
 				</li>			

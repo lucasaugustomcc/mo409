@@ -145,6 +145,10 @@ angular.module('exampleApp', [
             controller:  "frequenciaAluno_professorCtrl", //colocar controller
             templateUrl: "templates/professor/frequencia_aluno.html"     
         }
+      },
+      params: {
+        "idTurma": null,
+        "raAluno": null
       }         
     })
     .state('professor.chamada-presenca', {
@@ -157,29 +161,28 @@ angular.module('exampleApp', [
         }
     }         
     })
-/*
-    .state('professor.alunos_matriculados', {
-      url: "/chamada/alunos_matriculados",
-      views: {
-        'menuContent' :{
-            controller:  "alunosMatriculadosCtrl", //colocar controller
-            templateUrl: "templates/lista_alunos_professor.html"     
-        }
-    }         
-    })*/
-
   // para fazer a pesquisa de um aluno pelo RA ou nome
 	.state('professor.alunos', {
-      url: "/alunos_matriculados",
+      url: "/consulta/alunos",
       cache: false,
       views: {
         'menuContent' :{
-            controller:  "", //colocar controller
+            controller:  "ProfessorConsultarAlunosCtrl",
             templateUrl: "templates/professor/pesquisar_alunos.html"             
         }
     }         
     })
-
+  // para fazer a pesquisa de um aluno pelo RA ou nome
+  .state('professor.resultado-consulta-alunos', {
+      url: "/consulta/resultado",
+      cache: false,
+      views: {
+        'menuContent' :{
+            controller:  "ProfessorResultadoConsultarAlunosCtrl",
+            templateUrl: "templates/professor/lista_consulta_alunos_professor.html"             
+        }
+    }         
+    })
   .state('professor.disciplinas', {
      url: "/chamada/disciplinas",
       cache: false,
@@ -193,7 +196,7 @@ angular.module('exampleApp', [
 
   
 	.state('professor.lista_alunos', {
-      url: "/chamada/alunos_matriculados",
+      url: "/chamada/alunos_matriculados?idTurma",
       cache: false,
       views: {
         'menuContent' :{

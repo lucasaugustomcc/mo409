@@ -103,6 +103,31 @@ services.factory('ChamadaService', function($resource) {
     } 
   );
 });
+services.factory('TurmaService', function($resource) {
+  
+  return $resource(exampleAppConfig.host+'/professor/turma/:action', {},
+    {        
+        alunos_matriculados: {
+          method: 'POST',
+          params: {'action' : 'alunos'},
+          headers : {'Content-Type': 'application/json'},
+          interceptor : {responseError : resourceErrorHandler}
+        },
+         frequencia_aluno: {
+          method: 'POST',
+          params: {'action' : 'aluno-frequencia'},
+         // isArray: true,
+          interceptor : {responseError : resourceErrorHandler}
+        },
+         consultarAlunos: {
+          method: 'POST',
+          params: {'action' : 'consultar-alunos'},
+          isArray: true,
+          interceptor : {responseError : resourceErrorHandler}
+        }
+    } 
+  );
+});
 services.factory('AlunoService', function($resource) {
   
   return $resource(exampleAppConfig.host+'/aluno/chamada/:action', {},

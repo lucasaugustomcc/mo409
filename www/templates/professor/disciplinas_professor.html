@@ -5,14 +5,11 @@
   
 	<ion-content >
 	
-		<ion-item item="item" ui-sref="professor.lista_alunos" ui-sref-opts="{reload: true}" ng-repeat="disciplina in disciplinas"> 
-
+		<ion-item item="item" ui-sref="professor.lista_alunos({idTurma:disciplina.idTurma})" ui-sref-opts="{reload: true}" ng-repeat="disciplina in disciplinas"> 
 				<h3>{{ disciplina.codDisciplina }} - {{ disciplina.nomeDisciplina}}</h3>
 				<h3>TURMA {{ disciplina.codTurma }}</h3>
 				<h3> Alunos Matriculados: {{disciplina.numAlunos}} </h3>
 			</ion-list>
 		</ion-item>
 	</ion-content>
-  
-  
-  </ion-view>
+</ion-view>
