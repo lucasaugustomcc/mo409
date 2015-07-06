@@ -70,7 +70,7 @@ angular.module('exampleApp', [
       url: "/chamada/disciplinas_aluno",
       views: {
         'menuContent' :{
-            controller:  "disciplinasAlunoCtrl", //colocar ontroller
+            controller:  "disciplinasAlunoCtrl", 
             templateUrl: "templates/aluno/disciplinas_aluno.html"              
         }
     }         
@@ -79,17 +79,20 @@ angular.module('exampleApp', [
       url: "chamada/frequencia",
       views: {
         'menuContent' :{
-            controller:  "frequenciaAlunoCtrl", //colocar ontroller
-            templateUrl: "templates/aluno/frequencia.html"              
+            controller:  "frequenciaAlunoCtrl", 
+            templateUrl: "templates/professor/frequencia_aluno.html"              
         }
-    }         
+      },
+      params: {
+        "idTurma":null
+      }          
     })
 	.state('aluno.about', {
       url: "/about",
       views: {
         'menuContent' :{
             controller:  "", //colocar ontroller
-            templateUrl: "templates/aluno/about.html"              
+            templateUrl: "templates/professor/about.html"              
         }
     }         
     })

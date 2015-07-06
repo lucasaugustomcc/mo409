@@ -4,16 +4,7 @@
   </ion-nav-buttons>
   
 	<ion-content >
-		<!--
-		<ion-item item="item" ui-sref="aluno.frequencia" ui-sref-opts="{reload: true}">
-			<ion-list>
-				MO409 - Turma A - Engenharia de Software I <br/>
-				<b> Aulas dadas: </b> 15 <br/>
-				<b>  Presenças:</b>  10 (66%) | <b> Faltas: </b> 5 (34%)
-			</ion-list>
-		</ion-item> -->
-		<ion-item item="item" ui-sref="aluno.frequencia" ui-sref-opts="{reload: true}" ng-repeat="disciplina in disciplinasAluno"> 
-
+		<ion-item item="item" ui-sref="aluno.frequencia({ 'idTurma':disciplina.idTurma })" ui-sref-opts="{reload: true}" ng-repeat="disciplina in disciplinasAluno"> 
 				<h3>{{ disciplina.codDisciplina }} - {{ disciplina.nomeDisciplina}}</h3>
 				<h3>TURMA {{ disciplina.codTurma }}</h3>
 			</ion-list>

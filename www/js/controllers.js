@@ -382,15 +382,18 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
 })
 
 .controller('disciplinasAlunoCtrl', function($scope, $state, $http, myService, AlunoService) {
-  $scope.disciplinasAluno = AlunoService.disciplinas_aluno();
+  $scope.disciplinasAluno = AlunoService.disciplinasAluno();
   console.log("Disciplinas");
   console.dir($scope.disciplinasAluno);
 })
 
-.controller('frequenciaAlunoCtrl', function($scope, $state, $http, myService, AlunoService) {
-  $scope.frequenciaAluno = AlunoService.frequencia();
+.controller('frequenciaAlunoCtrl', function($scope, $state, $http, myService, AlunoService, $stateParams) {
+  AlunoService.frequencia({},{'idTurma': $stateParams.idTurma}, 
+          function success(data) {
+              $scope.frequencia_aluno =  data;
+          });
   console.log("Frequencia");
-  console.dir($scope.frequenciaAluno);
+  console.dir($scope.frequencia_aluno);
 });
 
 

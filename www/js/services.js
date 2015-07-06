@@ -155,16 +155,15 @@ services.factory('AlunoService', function($resource) {
           headers : {'Content-Type': 'application/json'},
           interceptor : {responseError : resourceErrorHandler}
         },
-        disciplinas_aluno: {
+        disciplinasAluno: {
           method: 'GET',
-          params: {'action' : 'disciplinas_aluno'},
+          params: {'action' : 'disciplinas'},
           isArray: true,
           interceptor : {responseError : resourceErrorHandler}
         },
           frequencia: {
           method: 'POST',
           params: {'action' : 'frequencia'},
-         // isArray: true,
           headers : {'Content-Type': 'application/json'},
           interceptor : {responseError : resourceErrorHandler}
         },

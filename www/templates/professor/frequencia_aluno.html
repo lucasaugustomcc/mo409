@@ -28,8 +28,8 @@
 			<ion-list>
 				<b> {{frequencia.chamada.dataChamada}} </b>
 				<p>{{frequencia.presenca.numTicks}} ticks {{frequencia.presenca.horaInicio != '00:00' ? ': ' + frequencia.presenca.horaInicio + ' às ' + aluno.horaFim : ''}}</p>					
-								<p style="color:{{aluno.resultado == 'presente' ? 'green' : 'red'}}; !important">
-									{{aluno.resultado}}
+								<p style="color:{{frequencia.presenca.resultado == 'presente' ? 'green' : 'red'}}; !important">
+									{{frequencia.presenca.resultado}}
 								</p>
 			</ion-list>
 		</ion-item>
