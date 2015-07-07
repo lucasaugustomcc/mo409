@@ -240,7 +240,7 @@ public class AlunoControllerTest
 		
 		Mockito.when(this.presencaDAO.findPresencaChamadaAbertaAluno(1, 1))
 				.thenReturn(presenca1);		
-		Mockito.when(this.presencaDAO.findPresencaChamadasAluno(1))
+		Mockito.when(this.presencaDAO.findPresencaEmSalaChamadasAbertasAluno(1))
 		.thenReturn(presenca1);		
 	}
 

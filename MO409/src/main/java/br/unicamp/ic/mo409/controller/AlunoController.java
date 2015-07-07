@@ -133,7 +133,7 @@ public class AlunoController
 		JSONObject obj = new JSONObject();
 		
 		try{
-			Presenca presenca = presencaDAO.findPresencaChamadasAluno(aluno.getRaAluno());
+			Presenca presenca = presencaDAO.findPresencaEmSalaChamadasAbertasAluno(aluno.getRaAluno());
 			Chamada chamada = presenca.getChamada();
 		
 
@@ -359,6 +359,7 @@ public class AlunoController
 		objChamada.put("idChamada", chamada.getIdChamada());
 		objChamada.put("dataChamada", sdf.format(chamada.getDataChamada()));
 		objChamada.put("horaInicio", shf.format(chamada.getHoraInicio()));
+		objChamada.put("horaFim", shf.format(chamada.getHoraInicio()));
 		objChamada.put("duracao", chamada.getParametro().getDuracao());
 		objChamada.put("porcentagem", chamada.getParametro().getPorcentagem());
 		objChamada.put("professorChamada", chamada.getProfessor().getUsuario().getNome());
@@ -493,16 +494,16 @@ public class AlunoController
 	}
 
 	
-//	@SuppressWarnings("unchecked")
-//	@ExceptionHandler(Exception.class)
-//	@ResponseStatus(HttpStatus.CONFLICT)  // 409
-//	public JSONObject handleError(HttpServletRequest req, Exception exception)
-//	{
-//		JSONObject obj = new JSONObject();
-//		obj.put("error", "exception");
-//		obj.put("message", exception.getMessage());
-//		return obj;
-//	}
+	@SuppressWarnings("unchecked")
+	@ExceptionHandler(Exception.class)
+	@ResponseStatus(HttpStatus.CONFLICT)  // 409
+	public JSONObject handleError(HttpServletRequest req, Exception exception)
+	{
+		JSONObject obj = new JSONObject();
+		obj.put("error", "exception");
+		obj.put("message", exception.getMessage());
+		return obj;
+	}
 }
 
 class AlunoLocalizacaoWrapper  implements Serializable {

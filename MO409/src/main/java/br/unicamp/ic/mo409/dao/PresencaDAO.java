@@ -60,11 +60,13 @@ public class PresencaDAO implements Serializable {
 				.getSingleResult();
 	}
 	
-	public Presenca findPresencaChamadasAluno(Integer raAluno) 
+	public Presenca findPresencaEmSalaChamadasAbertasAluno(Integer raAluno) 
 	{
-		return (Presenca) entityManager.createQuery("SELECT p FROM Presenca p left join p.aluno a WHERE a.raAluno = :raAluno AND p.state = :presencaState")
+		return (Presenca) entityManager.createQuery("SELECT p FROM Presenca p left join p.aluno a left join p.chamada c "
+				+ "WHERE a.raAluno = :raAluno AND p.state = :presencaState AND c.state = :chamadaState")
 				.setParameter("raAluno", raAluno)
 				.setParameter("presencaState", PresencaState.em_aula)
+				.setParameter("chamadaState", ChamadaState.aberta)
 				.getSingleResult();
 	}
 	
