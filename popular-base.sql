@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tempo de Geração: 14/06/2015 às 00:31
+-- Tempo de Geração: 02/07/2015 às 09:02
 -- Versão do servidor: 5.6.19-0ubuntu0.14.04.1
 -- Versão do PHP: 5.5.9-1ubuntu4.9
 
@@ -100,7 +100,7 @@ INSERT INTO `tb_aluno` (`ra_aluno`, `tb_usuario_id_usuario`) VALUES
 --
 
 INSERT INTO `tb_disciplina` (`id_disciplina`, `nome_disciplina`, `cod_disciplina`) VALUES
-(1, 'Engenharia de Software I', 'MO409'),
+(1, 'Engenharia de Software II', 'MO409'),
 (2, 'Análise e Projeto de Sistema de Informação', 'MC626'),
 (3, 'Projeto de Interfaces de Usuário', 'MO645'),
 (4, 'Teleprocessamento e Redes', 'MO611');
@@ -198,8 +198,14 @@ INSERT INTO `tb_turma_aluno` (`tb_turma_id_turma`, `tb_aluno_ra_aluno`) VALUES
 (2, 138450),
 (2, 138466),
 (2, 140604),
+(3, 149867),
+(3, 161255),
 (3, 163144),
-(4, 163144);
+(3, 180128),
+(4, 149867),
+(4, 161255),
+(4, 163144),
+(4, 180128);
 
 --
 -- Fazendo dump de dados para tabela `tb_turma_professor`
@@ -233,7 +239,7 @@ INSERT INTO `tb_usuario` (`id_usuario`, `nome`, `email`, `senha`, `papel`) VALUE
 (14, 'Geise Kelly da Silva Santos', 'G161248@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
 (15, 'Leydi Rocio Erazo Paruma', 'L161251@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
 (16, 'Jeferson Rech Brunetta', 'J161253@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
-(17, 'Lucas Augusto Montalvão Costa Carvalho', 'L161255@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
+(17, 'Lucas Augusto Montalvão Costa Carvalho', 'L161255@dac.unicamp.br', '0fc2868b165e492804182bcee24c51c3c112166fe0ef6b0fe94eff79117ced376ecf068831be44e8', 'ROLE_ALUNO'),
 (18, 'Leandro Tacioli', 'L161789@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
 (19, 'Guilherme Henrique Caponetto', 'G162639@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
 (20, 'Acauan Cardoso Ribeiro', 'A163125@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
@@ -251,7 +257,7 @@ INSERT INTO `tb_usuario` (`id_usuario`, `nome`, `email`, `senha`, `papel`) VALUE
 (32, 'Luzizila Salambiaku', NULL, 'senha', 'ROLE_ALUNO'),
 (33, 'Joaquim Domingos Mussandi', NULL, 'senha', 'ROLE_ALUNO'),
 (34, 'Fabrício Matheus Gonçalves', 'F962334@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
-(35, 'Eliane Martins', NULL, 'senha', 'ROLE_PROFESSOR'),
+(35, 'Eliane Martins', NULL, '0fc2868b165e492804182bcee24c51c3c112166fe0ef6b0fe94eff79117ced376ecf068831be44e8', 'ROLE_PROFESSOR'),
 (36, 'Marcelo Pereira Barretto', 'M074219@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
 (37, 'Ivan Sichmann Freitas					', 'I093887@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
 (38, 'Giovanni Ronnie Almeida					', 'G095746@dac.unicamp.br', 'senha', 'ROLE_ALUNO'),
