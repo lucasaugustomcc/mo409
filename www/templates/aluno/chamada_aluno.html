@@ -3,8 +3,7 @@
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   <ion-content>
-
-		<ul class="list">
+		<ul class="list" ng-show="chamada">
 			<li class="item item-checkbox">
 				<div class="row responsive-sm">
 					<div class="col-10">
@@ -13,14 +12,14 @@
 					</div>
 					<div class="col-8">
 							<h3>{{ chamada.turma.nomeDisciplina }}</h3>
-							<p>Prof. {{ chamada.turma.nomeProfessor }}</p>
+							<p>Prof(a). {{ chamada.professorChamada }}</p>
 					</div>
 				<div>				
 			</li>			
 		</ul>
 
 		<br><br>
-		<div class="row responsive-sm">
+		<div class="row responsive-sm" ng-if="chamada">
 		    <div class="col"></div>
 			<div class="col">
 				<button  class="button button-block button-balanced icon-left ion-android-checkbox-outline" ng-click="confirmCheckIn()">

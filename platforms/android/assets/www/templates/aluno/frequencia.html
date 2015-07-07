@@ -15,14 +15,18 @@
 					</div>
 			</div>
 			<p class="item responsive-sm"> 
-				<b> Aulas dadas: </b> {{frequenciaAluno.turma.numChamadas}} <br/>
-				<b>  Presenças:</b>  {{frequenciaAluno.frequencia.numPresencas}} ({{frequenciaAluno.frequencia.porcPresencas}}%) | <b> Faltas: </b> {{frequenciaAluno.frequencia.numFaltas}} ({{frequenciaAluno.frequencia.porcFaltas}}%)
+				<b>  Aulas dadas: </b> {{frequenciaAluno.numChamadas}} <br/>
+				<b>  Presenças:</b>  {{frequenciaAluno.numPresencas}} ({{frequenciaAluno.porcentagemPresencas}}%) | <b> Faltas: </b> {{frequenciaAluno.numFaltas}} ({{frequenciaAluno.porcentagemFaltas}}%)
 			</p>
 	</div>
 	
-		<ion-item item="item" ng-repeat="frequencia in frequenciaAluno.presencas">
+		<ion-item item="item" ng-repeat="frequencia in frequenciaAluno.frequencia">
 			<ion-list>
-				<b> {{frequencia.data}}</b> - {{frequencia.presente}}
+				<b> {{frequencia.chamada.dataChamada}} </b>
+				<p>{{frequencia.presenca.numTicks}} ticks {{frequencia.presenca.horaInicio != '00:00' ? ': ' + frequencia.presenca.horaInicio + ' às ' + aluno.horaFim : ''}}</p>					
+								<p style="color:{{aluno.resultado == 'presente' ? 'green' : 'red'}}; !important">
+									{{aluno.resultado}}
+								</p>
 			</ion-list>
 		</ion-item>
 

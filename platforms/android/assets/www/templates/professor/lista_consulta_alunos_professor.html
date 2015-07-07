@@ -1,0 +1,27 @@
+<ion-view title="Consulta Alunos">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left"class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  
+  <ion-content>
+  
+		<div class="list card" ng-repeat="aluno in alunos">
+			<div class="item item-divider row responsive-sm">					
+				<h2>{{aluno.nomeAluno}} - RA {{aluno.raAluno}}</h2>					
+			</div>
+			<ion-item item="item" ui-sref="professor.frequencia_aluno({idTurma: turma.idTurma, raAluno:aluno.raAluno})" ui-sref-opts="{reload: true}" ng-repeat="turma in aluno.turmas">
+				<ion-list>
+					<div class="item item-divider row responsive-sm">
+						<div class="col-10">
+								<h2> {{turma.codDisciplina}} </h2>
+								<h2>TURMA {{turma.codTurma}}</h2>
+						</div>
+						<div class="col-8">
+								<h3>{{turma.nomeDisciplina}}</h3>
+						</div>
+					</div>
+				</ion-list>
+			</ion-item>
+		</div>			
+  </ion-content>
+</ion-view>

@@ -41,6 +41,7 @@ angular.module('exampleApp', [
     })
     .state('aluno.chamada', {
       url: "/chamada/turma",
+      cache: false,
       views: {
         'menuContent' :{
             controller:  "AlunoChamadaCtrl",
@@ -49,6 +50,7 @@ angular.module('exampleApp', [
     }         
     })    
     .state('aluno.checkin', {
+      cache: false,
       url: "/chamada/checkin",
       views: {
         'menuContent' :{
@@ -58,6 +60,7 @@ angular.module('exampleApp', [
     }         
     })
     .state('aluno.checkout', {
+      cache: false,
       url: "/chamada/checkout",
       views: {
         'menuContent' :{
@@ -76,6 +79,7 @@ angular.module('exampleApp', [
     }         
     })
 	.state('aluno.frequencia', {
+      cache: false,
       url: "chamada/frequencia",
       views: {
         'menuContent' :{
@@ -143,6 +147,7 @@ angular.module('exampleApp', [
     })
    .state('professor.frequencia_aluno', {
       url: "/chamada/frequencia_aluno",
+      cache: false,
       views: {
         'menuContent' :{
             controller:  "frequenciaAluno_professorCtrl", //colocar controller
@@ -211,6 +216,7 @@ angular.module('exampleApp', [
 
     .state('app.logout', {
       url: "/logout",
+      cache: false,
       views: {
          'menuContent' :{
            controller: "LogoutController",

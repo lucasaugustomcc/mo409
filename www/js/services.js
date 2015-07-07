@@ -134,7 +134,7 @@ services.factory('AlunoService', function($resource) {
     {
         chamada: {
           method: 'GET',
-          params: {'action' : 'turma'},
+          params: {'action' : 'turmas'},
           interceptor : {responseError : resourceErrorHandler}
         },
         presenca: {
@@ -155,13 +155,19 @@ services.factory('AlunoService', function($resource) {
           headers : {'Content-Type': 'application/json'},
           interceptor : {responseError : resourceErrorHandler}
         },
+        resultado: {
+          method: 'POST',
+          params: {'action' : 'resultado'},
+          headers : {'Content-Type': 'application/json'},
+          interceptor : {responseError : resourceErrorHandler}
+        },
         disciplinasAluno: {
           method: 'GET',
           params: {'action' : 'disciplinas'},
           isArray: true,
           interceptor : {responseError : resourceErrorHandler}
         },
-          frequencia: {
+        frequencia: {
           method: 'POST',
           params: {'action' : 'frequencia'},
           headers : {'Content-Type': 'application/json'},

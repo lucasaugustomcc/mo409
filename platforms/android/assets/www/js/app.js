@@ -41,6 +41,7 @@ angular.module('exampleApp', [
     })
     .state('aluno.chamada', {
       url: "/chamada/turma",
+      cache: false,
       views: {
         'menuContent' :{
             controller:  "AlunoChamadaCtrl",
@@ -49,6 +50,7 @@ angular.module('exampleApp', [
     }         
     })    
     .state('aluno.checkin', {
+      cache: false,
       url: "/chamada/checkin",
       views: {
         'menuContent' :{
@@ -58,6 +60,7 @@ angular.module('exampleApp', [
     }         
     })
     .state('aluno.checkout', {
+      cache: false,
       url: "/chamada/checkout",
       views: {
         'menuContent' :{
@@ -70,26 +73,30 @@ angular.module('exampleApp', [
       url: "/chamada/disciplinas_aluno",
       views: {
         'menuContent' :{
-            controller:  "disciplinasAlunoCtrl", //colocar ontroller
+            controller:  "disciplinasAlunoCtrl", 
             templateUrl: "templates/aluno/disciplinas_aluno.html"              
         }
     }         
     })
 	.state('aluno.frequencia', {
+      cache: false,
       url: "chamada/frequencia",
       views: {
         'menuContent' :{
-            controller:  "frequenciaAlunoCtrl", //colocar ontroller
-            templateUrl: "templates/aluno/frequencia.html"              
+            controller:  "frequenciaAlunoCtrl", 
+            templateUrl: "templates/professor/frequencia_aluno.html"              
         }
-    }         
+      },
+      params: {
+        "idTurma":null
+      }          
     })
 	.state('aluno.about', {
       url: "/about",
       views: {
         'menuContent' :{
             controller:  "", //colocar ontroller
-            templateUrl: "templates/aluno/about.html"              
+            templateUrl: "templates/professor/about.html"              
         }
     }         
     })
@@ -140,11 +147,16 @@ angular.module('exampleApp', [
     })
    .state('professor.frequencia_aluno', {
       url: "/chamada/frequencia_aluno",
+      cache: false,
       views: {
         'menuContent' :{
             controller:  "frequenciaAluno_professorCtrl", //colocar controller
             templateUrl: "templates/professor/frequencia_aluno.html"     
         }
+      },
+      params: {
+        "idTurma": null,
+        "raAluno": null
       }         
     })
     .state('professor.chamada-presenca', {
@@ -157,29 +169,28 @@ angular.module('exampleApp', [
         }
     }         
     })
-/*
-    .state('professor.alunos_matriculados', {
-      url: "/chamada/alunos_matriculados",
-      views: {
-        'menuContent' :{
-            controller:  "alunosMatriculadosCtrl", //colocar controller
-            templateUrl: "templates/lista_alunos_professor.html"     
-        }
-    }         
-    })*/
-
   // para fazer a pesquisa de um aluno pelo RA ou nome
 	.state('professor.alunos', {
-      url: "/alunos_matriculados",
+      url: "/consulta/alunos",
       cache: false,
       views: {
         'menuContent' :{
-            controller:  "", //colocar controller
+            controller:  "ProfessorConsultarAlunosCtrl",
             templateUrl: "templates/professor/pesquisar_alunos.html"             
         }
     }         
     })
-
+  // para fazer a pesquisa de um aluno pelo RA ou nome
+  .state('professor.resultado-consulta-alunos', {
+      url: "/consulta/resultado",
+      cache: false,
+      views: {
+        'menuContent' :{
+            controller:  "ProfessorResultadoConsultarAlunosCtrl",
+            templateUrl: "templates/professor/lista_consulta_alunos_professor.html"             
+        }
+    }         
+    })
   .state('professor.disciplinas', {
      url: "/chamada/disciplinas",
       cache: false,
@@ -193,7 +204,7 @@ angular.module('exampleApp', [
 
   
 	.state('professor.lista_alunos', {
-      url: "/chamada/alunos_matriculados",
+      url: "/chamada/alunos_matriculados?idTurma",
       cache: false,
       views: {
         'menuContent' :{
@@ -205,6 +216,7 @@ angular.module('exampleApp', [
 
     .state('app.logout', {
       url: "/logout",
+      cache: false,
       views: {
          'menuContent' :{
            controller: "LogoutController",

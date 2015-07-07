@@ -59,7 +59,7 @@ function data(){
  Mes_Atual[10] = "Novembro"
  Mes_Atual[11] = "Dezembro"
  
- document.write(Dia_Atual[Dia] +", "+ Data + " de " + Mes_Atual[Mes] + " de " + Ano);
+ document.getElementById("data").innerHTML = Dia_Atual[Dia] +", "+ Data + " de " + Mes_Atual[Mes] + " de " + Ano;
 }
 
 function resourceErrorHandler(e)

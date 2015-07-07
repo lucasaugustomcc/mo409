@@ -8,25 +8,22 @@
 		<div class="list card">
 			<div class="item item-divider row responsive-sm">
 					<div class="col-10">
-							<h2> {{alunos_matriculados.turma.codDisciplina}} </h2>
-							<h2>TURMA {{alunos_matriculados.turma.codTurma}}</h2>
+							<h2> {{alunos_matriculados.codDisciplina}} </h2>
+							<h2>TURMA {{alunos_matriculados.codTurma}}</h2>
 					</div>
 					<div class="col-8">
-							<h3>{{alunos_matriculados.turma.nomeDisciplina}}</h3>
+							<h3>{{alunos_matriculados.nomeDisciplina}}</h3>
 					</div>
 			</div>
-			<p class="item responsive-sm"> <b>Quantidade de alunos matriculados:</b> {{alunos_matriculados.turma.numAlunos}} <br/>
-							 <b>Número de aulas dadas:</b> {{alunos_matriculados.turma.numChamadas}} <br/>
-							 <br/>
-							 <b>Presenças:</b> {{alunos_matriculados.turma.porcPresencas}}%  <br/>
-							 <b>Faltas:</b> {{alunos_matriculados.turma.porcFaltas}}%
+			<p class="item responsive-sm"> <b>Quantidade de alunos matriculados:</b> {{alunos_matriculados.numAlunos}} <br/>
+							 <b>Número de aulas dadas:</b> {{alunos_matriculados.numChamadas}} <br/>
 			</p>
 		</div>
 	
-		<ion-item item="item" ui-sref="professor.frequencia_aluno" ui-sref-opts="{reload: true}" ng-repeat="aluno in alunos_matriculados.alunos">
+		<ion-item item="item" ui-sref="professor.frequencia_aluno({idTurma: alunos_matriculados.idTurma, raAluno:aluno.raAluno})" ui-sref-opts="{reload: true}" ng-repeat="aluno in alunos_matriculados.alunos">
 			<ion-list>
-				<p> <b> {{aluno.nome}} <br/> </b> RA{{aluno.raAluno}} </p>
-				<p> <b>  Presenças:</b>  {{aluno.numPresencas}} ({{aluno.porcPresencas}}%) | <b> Faltas: </b> {{aluno.numFaltas}} ({{aluno.porcFaltas}}%)  </p>
+				<p> <b> {{aluno.nomeAluno}} <br/> </b> RA{{aluno.raAluno}} </p>
+				<p> <b>  Presenças:</b>  {{aluno.numPresencas}} ({{aluno.porcentagemPresencas}}%) | <b> Faltas: </b> {{aluno.numFaltas}} ({{aluno.porcentagemFaltas}}%)  </p>
 			</ion-list>
 		</ion-item>
   </ion-content>

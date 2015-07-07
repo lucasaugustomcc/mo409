@@ -103,13 +103,38 @@ services.factory('ChamadaService', function($resource) {
     } 
   );
 });
+services.factory('TurmaService', function($resource) {
+  
+  return $resource(exampleAppConfig.host+'/professor/turma/:action', {},
+    {        
+        alunos_matriculados: {
+          method: 'POST',
+          params: {'action' : 'alunos'},
+          headers : {'Content-Type': 'application/json'},
+          interceptor : {responseError : resourceErrorHandler}
+        },
+         frequencia_aluno: {
+          method: 'POST',
+          params: {'action' : 'aluno-frequencia'},
+         // isArray: true,
+          interceptor : {responseError : resourceErrorHandler}
+        },
+         consultarAlunos: {
+          method: 'POST',
+          params: {'action' : 'consultar-alunos'},
+          isArray: true,
+          interceptor : {responseError : resourceErrorHandler}
+        }
+    } 
+  );
+});
 services.factory('AlunoService', function($resource) {
   
   return $resource(exampleAppConfig.host+'/aluno/chamada/:action', {},
     {
         chamada: {
           method: 'GET',
-          params: {'action' : 'turma'},
+          params: {'action' : 'turmas'},
           interceptor : {responseError : resourceErrorHandler}
         },
         presenca: {
@@ -130,16 +155,21 @@ services.factory('AlunoService', function($resource) {
           headers : {'Content-Type': 'application/json'},
           interceptor : {responseError : resourceErrorHandler}
         },
-        disciplinas_aluno: {
+        resultado: {
+          method: 'POST',
+          params: {'action' : 'resultado'},
+          headers : {'Content-Type': 'application/json'},
+          interceptor : {responseError : resourceErrorHandler}
+        },
+        disciplinasAluno: {
           method: 'GET',
-          params: {'action' : 'disciplinas_aluno'},
+          params: {'action' : 'disciplinas'},
           isArray: true,
           interceptor : {responseError : resourceErrorHandler}
         },
-          frequencia: {
+        frequencia: {
           method: 'POST',
           params: {'action' : 'frequencia'},
-         // isArray: true,
           headers : {'Content-Type': 'application/json'},
           interceptor : {responseError : resourceErrorHandler}
         },

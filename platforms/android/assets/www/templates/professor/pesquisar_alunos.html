@@ -8,12 +8,12 @@
   <div class="list">
 	<h5> <b>Nome do Aluno</b> </h5>
 	<label class="item item-input">
-		<input type="text">
+		<input type="text" ng-model="formData.nomeAluno">
 	</label>
 	<br/>
 	<h5> <b> RA </b> </h5>
 	<label class="item item-input">
-		<input type="text">
+		<input type="text" ng-model="formData.raAluno">
 	</label>
   </div>
   
@@ -22,7 +22,7 @@
 	<div class="row responsive-sm">
 	    <div class="col"></div>
 		<div class="col">
-			<button  class="button button-block button-positive icon-left ion-android-search" ng-click="">
+			<button  class="button button-block button-positive icon-left ion-android-search" ng-click="confirmConsultarAlunos()">
 				Pesquisar
 			</button>
 		</div>

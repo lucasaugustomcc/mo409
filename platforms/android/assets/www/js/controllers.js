@@ -192,7 +192,7 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
           }
           else
           {
-            $state.go("professor.chamada");
+            $state.go("professor.chamada-turmas");
             return;
           }
         }, function err() {  }
@@ -225,46 +225,66 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
 
 .controller('ChamadaPresencaCtrl', function($scope, $state, $http, myService, ChamadaService) {
     $scope.formData = {};
-    //$scope.presencas = myService.get();
-    $scope.presencas = ChamadaService.presenca();
+    $scope.chamadas = myService.get();
+    if ($scope.chamadas.length == undefined)
+    {
+      $state.go('professor.disciplinas');
+      return;
+    }
+    $scope.checkbox = [];
+    for (var i = 0; i < $scope.chamadas.length; i++)
+    {      
+      $scope.checkbox.push({ "idChamada": $scope.chamadas[i]["idChamada"] });
+    }
+    $scope.presencas = ChamadaService.presenca({},$scope.checkbox);
     console.log("Presença");
     console.dir($scope.presencas);
 })
-
-// controller para exibir dados da chamada que está recenbendo ticks
-/*
-.controller('chamadaAberta_professorCtrl', function($scope, $state, $http, myService, ChamadaService) {
-  $scope.chamadaAberta_professor = ChamadaService.aberta();
-  console.log("chamadaAberta_professor");
-  console.dir($scope.chamadaAberta_professor);
-})
-*/
-
 .controller('disciplinasCtrl', function($scope, $state, $http, myService, ChamadaService) {
-  $scope.disciplinas = ChamadaService.disciplinas();
+  $scope.disciplinas = ChamadaService.turmas();
   console.log("Disciplina");
   console.dir($scope.disciplinas);
 })
 
-.controller('alunosMatriculadosCtrl', function($scope, $state, $http, myService, ChamadaService) {
-  $scope.alunos_matriculados = ChamadaService.alunos_matriculados();
+.controller('alunosMatriculadosCtrl', function($scope, $state, $http, myService, TurmaService, $stateParams) {
+  console.dir($stateParams);
+  $scope.alunos_matriculados = TurmaService.alunos_matriculados({},{idTurma: $stateParams.idTurma});
   console.log("alunos_matriculados");
   console.dir($scope.alunos_matriculados);
 })
 
-.controller('frequenciaAluno_professorCtrl', function($scope, $state, $http, myService, ChamadaService) {
-  $scope.frequencia_aluno = ChamadaService.frequencia_aluno();
+.controller('frequenciaAluno_professorCtrl', function($scope, $state, $http, myService, TurmaService, $stateParams) {
+  console.dir($stateParams);
+  $scope.frequencia_aluno = TurmaService.frequencia_aluno({},{idTurma: $stateParams.idTurma, raAluno: $stateParams.raAluno});
   console.log("Frequência");
   console.dir($scope.frequencia_aluno);
 })
+.controller('ProfessorConsultarAlunosCtrl', function($scope, $state, $http, myService, TurmaService) {
+    $scope.formData = {};
+    $scope.chamadas = myService.get();
+    $scope.alunos = [];
 
+    $scope.confirmConsultarAlunos = function() {
+         TurmaService.consultarAlunos({},{'raAluno':$scope.formData.raAluno, 'nomeAluno':$scope.formData.nomeAluno}, 
+            function success(data) {
+                myService.set(data);
+                $state.go('professor.resultado-consulta-alunos');
+            }, function err() {  }
+        );                    
+    }
+})
+.controller('ProfessorResultadoConsultarAlunosCtrl', function($scope, $state, $http, myService, TurmaService) {
+    $scope.alunos = myService.get();    
+})
 .controller('AlunoChamadaCtrl', function($scope, $state, $http, myService, AlunoService) {    
 
     // checar se o aluno fez checkin
     AlunoService.presenca({},{},
       function success(data) {
+          console.log("checkins");
+          console.log(data.length);
           console.dir(data);
-          if (data.length > 0)
+          if (data.turma != undefined)
           {
             myService.set(data);
             $state.go('aluno.checkin');
@@ -275,7 +295,14 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
             AlunoService.chamada({},{},
               function success(data) {
                   $scope.chamada = data;
-
+                  console.log("chamadas");
+                  console.log(data);
+                  if (data.idChamada == undefined)
+                  {
+                    alert("nenhuma chamada aberta");
+                    $state.go('aluno.home');
+                    return;
+                  }
                   // javascript function para o button
                   $scope.confirmCheckIn = function() {
                       AlunoService.checkin({},{ "idChamada": $scope.chamada.idChamada }, 
@@ -292,7 +319,6 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
     );         
 })
 .controller('AlunoCheckInCtrl', function($scope, $state, $http, myService, AlunoService, localStorageService) {
-
 
     $scope.tick = myService.get();
     console.dir($scope.tick);
@@ -357,22 +383,34 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
         );         
       }
 })
-.controller('AlunoCheckOutCtrl', function($scope, $state, $http, myService) {      
+.controller('AlunoCheckOutCtrl', function($scope, $state, $http, myService, AlunoService) {      
     $scope.formData = {};
     $scope.tick = myService.get();
     console.dir($scope.tick);
+
+    $scope.confirmResultadoChamada = function() {        
+        AlunoService.resultado({},{ "idPresenca": $scope.tick.idPresenca }, 
+          function success(data) {
+            myService.set(data);
+            alert(data.resultado);
+          }
+        );         
+      }
 })
 
 .controller('disciplinasAlunoCtrl', function($scope, $state, $http, myService, AlunoService) {
-  $scope.disciplinasAluno = AlunoService.disciplinas_aluno();
+  $scope.disciplinasAluno = AlunoService.disciplinasAluno();
   console.log("Disciplinas");
   console.dir($scope.disciplinasAluno);
 })
 
-.controller('frequenciaAlunoCtrl', function($scope, $state, $http, myService, AlunoService) {
-  $scope.frequenciaAluno = AlunoService.frequencia();
+.controller('frequenciaAlunoCtrl', function($scope, $state, $http, myService, AlunoService, $stateParams) {
+  AlunoService.frequencia({},{'idTurma': $stateParams.idTurma}, 
+          function success(data) {
+              $scope.frequencia_aluno =  data;
+          });
   console.log("Frequencia");
-  console.dir($scope.frequenciaAluno);
+  console.dir($scope.frequencia_aluno);
 });
 
 

@@ -281,8 +281,10 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
     // checar se o aluno fez checkin
     AlunoService.presenca({},{},
       function success(data) {
+          console.log("checkins");
+          console.log(data.length);
           console.dir(data);
-          if (data.length > 0)
+          if (data.turma != undefined)
           {
             myService.set(data);
             $state.go('aluno.checkin');
@@ -293,7 +295,14 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
             AlunoService.chamada({},{},
               function success(data) {
                   $scope.chamada = data;
-
+                  console.log("chamadas");
+                  console.log(data);
+                  if (data.idChamada == undefined)
+                  {
+                    alert("nenhuma chamada aberta");
+                    $state.go('aluno.home');
+                    return;
+                  }
                   // javascript function para o button
                   $scope.confirmCheckIn = function() {
                       AlunoService.checkin({},{ "idChamada": $scope.chamada.idChamada }, 
@@ -310,7 +319,6 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
     );         
 })
 .controller('AlunoCheckInCtrl', function($scope, $state, $http, myService, AlunoService, localStorageService) {
-
 
     $scope.tick = myService.get();
     console.dir($scope.tick);
@@ -375,10 +383,19 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
         );         
       }
 })
-.controller('AlunoCheckOutCtrl', function($scope, $state, $http, myService) {      
+.controller('AlunoCheckOutCtrl', function($scope, $state, $http, myService, AlunoService) {      
     $scope.formData = {};
     $scope.tick = myService.get();
     console.dir($scope.tick);
+
+    $scope.confirmResultadoChamada = function() {        
+        AlunoService.resultado({},{ "idPresenca": $scope.tick.idPresenca }, 
+          function success(data) {
+            myService.set(data);
+            alert(data.resultado);
+          }
+        );         
+      }
 })
 
 .controller('disciplinasAlunoCtrl', function($scope, $state, $http, myService, AlunoService) {
