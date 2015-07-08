@@ -1,5 +1,7 @@
 package com.tenforwardconsulting.cordova.bgloc;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Iterator;
 import java.util.Timer;
@@ -20,6 +22,8 @@ import android.annotation.TargetApi;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 
+import android.os.Handler;
+import android.os.Message;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import static android.telephony.PhoneStateListener.*;
@@ -333,6 +337,22 @@ public class LocationUpdateService extends Service {
             HttpResponse response = httpClient.execute(request);
             Log.i(TAG, "Response received: " + response.getStatusLine());
             if (response.getStatusLine().getStatusCode() == 200) {
+                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+                StringBuffer result = new StringBuffer();
+                String line = "";
+                while ((line = rd.readLine()) != null) {
+                    result.append(line);
+                }
+
+                JSONObject o = new JSONObject(result.toString());
+                Integer distancia = (Integer) o.get("distancia");
+                Message msg = handler.obtainMessage();
+                if (distancia <= 50)
+                    msg.arg1 = 1;
+                else
+                    msg.arg1 = 2;
+                handler.sendMessage(msg);
                 return true;
             } else {
                 return false;
@@ -343,6 +363,15 @@ public class LocationUpdateService extends Service {
             return false;
         }
     }
+
+    private final Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            if(msg.arg1 == 1)
+                Toast.makeText(getApplicationContext(),"Tick Válido Enviado", Toast.LENGTH_LONG).show();
+            else
+                Toast.makeText(getApplicationContext(),"Tick Inválido Enviado", Toast.LENGTH_LONG).show();
+        }
+    };
 
     private void schedulePostLocations()
     {

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.ionicframework.mo409mobile561605" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>mo409-mobile</name>
+  <name>Chamada Virtual</name>
   <description>
-        An Ionic Framework and Cordova project.
+        Aplicativo para controle de presença do aluno em sala de aula.
     </description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
+  <author email="lucas.carvalho@ic.unicamp.br" href="http://www.lis.ic.unicamp.br/disciplinas/mo409/demo.html">
+      Grupo 3 - Disciplina MO409 - UNICAMP/Brasil
     </author>
   <content src="index.html"/>
   <access origin="*"/>
@@ -17,4 +17,28 @@
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
+  <platform name="android">
+
+    <!-- iOS 7.0+ -->
+    <!-- iPhone / iPod Touch -->
+
+    <icon src="resources/android/icons/playstore-icon-36.png" density="ldpi" />  
+    <icon src="resources/android/icons/playstore-icon-36.png" density="mdpi"/>
+    <icon src="resources/android/icons/playstore-icon-36.png" density="hdpi"/>
+    <icon src="resources/android/icons/playstore-icon-36.png" density="xhdpi"/>
+    <icon src="resources/android/icons/playstore-icon-36.png" density="xxhdpi"/>
+    <icon src="resources/android/icons/playstore-icon-36.png" density="xxxhdpi"/>
+    <splash src="resources/android/splash/drawable-land-ldpi-screen.png" density="land-ldpi"/>
+    <splash density="land-mdpi" src="resources/android/splash/drawable-land-ldpi-screen.png" />
+    <splash density="land-hdpi" src="resources/android/splash/drawable-land-ldpi-screen.png" />
+    <splash density="land-xhdpi" src="resources/android/splash/drawable-land-ldpi-screen.png" />
+    <splash density="land-xxhdpi" src="resources/android/splash/drawable-land-ldpi-screen.png" />
+    <splash density="land-xxxhdpi" src="resources/android/splash/drawable-land-ldpi-screen.png" />
+    <splash density="port-ldpi" src="resources/android/splash/drawable-port-ldpi-screen.png" />
+    <splash density="port-mdpi" src="resources/android/splash/drawable-port-ldpi-screen.png" />
+    <splash density="port-hdpi" src="resources/android/splash/drawable-port-ldpi-screen.png" />
+    <splash density="port-xhdpi" src="resources/android/splash/drawable-port-ldpi-screen.png" />
+    <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-ldpi-screen.png" />
+    <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-ldpi-screen.png" />
+  </platform>
 </widget>

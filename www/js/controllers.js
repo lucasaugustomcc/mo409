@@ -1,4 +1,4 @@
-angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.services'])
+angular.module('exampleApp.controllers', ['ionic','LocalStorageModule', 'exampleApp.services'])
 .controller('LogoutController', function($scope, $rootScope, $location, localStorageService, $state) {
  
   delete $rootScope.user;
@@ -7,11 +7,14 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
   $location.path("/app/login");
   $state.go("app.login");
 })
-.controller('LoginController', function($scope, $rootScope, $location, localStorageService, UserService, $state) {
+.controller('LoginController', function($scope, $rootScope, $location, localStorageService, UserService, $state, $ionicLoading) {
   
   $scope.user = {};
   
   $scope.login = function() {
+    $ionicLoading.show({
+      template: 'Loading...'
+    });
     console.log("login");
     console.dir($scope.user);
     UserService.authenticate($.param($scope.user), function(authenticationResult) {
@@ -29,9 +32,11 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
         {
           $state.go("aluno.home");
         }
+        $ionicLoading.hide();
       });
     }, 
     function err() {  
+      $ionicLoading.hide();
       localStorageService.remove('authToken');
       delete $rootScope.authToken;
       console.log('erro autenticacao');
@@ -40,8 +45,11 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
 }) 
 .controller('HomeCtrl', function($rootScope, $scope, $timeout) {
 })
-.controller('ChamadaTurmasCtrl', function($scope, $state, $http, myService, ChamadaService) {
+.controller('ChamadaTurmasCtrl', function($scope, $state, $http, myService, ChamadaService, $ionicLoading) {
     // verificar se existe chamadas abertas
+    $ionicLoading.show({
+      template: 'Loading...'
+    });
     ChamadaService.abertas({},{},
       function success(data) {
           if (data.length > 0)
@@ -54,6 +62,7 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
           else
           {
             $scope.turmas = ChamadaService.turmas();
+            $ionicLoading.hide();
           }
         }, function err() {  }
     ); 
@@ -88,20 +97,25 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
     $scope.confirmCriarChamadas = function() {
       if ($scope.checkbox.length > 0)
       {        
-            ChamadaService.criar({},$scope.checkbox, 
-                function success(data) {
-                    myService.set(data);
-                    $state.go('professor.chamadas-criadas');
-                }, function err() {  }
-            );  
+          $ionicLoading.show({
+            template: 'Loading...'
+          });
+          ChamadaService.criar({},$scope.checkbox, 
+              function success(data) {
+                  myService.set(data);
+                  $state.go('professor.chamadas-criadas');
+              }, function err() {  }
+          );  
       }            
     }    
 })
-.controller('ChamadasCriadasCtrl', function($scope, $state, $http, myService, ChamadaService) {
+.controller('ChamadasCriadasCtrl', function($scope, $state, $http, myService, ChamadaService,$ionicLoading) {
     $scope.formData = {};
     $scope.chamadas = myService.get();
     $scope.checkbox = [];
-
+    $ionicLoading.show({
+      template: 'Loading...'
+    });
     if ($scope.chamadas == undefined)
     {
       ChamadaService.criadas({},{},
@@ -112,7 +126,7 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
           }
           else
           {
-            $state.go("professor.chamada");
+            $state.go("professor.chamadas-abertas");
             return;
           }
         }, function err() {  }
@@ -131,6 +145,10 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
           }, function err() {  }
       );  
     }
+    else
+    {
+      $ionicLoading.hide();
+    }
     for (var i = 0; i < $scope.chamadas.length; i++)
     {      
       $scope.checkbox.push({ "idChamada": $scope.chamadas[i]["idChamada"] });
@@ -139,7 +157,10 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
     $scope.visualizarParametros = function() {
       $scope.parametros = ChamadaService.parametros({},$scope.chamadas);         
     }
-    $scope.confirmAbrirChamadas = function() {      
+    $scope.confirmAbrirChamadas = function() {  
+        $ionicLoading.show({
+          template: 'Loading...'
+        });    
         // Your app must execute AT LEAST ONE call for the current position via standard Cordova geolocation,
         //  in order to prompt the user for Location permission.
         $scope.getPosition = function(position){
@@ -173,7 +194,7 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
         );                    
     }
 })
-.controller('ChamadasParametrosCtrl', function($scope, $state, $http, myService, ChamadaService) {
+.controller('ChamadasParametrosCtrl', function($scope, $state, $http, myService, ChamadaService,$ionicLoading) {
     $scope.formData = {};
     $scope.checkbox = [];
     $scope.chamadas = myService.get();
@@ -199,22 +220,29 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
       );     
 
     $scope.confirmAlterarParametros = function() {
+        $ionicLoading.show({
+          template: 'Loading...'
+        }); 
          ChamadaService.alterarparametros({},{'chamadas':$scope.checkbox, 'duracao':$scope.formData.duracao, 'porcentagem':$scope.formData.porcentagem}, 
             function success(data) {
                 $scope.parametros = data;
-            }, function err() {  }
+                $ionicLoading.hide();
+            }, function err() { $ionicLoading.hide(); }
         );                    
     }
 })
-.controller('ChamadasAbertasCtrl', function($scope, $state, $http, myService, ChamadaService) {
+.controller('ChamadasAbertasCtrl', function($scope, $state, $http, myService, ChamadaService,$ionicLoading) {
     $scope.chamadas = myService.get();
     $scope.checkbox = [];
     for (var i = 0; i < $scope.chamadas.length; i++)
     {      
       $scope.checkbox.push({ "idChamada": $scope.chamadas[i]["idChamada"] });
     }
-
+    $ionicLoading.hide();
     $scope.confirmEncerrarChamada = function() {
+      $ionicLoading.show({
+        template: 'Loading...'
+      });
       $scope.turmas = ChamadaService.encerrar({},$scope.checkbox, 
         function success(data) {
           myService.set(data);
@@ -223,7 +251,7 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
     }
 })
 
-.controller('ChamadaPresencaCtrl', function($scope, $state, $http, myService, ChamadaService) {
+.controller('ChamadaPresencaCtrl', function($scope, $state, $http, myService, ChamadaService,$ionicLoading) {
     $scope.formData = {};
     $scope.chamadas = myService.get();
     if ($scope.chamadas.length == undefined)
@@ -236,48 +264,96 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
     {      
       $scope.checkbox.push({ "idChamada": $scope.chamadas[i]["idChamada"] });
     }
-    $scope.presencas = ChamadaService.presenca({},$scope.checkbox);
+    $ionicLoading.show({
+      template: 'Loading...'
+    });
+    ChamadaService.presenca({},$scope.checkbox,function success(data)
+    {
+      $scope.presencas = data;
+      $ionicLoading.hide();
+    },
+    function err(data)
+    { 
+      $ionicLoading.hide(); 
+    })
     console.log("Presença");
     console.dir($scope.presencas);
 })
-.controller('disciplinasCtrl', function($scope, $state, $http, myService, ChamadaService) {
-  $scope.disciplinas = ChamadaService.turmas();
+.controller('disciplinasCtrl', function($scope, $state, $http, myService, ChamadaService,$ionicLoading) {
+  $ionicLoading.show({
+      template: 'Loading...'
+    });
+  ChamadaService.turmas({},{},
+    function success(data)
+    {
+      $scope.disciplinas = data;
+      $ionicLoading.hide();
+    },
+    function err(data)
+    { 
+      $ionicLoading.hide(); 
+    });
   console.log("Disciplina");
   console.dir($scope.disciplinas);
 })
 
-.controller('alunosMatriculadosCtrl', function($scope, $state, $http, myService, TurmaService, $stateParams) {
+.controller('alunosMatriculadosCtrl', function($scope, $state, $http, myService, TurmaService, $stateParams,$ionicLoading) {
+  $ionicLoading.show({
+    template: 'Loading...'
+  });
+    
   console.dir($stateParams);
-  $scope.alunos_matriculados = TurmaService.alunos_matriculados({},{idTurma: $stateParams.idTurma});
+  TurmaService.alunos_matriculados({},{idTurma: $stateParams.idTurma},function success(data)
+    {
+      $scope.alunos_matriculados = data;
+      $ionicLoading.hide();
+    },
+    function err(data)
+    { $ionicLoading.hide(); });
   console.log("alunos_matriculados");
   console.dir($scope.alunos_matriculados);
 })
 
-.controller('frequenciaAluno_professorCtrl', function($scope, $state, $http, myService, TurmaService, $stateParams) {
+.controller('frequenciaAluno_professorCtrl', function($scope, $state, $http, myService, TurmaService, $stateParams,$ionicLoading) {
   console.dir($stateParams);
-  $scope.frequencia_aluno = TurmaService.frequencia_aluno({},{idTurma: $stateParams.idTurma, raAluno: $stateParams.raAluno});
+  $ionicLoading.show({
+    template: 'Loading...'
+  }); 
+  TurmaService.frequencia_aluno({},{idTurma: $stateParams.idTurma, raAluno: $stateParams.raAluno},function success(data)
+    {
+      $scope.frequencia_aluno = data;
+      $ionicLoading.hide();
+    },
+    function err(data)
+    { $ionicLoading.hide(); });
   console.log("Frequência");
   console.dir($scope.frequencia_aluno);
 })
-.controller('ProfessorConsultarAlunosCtrl', function($scope, $state, $http, myService, TurmaService) {
+.controller('ProfessorConsultarAlunosCtrl', function($scope, $state, $http, myService, TurmaService,$ionicLoading) {
     $scope.formData = {};
     $scope.chamadas = myService.get();
     $scope.alunos = [];
 
     $scope.confirmConsultarAlunos = function() {
-         TurmaService.consultarAlunos({},{'raAluno':$scope.formData.raAluno, 'nomeAluno':$scope.formData.nomeAluno}, 
-            function success(data) {
-                myService.set(data);
-                $state.go('professor.resultado-consulta-alunos');
-            }, function err() {  }
-        );                    
+      $ionicLoading.show({
+        template: 'Loading...'
+      });
+       TurmaService.consultarAlunos({},{'raAluno':$scope.formData.raAluno, 'nomeAluno':$scope.formData.nomeAluno}, 
+          function success(data) {
+              myService.set(data);
+              $state.go('professor.resultado-consulta-alunos');
+          }, function err() {  }
+      );                    
     }
 })
-.controller('ProfessorResultadoConsultarAlunosCtrl', function($scope, $state, $http, myService, TurmaService) {
-    $scope.alunos = myService.get();    
+.controller('ProfessorResultadoConsultarAlunosCtrl', function($scope, $state, $http, myService, TurmaService,$ionicLoading) {
+    $scope.alunos = myService.get();  
+    $ionicLoading.hide();  
 })
-.controller('AlunoChamadaCtrl', function($scope, $state, $http, myService, AlunoService) {    
-
+.controller('AlunoChamadaCtrl', function($scope, $state, $http, myService, AlunoService,$ionicLoading) {    
+    $ionicLoading.show({
+      template: 'Loading...'
+    });
     // checar se o aluno fez checkin
     AlunoService.presenca({},{},
       function success(data) {
@@ -303,12 +379,19 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
                     $state.go('aluno.home');
                     return;
                   }
+                  $ionicLoading.hide();
                   // javascript function para o button
                   $scope.confirmCheckIn = function() {
+                      $ionicLoading.show({
+                        template: 'Loading...'
+                      });
                       AlunoService.checkin({},{ "idChamada": $scope.chamada.idChamada }, 
                         function success(data) {
                           myService.set(data);
                           $state.go('aluno.checkin');
+                        },function err(data)
+                        {
+                          $ionicLoading.hide();
                         }
                       );      
                    }  
@@ -318,8 +401,8 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
         }, function err() {  }
     );         
 })
-.controller('AlunoCheckInCtrl', function($scope, $state, $http, myService, AlunoService, localStorageService) {
-
+.controller('AlunoCheckInCtrl', function($scope, $state, $http, myService, AlunoService, localStorageService,$ionicLoading) {
+    
     $scope.tick = myService.get();
     console.dir($scope.tick);
 
@@ -368,8 +451,11 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
           
       bgGeo.start();
     }
-
+    $ionicLoading.hide();
     $scope.confirmCheckOut = function() {
+        $ionicLoading.show({
+          template: 'Loading...'
+        });
         if (window.plugins != undefined)
         {
           var bgGeo = window.plugins.backgroundGeoLocation;
@@ -383,36 +469,48 @@ angular.module('exampleApp.controllers', ['LocalStorageModule', 'exampleApp.serv
         );         
       }
 })
-.controller('AlunoCheckOutCtrl', function($scope, $state, $http, myService, AlunoService) {      
+.controller('AlunoCheckOutCtrl', function($scope, $state, $http, myService, AlunoService,$ionicLoading) {      
+    $ionicLoading.hide();
     $scope.formData = {};
     $scope.tick = myService.get();
     console.dir($scope.tick);
 
-    $scope.confirmResultadoChamada = function() {        
+    $scope.confirmResultadoChamada = function() {  
+      $ionicLoading.show({
+        template: 'Loading...'
+      });      
         AlunoService.resultado({},{ "idPresenca": $scope.tick.idPresenca }, 
           function success(data) {
+            $ionicLoading.hide();
             myService.set(data);
             alert(data.resultado);
-          }
+          }, function err(data) { $ionicLoading.hide(); }
         );         
       }
 })
 
-.controller('disciplinasAlunoCtrl', function($scope, $state, $http, myService, AlunoService) {
-  $scope.disciplinasAluno = AlunoService.disciplinasAluno();
+.controller('disciplinasAlunoCtrl', function($scope, $state, $http, myService, AlunoService,$ionicLoading) {
+  $ionicLoading.show({
+    template: 'Loading...'
+  }); 
+  AlunoService.disciplinasAluno({},{}, 
+          function success(data) {
+              $scope.disciplinasAluno = data;
+              $ionicLoading.hide();
+          }, function err(data) { $ionicLoading.hide(); });
   console.log("Disciplinas");
   console.dir($scope.disciplinasAluno);
 })
 
-.controller('frequenciaAlunoCtrl', function($scope, $state, $http, myService, AlunoService, $stateParams) {
+.controller('frequenciaAlunoCtrl', function($scope, $state, $http, myService, AlunoService, $stateParams,$ionicLoading) {
+  $ionicLoading.show({
+    template: 'Loading...'
+  }); 
   AlunoService.frequencia({},{'idTurma': $stateParams.idTurma}, 
           function success(data) {
               $scope.frequencia_aluno =  data;
-          });
+              $ionicLoading.hide();
+          }, function err(data) { $ionicLoading.hide(); });
   console.log("Frequencia");
   console.dir($scope.frequencia_aluno);
 });
-
-
-
-

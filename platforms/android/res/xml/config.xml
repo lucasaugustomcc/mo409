@@ -22,12 +22,30 @@
     <feature name="BackgroundGeoLocation">
         <param name="android-package" value="com.tenforwardconsulting.cordova.bgloc.BackgroundGpsPlugin" />
     </feature>
-    <name>mo409-mobile</name>
+    <icon density="ldpi" src="resources/android/icons/playstore-icon-36.png" />
+    <icon density="mdpi" src="resources/android/icons/playstore-icon-36.png" />
+    <icon density="hdpi" src="resources/android/icons/playstore-icon-36.png" />
+    <icon density="xhdpi" src="resources/android/icons/playstore-icon-36.png" />
+    <icon density="xxhdpi" src="resources/android/icons/playstore-icon-36.png" />
+    <icon density="xxxhdpi" src="resources/android/icons/playstore-icon-36.png" />
+    <splash density="land-ldpi" src="resources/android/splash/drawable-land-ldpi-screen.png" />
+    <splash density="land-mdpi" src="resources/android/splash/drawable-land-ldpi-screen.png" />
+    <splash density="land-hdpi" src="resources/android/splash/drawable-land-ldpi-screen.png" />
+    <splash density="land-xhdpi" src="resources/android/splash/drawable-land-ldpi-screen.png" />
+    <splash density="land-xxhdpi" src="resources/android/splash/drawable-land-ldpi-screen.png" />
+    <splash density="land-xxxhdpi" src="resources/android/splash/drawable-land-ldpi-screen.png" />
+    <splash density="port-ldpi" src="resources/android/splash/drawable-port-ldpi-screen.png" />
+    <splash density="port-mdpi" src="resources/android/splash/drawable-port-ldpi-screen.png" />
+    <splash density="port-hdpi" src="resources/android/splash/drawable-port-ldpi-screen.png" />
+    <splash density="port-xhdpi" src="resources/android/splash/drawable-port-ldpi-screen.png" />
+    <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-ldpi-screen.png" />
+    <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-ldpi-screen.png" />
+    <name>Chamada Virtual</name>
     <description>
-        An Ionic Framework and Cordova project.
+        Aplicativo para controle de presença do aluno em sala de aula.
     </description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
+    <author email="lucas.carvalho@ic.unicamp.br" href="http://www.lis.ic.unicamp.br/disciplinas/mo409/demo.html">
+      Grupo 3 - Disciplina MO409 - UNICAMP/Brasil
     </author>
     <content src="index.html" />
     <access origin="*" />
