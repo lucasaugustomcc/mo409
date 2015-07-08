@@ -2,6 +2,7 @@ package br.unicamp.ic.mo409.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -67,7 +68,7 @@ public class Turma implements Serializable {
 			@JoinColumn(name="tb_aluno_ra_aluno", nullable=false)
 			}
 		)
-	private List<Aluno> alunos;
+	private Set<Aluno> alunos;
 	
 	@OneToOne(optional=true, fetch = FetchType.EAGER)
 	@JoinColumn(name="tb_parametro_id_parametro")
@@ -146,11 +147,11 @@ public class Turma implements Serializable {
 		this.disciplina = disciplina;
 	}
 
-	public List<Aluno> getAlunos() {
+	public Set<Aluno> getAlunos() {
 		return this.alunos;
 	}
 
-	public void setAlunos(List<Aluno> alunos) {
+	public void setAlunos(Set<Aluno> alunos) {
 		this.alunos = alunos;
 	}
 

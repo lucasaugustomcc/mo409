@@ -71,4 +71,13 @@ public class TurmaDAO implements Serializable {
 				.setParameter("raAluno", raAluno)
 				.getResultList();
 	}
+
+	public boolean hasAluno(int idTurma, int raAluno)
+	{
+		return null != entityManager.createQuery("SELECT t FROM Turma t left join t.alunos a "
+				+ "WHERE a.raAluno = :raAluno AND t.idTurma = :idTurma")
+				.setParameter("raAluno", raAluno)
+				.setParameter("idTurma", raAluno)
+				.getResultList();
+	}
 }

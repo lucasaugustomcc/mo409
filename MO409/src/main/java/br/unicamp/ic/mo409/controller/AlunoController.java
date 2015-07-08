@@ -190,7 +190,7 @@ public class AlunoController
 		{
 			throw new IllegalStateException("Chamada não está aberta.");
 		}
-		if (!chamada.getTurma().getAlunos().contains(aluno))
+		if (!turmaDAO.hasAluno(chamada.getTurma().getIdTurma(),aluno.getRaAluno()))
 		{
 			throw new NoResultException(
 					"Aluno não pertence a turma desta chamada!");
@@ -415,7 +415,7 @@ public class AlunoController
 		Aluno aluno = usuario.getAluno();
 		turma = turmaDAO.find(turma.getIdTurma());
 		
-		if (!turma.getAlunos().contains(aluno))
+		if (!turmaDAO.hasAluno(turma.getIdTurma(),aluno.getRaAluno()))
 		{
 			throw new NoResultException(
 					"Aluno não pertence a turma desta chamada!");
@@ -426,6 +426,8 @@ public class AlunoController
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
 		List<Presenca> presencas = presencaDAO.presencasAlunoChamadasEncerradas(aluno.getRaAluno(), turma.getIdTurma());
+		
+		
 		Long numFaltas = presencaDAO.quantidadePresencasAlunoTurma(aluno.getRaAluno(), turma.getIdTurma(), PresencaState.ausente);
 		Long numPresencas = presencaDAO.quantidadePresencasAlunoTurma(aluno.getRaAluno(), turma.getIdTurma(), PresencaState.presente);
 		
@@ -464,8 +466,7 @@ public class AlunoController
 		JSONArray array = new JSONArray();
 		for (Presenca presenca : presencas)
 		{			
-			JSONObject objFrequencia = new JSONObject();
-			
+			JSONObject objFrequencia = new JSONObject();			
 			JSONObject objPresenca = new JSONObject();
 			objPresenca.put("idPresenca", presenca.getIdPresenca());
 			objPresenca.put("horaInicio", shf.format(presenca.getHoraInicio() != null ? presenca.getHoraInicio() : new Time(0,0,0)));
@@ -492,18 +493,17 @@ public class AlunoController
 		obj.put("frequencia", array);
 		return obj;
 	}
-
 	
-	@SuppressWarnings("unchecked")
-	@ExceptionHandler(Exception.class)
-	@ResponseStatus(HttpStatus.CONFLICT)  // 409
-	public JSONObject handleError(HttpServletRequest req, Exception exception)
-	{
-		JSONObject obj = new JSONObject();
-		obj.put("error", "exception");
-		obj.put("message", exception.getMessage());
-		return obj;
-	}
+//	@SuppressWarnings("unchecked")
+//	@ExceptionHandler(Exception.class)
+//	@ResponseStatus(HttpStatus.CONFLICT)  // 409
+//	public JSONObject handleError(HttpServletRequest req, Exception exception)
+//	{
+//		JSONObject obj = new JSONObject();
+//		obj.put("error", "exception");
+//		obj.put("message", exception.getMessage());
+//		return obj;
+//	}
 }
 
 class AlunoLocalizacaoWrapper  implements Serializable {

@@ -347,7 +347,7 @@ public class Chamada implements Serializable
 			this.setHoraInicio(horaInicio);
 			state = ChamadaState.aberta;
 
-			List<Aluno> alunos = getTurma().getAlunos();
+			Set<Aluno> alunos = getTurma().getAlunos();
 			Set<Presenca> presencas = new LinkedHashSet<Presenca>();
 			for (Aluno aluno : alunos)
 			{

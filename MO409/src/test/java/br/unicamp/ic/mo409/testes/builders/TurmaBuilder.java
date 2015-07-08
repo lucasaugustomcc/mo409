@@ -1,7 +1,9 @@
 package br.unicamp.ic.mo409.testes.builders;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import br.unicamp.ic.mo409.model.Aluno;
 import br.unicamp.ic.mo409.model.Disciplina;
@@ -17,7 +19,7 @@ public class TurmaBuilder implements Builder<Turma>{
 	private int periodo = 1;
 	private List<Professor> professores = new ArrayList<Professor>();
 	private int idTurma = 1;
-	private List<Aluno> alunos = new ArrayList<Aluno>();
+	private Set<Aluno> alunos = new LinkedHashSet<Aluno>();
 	private Disciplina disciplina;
 	private Parametro parametro = new Parametro(50, 50);
 
@@ -104,7 +106,7 @@ public class TurmaBuilder implements Builder<Turma>{
         return this;
     }
     
-    public TurmaBuilder withAlunos(List<Aluno> alunos) {
+    public TurmaBuilder withAlunos(Set<Aluno> alunos) {
         this.alunos = alunos;
         return this;
     }
